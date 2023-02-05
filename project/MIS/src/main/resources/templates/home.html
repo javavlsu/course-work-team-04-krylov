@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" th:href="@{/css/site.css}"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+</head>
+<body style="margin-bottom: 60px">
+<header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container-fluid">
+            <a href="/">Поликлиника</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            </div>
+        </div>
+    </nav>
+</header>
+<div class="px-4 py-5 my-5 text-center">
+    <h1 class="display-5 fw-bold">Сисиема МИС Владимирской Областной Поликлиники</h1>
+    <div class="col-lg-6 mx-auto">
+        <p class="lead mb-4">Доступные Вам функции представлены ниже</p>
+        <div class="d-grid gap-2  justify-content-sm-center">
+            <a href="/Analyses" class="btn btn-primary btn-lg px-4 gap-3">Список анализов</a>
+            <a href="/Analyses/Create" class="btn btn-primary btn-lg px-4 gap-3">Создать анализ</a>
+            <a href="/AnalysisReferrals" class="btn btn-primary btn-lg px-4 gap-3">Список направлений на анализ</a>
+            <a href="/Patients" class="btn btn-primary btn-lg px-4 gap-3">Список пациентов</a>
+        </div>
+        <p class="lead mb-4">Доступные Вам функции представлены ниже</p>
+        <div class="d-grid gap-2  justify-content-sm-center">
+            <a href="/Examinations" class="btn btn-primary btn-lg px-4 gap-3">Список обследований</a>
+            <a href="/Examinations/Create" class="btn btn-primary btn-lg px-4 gap-3">Создать обследование</a>
+            <a href="/ExaminationReferrals" class="btn btn-primary btn-lg px-4 gap-3">Список направлений на обследование</a>
+            <a href="/Patients" class="btn btn-primary btn-lg px-4 gap-3">Список пациентов</a>
+        </div>
+        <h3 class="display-5 fw-bold">Доктор</h3>
+        <p class="lead mb-4">Доступные Вам функции представлены ниже</p>
+        <div class="d-grid gap-2 justify-content-sm-center">
+            <a href="/Patients" class="btn btn-primary btn-lg px-4 gap-3">Список пациентов</a>
+            <a href="/Diagnoses" class="btn btn-primary btn-lg px-4 gap-3">Справочник диагнозов</a>
+            <a href="/DoctorDoctorAppointments" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть список всех заявлений</a>
+            <a href="/DoctorInspections" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть список осмотров</a>
+            <a href="/DoctorInspections/Create" class="btn btn-primary btn-lg px-4 gap-3">Создать осмотр</a>
+            <a href="/AnalysisReferrals" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть направления на анализ</a>
+            <a href="/AnalysisReferrals/Create" class="btn btn-primary btn-lg px-4 gap-3">Создать направление на анализ</a>
+            <a href="/ExaminationReferrals" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть направления на обследование</a>
+            <a href="/ExaminationReferrals/Create" class="btn btn-primary btn-lg px-4 gap-3">Создать направление на обследование</a>
+        </div>
+        <h3 class="display-5 fw-bold">Работник регистратуры</h3>
+        <p class="lead mb-4">Доступные Вам функции представлены ниже</p>
+        <div class="d-grid gap-2 justify-content-sm-center">
+            <a href="/Patients" class="btn btn-primary btn-lg px-4 gap-3">Список пациентов</a>
+            <a href="/ReceptionistDoctorAppointments" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть список всех заявок</a>
+        </div>
+        <h3 class="display-5 fw-bold">Админ</h3>
+        <p class="lead mb-4">Доступные Вам функции представлены ниже</p>
+        <div class="d-grid gap-2 justify-content-sm-center">
+            <a href="/AssignUserToARole/Create" class="btn btn-primary btn-lg px-4 gap-3">Добавить роль пользователю</a>
+        </div>
+        <h3 class="display-5 fw-bold">Пациент</h3>
+
+        <p class="lead mb-4">Доступные Вам функции представлены ниже</p>
+        <div class="d-grid gap-2 justify-content-sm-center">
+            <a href="/PatientDoctorAppointments/Create" class="btn btn-primary btn-lg px-4 gap-3">Подать заявку на прием у врача</a>
+            <a href="/PatientDoctorAppointments" class="btn btn-primary btn-lg px-4 gap-3">Cписок всех заявок</a>
+            <a href="/Doctors" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть список врачей</a>
+            <a href="/PatientInspections" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть список осмотров</a>
+            <a href="/AnalysisReferrals" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть направления на анализ</a>
+            <a href="/ExaminationReferrals" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть направления на обследование</a>
+            <a href="/Analyses" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть анализы</a>
+            <a href="/Examinations" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть обследования</a>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

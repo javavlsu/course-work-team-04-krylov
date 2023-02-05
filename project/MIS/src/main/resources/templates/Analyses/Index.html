@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" th:href="@{/css/site.css}"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+</head>
+<body style="margin-bottom: 60px">
+<header>
+  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <div class="container-fluid">
+      <a href="/">Поликлиника</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+              aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+    </div>
+  </nav>
+</header>
+
+<h1>Анализы</h1>
+<p>
+  <a href="">Создать</a>
+</p>
+<form method="get" asp-action="Index">
+  <p>
+  <p>Поиск</p>
+  <p style="color:red;">Ошибка</p>
+  <input type="search" placeholder="Введите ФИО пациента (Обязательно)" name="PatientFIO" style="width:600px;" />
+  <p>Дата рождения пациента (Необязательно)</p>
+  <input type="date" name="PatientBirthDate" style="width:300px;" />
+  <input type="submit" value="Search" class="btn btn-primary" />
+  <a href="">Получить список всех пациентов</a>
+  </p>
+</form>
+<table class="table">
+  <thead>
+  <tr>
+    <th>
+      ФИО и дата рождения пациента
+    </th>
+    <th>
+      Тип
+    </th>
+    <th>
+      Описание
+    </th>
+    <th>
+      ФИО Лаборанта
+    </th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+
+  <tr>
+    <td>
+      Вавилов Иван Александрович 12.04.1999
+    </td>
+    <td>
+      Общий анализ крови
+    </td>
+    <td>
+      Описание
+    </td>
+    <td>
+      Иванов Петр Сергеевич
+    </td>
+    <td>
+      <a href="">Edit</a> |
+      <a href="">Details</a> |
+      <a href="">Delete</a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>
