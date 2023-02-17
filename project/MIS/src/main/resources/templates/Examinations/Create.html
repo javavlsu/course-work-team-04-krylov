@@ -21,30 +21,28 @@
     </nav>
 </header>
 
+<h1>Создание</h1>
 
-<h1>Создать</h1>
-
-<h4>Анализ</h4>
+<h4>Обследование</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div class="form-group">
                 <label class="control-label">Пациент</label>
-<!--                <select id="patients" class="form-control"><option></option></select>-->
-                <input class="form-control" />
+                <select id="patients" class="form-control"><option></option></select>
             </div>
             <div class="form-group">
                 <label class="control-label">Тип</label>
                 <input class="form-control" />
             </div>
             <div class="form-group">
-                <label class="control-label"></label>
+                <label class="control-label">Описание</label>
                 <input class="form-control" />
             </div>
             <div class="form-group">
-                <label class="control-label">Ассистент</label>
-                <input class="form-control" />
+                <label class="control-label">Врач функциональной диагностики</label>
+                <input class="form-control" readonly />
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -54,7 +52,7 @@
 </div>
 
 <div>
-    <a href="/Analyses">Список</a>
+    <a href="/Examinations">Список</a>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
@@ -72,6 +70,7 @@
         });
     });
 </script>
+
 
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
