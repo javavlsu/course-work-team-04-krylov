@@ -1,11 +1,13 @@
 package com.polyclinic.mis.models;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 import java.sql.Date;
-import java.util.List;
 @Entity
-public class Patient {
+public class Receptionist {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int Id;
@@ -14,23 +16,10 @@ public class Patient {
     private String MiddleName;
     private Date BirthDate;
     private String PolyclinicUserID;
-    //public PolyclinicUser PolyclinicUser
-    private int PolisID;
-    private String PoilsCompany;
-    private Date PolisEndDate;
-    private int SnilsNumber;
-    private String WorkPlace;
-    @OneToMany
-    private List<Analysis> Analyses;
-    //public List<Examination> Examinations;
-    //public List<Inspection> Inspections;
-    public String ReturnBirthDateForDisplay()
+    //public PolyclinicUser PolyclinicUser;
+    public String ReturnDateForDisplay()
     {
             return this.BirthDate.toString();
-    }
-    public String ReturnPolisEndDateForDisplay()
-    {
-            return this.PolisEndDate.toString();
     }
     public String ReturnFIO()
     {
@@ -87,53 +76,5 @@ public class Patient {
 
     public void setPolyclinicUserID(String polyclinicUserID) {
         PolyclinicUserID = polyclinicUserID;
-    }
-
-    public int getPolisID() {
-        return PolisID;
-    }
-
-    public void setPolisID(int polisID) {
-        PolisID = polisID;
-    }
-
-    public String getPoilsCompany() {
-        return PoilsCompany;
-    }
-
-    public void setPoilsCompany(String poilsCompany) {
-        PoilsCompany = poilsCompany;
-    }
-
-    public Date getPolisEndDate() {
-        return PolisEndDate;
-    }
-
-    public void setPolisEndDate(Date polisEndDate) {
-        PolisEndDate = polisEndDate;
-    }
-
-    public int getSnilsNumber() {
-        return SnilsNumber;
-    }
-
-    public void setSnilsNumber(int snilsNumber) {
-        SnilsNumber = snilsNumber;
-    }
-
-    public String getWorkPlace() {
-        return WorkPlace;
-    }
-
-    public void setWorkPlace(String workPlace) {
-        WorkPlace = workPlace;
-    }
-
-    public List<Analysis> getAnalyses() {
-        return Analyses;
-    }
-
-    public void setAnalyses(List<Analysis> analyses) {
-        Analyses = analyses;
     }
 }

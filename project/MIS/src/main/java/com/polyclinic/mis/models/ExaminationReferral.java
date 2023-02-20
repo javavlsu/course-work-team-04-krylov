@@ -4,23 +4,23 @@ import jakarta.persistence.*;
 
 import java.sql.Date;
 @Entity
-public class DoctorReferral {
+public class ExaminationReferral {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int Id;
     private String DiagnosisId;
     @ManyToOne
     private Diagnosis Diagnosis;
-    private int DoctorIdInitial;
+    private int DoctorId;
     @ManyToOne
-    private Doctor DoctorInitial;
+    private Doctor Doctor;
     private int PatientId;
     @ManyToOne
     private Patient Patient;
     private String Type;
-    private int DoctorIdTarget;
+    private int FunctionalDiagnosticsDoctorId;
     @ManyToOne
-    private Doctor DoctorTarget;
+    private FunctionalDiagnosticsDoctor FunctionalDiagnosticsDoctor;
     private String СabinetNum;
     private Date DateTime;
 
@@ -48,20 +48,20 @@ public class DoctorReferral {
         Diagnosis = diagnosis;
     }
 
-    public int getDoctorIdInitial() {
-        return DoctorIdInitial;
+    public int getDoctorId() {
+        return DoctorId;
     }
 
-    public void setDoctorIdInitial(int doctorIdInitial) {
-        DoctorIdInitial = doctorIdInitial;
+    public void setDoctorId(int doctorId) {
+        DoctorId = doctorId;
     }
 
-    public Doctor getDoctorInitial() {
-        return DoctorInitial;
+    public com.polyclinic.mis.models.Doctor getDoctor() {
+        return Doctor;
     }
 
-    public void setDoctorInitial(Doctor doctorInitial) {
-        DoctorInitial = doctorInitial;
+    public void setDoctor(com.polyclinic.mis.models.Doctor doctor) {
+        Doctor = doctor;
     }
 
     public int getPatientId() {
@@ -88,20 +88,20 @@ public class DoctorReferral {
         Type = type;
     }
 
-    public int getDoctorIdTarget() {
-        return DoctorIdTarget;
+    public int getFunctionalDiagnosticsDoctorId() {
+        return FunctionalDiagnosticsDoctorId;
     }
 
-    public void setDoctorIdTarget(int doctorIdTarget) {
-        DoctorIdTarget = doctorIdTarget;
+    public void setFunctionalDiagnosticsDoctorId(int functionalDiagnosticsDoctorId) {
+        FunctionalDiagnosticsDoctorId = functionalDiagnosticsDoctorId;
     }
 
-    public Doctor getDoctorTarget() {
-        return DoctorTarget;
+    public com.polyclinic.mis.models.FunctionalDiagnosticsDoctor getFunctionalDiagnosticsDoctor() {
+        return FunctionalDiagnosticsDoctor;
     }
 
-    public void setDoctorTarget(Doctor doctorTarget) {
-        DoctorTarget = doctorTarget;
+    public void setFunctionalDiagnosticsDoctor(com.polyclinic.mis.models.FunctionalDiagnosticsDoctor functionalDiagnosticsDoctor) {
+        FunctionalDiagnosticsDoctor = functionalDiagnosticsDoctor;
     }
 
     public String getСabinetNum() {

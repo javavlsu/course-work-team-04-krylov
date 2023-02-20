@@ -1,49 +1,59 @@
 package com.polyclinic.mis.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "analysis")
 public class Analysis {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    private int patientId;
-    //public Patient Patient;
+    //private int patientId;
+    @ManyToOne
+    private Patient patient;
     private String type;
     private String description;
-    private int assistantId;
+    //private int assistantId;
+    @ManyToOne
+    private Assistant assistant;
 
-    protected Analysis() {}
-
-    public Analysis(int PatientId, String Type, String Description, int AssistantId) {
-        this.patientId = PatientId;
-        this.type = Type;
-        this.description = Description;
-        this.assistantId = AssistantId;
-    }
-
-
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public int getPatientId() {
-        return patientId;
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
     }
 
     public String getType() {
         return type;
     }
 
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public String getDescription() {
         return description;
     }
 
-    public int getAssistantId() {
-        return assistantId;
+    public void setDescription(String description) {
+        this.description = description;
     }
-    //public Assistant Assistant;
+
+    public Assistant getAssistant() {
+        return assistant;
+    }
+
+    public void setAssistant(Assistant assistant) {
+        this.assistant = assistant;
+    }
 }

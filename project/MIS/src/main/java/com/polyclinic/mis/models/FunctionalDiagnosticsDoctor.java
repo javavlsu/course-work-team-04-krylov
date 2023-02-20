@@ -1,43 +1,36 @@
 package com.polyclinic.mis.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.sql.Date;
+import java.util.List;
 @Entity
-public class Doctor {
+public class FunctionalDiagnosticsDoctor {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long Id;
+    private int Id;
     private String FirstName;
     private String LastName;
     private String MiddleName;
     private Date BirthDate;
     private String PolyclinicUserID;
     //public PolyclinicUser PolyclinicUser;
-    private String Speciality;
-    private String Category;
-    private String Degree;
+    @OneToMany
+    private List<Examination> Examinations;
     public String ReturnDateForDisplay()
     {
             return this.BirthDate.toString();
     }
-    public String ReturnFIO()
+    public String ReturnFIOAndBirthDate()
     {
-            return LastName + " " + FirstName + " " + MiddleName;
-    }
-    public String ReturnFIOAndSpeciality()
-    {
-            return LastName + " " + FirstName + " " + MiddleName + " (" + Speciality + ")";
+            return LastName + " " + FirstName + " " + MiddleName + " " + this.BirthDate.toString();
     }
 
-    public long getId() {
+    public int getId() {
         return Id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         Id = id;
     }
 
@@ -81,27 +74,11 @@ public class Doctor {
         PolyclinicUserID = polyclinicUserID;
     }
 
-    public String getSpeciality() {
-        return Speciality;
+    public List<Examination> getExaminations() {
+        return Examinations;
     }
 
-    public void setSpeciality(String speciality) {
-        Speciality = speciality;
-    }
-
-    public String getCategory() {
-        return Category;
-    }
-
-    public void setCategory(String category) {
-        Category = category;
-    }
-
-    public String getDegree() {
-        return Degree;
-    }
-
-    public void setDegree(String degree) {
-        Degree = degree;
+    public void setExaminations(List<Examination> examinations) {
+        Examinations = examinations;
     }
 }
