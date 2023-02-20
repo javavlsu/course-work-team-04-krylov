@@ -9,41 +9,41 @@ import jakarta.persistence.Id;
 public class Analysis {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long Id;
-    private int PatientId;
+    private long id;
+    private int patientId;
     //public Patient Patient;
-    private String Type;
-    private String Description;
-    private int AssistantId;
+    private String type;
+    private String description;
+    private int assistantId;
 
     protected Analysis() {}
 
     public Analysis(int PatientId, String Type, String Description, int AssistantId) {
-        this.PatientId = PatientId;
-        this.Type = Type;
-        this.Description = Description;
-        this.AssistantId = AssistantId;
+        this.patientId = PatientId;
+        this.type = Type;
+        this.description = Description;
+        this.assistantId = AssistantId;
     }
 
 
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public int getPatientId() {
-        return PatientId;
+        return patientId;
     }
 
     public String getType() {
-        return Type;
+        return type;
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public int getAssistantId() {
-        return AssistantId;
+        return assistantId;
     }
     //public Assistant Assistant;
 }
