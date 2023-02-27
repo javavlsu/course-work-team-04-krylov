@@ -2,20 +2,24 @@ package com.polyclinic.mis.models;
 
 import jakarta.persistence.*;
 
+import java.sql.Date;
+
+/**
+ * Анализ
+ */
 @Entity
-@Table(name = "analysis")
 public class Analysis {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     //private int patientId;
     @ManyToOne
     private Patient patient;
     private String type;
-    private String description;
-    //private int assistantId;
+    private String report;
     @ManyToOne
     private Assistant assistant;
+    private Date date;
 
     public long getId() {
         return id;
@@ -41,12 +45,12 @@ public class Analysis {
         this.type = type;
     }
 
-    public String getDescription() {
-        return description;
+    public String getReport() {
+        return report;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setReport(String description) {
+        this.report = description;
     }
 
     public Assistant getAssistant() {
@@ -55,5 +59,13 @@ public class Analysis {
 
     public void setAssistant(Assistant assistant) {
         this.assistant = assistant;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

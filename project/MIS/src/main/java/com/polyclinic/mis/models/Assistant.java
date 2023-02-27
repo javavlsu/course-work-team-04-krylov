@@ -4,81 +4,76 @@ import jakarta.persistence.*;
 
 import java.sql.Date;
 import java.util.List;
+
+/**
+ * Лаборант
+ */
 @Entity
 public class Assistant {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long Id;
-    private String FirstName;
-    private String LastName;
-    private String MiddleName;
-    private Date BirthDate;
-    private String PolyclinicUserID;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    private String firstName;
+    private String lastName;
+    private String middleName;
+    private Date birthDate;
     //public PolyclinicUser PolyclinicUser;
-    @OneToMany
-    private List<Analysis> Analyses;
+    //@OneToMany
+    //private List<Analysis> analyses;
     public String ReturnDateForDisplay()
     {
-            return this.BirthDate.toString();
+            return this.birthDate.toString();
     }
     public String ReturnFIOAndBirthDate()
     {
-            return LastName + " " + FirstName + " " + MiddleName + " " + this.BirthDate.toString();
+            return lastName + " " + firstName + " " + middleName + " " + this.birthDate.toString();
     }
 
     public long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(long id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getFirstName() {
-        return FirstName;
+        return firstName;
     }
 
     public void setFirstName(String firstName) {
-        FirstName = firstName;
+        this.firstName = firstName;
     }
 
     public String getLastName() {
-        return LastName;
+        return lastName;
     }
 
     public void setLastName(String lastName) {
-        LastName = lastName;
+        this.lastName = lastName;
     }
 
     public String getMiddleName() {
-        return MiddleName;
+        return middleName;
     }
 
     public void setMiddleName(String middleName) {
-        MiddleName = middleName;
+        this.middleName = middleName;
     }
 
     public Date getBirthDate() {
-        return BirthDate;
+        return birthDate;
     }
 
     public void setBirthDate(Date birthDate) {
-        BirthDate = birthDate;
+        this.birthDate = birthDate;
     }
 
-    public String getPolyclinicUserID() {
-        return PolyclinicUserID;
-    }
-
-    public void setPolyclinicUserID(String polyclinicUserID) {
-        PolyclinicUserID = polyclinicUserID;
-    }
-
-    public List<Analysis> getAnalyses() {
-        return Analyses;
-    }
-
-    public void setAnalyses(List<Analysis> analyses) {
-        Analyses = analyses;
-    }
+//    public List<Analysis> getAnalyses() {
+//        return analyses;
+//    }
+//
+//    public void setAnalyses(List<Analysis> analyses) {
+//        this.analyses = analyses;
+//    }
 }

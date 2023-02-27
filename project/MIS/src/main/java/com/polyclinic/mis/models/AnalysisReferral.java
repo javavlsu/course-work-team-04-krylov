@@ -1,30 +1,34 @@
 package com.polyclinic.mis.models;
 
 import jakarta.persistence.*;
+import org.thymeleaf.spring6.processor.SpringOptionFieldTagProcessor;
 
 import java.sql.Date;
 
+/**
+ * Направление на анализ
+ */
 @Entity
 public class AnalysisReferral {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String diagnosisId;
     @ManyToOne
     private Diagnosis diagnosis;
-    private int doctorId;
     @ManyToOne
     private Doctor doctor;
-    private int patientId;
     @ManyToOne
 
     private Patient patient;
-    private String type;
-    private int assistantId;
+    private String laboratory;
     @ManyToOne
     private Assistant assistant;
     private String cabinetNum;
-    private Date dateTime;
+    private String status;
+    private Date dateOfTaking;
+    private String whatToResearch;
+    private String schedule;
+
 
     public long getId() {
         return id;
@@ -34,13 +38,6 @@ public class AnalysisReferral {
         this.id = id;
     }
 
-    public String getDiagnosisId() {
-        return diagnosisId;
-    }
-
-    public void setDiagnosisId(String diagnosisId) {
-        this.diagnosisId = diagnosisId;
-    }
 
     public Diagnosis getDiagnosis() {
         return diagnosis;
@@ -50,13 +47,6 @@ public class AnalysisReferral {
         this.diagnosis = diagnosis;
     }
 
-    public int getDoctorId() {
-        return doctorId;
-    }
-
-    public void setDoctorId(int doctorId) {
-        this.doctorId = doctorId;
-    }
 
     public Doctor getDoctor() {
         return doctor;
@@ -66,13 +56,6 @@ public class AnalysisReferral {
         this.doctor = doctor;
     }
 
-    public int getPatientId() {
-        return patientId;
-    }
-
-    public void setPatientId(int patientId) {
-        this.patientId = patientId;
-    }
 
     public Patient getPatient() {
         return patient;
@@ -82,21 +65,14 @@ public class AnalysisReferral {
         this.patient = patient;
     }
 
-    public String getType() {
-        return type;
+    public String getLaboratory() {
+        return laboratory;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setLaboratory(String type) {
+        this.laboratory = type;
     }
 
-    public int getAssistantId() {
-        return assistantId;
-    }
-
-    public void setAssistantId(int assistantId) {
-        this.assistantId = assistantId;
-    }
 
     public Assistant getAssistant() {
         return assistant;
@@ -114,11 +90,35 @@ public class AnalysisReferral {
         this.cabinetNum = cabinetNum;
     }
 
-    public Date getDateTime() {
-        return dateTime;
+    public String getStatus() {
+        return status;
     }
 
-    public void setDateTime(Date dateTime) {
-        this.dateTime = dateTime;
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Date getDateOfTaking() {
+        return dateOfTaking;
+    }
+
+    public void setDateOfTaking(Date dateOfTaking) {
+        this.dateOfTaking = dateOfTaking;
+    }
+
+    public String getWhatToResearch() {
+        return whatToResearch;
+    }
+
+    public void setWhatToResearch(String whatToResearch) {
+        this.whatToResearch = whatToResearch;
+    }
+
+    public String getSchedule() {
+        return schedule;
+    }
+
+    public void setSchedule(String schedule) {
+        this.schedule = schedule;
     }
 }

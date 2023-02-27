@@ -9,99 +9,90 @@ import java.sql.Date;
 @Entity
 public class Doctor {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long Id;
-    private String FirstName;
-    private String LastName;
-    private String MiddleName;
-    private Date BirthDate;
-    private String PolyclinicUserID;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    private String firstName;
+    private String lastName;
+    private String middleName;
+    private Date birthDate;
     //public PolyclinicUser PolyclinicUser;
-    private String Speciality;
-    private String Category;
-    private String Degree;
+    private String speciality;
+    private String category;
+    private String degree;
     public String ReturnDateForDisplay()
     {
-            return this.BirthDate.toString();
+            return this.birthDate.toString();
     }
     public String ReturnFIO()
     {
-            return LastName + " " + FirstName + " " + MiddleName;
+            return lastName + " " + firstName + " " + middleName;
     }
     public String ReturnFIOAndSpeciality()
     {
-            return LastName + " " + FirstName + " " + MiddleName + " (" + Speciality + ")";
+            return lastName + " " + firstName + " " + middleName + " (" + speciality + ")";
     }
 
     public long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(long id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getFirstName() {
-        return FirstName;
+        return firstName;
     }
 
     public void setFirstName(String firstName) {
-        FirstName = firstName;
+        this.firstName = firstName;
     }
 
     public String getLastName() {
-        return LastName;
+        return lastName;
     }
 
     public void setLastName(String lastName) {
-        LastName = lastName;
+        this.lastName = lastName;
     }
 
     public String getMiddleName() {
-        return MiddleName;
+        return middleName;
     }
 
     public void setMiddleName(String middleName) {
-        MiddleName = middleName;
+        this.middleName = middleName;
     }
 
     public Date getBirthDate() {
-        return BirthDate;
+        return birthDate;
     }
 
     public void setBirthDate(Date birthDate) {
-        BirthDate = birthDate;
-    }
-
-    public String getPolyclinicUserID() {
-        return PolyclinicUserID;
-    }
-
-    public void setPolyclinicUserID(String polyclinicUserID) {
-        PolyclinicUserID = polyclinicUserID;
+        this.birthDate = birthDate;
     }
 
     public String getSpeciality() {
-        return Speciality;
+        return speciality;
     }
 
     public void setSpeciality(String speciality) {
-        Speciality = speciality;
+        this.speciality = speciality;
     }
 
     public String getCategory() {
-        return Category;
+        return category;
     }
 
     public void setCategory(String category) {
-        Category = category;
+        this.category = category;
     }
 
     public String getDegree() {
-        return Degree;
+        return degree;
     }
 
     public void setDegree(String degree) {
-        Degree = degree;
+        this.degree = degree;
     }
 }

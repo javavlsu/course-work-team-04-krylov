@@ -6,117 +6,103 @@ import java.sql.Date;
 @Entity
 public class DoctorReferral {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int Id;
-    private String DiagnosisId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
     @ManyToOne
-    private Diagnosis Diagnosis;
-    private int DoctorIdInitial;
+    private Diagnosis diagnosis;
     @ManyToOne
-    private Doctor DoctorInitial;
-    private int PatientId;
+    private Doctor doctorInitial;
     @ManyToOne
-    private Patient Patient;
-    private String Type;
-    private int DoctorIdTarget;
+    private Patient patient;
     @ManyToOne
-    private Doctor DoctorTarget;
-    private String СabinetNum;
-    private Date DateTime;
+    private Doctor doctorTarget;
+    private String cabinetNum;
+    private String status;
+    private Date dateOfTaking;
+    private String whatToResearch;
+    private String schedule;
 
-    public int getId() {
-        return Id;
+    public long getId() {
+        return id;
     }
 
-    public void setId(int id) {
-        Id = id;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public String getDiagnosisId() {
-        return DiagnosisId;
-    }
-
-    public void setDiagnosisId(String diagnosisId) {
-        DiagnosisId = diagnosisId;
-    }
 
     public com.polyclinic.mis.models.Diagnosis getDiagnosis() {
-        return Diagnosis;
+        return diagnosis;
     }
 
     public void setDiagnosis(com.polyclinic.mis.models.Diagnosis diagnosis) {
-        Diagnosis = diagnosis;
+        this.diagnosis = diagnosis;
     }
 
-    public int getDoctorIdInitial() {
-        return DoctorIdInitial;
-    }
-
-    public void setDoctorIdInitial(int doctorIdInitial) {
-        DoctorIdInitial = doctorIdInitial;
-    }
 
     public Doctor getDoctorInitial() {
-        return DoctorInitial;
+        return doctorInitial;
     }
 
     public void setDoctorInitial(Doctor doctorInitial) {
-        DoctorInitial = doctorInitial;
+        this.doctorInitial = doctorInitial;
     }
 
-    public int getPatientId() {
-        return PatientId;
-    }
-
-    public void setPatientId(int patientId) {
-        PatientId = patientId;
-    }
 
     public com.polyclinic.mis.models.Patient getPatient() {
-        return Patient;
+        return patient;
     }
 
     public void setPatient(com.polyclinic.mis.models.Patient patient) {
-        Patient = patient;
+        this.patient = patient;
     }
 
-    public String getType() {
-        return Type;
-    }
-
-    public void setType(String type) {
-        Type = type;
-    }
-
-    public int getDoctorIdTarget() {
-        return DoctorIdTarget;
-    }
-
-    public void setDoctorIdTarget(int doctorIdTarget) {
-        DoctorIdTarget = doctorIdTarget;
-    }
 
     public Doctor getDoctorTarget() {
-        return DoctorTarget;
+        return doctorTarget;
     }
 
     public void setDoctorTarget(Doctor doctorTarget) {
-        DoctorTarget = doctorTarget;
+        this.doctorTarget = doctorTarget;
     }
 
     public String getСabinetNum() {
-        return СabinetNum;
+        return cabinetNum;
     }
 
-    public void setСabinetNum(String сabinetNum) {
-        СabinetNum = сabinetNum;
+    public void setСabinetNum(String cabinetNum) {
+        this.cabinetNum = cabinetNum;
     }
 
-    public Date getDateTime() {
-        return DateTime;
+    public String getStatus() {
+        return status;
     }
 
-    public void setDateTime(Date dateTime) {
-        DateTime = dateTime;
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Date getDateOfTaking() {
+        return dateOfTaking;
+    }
+
+    public void setDateOfTaking(Date dateOfTaking) {
+        this.dateOfTaking = dateOfTaking;
+    }
+
+    public String getWhatToResearch() {
+        return whatToResearch;
+    }
+
+    public void setWhatToResearch(String whatToResearch) {
+        this.whatToResearch = whatToResearch;
+    }
+
+    public String getSchedule() {
+        return schedule;
+    }
+
+    public void setSchedule(String schedule) {
+        this.schedule = schedule;
     }
 }

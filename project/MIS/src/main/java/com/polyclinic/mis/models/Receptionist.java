@@ -6,75 +6,71 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 import java.sql.Date;
+
+/**
+ * Мед регистратор
+ */
 @Entity
 public class Receptionist {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int Id;
-    private String FirstName;
-    private String LastName;
-    private String MiddleName;
-    private Date BirthDate;
-    private String PolyclinicUserID;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    private String firstName;
+    private String lastName;
+    private String middleName;
+    private Date birthDate;
     //public PolyclinicUser PolyclinicUser;
     public String ReturnDateForDisplay()
     {
-            return this.BirthDate.toString();
+            return this.birthDate.toString();
     }
     public String ReturnFIO()
     {
-            return LastName + " " + FirstName + " " + MiddleName;
+            return lastName + " " + firstName + " " + middleName;
     }
     public String ReturnFIOAndBirthDate()
     {
-            return LastName + " " + FirstName + " " + MiddleName + " " + this.BirthDate.toString();
+            return lastName + " " + firstName + " " + middleName + " " + this.birthDate.toString();
     }
 
-    public int getId() {
-        return Id;
+    public long getId() {
+        return id;
     }
 
-    public void setId(int id) {
-        Id = id;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getFirstName() {
-        return FirstName;
+        return firstName;
     }
 
     public void setFirstName(String firstName) {
-        FirstName = firstName;
+        this.firstName = firstName;
     }
 
     public String getLastName() {
-        return LastName;
+        return lastName;
     }
 
     public void setLastName(String lastName) {
-        LastName = lastName;
+        this.lastName = lastName;
     }
 
     public String getMiddleName() {
-        return MiddleName;
+        return middleName;
     }
 
     public void setMiddleName(String middleName) {
-        MiddleName = middleName;
+        this.middleName = middleName;
     }
 
     public Date getBirthDate() {
-        return BirthDate;
+        return birthDate;
     }
 
     public void setBirthDate(Date birthDate) {
-        BirthDate = birthDate;
+        this.birthDate = birthDate;
     }
 
-    public String getPolyclinicUserID() {
-        return PolyclinicUserID;
-    }
-
-    public void setPolyclinicUserID(String polyclinicUserID) {
-        PolyclinicUserID = polyclinicUserID;
-    }
 }

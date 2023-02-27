@@ -5,70 +5,54 @@ import jakarta.persistence.*;
 @Entity
 public class Examination {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int Id;
-    private String Type;
-    private String Description;
-    private int FunctionalDiagnosticsDoctorId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    private String type;
+    private String report;
     @ManyToOne
-    private FunctionalDiagnosticsDoctor FunctionalDiagnosticsDoctor;
-    private int PatientId;
+    private FunctionalDiagnosticsDoctor functionalDiagnosticsDoctor;
     @ManyToOne
-    private Patient Patient;
+    private Patient patient;
 
-    public int getId() {
-        return Id;
+    public long getId() {
+        return id;
     }
 
-    public void setId(int id) {
-        Id = id;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getType() {
-        return Type;
+        return type;
     }
 
     public void setType(String type) {
-        Type = type;
+        this.type = type;
     }
 
-    public String getDescription() {
-        return Description;
+    public String getReport() {
+        return report;
     }
 
-    public void setDescription(String description) {
-        Description = description;
+    public void setReport(String report) {
+        this.report = report;
     }
 
-    public int getFunctionalDiagnosticsDoctorId() {
-        return FunctionalDiagnosticsDoctorId;
-    }
-
-    public void setFunctionalDiagnosticsDoctorId(int functionalDiagnosticsDoctorId) {
-        FunctionalDiagnosticsDoctorId = functionalDiagnosticsDoctorId;
-    }
 
     public com.polyclinic.mis.models.FunctionalDiagnosticsDoctor getFunctionalDiagnosticsDoctor() {
-        return FunctionalDiagnosticsDoctor;
+        return functionalDiagnosticsDoctor;
     }
 
     public void setFunctionalDiagnosticsDoctor(com.polyclinic.mis.models.FunctionalDiagnosticsDoctor functionalDiagnosticsDoctor) {
-        FunctionalDiagnosticsDoctor = functionalDiagnosticsDoctor;
+        this.functionalDiagnosticsDoctor = functionalDiagnosticsDoctor;
     }
 
-    public int getPatientId() {
-        return PatientId;
-    }
-
-    public void setPatientId(int patientId) {
-        PatientId = patientId;
-    }
 
     public com.polyclinic.mis.models.Patient getPatient() {
-        return Patient;
+        return patient;
     }
 
     public void setPatient(com.polyclinic.mis.models.Patient patient) {
-        Patient = patient;
+        this.patient = patient;
     }
 }

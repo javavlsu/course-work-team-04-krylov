@@ -8,27 +8,27 @@ import jakarta.persistence.Id;
 @Entity
 public class Diagnosis {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private String Id;
-    private String Description;
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    private String id;
+    private String description;
     public String ReturnIdAndDescription()
     {
-            return Id + " " + Description;
+            return id + " " + description;
     }
 
     public String getId() {
-        return Id;
+        return id;
     }
 
     public void setId(String id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public void setDescription(String description) {
-        Description = description;
+        this.description = description;
     }
 }

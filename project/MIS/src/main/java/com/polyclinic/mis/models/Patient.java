@@ -4,136 +4,167 @@ import jakarta.persistence.*;
 
 import java.sql.Date;
 import java.util.List;
+
+/**
+ * Пациент
+ */
 @Entity
 public class Patient {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int Id;
-    private String FirstName;
-    private String LastName;
-    private String MiddleName;
-    private Date BirthDate;
-    private String PolyclinicUserID;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    private String firstName;
+    private String lastName;
+    private String middleName;
+    private Date birthDate;
     //public PolyclinicUser PolyclinicUser
-    private int PolisID;
-    private String PoilsCompany;
-    private Date PolisEndDate;
-    private int SnilsNumber;
-    private String WorkPlace;
-    @OneToMany
-    private List<Analysis> Analyses;
-    //public List<Examination> Examinations;
-    //public List<Inspection> Inspections;
+    private int polisID;
+    private String poilsCompany;
+    private Date polisEndDate;
+    private int snilsNumber;
+    private String homeAddress;
+    private String workPlace;
+    private String workPosition;
+//    @OneToMany
+//    private List<Analysis> Analyses;
+//    @OneToMany
+//    private List<Examination> Examinations;
+//    @OneToMany
+//    private List<Inspection> Inspections;
     public String ReturnBirthDateForDisplay()
     {
-            return this.BirthDate.toString();
+            return this.birthDate.toString();
     }
     public String ReturnPolisEndDateForDisplay()
     {
-            return this.PolisEndDate.toString();
+            return this.polisEndDate.toString();
     }
     public String ReturnFIO()
     {
-            return LastName + " " + FirstName + " " + MiddleName;
+            return lastName + " " + firstName + " " + middleName;
     }
     public String ReturnFIOAndBirthDate()
     {
-            return LastName + " " + FirstName + " " + MiddleName + " " + this.BirthDate.toString();
+            return lastName + " " + firstName + " " + middleName + " " + this.birthDate.toString();
     }
 
-    public int getId() {
-        return Id;
+    public long getId() {
+        return id;
     }
 
-    public void setId(int id) {
-        Id = id;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getFirstName() {
-        return FirstName;
+        return firstName;
     }
 
     public void setFirstName(String firstName) {
-        FirstName = firstName;
+        this.firstName = firstName;
     }
 
     public String getLastName() {
-        return LastName;
+        return lastName;
     }
 
     public void setLastName(String lastName) {
-        LastName = lastName;
+        this.lastName = lastName;
     }
 
     public String getMiddleName() {
-        return MiddleName;
+        return middleName;
     }
 
     public void setMiddleName(String middleName) {
-        MiddleName = middleName;
+        this.middleName = middleName;
     }
 
     public Date getBirthDate() {
-        return BirthDate;
+        return birthDate;
     }
 
     public void setBirthDate(Date birthDate) {
-        BirthDate = birthDate;
-    }
-
-    public String getPolyclinicUserID() {
-        return PolyclinicUserID;
-    }
-
-    public void setPolyclinicUserID(String polyclinicUserID) {
-        PolyclinicUserID = polyclinicUserID;
+        this.birthDate = birthDate;
     }
 
     public int getPolisID() {
-        return PolisID;
+        return polisID;
     }
 
     public void setPolisID(int polisID) {
-        PolisID = polisID;
+        this.polisID = polisID;
     }
 
     public String getPoilsCompany() {
-        return PoilsCompany;
+        return poilsCompany;
     }
 
     public void setPoilsCompany(String poilsCompany) {
-        PoilsCompany = poilsCompany;
+        this.poilsCompany = poilsCompany;
     }
 
     public Date getPolisEndDate() {
-        return PolisEndDate;
+        return polisEndDate;
     }
 
     public void setPolisEndDate(Date polisEndDate) {
-        PolisEndDate = polisEndDate;
+        this.polisEndDate = polisEndDate;
     }
 
     public int getSnilsNumber() {
-        return SnilsNumber;
+        return snilsNumber;
     }
 
     public void setSnilsNumber(int snilsNumber) {
-        SnilsNumber = snilsNumber;
+        this.snilsNumber = snilsNumber;
     }
 
     public String getWorkPlace() {
-        return WorkPlace;
+        return workPlace;
     }
 
     public void setWorkPlace(String workPlace) {
-        WorkPlace = workPlace;
+        this.workPlace = workPlace;
     }
 
-    public List<Analysis> getAnalyses() {
-        return Analyses;
+    public String getWorkPosition() {
+        return workPosition;
     }
 
-    public void setAnalyses(List<Analysis> analyses) {
-        Analyses = analyses;
+    public void setWorkPosition(String workPosition) {
+        this.workPosition = workPosition;
+    }
+
+//    public List<Analysis> getAnalyses() {
+//        return Analyses;
+//    }
+//
+//    public void setAnalyses(List<Analysis> analyses) {
+//        Analyses = analyses;
+//    }
+//
+//    public List<Examination> getExaminations() {
+//        return Examinations;
+//    }
+//
+//    public void setExaminations(List<Examination> examinations) {
+//        Examinations = examinations;
+//    }
+//
+//    public List<Inspection> getInspections() {
+//        return Inspections;
+//    }
+//
+//    public void setInspections(List<Inspection> inspections) {
+//        Inspections = inspections;
+//    }
+
+    public String getHomeAddress() {
+        return homeAddress;
+    }
+
+    public void setHomeAddress(String homeAddress) {
+        this.homeAddress = homeAddress;
     }
 }

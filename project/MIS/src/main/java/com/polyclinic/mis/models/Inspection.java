@@ -3,111 +3,88 @@ package com.polyclinic.mis.models;
 import jakarta.persistence.*;
 
 import java.sql.Date;
+
+/**
+ * Осмотр
+ */
 @Entity
 
 public class Inspection {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int Id;
-    private int PatientID;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
     @ManyToOne
-    private Patient Patient;
-    private String Complaint;
-    private String Recipe;
-    private String DiagnosisId;
+    private Patient patient;
+    private String complaint;
+    private String recipe;
     @ManyToOne
-    private Diagnosis Diagnosis;
-    private Date Date;
-    private String Type;
-    private int DoctorId;
+    private Diagnosis diagnosis;
+    private Date date;
+    private String type;
     @ManyToOne
-    private Doctor Doctor;
+    private Doctor doctor;
 
-    public int getId() {
-        return Id;
+    public long getId() {
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
-
-    public int getPatientID() {
-        return PatientID;
-    }
-
-    public void setPatientID(int patientID) {
-        PatientID = patientID;
-    }
-
-    public com.polyclinic.mis.models.Patient getPatient() {
-        return Patient;
+        public com.polyclinic.mis.models.Patient getPatient() {
+        return patient;
     }
 
     public void setPatient(com.polyclinic.mis.models.Patient patient) {
-        Patient = patient;
+        this.patient = patient;
     }
 
     public String getComplaint() {
-        return Complaint;
+        return complaint;
     }
 
     public void setComplaint(String complaint) {
-        Complaint = complaint;
+        this.complaint = complaint;
     }
 
     public String getRecipe() {
-        return Recipe;
+        return recipe;
     }
 
     public void setRecipe(String recipe) {
-        Recipe = recipe;
+        this.recipe = recipe;
     }
 
-    public String getDiagnosisId() {
-        return DiagnosisId;
-    }
-
-    public void setDiagnosisId(String diagnosisId) {
-        DiagnosisId = diagnosisId;
-    }
 
     public com.polyclinic.mis.models.Diagnosis getDiagnosis() {
-        return Diagnosis;
+        return diagnosis;
     }
 
     public void setDiagnosis(com.polyclinic.mis.models.Diagnosis diagnosis) {
-        Diagnosis = diagnosis;
+        this.diagnosis = diagnosis;
     }
 
     public java.sql.Date getDate() {
-        return Date;
+        return date;
     }
 
     public void setDate(java.sql.Date date) {
-        Date = date;
+        this.date = date;
     }
 
     public String getType() {
-        return Type;
+        return type;
     }
 
     public void setType(String type) {
-        Type = type;
-    }
-
-    public int getDoctorId() {
-        return DoctorId;
-    }
-
-    public void setDoctorId(int doctorId) {
-        DoctorId = doctorId;
+        this.type = type;
     }
 
     public com.polyclinic.mis.models.Doctor getDoctor() {
-        return Doctor;
+        return doctor;
     }
 
     public void setDoctor(com.polyclinic.mis.models.Doctor doctor) {
-        Doctor = doctor;
+        this.doctor = doctor;
     }
 }
