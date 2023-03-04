@@ -2,6 +2,8 @@ package com.polyclinic.mis.models;
 
 import jakarta.persistence.*;
 
+import java.sql.Date;
+
 @Entity
 public class Examination {
     @Id
@@ -9,6 +11,7 @@ public class Examination {
     private long id;
     private String type;
     private String report;
+    private Date date;
     @ManyToOne
     private FunctionalDiagnosticsDoctor functionalDiagnosticsDoctor;
     @ManyToOne
@@ -54,5 +57,13 @@ public class Examination {
 
     public void setPatient(com.polyclinic.mis.models.Patient patient) {
         this.patient = patient;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }
