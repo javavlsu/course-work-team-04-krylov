@@ -17,6 +17,29 @@ public class Examination {
     @ManyToOne
     private Patient patient;
 
+    public Examination() {
+    }
+
+    public Examination(String type, String report, Date date, FunctionalDiagnosticsDoctor functionalDiagnosticsDoctor, Patient patient) {
+        this.type = type;
+        this.report = report;
+        this.date = date;
+        this.functionalDiagnosticsDoctor = functionalDiagnosticsDoctor;
+        this.patient = patient;
+    }
+
+    @Override
+    public String toString() {
+        return "Examination{" +
+                "id=" + id +
+                ", type='" + type + '\'' +
+                ", report='" + report + '\'' +
+                ", date=" + date +
+                ", functionalDiagnosticsDoctor=" + functionalDiagnosticsDoctor +
+                ", patient=" + patient +
+                '}';
+    }
+
     public long getId() {
         return id;
     }

@@ -31,6 +31,54 @@ public class Patient {
 //    private List<Examination> Examinations;
 //    @OneToMany
 //    private List<Inspection> Inspections;
+
+    public Patient() {
+    }
+
+    public Patient(String firstName, String lastName, String middleName, Date birthDate, int polisID, String poilsCompany, int snilsNumber, String homeAddress, String workPlace, String workPosition, Date polisEndDate) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.middleName = middleName;
+        this.birthDate = birthDate;
+        this.polisID = polisID;
+        this.poilsCompany = poilsCompany;
+        this.polisEndDate = polisEndDate;
+        this.snilsNumber = snilsNumber;
+        this.homeAddress = homeAddress;
+        this.workPlace = workPlace;
+        this.workPosition = workPosition;
+    }
+    public Patient(String firstName, String lastName, String middleName, Date birthDate, int polisID, String poilsCompany, int snilsNumber, String homeAddress, String workPlace, String workPosition) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.middleName = middleName;
+        this.birthDate = birthDate;
+        this.polisID = polisID;
+        this.poilsCompany = poilsCompany;
+        this.snilsNumber = snilsNumber;
+        this.homeAddress = homeAddress;
+        this.workPlace = workPlace;
+        this.workPosition = workPosition;
+    }
+
+    @Override
+    public String toString() {
+        return "Patient{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", middleName='" + middleName + '\'' +
+                ", birthDate=" + birthDate +
+                ", polisID=" + polisID +
+                ", poilsCompany='" + poilsCompany + '\'' +
+                ", polisEndDate=" + polisEndDate +
+                ", snilsNumber=" + snilsNumber +
+                ", homeAddress='" + homeAddress + '\'' +
+                ", workPlace='" + workPlace + '\'' +
+                ", workPosition='" + workPosition + '\'' +
+                '}';
+    }
+
     public String ReturnBirthDateForDisplay()
     {
             return this.birthDate.toString();

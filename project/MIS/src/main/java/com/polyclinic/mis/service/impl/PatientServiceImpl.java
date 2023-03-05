@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class PatientServiceImpl implements PatientService {
     @Autowired
@@ -14,6 +16,10 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public Patient add(Patient patient) {
         return patientRepository.saveAndFlush(patient);
+    }
+    @Override
+    public Optional<Patient> getById(Long id){
+        return patientRepository.findById(id);
     }
 
     @Override

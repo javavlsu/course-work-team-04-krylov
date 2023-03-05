@@ -43,10 +43,10 @@ public class MainController {
     public String examinationReferrals(Model model) {
         return "/ExaminationReferrals/Index";
     }
-    @GetMapping("/Diagnoses")
-    public String diagnoses(Model model) {
-        return "/Diagnoses/Index";
-    }
+//    @GetMapping("/Diagnoses")
+//    public String diagnoses(Model model) {
+//        return "/Diagnoses/Index";
+//    }
 
 
 

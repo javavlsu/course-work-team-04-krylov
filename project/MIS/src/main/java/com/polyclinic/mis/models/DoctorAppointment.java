@@ -16,6 +16,29 @@ public class DoctorAppointment {
     @ManyToOne
     private Doctor doctor;
 
+    public DoctorAppointment() {
+    }
+
+    public DoctorAppointment(Patient patient, String cabinetId, Date dateTime, String status, Doctor doctor) {
+        this.patient = patient;
+        this.cabinetId = cabinetId;
+        this.dateTime = dateTime;
+        this.status = status;
+        this.doctor = doctor;
+    }
+
+    @Override
+    public String toString() {
+        return "DoctorAppointment{" +
+                "id=" + id +
+                ", patient=" + patient +
+                ", cabinetId='" + cabinetId + '\'' +
+                ", dateTime=" + dateTime +
+                ", status='" + status + '\'' +
+                ", doctor=" + doctor +
+                '}';
+    }
+
     public long getId() {
         return id;
     }

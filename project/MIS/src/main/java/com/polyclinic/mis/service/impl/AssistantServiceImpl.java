@@ -1,12 +1,15 @@
 package com.polyclinic.mis.service.impl;
 
 import com.polyclinic.mis.models.Assistant;
+import com.polyclinic.mis.models.Patient;
 import com.polyclinic.mis.repository.AssistantRepository;
 import com.polyclinic.mis.service.AssistantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class AssistantServiceImpl implements AssistantService {
     @Autowired
@@ -15,7 +18,10 @@ public class AssistantServiceImpl implements AssistantService {
     public Assistant add(Assistant assistant) {
         return assistantRepository.saveAndFlush(assistant);
     }
-
+    @Override
+    public Optional<Assistant> getById(Long id){
+        return assistantRepository.findById(id);
+    }
     @Override
     public void delete(Long id) {
         assistantRepository.deleteById(id);

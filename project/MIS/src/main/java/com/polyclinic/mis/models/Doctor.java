@@ -19,6 +19,34 @@ public class Doctor {
     private String speciality;
     private String category;
     private String degree;
+
+    public Doctor() {
+    }
+
+    public Doctor(String firstName, String lastName, String middleName, Date birthDate, String speciality, String category, String degree) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.middleName = middleName;
+        this.birthDate = birthDate;
+        this.speciality = speciality;
+        this.category = category;
+        this.degree = degree;
+    }
+
+    @Override
+    public String toString() {
+        return "Doctor{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", middleName='" + middleName + '\'' +
+                ", birthDate=" + birthDate +
+                ", speciality='" + speciality + '\'' +
+                ", category='" + category + '\'' +
+                ", degree='" + degree + '\'' +
+                '}';
+    }
+
     public String ReturnDateForDisplay()
     {
             return this.birthDate.toString();

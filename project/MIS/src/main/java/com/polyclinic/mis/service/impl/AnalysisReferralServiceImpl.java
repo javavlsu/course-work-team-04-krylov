@@ -2,12 +2,13 @@ package com.polyclinic.mis.service.impl;
 
 import com.polyclinic.mis.models.AnalysisReferral;
 import com.polyclinic.mis.repository.AnalysisReferralRepository;
-import com.polyclinic.mis.repository.AnalysisRepository;
 import com.polyclinic.mis.service.AnalysisReferralService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 
 public class AnalysisReferralServiceImpl implements AnalysisReferralService {
@@ -18,7 +19,10 @@ public class AnalysisReferralServiceImpl implements AnalysisReferralService {
     public AnalysisReferral add(AnalysisReferral analysisReferral) {
         return analysisReferralRepository.saveAndFlush(analysisReferral);
     }
-
+    @Override
+    public Optional<AnalysisReferral> getById(Long id){
+        return analysisReferralRepository.findById(id);
+    }
     @Override
     public void delete(Long id) {
         analysisReferralRepository.deleteById(id);

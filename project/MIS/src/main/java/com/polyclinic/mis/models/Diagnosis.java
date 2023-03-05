@@ -11,6 +11,23 @@ public class Diagnosis {
     //@GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
     private String description;
+
+    public Diagnosis() {
+    }
+
+    public Diagnosis(String id, String description) {
+        this.id = id;
+        this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return "Diagnosis{" +
+                "id='" + id + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
+
     public String ReturnIdAndDescription()
     {
             return id + " " + description;

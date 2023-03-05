@@ -20,6 +20,28 @@ public class Receptionist {
     private String middleName;
     private Date birthDate;
     //public PolyclinicUser PolyclinicUser;
+
+    public Receptionist() {
+    }
+
+    public Receptionist(String firstName, String lastName, String middleName, Date birthDate) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.middleName = middleName;
+        this.birthDate = birthDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Receptionist{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", middleName='" + middleName + '\'' +
+                ", birthDate=" + birthDate +
+                '}';
+    }
+
     public String ReturnDateForDisplay()
     {
             return this.birthDate.toString();

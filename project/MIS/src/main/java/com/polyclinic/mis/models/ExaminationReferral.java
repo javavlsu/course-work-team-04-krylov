@@ -28,6 +28,39 @@ public class ExaminationReferral {
     private String schedule;
 
 
+    public ExaminationReferral() {
+    }
+
+    public ExaminationReferral(Diagnosis diagnosis, Doctor doctor, Patient patient, String type, FunctionalDiagnosticsDoctor functionalDiagnosticsDoctor, String cabinetNum, String status, Date dateOfTaking, String whatToResearch, String schedule) {
+        this.diagnosis = diagnosis;
+        this.doctor = doctor;
+        this.patient = patient;
+        this.type = type;
+        this.functionalDiagnosticsDoctor = functionalDiagnosticsDoctor;
+        this.cabinetNum = cabinetNum;
+        this.status = status;
+        this.dateOfTaking = dateOfTaking;
+        this.whatToResearch = whatToResearch;
+        this.schedule = schedule;
+    }
+
+    @Override
+    public String toString() {
+        return "ExaminationReferral{" +
+                "id=" + id +
+                ", diagnosis=" + diagnosis +
+                ", doctor=" + doctor +
+                ", patient=" + patient +
+                ", type='" + type + '\'' +
+                ", functionalDiagnosticsDoctor=" + functionalDiagnosticsDoctor +
+                ", cabinetNum='" + cabinetNum + '\'' +
+                ", status='" + status + '\'' +
+                ", dateOfTaking=" + dateOfTaking +
+                ", whatToResearch='" + whatToResearch + '\'' +
+                ", schedule='" + schedule + '\'' +
+                '}';
+    }
+
     public long getId() {
         return id;
     }

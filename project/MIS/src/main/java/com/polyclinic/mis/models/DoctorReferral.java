@@ -22,6 +22,37 @@ public class DoctorReferral {
     private String whatToResearch;
     private String schedule;
 
+    public DoctorReferral() {
+    }
+
+    public DoctorReferral(Diagnosis diagnosis, Doctor doctorInitial, Patient patient, Doctor doctorTarget, String cabinetNum, String status, Date dateOfTaking, String whatToResearch, String schedule) {
+        this.diagnosis = diagnosis;
+        this.doctorInitial = doctorInitial;
+        this.patient = patient;
+        this.doctorTarget = doctorTarget;
+        this.cabinetNum = cabinetNum;
+        this.status = status;
+        this.dateOfTaking = dateOfTaking;
+        this.whatToResearch = whatToResearch;
+        this.schedule = schedule;
+    }
+
+    @Override
+    public String toString() {
+        return "DoctorReferral{" +
+                "id=" + id +
+                ", diagnosis=" + diagnosis +
+                ", doctorInitial=" + doctorInitial +
+                ", patient=" + patient +
+                ", doctorTarget=" + doctorTarget +
+                ", cabinetNum='" + cabinetNum + '\'' +
+                ", status='" + status + '\'' +
+                ", dateOfTaking=" + dateOfTaking +
+                ", whatToResearch='" + whatToResearch + '\'' +
+                ", schedule='" + schedule + '\'' +
+                '}';
+    }
+
     public long getId() {
         return id;
     }

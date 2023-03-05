@@ -24,6 +24,33 @@ public class Inspection {
     @ManyToOne
     private Doctor doctor;
 
+    public Inspection() {
+    }
+
+    public Inspection(Patient patient, String complaint, String recipe, Diagnosis diagnosis, Date date, String type, Doctor doctor) {
+        this.patient = patient;
+        this.complaint = complaint;
+        this.recipe = recipe;
+        this.diagnosis = diagnosis;
+        this.date = date;
+        this.type = type;
+        this.doctor = doctor;
+    }
+
+    @Override
+    public String toString() {
+        return "Inspection{" +
+                "id=" + id +
+                ", patient=" + patient +
+                ", complaint='" + complaint + '\'' +
+                ", recipe='" + recipe + '\'' +
+                ", diagnosis=" + diagnosis +
+                ", date=" + date +
+                ", type='" + type + '\'' +
+                ", doctor=" + doctor +
+                '}';
+    }
+
     public long getId() {
         return id;
     }

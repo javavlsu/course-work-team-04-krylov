@@ -20,6 +20,28 @@ public class FunctionalDiagnosticsDoctor {
     //public PolyclinicUser PolyclinicUser;
 //    @OneToMany
 //    private List<Examination> examinations;
+
+    public FunctionalDiagnosticsDoctor() {
+    }
+
+    public FunctionalDiagnosticsDoctor(String firstName, String lastName, String middleName, Date birthDate) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.middleName = middleName;
+        this.birthDate = birthDate;
+    }
+
+    @Override
+    public String toString() {
+        return "FunctionalDiagnosticsDoctor{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", middleName='" + middleName + '\'' +
+                ", birthDate=" + birthDate +
+                '}';
+    }
+
     public String ReturnDateForDisplay()
     {
             return this.birthDate.toString();
