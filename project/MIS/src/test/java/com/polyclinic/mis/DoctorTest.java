@@ -52,9 +52,9 @@ public class DoctorTest {
                 .isEqualTo(readDoctor.get());
         doctor.setFirstName("Петр");
         Doctor editedDoctor = doctorService.edit(doctor);
-        Optional<Doctor> readEditedPatient = doctorService.getById(editedDoctor.getId());
+        Optional<Doctor> readEditedDoctor = doctorService.getById(editedDoctor.getId());
         assertThat(doctor)
                 .usingRecursiveComparison()
-                .isEqualTo(readEditedPatient.get());
+                .isEqualTo(readEditedDoctor.get());
     }
 }
