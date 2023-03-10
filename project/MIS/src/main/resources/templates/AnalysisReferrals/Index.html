@@ -4,9 +4,21 @@
 <body style="margin-bottom: 60px" class="container-fluid">
 <header th:replace="~{fragments/header :: header}"></header>
 <h1>Направления на анализ</h1>
-<p>
-  <a asp-action="Create">Создать</a>
+<p style="margin-top: 20px">
+  <a href="/" class="btn btn-secondary">Создать</a>
 </p>
+
+<form method="get" action="Index">
+  <p>
+  <h4>Поиск</h4>
+  <p style="color:red;">Ошибка</p>
+  <input type="search" placeholder="Введите ФИО пациента (Обязательно)" name="PatientFIO" style="width:600px;" />
+  <p>Дата рождения пациента (Необязательно)</p>
+  <input type="date" name="PatientBirthDate" style="width:300px;" />
+  <input type="submit" value="Search" class="btn btn-primary" />
+  <a href="">Получить список всех направлений на анализ</a>
+  </p>
+</form>
 <table class="table">
   <thead>
   <tr>
@@ -20,7 +32,7 @@
      Пациент
     </th>
     <th>
-      Тип
+      Лаборатория
     </th>
     <th>
       Лаборант
@@ -29,47 +41,41 @@
       Кабинет
     </th>
     <th>
-      Дата
+      Статус
+    </th>
+    <th>
+      Дата проведения
+    </th>
+    <th>
+      Что исследовать
+    </th>
+    <th>
+      Расписание
     </th>
     <th></th>
   </tr>
   </thead>
   <tbody>
-  <tr>
-    <td>
-      A01.0 Брюшной тиф
-    </td>
-    <td>
-      Петров Сергей Викторович(Терапевт)
-    </td>
-    <td>
-      Вавилов Анатолий Генадьевич 12.04.1999
-    </td>
-    <td>
-      Анализ крови на сахар
-    </td>
-    <td>
-      Савельева Антонина Петровна
-    </td>
-    <td>
-      234
-    </td>
-    <td>
-      22.01.2023 12:30
-    </td>
+  <tr th:each="el : ${analysisReferrals}">
+    <td th:text="${el.diagnosis.ReturnIdAndDescription}"></td>
+    <td th:text="${el.doctor.ReturnFIOAndSpeciality}"></td>
+    <td th:text="${el.patient.ReturnFIOAndBirthDate}"></td>
+    <td th:text="${el.laboratory}"></td>
+    <td th:text="${el.assistant.ReturnFIOAndBirthDate}"></td>
+    <td th:text="${el.cabinetNum}"></td>
+    <td th:text="${el.status}"></td>
+    <td th:text="${el.dateOfTaking}"></td>
+    <td th:text="${el.whatToResearch}"></td>
+    <td th:text="${el.schedule}"></td>
+
+
     <td>
       <a href="">Edit</a> |
       <a href="">Details</a> |
       <a href="">Delete</a>
     </td>
-
   </tr>
-
   </tbody>
 </table>
-
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>
