@@ -29,28 +29,28 @@
       Тип
     </th>
     <th>
-      Описание
+      Заключение
     </th>
     <th>
       ФИО Лаборанта
+    </th>
+    <th>
+      Дата проведения
     </th>
     <th></th>
   </tr>
   </thead>
   <tbody>
-
-  <tr>
-    <td>
-      Вавилов Иван Александрович 12.04.1999
+  <tr th:each="el : ${analyses}">
+    <td th:text="${el.patient.ReturnFIOAndBirthDate}">
     </td>
-    <td>
-      Общий анализ крови
+    <td th:text="${el.type}">
     </td>
-    <td>
-      Описание
+    <td th:text="${el.report}">
     </td>
-    <td>
-      Иванов Петр Сергеевич
+    <td th:text="${el.assistant.ReturnFIOAndBirthDate}">
+    </td>
+    <td th:text="${el.date}">
     </td>
     <td>
       <a href="">Edit</a> |
