@@ -136,4 +136,12 @@ public class DoctorReferral {
     public void setSchedule(String schedule) {
         this.schedule = schedule;
     }
+
+    public String getCabinetNum() {
+        return cabinetNum;
+    }
+
+    public void setCabinetNum(String cabinetNum) {
+        this.cabinetNum = cabinetNum;
+    }
 }

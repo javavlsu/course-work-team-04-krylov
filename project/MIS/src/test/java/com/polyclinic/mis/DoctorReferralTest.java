@@ -53,7 +53,7 @@ public class DoctorReferralTest {
         Optional<Diagnosis> readDiagnosis = diagnosisService.getById("A00.0");
         Date date = Date.valueOf(LocalDate.now());
 
-        DoctorReferral doctorReferral = new DoctorReferral(readDiagnosis.get(),readDoctorInitial.get(),readPatient.get(),readDoctorTarget.get(),"676","Выписано",date,"Нервы кистей рук","Расписаниев");
+        DoctorReferral doctorReferral = new DoctorReferral(readDiagnosis.get(),readDoctorInitial.get(),readPatient.get(),readDoctorTarget.get(),"676","Выписано",date,"Нервы кистей рук","Расписание");
         DoctorReferral createdDoctorReferral = doctorReferralService.add(doctorReferral);
         Optional<DoctorReferral> readDoctorReferral = doctorReferralService.getById(createdDoctorReferral.getId());
         assertThat(doctorReferral)

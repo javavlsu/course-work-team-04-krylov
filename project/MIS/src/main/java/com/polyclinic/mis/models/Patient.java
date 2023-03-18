@@ -18,7 +18,7 @@ public class Patient {
     private String middleName;
     private Date birthDate;
     //public PolyclinicUser PolyclinicUser
-    private int polisID;
+    private int polisId;
     private String poilsCompany;
     private Date polisEndDate;
     private int snilsNumber;
@@ -35,12 +35,12 @@ public class Patient {
     public Patient() {
     }
 
-    public Patient(String firstName, String lastName, String middleName, Date birthDate, int polisID, String poilsCompany, int snilsNumber, String homeAddress, String workPlace, String workPosition, Date polisEndDate) {
+    public Patient(String firstName, String lastName, String middleName, Date birthDate, int polisId, String poilsCompany, int snilsNumber, String homeAddress, String workPlace, String workPosition, Date polisEndDate) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;
         this.birthDate = birthDate;
-        this.polisID = polisID;
+        this.polisId = polisId;
         this.poilsCompany = poilsCompany;
         this.polisEndDate = polisEndDate;
         this.snilsNumber = snilsNumber;
@@ -48,12 +48,12 @@ public class Patient {
         this.workPlace = workPlace;
         this.workPosition = workPosition;
     }
-    public Patient(String firstName, String lastName, String middleName, Date birthDate, int polisID, String poilsCompany, int snilsNumber, String homeAddress, String workPlace, String workPosition) {
+    public Patient(String firstName, String lastName, String middleName, Date birthDate, int polisId, String poilsCompany, int snilsNumber, String homeAddress, String workPlace, String workPosition) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;
         this.birthDate = birthDate;
-        this.polisID = polisID;
+        this.polisId = polisId;
         this.poilsCompany = poilsCompany;
         this.snilsNumber = snilsNumber;
         this.homeAddress = homeAddress;
@@ -69,7 +69,7 @@ public class Patient {
                 ", lastName='" + lastName + '\'' +
                 ", middleName='" + middleName + '\'' +
                 ", birthDate=" + birthDate +
-                ", polisID=" + polisID +
+                ", polisID=" + polisId +
                 ", poilsCompany='" + poilsCompany + '\'' +
                 ", polisEndDate=" + polisEndDate +
                 ", snilsNumber=" + snilsNumber +
@@ -136,12 +136,12 @@ public class Patient {
         this.birthDate = birthDate;
     }
 
-    public int getPolisID() {
-        return polisID;
+    public int getPolisId() {
+        return polisId;
     }
 
-    public void setPolisID(int polisID) {
-        this.polisID = polisID;
+    public void setPolisId(int polisId) {
+        this.polisId = polisId;
     }
 
     public String getPoilsCompany() {

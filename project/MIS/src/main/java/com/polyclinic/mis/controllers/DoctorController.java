@@ -17,7 +17,7 @@ public class DoctorController {
     @GetMapping("/Doctors")
     public String Index(Model model){
         Iterable<Doctor> doctors = doctorService.getAll();
-        model.addAttribute("doctorAppointments",doctors);
+        model.addAttribute("doctors",doctors);
         return "/Doctors/Index";
     }
 }

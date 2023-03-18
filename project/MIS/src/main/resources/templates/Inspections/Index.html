@@ -4,9 +4,9 @@
 <body style="margin-bottom: 60px" class="container-fluid">
 <header th:replace="~{fragments/header :: header}"></header>
 
-<h1>Обследования</h1>
+<h1>Осмотры</h1>
 <p>
-  <a asp-action="Create">Создать</a>
+  <a href="">Создать</a>
 </p>
 <form method="get">
   <p>
@@ -16,27 +16,31 @@
   <p>Дата рождения пациента (Необязательно)</p>
   <input type="date" name="PatientBirthDate" style="width:300px;" />
   <input type="submit" value="Search" class="btn btn-primary" />
-  <a href="">Получить список всех пациентов</a>
+  <a href="">Получить список всех осмотров</a>
   </p>
 </form>
 <table class="table">
   <thead>
   <tr>
-    <th>Тип</th>
-    <th>Заключение</th>
-    <th>Дата проведения</th>
-    <th>Врач функц. диагностики</th>
     <th>Пациент</th>
+    <th>Жалобы</th>
+    <th>Рецепт</th>
+    <th>Диагноз</th>
+    <th>Дата проведения</th>
+    <th>Тип</th>
+    <th>Врач</th>
     <th></th>
   </tr>
   </thead>
   <tbody>
-  <tr th:each="el : ${examinations}">
-    <td th:text="${el.type}"></td>
-    <td th:text="${el.description}"></td>
-    <td th:text="${el.date}"></td>
-    <td th:text="${el.functionalDiagnosticsDoctor.ReturnFIOAndBirthDate}"></td>
+  <tr th:each="el : ${inspections}">
     <td th:text="${el.patient.ReturnFIOAndBirthDate}"></td>
+    <td th:text="${el.complaint}"></td>
+    <td th:text="${el.recipe}"></td>
+    <td th:text="${el.diagnosis.ReturnIdAndDescription}"></td>
+    <td th:text="${el.date}"></td>
+    <td th:text="${el.type}"></td>
+    <td th:text="${el.doctor.ReturnFIOAndSpeciality}"></td>
     <td>
       <a href="">Edit</a> |
       <a href="">Details</a> |

@@ -15,16 +15,19 @@ public class DoctorAppointment {
     private String status;
     @ManyToOne
     private Doctor doctor;
+    @OneToOne
+    private DoctorReferral doctorReferral;
 
     public DoctorAppointment() {
     }
 
-    public DoctorAppointment(Patient patient, String cabinetId, Date dateTime, String status, Doctor doctor) {
+    public DoctorAppointment(Patient patient, String cabinetId, Date dateTime, String status, Doctor doctor,DoctorReferral doctorReferral) {
         this.patient = patient;
         this.cabinetId = cabinetId;
         this.dateTime = dateTime;
         this.status = status;
         this.doctor = doctor;
+        this.doctorReferral = doctorReferral;
     }
 
     @Override
@@ -36,6 +39,7 @@ public class DoctorAppointment {
                 ", dateTime=" + dateTime +
                 ", status='" + status + '\'' +
                 ", doctor=" + doctor +
+                ", doctorReferral=" + doctorReferral +
                 '}';
     }
 
@@ -88,4 +92,13 @@ public class DoctorAppointment {
     public void setDoctor(Doctor doctor) {
         this.doctor = doctor;
     }
+
+    public DoctorReferral getDoctorReferral() {
+        return doctorReferral;
+    }
+
+    public void setDoctorReferral(DoctorReferral doctorReferral) {
+        this.doctorReferral = doctorReferral;
+    }
 }
+

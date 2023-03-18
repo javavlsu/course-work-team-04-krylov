@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head}"></head>
+<body style="margin-bottom: 60px" class="container-fluid">
+<header th:replace="~{fragments/header :: header}"></header>
+<h1>Направления ко врачу</h1>
+<p style="margin-top: 20px">
+  <a href="/" class="btn btn-secondary">Создать</a>
+</p>
+
+<form method="get" action="Index">
+  <p>
+  <h4>Поиск</h4>
+  <p style="color:red;">Ошибка</p>
+  <input type="search" placeholder="Введите ФИО пациента (Обязательно)" name="PatientFIO" style="width:600px;" />
+  <p>Дата рождения пациента (Необязательно)</p>
+  <input type="date" name="PatientBirthDate" style="width:300px;" />
+  <input type="submit" value="Search" class="btn btn-primary" />
+  <a href="">Получить список всех направлений на анализ</a>
+  </p>
+</form>
+<table class="table">
+  <thead>
+  <tr>
+    <th>
+      Диагноз
+    </th>
+    <th>
+      Врач выписавший направление
+    </th>
+    <th>
+     Пациент
+    </th>
+    <th>
+      Врач к кому выписано направление
+    </th>
+    <th>
+      Кабинет
+    </th>
+    <th>
+      Статус
+    </th>
+    <th>
+      Дата проведения
+    </th>
+    <th>
+      Что исследовать
+    </th>
+    <th>
+      Расписание
+    </th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="el : ${doctorReferrals}">
+    <td th:text="${el.diagnosis.ReturnIdAndDescription}"></td>
+    <td th:text="${el.doctorInitial.ReturnFIOAndSpeciality}"></td>
+    <td th:text="${el.patient.ReturnFIOAndBirthDate}"></td>
+    <td th:text="${el.doctorTarget.ReturnFIOAndSpeciality}"></td>
+    <td th:text="${el.cabinetNum}"></td>
+    <td th:text="${el.status}"></td>
+    <td th:text="${el.dateOfTaking}"></td>
+    <td th:text="${el.whatToResearch}"></td>
+    <td th:text="${el.schedule}"></td>
+
+
+    <td>
+      <a href="">Edit</a> |
+      <a href="">Details</a> |
+      <a href="">Delete</a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>
