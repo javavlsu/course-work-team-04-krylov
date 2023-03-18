@@ -6,7 +6,7 @@
 <h1>Справочник диагнозов</h1>
 
 <p style="margin-top: 20px">
-    <a href="" class="btn btn-secondary">Создать</a>
+    <a href="/Diagnoses/Create" class="btn btn-secondary">Создать</a>
 </p>
 <form method="get" action="Index">
     <p>
@@ -35,7 +35,7 @@
         <td th:text="${el.description}">
         </td>
         <td>
-            <a href="">Edit</a> |
+            <a th:href="@{/Diagnoses/Edit/{id}(id=${el.id})}">Edit</a> |
             <a href="">Details</a> |
             <a href="">Delete</a>
         </td>
