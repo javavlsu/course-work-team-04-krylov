@@ -11,53 +11,31 @@
 <table class="table">
   <thead>
   <tr>
-    <th>
-      Диагноз
-    </th>
-    <th>
-      Врач
-    </th>
-    <th>
-      Пациент
-    </th>
-    <th>
-      Тип
-    </th>
-    <th>
-      Врач функц. диагностики
-    </th>
-    <th>
-      Кабинет
-    </th>
-    <th>
-      Время
-    </th>
+    <th>Диагноз</th>
+    <th>Врач</th>
+    <th>Пациент</th>
+    <th>Тип</th>
+    <th>Врач функц. диагностики</th>
+    <th>Кабинет</th>
+    <th>Статус</th>
+    <th>Дата проведения</th>
+    <th>Что исследовать</th>
+    <th>Расписание</th>
     <th></th>
   </tr>
   </thead>
   <tbody>
-  <tr>
-    <td>
-      A01.0 Брюшной тиф
-    </td>
-    <td>
-      Петров Сергей Викторович(Терапевт)
-    </td>
-    <td>
-      Вавилов Анатолий Генадьевич 12.04.1999
-    </td>
-    <td>
-      Электрокардиограмма
-    </td>
-    <td>
-      Савельева Антонина Петровна
-    </td>
-    <td>
-      234
-    </td>
-    <td>
-      22.01.2023 12:30
-    </td>
+  <tr th:each="el : ${doctors}">
+    <td th:text="${el.diagnosis.ReturnIdAndDescription}"></td>
+    <td th:text="${el.doctor.ReturnFIOAndSpeciality}"></td>
+    <td th:text="${el.patient.ReturnFIOAndBirthDate}"></td>
+    <td th:text="${el.type}"></td>
+    <td th:text="${el.functionalDiagnosticsDoctor.ReturnFIOAndBirthDate}"></td>
+    <td th:text="${el.cabinetNum}"></td>
+    <td th:text="${el.status}"></td>
+    <td th:text="${el.dateOfTaking}"></td>
+    <td th:text="${el.whatToResearch}"></td>
+    <td th:text="${el.schedules}"></td>
     <td>
       <a href="">Edit</a> |
       <a href="">Details</a> |

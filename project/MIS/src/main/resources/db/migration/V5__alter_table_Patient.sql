@@ -1,0 +1,1 @@
+alter table patient rename column polisid to polis_id;
