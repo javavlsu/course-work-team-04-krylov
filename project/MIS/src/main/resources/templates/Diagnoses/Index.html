@@ -36,8 +36,8 @@
         </td>
         <td>
             <a th:href="@{/Diagnoses/Edit/{id}(id=${el.id})}">Edit</a> |
-            <a href="">Details</a> |
-            <a href="">Delete</a>
+            <a th:href="@{/Diagnoses/Details/{id}(id=${el.id})}">Details</a> |
+            <a th:href="@{/Diagnoses/Delete/{id}(id=${el.id})}">Delete</a>
         </td>
     </tr>
     </tbody>

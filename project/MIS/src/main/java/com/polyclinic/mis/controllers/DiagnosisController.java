@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.SecureRandom;
 import java.util.Optional;
 
 @Controller
@@ -34,10 +35,28 @@ public class DiagnosisController {
     public String ShowEdit(@PathVariable (value = "id") String id, Model model){
         Optional<Diagnosis> diagnosis = diagnosisService.getById(id);
         if (diagnosis.isPresent()){
-            model.addAttribute("diagnosis",diagnosis);
+            model.addAttribute("diagnosis",diagnosis.get());
             return "/Diagnoses/Update";
         }
         else {
+            //todo
+            return "/Error";
+        }
+    }
+    @GetMapping("Diagnoses/Delete/{id}")
+    public String Delete(@PathVariable (value = "id") String id, Model model){
+        diagnosisService.delete(id);
+        return "redirect:/Diagnoses";
+    }
+    @GetMapping("Diagnoses/Details/{id}")
+    public String Details(@PathVariable (value = "id") String id, Model model){
+        Optional<Diagnosis> diagnosis = diagnosisService.getById(id);
+        if (diagnosis.isPresent()){
+            model.addAttribute("diagnosis",diagnosis.get());
+            return "/Diagnoses/Details";
+        }
+        else {
+            //todo
             return "/Error";
         }
     }
