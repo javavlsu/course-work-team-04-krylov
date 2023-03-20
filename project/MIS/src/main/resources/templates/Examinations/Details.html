@@ -5,8 +5,8 @@
 <header th:replace="~{fragments/header :: header}"></header>
 <h1>Информация</h1>
 
-<div th:object="${analysis}">
-  <h4>Анализ</h4>
+<div th:object="${examination}">
+  <h4>Обследование</h4>
   <hr />
   <dl class="row">
     <dt class="col-sm-2">Id</dt>
@@ -21,16 +21,16 @@
     <dt class="col-sm-2">Заключение</dt>
     <dd class="col-sm-10" th:utext= "*{report}"></dd>
 
-    <dt class="col-sm-2">Лаборант</dt>
-    <dd class="col-sm-10" th:utext= "*{assistant.ReturnFIOAndBirthDate}"></dd>
+    <dt class="col-sm-2">Врач функц. диагностики</dt>
+    <dd class="col-sm-10" th:utext= "*{functionalDiagnosticsDoctor.ReturnFIOAndBirthDate}"></dd>
 
     <dt class="col-sm-2">Дата</dt>
     <dd class="col-sm-10" th:utext= "*{date}"></dd>
 
   </dl>
 </div>
-<a th:href="@{/Analyses/Edit/{id}(id=${id})}">Редактировать</a> |
-<a href="/Analyses">Назад к списку</a>
+<a th:href="@{/Examinations/Edit/{id}(id=${id})}">Редактировать</a> |
+<a href="/Examinations">Назад к списку</a>
 <div>
 
 </div>

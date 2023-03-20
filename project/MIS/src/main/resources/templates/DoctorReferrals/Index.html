@@ -22,33 +22,15 @@
 <table class="table">
   <thead>
   <tr>
-    <th>
-      Диагноз
-    </th>
-    <th>
-      Врач выписавший направление
-    </th>
-    <th>
-     Пациент
-    </th>
-    <th>
-      Врач к кому выписано направление
-    </th>
-    <th>
-      Кабинет
-    </th>
-    <th>
-      Статус
-    </th>
-    <th>
-      Дата проведения
-    </th>
-    <th>
-      Что исследовать
-    </th>
-    <th>
-      Расписание
-    </th>
+    <th>Диагноз</th>
+    <th>Врач выписавший направление</th>
+    <th>Пациент</th>
+    <th>Врач к кому выписано направление</th>
+    <th>Кабинет</th>
+    <th>Статус</th>
+    <th>Дата проведения</th>
+    <th>Что исследовать</th>
+    <th>Расписание</th>
     <th></th>
   </tr>
   </thead>
@@ -66,9 +48,9 @@
 
 
     <td>
-      <a href="">Edit</a> |
-      <a href="">Details</a> |
-      <a href="">Delete</a>
+      <a th:href="@{/DoctorReferrals/Edit/{id}(id=${el.id})}">Edit</a> |
+      <a th:href="@{/DoctorReferrals/Details/{id}(id=${el.id})}">Details</a> |
+      <a th:href="@{/DoctorReferrals/Delete/{id}(id=${el.id})}">Delete</a>
     </td>
   </tr>
   </tbody>

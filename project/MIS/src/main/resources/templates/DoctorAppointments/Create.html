@@ -7,30 +7,34 @@
 
 <h1>Создать</h1>
 
-<h4>Анализ</h4>
+<h4>Запись ко врачу</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form action="#" th:action="@{/Analyses/Create}" th:object="${analysis}" method="POST">
+        <form action="#" th:action="@{/DoctorAppointments/Create}" th:object="${doctorAppointment}" method="POST">
             <div class="form-group">
                 <label class="control-label">Пациент</label>
-                <input class="form-control" type="text" th:field = "*{patient}"/>
+                <input class="form-control" type="text" th:field = "*{patient.id}"/>
             </div>
             <div class="form-group">
-                <label class="control-label">Тип</label>
-                <input class="form-control" type="text" th:field = "*{type}"/>
+                <label class="control-label">Кабинет</label>
+                <input class="form-control" type="text" th:field = "*{cabinetId}"/>
             </div>
             <div class="form-group">
-                <label class="control-label">Заключение</label>
-                <input class="form-control" type="text" th:field = "*{report}"/>
+                <label class="control-label">Время</label>
+                <input class="form-control" type="text" th:field = "*{dateTime}"/>
             </div>
             <div class="form-group">
-                <label class="control-label">Лаборант</label>
-                <input class="form-control" type="text" th:field = "*{assistant}"/>
+                <label class="control-label">Статус</label>
+                <input class="form-control" type="text" th:field = "*{status}"/>
             </div>
             <div class="form-group">
-                <label class="control-label">Дата</label>
-                <input class="form-control" type="date" th:field = "*{date}"/>
+                <label class="control-label">Врач</label>
+                <input class="form-control" type="date" th:field = "*{doctor.id}"/>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Направление</label>
+                <input class="form-control" type="date" th:field = "*{doctorReferral.id}"/>
             </div>
             <div class="form-group">
                 <p></p>
@@ -41,7 +45,7 @@
 </div>
 
 <div>
-    <a href="/Analyses">Назад к списку</a>
+    <a href="/DoctorAppointments">Назад к списку</a>
 </div>
 
 <div th:replace="~{fragments/ajaxImports :: ajaxScripts}"></div>
