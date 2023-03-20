@@ -38,7 +38,7 @@ public class AnalysisController {
     public String ShowEdit(@PathVariable(value = "id") long id, Model model){
         Optional<Analysis> analysis = analysisService.getById(id);
         if (analysis.isPresent()){
-            model.addAttribute("analyses",analysis.get());
+            model.addAttribute("analysis",analysis.get());
             return "/Analyses/Update";
         }
         else {

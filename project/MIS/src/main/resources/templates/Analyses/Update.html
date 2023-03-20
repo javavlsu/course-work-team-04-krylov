@@ -11,15 +11,26 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form action="#" th:action="@{/Diagnoses/Create}" th:object="${diagnosis}" method="POST">
+        <form action="#" th:action="@{/Analyses/Create}" th:object="${analysis}" method="POST">
             <div class="form-group">
-                <label class="control-label">Код МКБ</label>
-<!--                <select id="patients" class="form-control"><option></option></select>-->
-                <input class="form-control" type="text" th:field = "*{id}"/>
+                <label class="control-label">Пациент</label>
+                <input class="form-control" type="text" th:field = "*{patient.id}"/>
             </div>
             <div class="form-group">
-                <label class="control-label">Описание</label>
-                <input class="form-control" type="text" th:field = "*{description}"/>
+                <label class="control-label">Тип</label>
+                <input class="form-control" type="text" th:field = "*{type}"/>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Заключение</label>
+                <input class="form-control" type="text" th:field = "*{report}"/>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Лаборант</label>
+                <input class="form-control" type="text" th:field = "*{assistant.id}"/>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Дата</label>
+                <input class="form-control" type="date" th:field = "*{date}"/>
             </div>
             <div class="form-group">
                 <p></p>

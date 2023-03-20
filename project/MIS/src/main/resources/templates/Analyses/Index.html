@@ -7,7 +7,7 @@
 <h1>Анализы</h1>
 
 <p style="margin-top: 20px">
-  <a href="/" class="btn btn-secondary">Создать</a>
+  <a href="Analyses/Create" class="btn btn-secondary">Создать</a>
 </p>
 <form method="get" action="Index">
   <p>
@@ -54,9 +54,9 @@
     <td th:text="${el.date}">
     </td>
     <td>
-      <a href="">Edit</a> |
-      <a href="">Details</a> |
-      <a href="">Delete</a>
+      <a th:href="@{/Analyses/Edit/{id}(id=${el.id})}">Edit</a> |
+      <a th:href="@{/Analyses/Details/{id}(id=${el.id})}">Details</a> |
+      <a th:href="@{/Analyses/Delete/{id}(id=${el.id})}">Delete</a>
     </td>
   </tr>
   </tbody>
