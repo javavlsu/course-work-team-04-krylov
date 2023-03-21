@@ -57,7 +57,7 @@ public class DoctorAppointmentTest {
                 .isEqualTo(readDoctorReferral.get());
 
 
-        DoctorAppointment doctorAppointment = new DoctorAppointment(readPatient.get(),"234",date,"Выписано",readDoctor.get(),readDoctorReferral.get());
+        DoctorAppointment doctorAppointment = new DoctorAppointment(date,"Выписано",readDoctorReferral.get());
         DoctorAppointment createdDoctorAppointment = doctorAppointmentService.add(doctorAppointment);
         Optional<DoctorAppointment> readDoctorAppointment = doctorAppointmentService.getById(createdDoctorAppointment.getId());
         assertThat(doctorAppointment)
@@ -98,9 +98,12 @@ public class DoctorAppointmentTest {
                 .isEqualTo(readDoctorReferral.get());
 
 
-        DoctorAppointment doctorAppointment = new DoctorAppointment(readPatient.get(),"234",date,"Выписано",readDoctor.get(),readDoctorReferral.get());
+        DoctorAppointment doctorAppointment = new DoctorAppointment(date,"Выписано",readDoctorReferral.get());
         DoctorAppointment createdDoctorAppointment = doctorAppointmentService.add(doctorAppointment);
         Optional<DoctorAppointment> readDoctorAppointment = doctorAppointmentService.getById(createdDoctorAppointment.getId());
+        assertThat(doctorAppointment)
+                .usingRecursiveComparison()
+                .isEqualTo(readDoctorAppointment.get());
         assertThat(doctorAppointment)
                 .usingRecursiveComparison()
                 .isEqualTo(readDoctorAppointment.get());
@@ -142,7 +145,7 @@ public class DoctorAppointmentTest {
                 .isEqualTo(readDoctorReferral.get());
 
 
-        DoctorAppointment doctorAppointment = new DoctorAppointment(readPatient.get(),"234",date,"Выписано",readDoctor.get(),readDoctorReferral.get());
+        DoctorAppointment doctorAppointment = new DoctorAppointment(date,"Выписано",readDoctorReferral.get());
         DoctorAppointment createdDoctorAppointment = doctorAppointmentService.add(doctorAppointment);
         Optional<DoctorAppointment> readDoctorAppointment = doctorAppointmentService.getById(createdDoctorAppointment.getId());
         assertThat(doctorAppointment)

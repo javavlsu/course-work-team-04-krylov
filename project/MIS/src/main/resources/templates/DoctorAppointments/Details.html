@@ -13,7 +13,7 @@
     <dd class="col-sm-10" th:utext= "*{id}"></dd>
 
     <dt class="col-sm-2">Пациент</dt>
-    <dd class="col-sm-10" th:utext= "*{patient.ReturnFIOAndBirthDate}"></dd>
+    <dd class="col-sm-10" th:utext= "*{doctorReferral.patient.ReturnFIOAndBirthDate}"></dd>
 
     <dt class="col-sm-2">Кабинет</dt>
     <dd class="col-sm-10" th:utext= "*{cabinetId}"></dd>
@@ -25,7 +25,7 @@
     <dd class="col-sm-10" th:utext= "*{status}"></dd>
 
     <dt class="col-sm-2">Врач</dt>
-    <dd class="col-sm-10" th:utext= "*{doctor.ReturnFIOAndSpeciality}"></dd>
+    <dd class="col-sm-10" th:utext= "*{doctorReferral.doctorInitial.ReturnFIOAndSpeciality}"></dd>
 
     <dt class="col-sm-2">Дата проведения</dt>
     <dd class="col-sm-10" th:utext= "*{doctorReferral.dateOfTaking}"></dd>

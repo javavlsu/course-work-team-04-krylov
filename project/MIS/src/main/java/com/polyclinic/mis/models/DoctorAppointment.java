@@ -8,25 +8,25 @@ public class DoctorAppointment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @ManyToOne
-    private Patient patient;
-    private String cabinetId;
+//    @ManyToOne
+//    private Patient patient;
+//    private String cabinetId;
     private Date dateTime;
     private String status;
-    @ManyToOne
-    private Doctor doctor;
+//    @ManyToOne
+//    private Doctor doctor;
     @OneToOne
     private DoctorReferral doctorReferral;
 
     public DoctorAppointment() {
     }
 
-    public DoctorAppointment(Patient patient, String cabinetId, Date dateTime, String status, Doctor doctor,DoctorReferral doctorReferral) {
-        this.patient = patient;
-        this.cabinetId = cabinetId;
+    public DoctorAppointment(Date dateTime, String status,DoctorReferral doctorReferral) {
+        //this.patient = patient;
+        //this.cabinetId = cabinetId;
         this.dateTime = dateTime;
         this.status = status;
-        this.doctor = doctor;
+       // this.doctor = doctor;
         this.doctorReferral = doctorReferral;
     }
 
@@ -34,11 +34,8 @@ public class DoctorAppointment {
     public String toString() {
         return "DoctorAppointment{" +
                 "id=" + id +
-                ", patient=" + patient +
-                ", cabinetId='" + cabinetId + '\'' +
                 ", dateTime=" + dateTime +
                 ", status='" + status + '\'' +
-                ", doctor=" + doctor +
                 ", doctorReferral=" + doctorReferral +
                 '}';
     }
@@ -52,21 +49,21 @@ public class DoctorAppointment {
     }
 
 
-    public Patient getPatient() {
-        return patient;
-    }
-
-    public void setPatient(Patient patient) {
-        this.patient = patient;
-    }
-
-    public String getCabinetId() {
-        return cabinetId;
-    }
-
-    public void setCabinetId(String cabinetId) {
-        this.cabinetId = cabinetId;
-    }
+//    public Patient getPatient() {
+//        return patient;
+//    }
+//
+//    public void setPatient(Patient patient) {
+//        this.patient = patient;
+//    }
+//
+//    public String getCabinetId() {
+//        return cabinetId;
+//    }
+//
+//    public void setCabinetId(String cabinetId) {
+//        this.cabinetId = cabinetId;
+//    }
 
     public Date getDateTime() {
         return dateTime;
@@ -85,13 +82,13 @@ public class DoctorAppointment {
     }
 
 
-    public Doctor getDoctor() {
-        return doctor;
-    }
-
-    public void setDoctor(Doctor doctor) {
-        this.doctor = doctor;
-    }
+//    public Doctor getDoctor() {
+//        return doctor;
+//    }
+//
+//    public void setDoctor(Doctor doctor) {
+//        this.doctor = doctor;
+//    }
 
     public DoctorReferral getDoctorReferral() {
         return doctorReferral;
