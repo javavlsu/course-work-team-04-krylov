@@ -5,7 +5,7 @@
 <header th:replace="~{fragments/header :: header}"></header>
 <h1>Направления на анализ</h1>
 <p style="margin-top: 20px">
-  <a href="/" class="btn btn-secondary">Создать</a>
+  <a href="/AnalysisReferrals/Create" class="btn btn-secondary">Создать</a>
 </p>
 
 <form method="get" action="Index">
@@ -22,36 +22,16 @@
 <table class="table">
   <thead>
   <tr>
-    <th>
-      Диагноз
-    </th>
-    <th>
-      Врач
-    </th>
-    <th>
-     Пациент
-    </th>
-    <th>
-      Лаборатория
-    </th>
-    <th>
-      Лаборант
-    </th>
-    <th>
-      Кабинет
-    </th>
-    <th>
-      Статус
-    </th>
-    <th>
-      Дата проведения
-    </th>
-    <th>
-      Что исследовать
-    </th>
-    <th>
-      Расписание
-    </th>
+    <th>Диагноз</th>
+    <th>Врач</th>
+    <th>Пациент</th>
+    <th>Лаборатория</th>
+    <th>Лаборант</th>
+    <th>Кабинет</th>
+    <th>Статус</th>
+    <th>Дата проведения</th>
+    <th>Что исследовать</th>
+    <th>Расписание</th>
     <th></th>
   </tr>
   </thead>
@@ -70,9 +50,9 @@
 
 
     <td>
-      <a href="">Edit</a> |
-      <a href="">Details</a> |
-      <a href="">Delete</a>
+      <a th:href="@{/AnalysisReferrals/Edit/{id}(id=${el.id})}">Edit</a> |
+      <a th:href="@{/AnalysisReferrals/Details/{id}(id=${el.id})}">Details</a> |
+      <a th:href="@{/AnalysisReferrals/Delete/{id}(id=${el.id})}">Delete</a>
     </td>
   </tr>
   </tbody>

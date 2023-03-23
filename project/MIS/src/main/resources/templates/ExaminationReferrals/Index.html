@@ -3,11 +3,22 @@
 <head th:replace="~{fragments/head :: head}"></head>
 <body style="margin-bottom: 60px" class="container-fluid">
 <header th:replace="~{fragments/header :: header}"></header>
-<h1>Index</h1>
-
-<p>
-  <a asp-action="Create">Создать</a>
+<h1>Направления на обследование</h1>
+<p style="margin-top: 20px">
+  <a href="/ExaminationReferrals/Create" class="btn btn-secondary">Создать</a>
 </p>
+
+<form method="get" action="Index">
+  <p>
+  <h4>Поиск</h4>
+  <p style="color:red;">Ошибка</p>
+  <input type="search" placeholder="Введите ФИО пациента (Обязательно)" name="PatientFIO" style="width:600px;" />
+  <p>Дата рождения пациента (Необязательно)</p>
+  <input type="date" name="PatientBirthDate" style="width:300px;" />
+  <input type="submit" value="Search" class="btn btn-primary" />
+  <a href="">Получить список всех направлений на анализ</a>
+  </p>
+</form>
 <table class="table">
   <thead>
   <tr>
@@ -37,9 +48,9 @@
     <td th:text="${el.whatToResearch}"></td>
     <td th:text="${el.schedules}"></td>
     <td>
-      <a href="">Edit</a> |
-      <a href="">Details</a> |
-      <a href="">Delete</a>
+      <a th:href="@{/ExaminationReferrals/Edit/{id}(id=${el.id})}">Edit</a> |
+      <a th:href="@{/ExaminationReferrals/Details/{id}(id=${el.id})}">Details</a> |
+      <a th:href="@{/ExaminationReferrals/Delete/{id}(id=${el.id})}">Delete</a>
     </td>
   </tr>
   </tbody>

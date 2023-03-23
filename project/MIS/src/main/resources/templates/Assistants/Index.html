@@ -41,9 +41,9 @@
         <td th:text="${el.middleName}"></td>
         <td th:text="${el.birthDate}"></td>
         <td>
-            <a href="">Edit</a> |
-            <a href="">Details</a> |
-            <a href="">Delete</a>
+            <a th:href="@{/Assistants/Edit/{id}(id=${el.id})}">Edit</a> |
+            <a th:href="@{/Assistants/Details/{id}(id=${el.id})}">Details</a> |
+            <a th:href="@{/Assistants/Delete/{id}(id=${el.id})}">Delete</a>
         </td>
     </tr>
     </tbody>

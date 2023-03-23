@@ -5,7 +5,7 @@
 <header th:replace="~{fragments/header :: header}"></header>
 <h1>Заявки на прием ко врачу</h1>
 <p style="margin-top: 20px">
-  <a href="/" class="btn btn-secondary">Создать</a>
+  <a href="/DoctorAppointments/Create" class="btn btn-secondary">Создать</a>
 </p>
 
 <form method="get" action="Index">
@@ -22,43 +22,29 @@
 <table class="table">
   <thead>
   <tr>
-    <th>
-      Пациент
-    </th>
-    <th>
-      Кабинет
-    </th>
-    <th>
-     Время
-    </th>
-    <th>
-      Статус
-    </th>
-    <th>
-      Врач
-    </th>
-    <th>
-      Дата проведения
-    </th>
-    <th>
-      Что исследовать
-    </th>
+    <th>Пациент</th>
+    <th>Кабинет</th>
+    <th>Время</th>
+    <th>Статус</th>
+    <th>Врач</th>
+    <th>Дата проведения</th>
+    <th>Что исследовать</th>
     <th></th>
   </tr>
   </thead>
   <tbody>
   <tr th:each="el : ${doctorAppointments}">
-    <td th:text="${el.patient.ReturnFIOAndBirthDate}"></td>
-    <td th:text="${el.cabinetId}"></td>
+    <td th:text="${el.doctorReferral.patient.ReturnFIOAndBirthDate}"></td>
+    <td th:text="${el.doctorReferral.cabinetNum}"></td>
     <td th:text="${el.dateTime}"></td>
     <td th:text="${el.status}"></td>
-    <td th:text="${el.doctor.ReturnFIOAndSpeciality}"></td>
+    <td th:text="${el.doctorReferral.doctorInitial.ReturnFIOAndSpeciality}"></td>
     <td th:text="${el.doctorReferral.dateOfTaking}"></td>
     <td th:text="${el.doctorReferral.whatToResearch}"></td>
     <td>
-      <a href="">Edit</a> |
-      <a href="">Details</a> |
-      <a href="">Delete</a>
+      <a th:href="@{/DoctorAppointments/Edit/{id}(id=${el.id})}">Edit</a> |
+      <a th:href="@{/DoctorAppointments/Details/{id}(id=${el.id})}">Details</a> |
+      <a th:href="@{/DoctorAppointments/Delete/{id}(id=${el.id})}">Delete</a>
     </td>
   </tr>
   </tbody>

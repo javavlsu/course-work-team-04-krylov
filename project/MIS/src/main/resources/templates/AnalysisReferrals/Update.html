@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head}"></head>
+<body style="margin-bottom: 60px" class="container-fluid">
+<header th:replace="~{fragments/header :: header}"></header>
+
+
+<h1>Изменить</h1>
+
+<h4>Диагноз</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form action="#" th:action="@{/AnalysisReferrals/Create}" th:object="${analysisReferral}" method="POST">
+            <div class="form-group">
+                <label class="control-label">Диагноз</label>
+                <input class="form-control" type="text" th:field = "*{diagnosis.id}"/>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Врач</label>
+                <input class="form-control" type="text" th:field = "*{doctor.id}"/>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Пациент</label>
+                <input class="form-control" type="text" th:field = "*{patient.id}"/>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Лаборатория</label>
+                <input class="form-control" type="text" th:field = "*{laboratory}"/>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Лаборант</label>
+                <input class="form-control" type="date" th:field = "*{assistant.id}"/>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Кабинет</label>
+                <input class="form-control" type="date" th:field = "*{cabinetNum}"/>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Статус</label>
+                <input class="form-control" type="date" th:field = "*{status}"/>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Дата проведения</label>
+                <input class="form-control" type="date" th:field = "*{dateOfTaking}"/>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Что исследовать</label>
+                <input class="form-control" type="date" th:field = "*{whatToResearch}"/>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Расписание</label>
+                <input class="form-control" type="date" th:field = "*{schedule}"/>
+            </div>
+            <div class="form-group">
+                <p></p>
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a href="/AnalysisReferrals">Назад к списку</a>
+</div>
+
+<div th:replace="~{fragments/ajaxImports :: ajaxScripts}"></div>
+
+<script>
+    $(document).ready(function () {
+        $("#patients").select2({
+            placeholder: "Выбирете пациента",
+            theme: "bootstrap4",
+            allowClear: true
+        });
+    });
+</script>
+</body>
+</html>

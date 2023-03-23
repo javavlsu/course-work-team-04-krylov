@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head}"></head>
+<body style="margin-bottom: 60px" class="container-fluid">
+<header th:replace="~{fragments/header :: header}"></header>
+<h1>Информация</h1>
+
+<div th:object="${doctor}">
+  <h4>Врач</h4>
+  <hr />
+  <dl class="row">
+    <dt class="col-sm-2">Id</dt>
+    <dd class="col-sm-10" th:utext= "*{id}"></dd>
+
+    <dt class="col-sm-2">Фамилия</dt>
+    <dd class="col-sm-10" th:utext= "*{lastName}"></dd>
+
+    <dt class="col-sm-2">Имя</dt>
+    <dd class="col-sm-10" th:utext= "*{firstName}"></dd>
+
+    <dt class="col-sm-2">Отчество</dt>
+    <dd class="col-sm-10" th:utext= "*{middleName}"></dd>
+
+    <dt class="col-sm-2">Дата рождения</dt>
+    <dd class="col-sm-10" th:utext= "*{birthDate}"></dd>
+
+    <dt class="col-sm-2">Специальность</dt>
+    <dd class="col-sm-10" th:utext= "*{speciality}"></dd>
+
+    <dt class="col-sm-2">Категория</dt>
+    <dd class="col-sm-10" th:utext= "*{category}"></dd>
+
+    <dt class="col-sm-2">Степень</dt>
+    <dd class="col-sm-10" th:utext= "*{degree}"></dd>
+  </dl>
+</div>
+<a th:href="@{/Doctors/Edit/{id}(id=${id})}">Редактировать</a> |
+<a href="/Doctors">Назад к списку</a>
+<div>
+
+</div>
+</body>
+</html>
