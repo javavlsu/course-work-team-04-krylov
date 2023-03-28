@@ -1,6 +1,10 @@
 package com.polyclinic.mis.models;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.sql.Date;
 import java.util.List;
@@ -9,6 +13,8 @@ import java.util.List;
  * Врач функциональной диагностики
  */
 @Entity
+@Data
+@NoArgsConstructor
 public class FunctionalDiagnosticsDoctor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,9 +26,6 @@ public class FunctionalDiagnosticsDoctor {
     //public PolyclinicUser PolyclinicUser;
 //    @OneToMany
 //    private List<Examination> examinations;
-
-    public FunctionalDiagnosticsDoctor() {
-    }
 
     public FunctionalDiagnosticsDoctor(String firstName, String lastName, String middleName, Date birthDate) {
         this.firstName = firstName;
@@ -51,52 +54,4 @@ public class FunctionalDiagnosticsDoctor {
             return lastName + " " + firstName + " " + middleName + " " + this.birthDate.toString();
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getMiddleName() {
-        return middleName;
-    }
-
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
-    }
-
-    public Date getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
-    }
-
-
-//    public List<Examination> getExaminations() {
-//        return examinations;
-//    }
-//
-//    public void setExaminations(List<Examination> examinations) {
-//        this.examinations = examinations;
-//    }
 }

@@ -1,6 +1,10 @@
 package com.polyclinic.mis.models;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.sql.Date;
 
@@ -8,6 +12,8 @@ import java.sql.Date;
  * Направление на обследование
  */
 @Entity
+@Data
+@NoArgsConstructor
 public class ExaminationReferral {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,9 +33,6 @@ public class ExaminationReferral {
     private String whatToResearch;
     private String schedule;
 
-
-    public ExaminationReferral() {
-    }
 
     public ExaminationReferral(Diagnosis diagnosis, Doctor doctor, Patient patient, String type, FunctionalDiagnosticsDoctor functionalDiagnosticsDoctor, String cabinetNum, String status, Date dateOfTaking, String whatToResearch, String schedule) {
         this.diagnosis = diagnosis;
@@ -59,96 +62,5 @@ public class ExaminationReferral {
                 ", whatToResearch='" + whatToResearch + '\'' +
                 ", schedule='" + schedule + '\'' +
                 '}';
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-
-    public com.polyclinic.mis.models.Diagnosis getDiagnosis() {
-        return diagnosis;
-    }
-
-    public void setDiagnosis(com.polyclinic.mis.models.Diagnosis diagnosis) {
-        this.diagnosis = diagnosis;
-    }
-
-
-    public com.polyclinic.mis.models.Doctor getDoctor() {
-        return doctor;
-    }
-
-    public void setDoctor(com.polyclinic.mis.models.Doctor doctor) {
-        this.doctor = doctor;
-    }
-
-
-    public com.polyclinic.mis.models.Patient getPatient() {
-        return patient;
-    }
-
-    public void setPatient(com.polyclinic.mis.models.Patient patient) {
-        this.patient = patient;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public com.polyclinic.mis.models.FunctionalDiagnosticsDoctor getFunctionalDiagnosticsDoctor() {
-        return functionalDiagnosticsDoctor;
-    }
-
-    public void setFunctionalDiagnosticsDoctor(com.polyclinic.mis.models.FunctionalDiagnosticsDoctor functionalDiagnosticsDoctor) {
-        this.functionalDiagnosticsDoctor = functionalDiagnosticsDoctor;
-    }
-
-    public String getСabinetNum() {
-        return cabinetNum;
-    }
-
-    public void setСabinetNum(String cabinetNum) {
-        this.cabinetNum = cabinetNum;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public Date getDateOfTaking() {
-        return dateOfTaking;
-    }
-
-    public void setDateOfTaking(Date dateOfTaking) {
-        this.dateOfTaking = dateOfTaking;
-    }
-
-    public String getWhatToResearch() {
-        return whatToResearch;
-    }
-
-    public void setWhatToResearch(String whatToResearch) {
-        this.whatToResearch = whatToResearch;
-    }
-
-    public String getSchedule() {
-        return schedule;
-    }
-
-    public void setSchedule(String schedule) {
-        this.schedule = schedule;
     }
 }

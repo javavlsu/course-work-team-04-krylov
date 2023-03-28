@@ -1,9 +1,15 @@
 package com.polyclinic.mis.models;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.sql.Date;
 @Entity
+@Data
+@NoArgsConstructor
 public class DoctorAppointment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,9 +23,6 @@ public class DoctorAppointment {
 //    private Doctor doctor;
     @OneToOne
     private DoctorReferral doctorReferral;
-
-    public DoctorAppointment() {
-    }
 
     public DoctorAppointment(Date dateTime, String status,DoctorReferral doctorReferral) {
         //this.patient = patient;
@@ -40,62 +43,5 @@ public class DoctorAppointment {
                 '}';
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-
-//    public Patient getPatient() {
-//        return patient;
-//    }
-//
-//    public void setPatient(Patient patient) {
-//        this.patient = patient;
-//    }
-//
-//    public String getCabinetId() {
-//        return cabinetId;
-//    }
-//
-//    public void setCabinetId(String cabinetId) {
-//        this.cabinetId = cabinetId;
-//    }
-
-    public Date getDateTime() {
-        return dateTime;
-    }
-
-    public void setDateTime(Date dateTime) {
-        this.dateTime = dateTime;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-
-//    public Doctor getDoctor() {
-//        return doctor;
-//    }
-//
-//    public void setDoctor(Doctor doctor) {
-//        this.doctor = doctor;
-//    }
-
-    public DoctorReferral getDoctorReferral() {
-        return doctorReferral;
-    }
-
-    public void setDoctorReferral(DoctorReferral doctorReferral) {
-        this.doctorReferral = doctorReferral;
-    }
 }
 

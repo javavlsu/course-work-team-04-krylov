@@ -1,6 +1,10 @@
 package com.polyclinic.mis.models;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.sql.Date;
 import java.util.List;
@@ -9,6 +13,8 @@ import java.util.List;
  * Пациент
  */
 @Entity
+@Data
+@NoArgsConstructor
 public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,8 +38,6 @@ public class Patient {
 //    @OneToMany
 //    private List<Inspection> Inspections;
 
-    public Patient() {
-    }
 
     public Patient(String firstName, String lastName, String middleName, Date birthDate, int polisId, String poilsCompany, int snilsNumber, String homeAddress, String workPlace, String workPosition, Date polisEndDate) {
         this.firstName = firstName;
@@ -94,125 +98,5 @@ public class Patient {
     public String ReturnFIOAndBirthDate()
     {
             return lastName + " " + firstName + " " + middleName + " " + this.birthDate.toString();
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getMiddleName() {
-        return middleName;
-    }
-
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
-    }
-
-    public Date getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    public int getPolisId() {
-        return polisId;
-    }
-
-    public void setPolisId(int polisId) {
-        this.polisId = polisId;
-    }
-
-    public String getPoilsCompany() {
-        return poilsCompany;
-    }
-
-    public void setPoilsCompany(String poilsCompany) {
-        this.poilsCompany = poilsCompany;
-    }
-
-    public Date getPolisEndDate() {
-        return polisEndDate;
-    }
-
-    public void setPolisEndDate(Date polisEndDate) {
-        this.polisEndDate = polisEndDate;
-    }
-
-    public int getSnilsNumber() {
-        return snilsNumber;
-    }
-
-    public void setSnilsNumber(int snilsNumber) {
-        this.snilsNumber = snilsNumber;
-    }
-
-    public String getWorkPlace() {
-        return workPlace;
-    }
-
-    public void setWorkPlace(String workPlace) {
-        this.workPlace = workPlace;
-    }
-
-    public String getWorkPosition() {
-        return workPosition;
-    }
-
-    public void setWorkPosition(String workPosition) {
-        this.workPosition = workPosition;
-    }
-
-//    public List<Analysis> getAnalyses() {
-//        return Analyses;
-//    }
-//
-//    public void setAnalyses(List<Analysis> analyses) {
-//        Analyses = analyses;
-//    }
-//
-//    public List<Examination> getExaminations() {
-//        return Examinations;
-//    }
-//
-//    public void setExaminations(List<Examination> examinations) {
-//        Examinations = examinations;
-//    }
-//
-//    public List<Inspection> getInspections() {
-//        return Inspections;
-//    }
-//
-//    public void setInspections(List<Inspection> inspections) {
-//        Inspections = inspections;
-//    }
-
-    public String getHomeAddress() {
-        return homeAddress;
-    }
-
-    public void setHomeAddress(String homeAddress) {
-        this.homeAddress = homeAddress;
     }
 }

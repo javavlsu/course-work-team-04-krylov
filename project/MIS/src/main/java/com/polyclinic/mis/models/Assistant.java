@@ -1,6 +1,10 @@
 package com.polyclinic.mis.models;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.sql.Date;
 import java.util.List;
@@ -9,6 +13,8 @@ import java.util.List;
  * Лаборант
  */
 @Entity
+@Data
+@NoArgsConstructor
 public class Assistant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,10 +26,6 @@ public class Assistant {
     //public PolyclinicUser PolyclinicUser;
     //@OneToMany
     //private List<Analysis> analyses;
-
-    public Assistant() {
-    }
-
     public Assistant(String firstName, String lastName, String middleName, Date birthDate) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -50,52 +52,4 @@ public class Assistant {
     {
             return lastName + " " + firstName + " " + middleName + " " + this.birthDate.toString();
     }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getMiddleName() {
-        return middleName;
-    }
-
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
-    }
-
-    public Date getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
-    }
-
-//    public List<Analysis> getAnalyses() {
-//        return analyses;
-//    }
-//
-//    public void setAnalyses(List<Analysis> analyses) {
-//        this.analyses = analyses;
-//    }
 }
