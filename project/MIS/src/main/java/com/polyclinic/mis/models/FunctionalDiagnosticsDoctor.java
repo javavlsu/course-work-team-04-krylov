@@ -23,6 +23,9 @@ public class FunctionalDiagnosticsDoctor {
     private String lastName;
     private String middleName;
     private Date birthDate;
+
+    @OneToOne
+    private PolyclinicUser user;
     //public PolyclinicUser PolyclinicUser;
 //    @OneToMany
 //    private List<Examination> examinations;
@@ -42,6 +45,7 @@ public class FunctionalDiagnosticsDoctor {
                 ", lastName='" + lastName + '\'' +
                 ", middleName='" + middleName + '\'' +
                 ", birthDate=" + birthDate +
+                ", user=" + user +
                 '}';
     }
 

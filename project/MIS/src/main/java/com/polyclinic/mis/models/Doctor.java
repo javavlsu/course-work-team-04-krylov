@@ -1,9 +1,6 @@
 package com.polyclinic.mis.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,6 +22,8 @@ public class Doctor {
     private String speciality;
     private String category;
     private String degree;
+    @OneToOne
+    private PolyclinicUser user;
 
     public Doctor(String firstName, String lastName, String middleName, Date birthDate, String speciality, String category, String degree) {
         this.firstName = firstName;
@@ -47,6 +46,7 @@ public class Doctor {
                 ", speciality='" + speciality + '\'' +
                 ", category='" + category + '\'' +
                 ", degree='" + degree + '\'' +
+                ", user=" + user +
                 '}';
     }
 

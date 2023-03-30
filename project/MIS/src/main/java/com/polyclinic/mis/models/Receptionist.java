@@ -1,9 +1,6 @@
 package com.polyclinic.mis.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,6 +22,8 @@ public class Receptionist {
     private String lastName;
     private String middleName;
     private Date birthDate;
+    @OneToOne
+    private PolyclinicUser user;
     //public PolyclinicUser PolyclinicUser;
 
 
@@ -43,6 +42,7 @@ public class Receptionist {
                 ", lastName='" + lastName + '\'' +
                 ", middleName='" + middleName + '\'' +
                 ", birthDate=" + birthDate +
+                ", user=" + user +
                 '}';
     }
 

@@ -31,6 +31,8 @@ public class Patient {
     private String homeAddress;
     private String workPlace;
     private String workPosition;
+    @OneToOne
+    private PolyclinicUser user;
 //    @OneToMany
 //    private List<Analysis> Analyses;
 //    @OneToMany
@@ -73,13 +75,14 @@ public class Patient {
                 ", lastName='" + lastName + '\'' +
                 ", middleName='" + middleName + '\'' +
                 ", birthDate=" + birthDate +
-                ", polisID=" + polisId +
+                ", polisId=" + polisId +
                 ", poilsCompany='" + poilsCompany + '\'' +
                 ", polisEndDate=" + polisEndDate +
                 ", snilsNumber=" + snilsNumber +
                 ", homeAddress='" + homeAddress + '\'' +
                 ", workPlace='" + workPlace + '\'' +
                 ", workPosition='" + workPosition + '\'' +
+                ", user=" + user +
                 '}';
     }
 

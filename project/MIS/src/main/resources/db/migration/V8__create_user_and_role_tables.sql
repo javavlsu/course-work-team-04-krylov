@@ -6,8 +6,8 @@ create table role
 );
 create table user_roles
 (
-    user_id long not null,
-    role_id long not null,
+    user_id bigint not null,
+    role_id bigint not null,
     primary key (user_id,role_id)
 );
 create table user

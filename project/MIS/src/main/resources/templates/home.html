@@ -1,12 +1,56 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security"
+>
 <head th:replace="~{fragments/head :: head}"></head>
 <body style="margin-bottom: 60px" class="container-fluid">
 <header th:replace="~{fragments/header :: header}"></header>
 
 <div class="px-4 py-5 my-5 text-center">
-    <h1 class="display-5 fw-bold">Сисиема МИС Владимирской Областной Поликлиники</h1>
+    <h1 class="display-5 fw-bold">Система МИС Владимирской Областной Поликлиники</h1>
     <div class="col-lg-6 mx-auto">
+        <div sec:authorize="isAnonymous()">
+            <p class="lead mb-4">Для работы в системе необходимо зарегистрироваться или войти в аккаунт</p>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <a href="/Register" class="btn btn-primary btn-lg px-4 gap-3">Зарегистрироваться</a>
+                <a href="/Authenticate" class="btn btn-primary btn-lg px-4 gap-3">Войти</a>
+            </div>
+        </div>
+        <div sec:authorize="hasRole('CanRegisterAsPatient')">
+            <p class="lead mb-4">Для работы в системе как пациент необходимо подтвердить свои данные</p>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <a href="/Patients/Create" class="btn btn-primary btn-lg px-4 gap-3">Подтвердить данные</a>
+            </div>
+        </div>
+
+        <div sec:authorize="hasRole('CanRegisterAsDoctor')">
+            <p class="lead mb-4">Для работы в системе как врач необходимо подтвердить свои данные</p>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <a href="/Doctors/Create" class="btn btn-primary btn-lg px-4 gap-3">Подтвердить данные</a>
+            </div>
+        </div>
+
+        <div sec:authorize="hasRole('CanRegisterAsAssistant')">
+            <p class="lead mb-4">Для работы в системе как лаборант необходимо подтвердить свои данные</p>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <a href="/Assistants/Create" class="btn btn-primary btn-lg px-4 gap-3">Подтвердить данные</a>
+            </div>
+        </div>
+
+        <div sec:authorize="hasRole('CanRegisterAsFunctionalDiagnosticsDoctor')">
+            <p class="lead mb-4">Для работы в системе как врач функциональной диагностики необходимо подтвердить свои данные</p>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <a href="/FunctionalDiagnosticsDoctors/Create" class="btn btn-primary btn-lg px-4 gap-3">Подтвердить данные</a>
+            </div>
+        </div>
+
+        <div sec:authorize="hasRole('CanRegisterAsReceptionist')">
+            <p class="lead mb-4">Для работы в системе как пациент необходимо подтвердить свои данные</p>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <a href="/Patients/Create" class="btn btn-primary btn-lg px-4 gap-3">Подтвердить данные</a>
+            </div>
+        </div>
+
         <h3 class="display-5 fw-bold">Лаборант</h3>
         <p class="lead mb-4">Доступные Вам функции представлены ниже</p>
         <div class="d-grid gap-2  justify-content-sm-center">

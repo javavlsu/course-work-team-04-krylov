@@ -23,7 +23,8 @@ public class Assistant {
     private String lastName;
     private String middleName;
     private Date birthDate;
-    //public PolyclinicUser PolyclinicUser;
+    @OneToOne
+    private PolyclinicUser user;
     //@OneToMany
     //private List<Analysis> analyses;
     public Assistant(String firstName, String lastName, String middleName, Date birthDate) {
@@ -41,6 +42,7 @@ public class Assistant {
                 ", lastName='" + lastName + '\'' +
                 ", middleName='" + middleName + '\'' +
                 ", birthDate=" + birthDate +
+                ", user=" + user +
                 '}';
     }
 
