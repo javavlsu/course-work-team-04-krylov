@@ -11,6 +11,7 @@ public class MainController {
     public String home(Model model){
         return "/home";
     }
+
     /*
     @GetMapping("/Patients")
     public String patients(Model model){

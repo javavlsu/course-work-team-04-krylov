@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head}"></head>
+<body style="margin-bottom: 60px" class="container-fluid">
+<header th:replace="~{fragments/header :: header}"></header>
+
+
+<h1>Присвоить роль</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form action="#" th:action="@{/Diagnoses/Create}" th:object="${diagnosis}" method="POST">
+            <div class="form-group">
+                <label class="control-label">Код МКБ</label>
+                <!--                <select id="patients" class="form-control"><option></option></select>-->
+                <input class="form-control" type="text" th:field = "*{id}"/>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Описание</label>
+                <input class="form-control" type="text" th:field = "*{description}"/>
+            </div>
+            <div class="form-group">
+                <p></p>
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+        <form action="#" th:action="@{/AssignUserToARole/Create}" th:object="${userRole}" method="POST">
+            <div class="form-group">
+                <label asp-for="UserId" class="control-label"></label>
+                <!--
+                <select id="doctors" asp-for="DoctorId" class ="form-control" asp-items="ViewBag.DoctorId"></select>
+                -->
+                <select id="users" asp-for="UserId" class="form-control" asp-items="@ViewBag.Users"><option></option></select>
+                <label asp-for="Role" class="control-label"></label>
+                <!--
+                <select id="doctors" asp-for="DoctorId" class ="form-control" asp-items="ViewBag.DoctorId"></select>
+                -->
+                <select id="roles" asp-for="Role" class="form-control" asp-items="@ViewBag.Roles"><option></option></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a href="/">Главная страница</a>
+</div>
+
+<div th:replace="~{fragments/ajaxImports :: ajaxScripts}"></div>
+
+<script>
+    $(document).ready(function () {
+        $("#users").select2({
+            placeholder: "Выбирете пользователя",
+            theme: "bootstrap4",
+            allowClear: true
+        });
+        $("#roles").select2({
+            placeholder: "Выбирете роль",
+            theme: "bootstrap4",
+            allowClear: true
+        });
+    });
+</script>
+</body>
+</html>

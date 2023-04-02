@@ -127,7 +127,7 @@ public class DoctorReferralTest {
         assertThat(doctorReferral)
                 .usingRecursiveComparison()
                 .isEqualTo(readDoctorReferral.get());
-        doctorReferral.setСabinetNum("643");
+        doctorReferral.setCabinetNum("643");
         DoctorReferral editedDoctorReferral = doctorReferralService.edit(doctorReferral);
         Optional<DoctorReferral> readEditedDoctorReferral = doctorReferralService.getById(editedDoctorReferral.getId());
         assertThat(doctorReferral)

@@ -18,12 +18,12 @@ import org.springframework.web.bind.annotation.*;
 //@RequestMapping("/Auth")
 @RequiredArgsConstructor
 public class AuthenticationController {
-    private final AuthenticationService authenticationService;
+//    private final AuthenticationService authenticationService;
 
     @Autowired
     private UserService userService;
-    @Autowired
-    private PolyclinicUserDetailsService polyclinicUserDetailsService;
+//    @Autowired
+//    private PolyclinicUserDetailsService polyclinicUserDetailsService;
     @Autowired
     private final AuthenticationManager authenticationManager;
 
@@ -69,6 +69,11 @@ public class AuthenticationController {
         );
         return "redirect:/";
     }
+
+//    @GetMapping("/AccessDenied")
+//    public String accessDenied(Model model){
+//        return "/Auth/AccessDenied";
+//    }
 }
 
 

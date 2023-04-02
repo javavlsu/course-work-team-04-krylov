@@ -11,26 +11,26 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form action="#" th:action="@{/Analyses/Create}" th:object="${analysis}" method="POST">
+        <form action="#" th:action="@{/Analyses/Create}"  method="POST">
             <div class="form-group">
                 <label class="control-label">Пациент</label>
-                <input class="form-control" type="text" th:field = "*{patient}"/>
+                <input class="form-control" type="text" th:field = "*{analysis.patient}"/>
             </div>
             <div class="form-group">
                 <label class="control-label">Тип</label>
-                <input class="form-control" type="text" th:field = "*{type}"/>
+                <input class="form-control" type="text" th:field = "*{analysis.type}"/>
             </div>
             <div class="form-group">
                 <label class="control-label">Заключение</label>
-                <input class="form-control" type="text" th:field = "*{report}"/>
+                <input class="form-control" type="text" th:field = "*{analysis.report}"/>
             </div>
             <div class="form-group">
                 <label class="control-label">Лаборант</label>
-                <input class="form-control" type="text" th:field = "*{assistant}"/>
+                <input class="form-control" type="text"  th:field="*{analysis.assistant}"/>
             </div>
             <div class="form-group">
                 <label class="control-label">Дата</label>
-                <input class="form-control" type="date" th:field = "*{date}"/>
+                <input class="form-control" type="date" th:field = "*{analysis.date}"/>
             </div>
             <div class="form-group">
                 <p></p>
@@ -39,7 +39,8 @@
         </form>
     </div>
 </div>
-
+<p>Glkj</p>
+<p th:utext="*{user.email}"></p>
 <div>
     <a href="/Analyses">Назад к списку</a>
 </div>

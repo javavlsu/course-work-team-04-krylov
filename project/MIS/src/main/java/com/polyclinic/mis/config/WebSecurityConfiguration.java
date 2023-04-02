@@ -1,5 +1,6 @@
 package com.polyclinic.mis.config;
 
+import com.polyclinic.mis.auth.CustomAccessDeniedHandler;
 import com.polyclinic.mis.auth.PolyclinicUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
@@ -34,6 +36,10 @@ public class WebSecurityConfiguration{
 //    }
 
     @Bean
+    public AccessDeniedHandler accessDeniedHandler(){
+        return new CustomAccessDeniedHandler();
+    }
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http.
@@ -44,15 +50,18 @@ public class WebSecurityConfiguration{
                 .requestMatchers("/Analyses").hasAuthority("Admin")
                 .requestMatchers("/Examinations").authenticated()
                 .requestMatchers("/admin/**").hasAuthority("Admin").anyRequest()
-                .authenticated().and().csrf().disable().formLogin()
-                .loginPage("/Authenticate").failureUrl("/Authenticate?error=true")
+                .authenticated().and().csrf().disable()
+                .formLogin().loginPage("/Authenticate").failureUrl("/Authenticate?error=true").successForwardUrl("/")
                 .defaultSuccessUrl("/")
                 .usernameParameter("email")
                 .passwordParameter("password")
                 .and().logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout")).deleteCookies("JSESSIONID")
                 .logoutSuccessUrl("/").and().exceptionHandling()
-                .accessDeniedPage("/access-denied").and().userDetailsService(userDetailsService);
+                .accessDeniedHandler(accessDeniedHandler())
+
+                .and()
+                .userDetailsService(userDetailsService);
         return http.build();
     }
 

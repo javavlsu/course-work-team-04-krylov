@@ -38,5 +38,10 @@ public class UserService {
         Role userRole = roleRepository.findByName("CanRegisterAsPatient").get();
         user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
         return userRepository.save(user);
+
+    }
+    public PolyclinicUser updateUser(PolyclinicUser user) {
+        return userRepository.saveAndFlush(user);
+
     }
 }
