@@ -13,34 +13,35 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
-
-    private final PolyclinicUserRepository polyclinicUserRepository;
-    private final PasswordEncoder passwordEncoder;
-    private final JwtService jwtService;
-    private final AuthenticationManager authenticationManager;
-    private final RoleRepository roleRepository;
-
-    public void register(RegisterRequest request) {
-        var user = PolyclinicUser.builder()
-                .email(request.getEmail())
-                .password(passwordEncoder.encode(request.getPassword()))
-                .roles(List.of(roleRepository.findByName("CanRegisterAsPatient").get()))
-                .build();
-        polyclinicUserRepository.save(user);
-        var jwtToken = jwtService.generateToken(user);
-    }
-
-    public void authenticate(AuthenticationRequest request) {
-        authenticationManager.authenticate((
-                new UsernamePasswordAuthenticationToken(request.getEmail(),
-                        request.getPassword())
-                )
-        );
-        var user = polyclinicUserRepository.findByEmail(request.getEmail()).orElseThrow();
-        var jwtToken = jwtService.generateToken(user);
-    }
+//
+//    private final PolyclinicUserRepository polyclinicUserRepository;
+//    private final PasswordEncoder passwordEncoder;
+//    private final JwtService jwtService;
+//    private final AuthenticationManager authenticationManager;
+//    private final RoleRepository roleRepository;
+//
+//    public void register(RegisterRequest request) {
+//        var user = PolyclinicUser.builder()
+//                .email(request.getEmail())
+//                .password(passwordEncoder.encode(request.getPassword()))
+//                .roles(Set.of(roleRepository.findByName("CanRegisterAsPatient").get()))
+//                .build();
+//        polyclinicUserRepository.save(user);
+//        var jwtToken = jwtService.generateToken(user);
+//    }
+//
+//    public void authenticate(AuthenticationRequest request) {
+//        authenticationManager.authenticate((
+//                new UsernamePasswordAuthenticationToken(request.getEmail(),
+//                        request.getPassword())
+//                )
+//        );
+//        var user = polyclinicUserRepository.findByEmail(request.getEmail()).orElseThrow();
+//        var jwtToken = jwtService.generateToken(user);
+//    }
 }
