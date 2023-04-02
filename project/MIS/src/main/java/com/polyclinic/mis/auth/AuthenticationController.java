@@ -5,6 +5,8 @@ import com.polyclinic.mis.models.PolyclinicUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.parameters.P;
@@ -17,13 +19,19 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class AuthenticationController {
     private final AuthenticationService authenticationService;
+
     @Autowired
     private UserService userService;
+    @Autowired
+    private PolyclinicUserDetailsService polyclinicUserDetailsService;
+    @Autowired
+    private final AuthenticationManager authenticationManager;
 
     @GetMapping("/Register")
     public String ShowRegister(Model model){
         PolyclinicUser polyclinicUser = new PolyclinicUser();
         model.addAttribute("polyclinicUser",polyclinicUser);
+
         return "/Auth/Register";
     }
 //    @PostMapping("/Register")
@@ -34,7 +42,11 @@ public class AuthenticationController {
 @PostMapping("/Register")
     public String Register(@ModelAttribute("user")PolyclinicUser user){
     userService.saveUser(user);
-
+    authenticationManager.authenticate((
+                    new UsernamePasswordAuthenticationToken(user.getEmail(),
+                            user.getPassword())
+            )
+    );
     return "redirect:/";
 }
     @GetMapping("/Authenticate")
@@ -48,6 +60,15 @@ public class AuthenticationController {
 //        authenticationService.authenticate(request);
 //        return "redirect:/";
 //    }
+    @PostMapping("/Authenticate")
+    public String Authenticate(@ModelAttribute("user")PolyclinicUser user){
+        authenticationManager.authenticate((
+                        new UsernamePasswordAuthenticationToken(user.getEmail(),
+                                user.getPassword())
+                )
+        );
+        return "redirect:/";
+    }
 }
 
 

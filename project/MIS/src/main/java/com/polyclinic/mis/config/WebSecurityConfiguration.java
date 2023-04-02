@@ -24,6 +24,7 @@ public class WebSecurityConfiguration{
     @Autowired
     private PolyclinicUserDetailsService userDetailsService;
 
+
 //    @Bean
 //    public AuthenticationManager userDetailsService(AuthenticationManagerBuilder auth) throws Exception {
 //        auth
@@ -40,17 +41,18 @@ public class WebSecurityConfiguration{
                 .requestMatchers("/").permitAll()
                 .requestMatchers("/Authenticate").permitAll()
                 .requestMatchers("/Register").permitAll()
-                .requestMatchers("/Analyses").hasAnyAuthority()
+                .requestMatchers("/Analyses").hasAuthority("Admin")
+                .requestMatchers("/Examinations").authenticated()
                 .requestMatchers("/admin/**").hasAuthority("Admin").anyRequest()
                 .authenticated().and().csrf().disable().formLogin()
-                .loginPage("/Authenticate").failureUrl("/login?error=true")
+                .loginPage("/Authenticate").failureUrl("/Authenticate?error=true")
                 .defaultSuccessUrl("/")
                 .usernameParameter("email")
                 .passwordParameter("password")
                 .and().logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/login").and().exceptionHandling()
-                .accessDeniedPage("/access-denied");
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout")).deleteCookies("JSESSIONID")
+                .logoutSuccessUrl("/").and().exceptionHandling()
+                .accessDeniedPage("/access-denied").and().userDetailsService(userDetailsService);
         return http.build();
     }
 
