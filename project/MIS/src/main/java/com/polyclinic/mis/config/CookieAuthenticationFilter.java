@@ -21,7 +21,9 @@ public class CookieAuthenticationFilter extends OncePerRequestFilter {
                 .findFirst();
         cookieAuth.ifPresent(cookie ->
                 SecurityContextHolder.getContext().setAuthentication((
-                        new PreAuthenticatedAuthenticationToken(cookie.getValue(),null))
-                );
+                        new PreAuthenticatedAuthenticationToken(cookie.getValue(),null)
+                        )
+                ));
+        filterChain.doFilter(request, response);
     }
 }
