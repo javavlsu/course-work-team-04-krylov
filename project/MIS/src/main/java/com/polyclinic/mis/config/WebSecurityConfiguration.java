@@ -35,33 +35,41 @@ public class WebSecurityConfiguration{
 //        return auth.build();
 //    }
 
-    @Bean
-    public AccessDeniedHandler accessDeniedHandler(){
-        return new CustomAccessDeniedHandler();
-    }
+//    @Bean
+//    public AccessDeniedHandler accessDeniedHandler(){
+//        return new CustomAccessDeniedHandler();
+//    }
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        http.
-                authorizeRequests()
+        http
+                .authorizeHttpRequests()
                 .requestMatchers("/").permitAll()
                 .requestMatchers("/Authenticate").permitAll()
                 .requestMatchers("/Register").permitAll()
-                .requestMatchers("/Analyses").hasAuthority("Admin")
-                .requestMatchers("/Examinations").authenticated()
-                .requestMatchers("/admin/**").hasAuthority("Admin").anyRequest()
-                .authenticated().and().csrf().disable()
-                .formLogin().loginPage("/Authenticate").failureUrl("/Authenticate?error=true").successForwardUrl("/")
-                .defaultSuccessUrl("/")
+//                .requestMatchers("/Analyses").hasAuthority("Admin")
+                .requestMatchers("/Examinations/**").authenticated()
+//                .requestMatchers("/admin/**").hasAuthority("Admin").anyRequest().authenticated()
+                .and()
+//                .csrf().disable()
+                .formLogin()
+                .loginPage("/Authenticate")
+                .loginProcessingUrl("/Authenticate")
+                .failureUrl("/Authenticate?error=true")
+//                .successForwardUrl("/")
+//                .defaultSuccessUrl("/")
                 .usernameParameter("email")
                 .passwordParameter("password")
                 .and().logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout")).deleteCookies("JSESSIONID")
-                .logoutSuccessUrl("/").and().exceptionHandling()
-                .accessDeniedHandler(accessDeniedHandler())
+//                .logoutSuccessUrl("/")
+//                .and().exceptionHandling()
+//                .accessDeniedHandler(accessDeniedHandler())
 
                 .and()
-                .userDetailsService(userDetailsService);
+                .userDetailsService(userDetailsService)
+                ;
+//        http.httpBasic();
         return http.build();
     }
 
