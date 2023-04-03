@@ -29,8 +29,8 @@ public class AuthenticationController {
 
     @GetMapping("/Register")
     public String ShowRegister(Model model){
-//        PolyclinicUser polyclinicUser = new PolyclinicUser();
-//        model.addAttribute("polyclinicUser",polyclinicUser);
+        PolyclinicUser polyclinicUser = new PolyclinicUser();
+        model.addAttribute("polyclinicUser",polyclinicUser);
 
         return "/Auth/Register";
     }
@@ -39,18 +39,16 @@ public class AuthenticationController {
 //        authenticationService.register(request);
 //        return "redirect:/";
 //    }
-
-
-//@PostMapping("/Register")
-//    public String Register(@ModelAttribute("user")PolyclinicUser user){
-//    userService.saveUser(user);
-//    authenticationManager.authenticate((
-//                    new UsernamePasswordAuthenticationToken(user.getEmail(),
-//                            user.getPassword())
-//            )
-//    );
-//    return "redirect:/";
-//}
+@PostMapping("/Register")
+    public String Register(@ModelAttribute("user")PolyclinicUser user){
+    userService.saveUser(user);
+    authenticationManager.authenticate((
+                    new UsernamePasswordAuthenticationToken(user.getEmail(),
+                            user.getPassword())
+            )
+    );
+    return "redirect:/";
+}
     @GetMapping("/Authenticate")
     public String ShowAuthenticate(Model model){
 //        PolyclinicUser polyclinicUser = new PolyclinicUser();

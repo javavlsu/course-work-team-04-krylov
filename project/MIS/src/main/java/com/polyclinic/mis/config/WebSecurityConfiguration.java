@@ -35,10 +35,10 @@ public class WebSecurityConfiguration{
 //        return auth.build();
 //    }
 
-//    @Bean
-//    public AccessDeniedHandler accessDeniedHandler(){
-//        return new CustomAccessDeniedHandler();
-//    }
+    @Bean
+    public AccessDeniedHandler accessDeniedHandler(){
+        return new CustomAccessDeniedHandler();
+    }
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
