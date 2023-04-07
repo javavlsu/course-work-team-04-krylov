@@ -42,12 +42,12 @@ public class AuthenticationController {
 @PostMapping("/Register")
     public String Register(@ModelAttribute("user")PolyclinicUser user){
     userService.saveUser(user);
-    authenticationManager.authenticate((
-                    new UsernamePasswordAuthenticationToken(user.getEmail(),
-                            user.getPassword())
-            )
-    );
-    return "redirect:/";
+//    authenticationManager.authenticate((
+//                    new UsernamePasswordAuthenticationToken(user.getEmail(),
+//                            user.getPassword())
+//            )
+//    );
+    return "redirect:/Authenticate";
 }
     @GetMapping("/Authenticate")
     public String ShowAuthenticate(Model model){

@@ -44,9 +44,12 @@ public class WebSecurityConfiguration{
 
         http
                 .authorizeHttpRequests()
-                .requestMatchers("/").permitAll()
+                .requestMatchers("/**").permitAll()
                 .requestMatchers("/Authenticate").permitAll()
                 .requestMatchers("/Register").permitAll()
+                .requestMatchers("/Patients/Create")
+                //.hasAuthority("CanRegisterAsPatient")
+                .authenticated()
 //                .requestMatchers("/Analyses").hasAuthority("Admin")
                 .requestMatchers("/Examinations/**").authenticated()
 //                .requestMatchers("/admin/**").hasAuthority("Admin").anyRequest().authenticated()
