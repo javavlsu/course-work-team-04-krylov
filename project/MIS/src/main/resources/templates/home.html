@@ -50,18 +50,18 @@
                 <a href="/Patients/Create" class="btn btn-primary btn-lg px-4 gap-3">Подтвердить данные</a>
             </div>
         </div>
-        <div sec:authorize="hasAuthority('Assistant')">
+        <div sec:authorize="hasAnyAuthority('Assistant','Admin')">
         <h3 class="display-5 fw-bold">Лаборант</h3>
         <p class="lead mb-4">Доступные Вам функции представлены ниже</p>
         <div class="d-grid gap-2  justify-content-sm-center">
-            <a href="/Analyses" class="btn btn-primary btn-lg px-4 gap-3">Список анализов</a>
+            <a href="/Analyses/Index" class="btn btn-primary btn-lg px-4 gap-3">Список анализов</a>
             <a href="/Analyses/Create" class="btn btn-primary btn-lg px-4 gap-3">Создать анализ</a>
             <a href="/AnalysisReferrals" class="btn btn-primary btn-lg px-4 gap-3">Список направлений на анализ</a>
             <a href="/Patients" class="btn btn-primary btn-lg px-4 gap-3">Список пациентов</a>
         </div>
         </div>
 
-        <div sec:authorize="hasAuthority('FunctionalDiagnosticsDoctor')">
+        <div sec:authorize="hasAnyAuthority('FunctionalDiagnosticsDoctor','Admin')">
         <h3 class="display-5 fw-bold">Врач функциональной диагностики</h3>
         <p class="lead mb-4">Доступные Вам функции представлены ниже</p>
         <div class="d-grid gap-2  justify-content-sm-center">
@@ -72,7 +72,7 @@
         </div>
         </div>
 
-        <div sec:authorize="hasAuthority('Doctor')">
+        <div sec:authorize="hasAnyAuthority('Doctor','Admin')">
         <h3 class="display-5 fw-bold">Доктор</h3>
         <p class="lead mb-4">Доступные Вам функции представлены ниже</p>
         <div class="d-grid gap-2 justify-content-sm-center">
@@ -88,7 +88,7 @@
         </div>
         </div>
 
-        <div sec:authorize="hasAuthority('Receptionist')">
+        <div sec:authorize="hasAnyAuthority('Receptionist','Admin')">
 
         <h3 class="display-5 fw-bold">Работник регистратуры</h3>
         <p class="lead mb-4">Доступные Вам функции представлены ниже</p>
@@ -98,7 +98,7 @@
         </div>
         </div>
 
-        <div sec:authorize="hasAuthority('Admin')">
+        <div sec:authorize="hasAnyAuthority('Admin','Admin')">
 
         <h3 class="display-5 fw-bold">Админ</h3>
         <p class="lead mb-4">Доступные Вам функции представлены ниже</p>
@@ -107,7 +107,7 @@
         </div>
         </div>
 
-        <div sec:authorize="hasAuthority('Patient')">
+        <div sec:authorize="hasAnyAuthority('Patient','Admin')">
 
         <h3 class="display-5 fw-bold">Пациент</h3>
 

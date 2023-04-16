@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.Optional;
 
@@ -47,7 +48,7 @@ public class DoctorAppointmentTest {
                 .usingRecursiveComparison()
                 .isEqualTo(readDoctorTarget.get());
         Optional<Diagnosis> readDiagnosis = diagnosisService.getById("A00.0");
-        Date date = Date.valueOf(LocalDate.now());
+        Timestamp date = Timestamp.valueOf("2023-02-01 18:38:03");
 
         DoctorReferral doctorReferral = new DoctorReferral(readDiagnosis.get(),readDoctor.get(),readPatient.get(),readDoctorTarget.get(),"676","Выписано",date,"Нервы кистей рук","Расписание");
         DoctorReferral createdDoctorReferral = doctorReferralService.add(doctorReferral);
@@ -88,7 +89,7 @@ public class DoctorAppointmentTest {
                 .usingRecursiveComparison()
                 .isEqualTo(readDoctorTarget.get());
         Optional<Diagnosis> readDiagnosis = diagnosisService.getById("A00.0");
-        Date date = Date.valueOf(LocalDate.now());
+        Timestamp date = Timestamp.valueOf("2023-02-01 18:38:03");
 
         DoctorReferral doctorReferral = new DoctorReferral(readDiagnosis.get(),readDoctor.get(),readPatient.get(),readDoctorTarget.get(),"676","Выписано",date,"Нервы кистей рук","Расписание");
         DoctorReferral createdDoctorReferral = doctorReferralService.add(doctorReferral);
@@ -135,7 +136,7 @@ public class DoctorAppointmentTest {
                 .usingRecursiveComparison()
                 .isEqualTo(readDoctorTarget.get());
         Optional<Diagnosis> readDiagnosis = diagnosisService.getById("A00.0");
-        Date date = Date.valueOf(LocalDate.now());
+        Timestamp date = Timestamp.valueOf("2023-02-01 18:38:03");
 
         DoctorReferral doctorReferral = new DoctorReferral(readDiagnosis.get(),readDoctor.get(),readPatient.get(),readDoctorTarget.get(),"676","Выписано",date,"Нервы кистей рук","Расписание");
         DoctorReferral createdDoctorReferral = doctorReferralService.add(doctorReferral);

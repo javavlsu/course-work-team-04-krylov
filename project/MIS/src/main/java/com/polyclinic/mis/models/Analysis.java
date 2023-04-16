@@ -5,8 +5,12 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.flywaydb.core.api.logging.Log;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 /**
  * Анализ
@@ -25,9 +29,11 @@ public class Analysis {
     private String report;
     @ManyToOne
     private Assistant assistant;
-    private Date date;
+    //    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    private LocalDateTime date;
 
-    public Analysis(Patient patient, String type, String report, Assistant assistant, Date date) {
+    public Analysis(Patient patient, String type, String report, Assistant assistant, LocalDateTime date) {
         this.patient = patient;
         this.type = type;
         this.report = report;

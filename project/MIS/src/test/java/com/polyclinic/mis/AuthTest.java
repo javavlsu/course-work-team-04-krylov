@@ -11,10 +11,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class AuthTest {
     @Autowired
     private UserService userService;
-    @Test
-    void readUserRoles(){
-
-        var user = userService.findUserByEmail("krylov.em2002@gmail.com");
-        System.out.println(user.getEmail()+" "+user.getPassword()+" "+user.getRoles());
-    }
+//    @Test
+//    void readUserRoles(){
+//
+//        var user = userService.findUserByEmail("krylov.em2002@gmail.com");
+//        System.out.println(user.getEmail()+" "+user.getPassword()+" "+user.getRoles());
+//    }
 }

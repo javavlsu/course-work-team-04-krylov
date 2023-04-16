@@ -13,6 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -40,7 +43,15 @@ public class AnalysisTest {
         assertThat(patient)
                 .usingRecursiveComparison()
                 .isEqualTo(readPatient.get());
-        Date date = Date.valueOf("2023-02-01");
+
+
+
+        String dateStr = "2023-02-01 18:38";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime date = LocalDateTime.parse(dateStr, formatter);
+
+
+//        LocalDateTime date = LocalDateTime.valueOf("2023-02-01 18:38:03");
         Analysis analysis = new Analysis(readPatient.get(),"Общий анализ крови","Заключение",readAssistant.get(),date);
         Analysis createdAnalysis = analysisService.add(analysis);
         Optional<Analysis> readAnalysis= analysisService.getById(createdAnalysis.getId());
@@ -63,7 +74,9 @@ public class AnalysisTest {
         assertThat(patient)
                 .usingRecursiveComparison()
                 .isEqualTo(readPatient.get());
-        Date date = Date.valueOf("2023-02-01");
+        String dateStr = "2023-02-01 18:38";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime date = LocalDateTime.parse(dateStr, formatter);
         Analysis analysis = new Analysis(readPatient.get(),"Общий анализ крови","Заключение",readAssistant.get(),date);
         Analysis createdAnalysis = analysisService.add(analysis);
         Optional<Analysis> readAnalysis= analysisService.getById(createdAnalysis.getId());
@@ -90,7 +103,9 @@ public class AnalysisTest {
         assertThat(patient)
                 .usingRecursiveComparison()
                 .isEqualTo(readPatient.get());
-        Date date = Date.valueOf("2023-02-01");
+        String dateStr = "2023-02-01 18:38";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime date = LocalDateTime.parse(dateStr, formatter);
         Analysis analysis = new Analysis(readPatient.get(),"Общий анализ крови","Заключение",readAssistant.get(),date);
         Analysis createdAnalysis = analysisService.add(analysis);
         Optional<Analysis> readAnalysis= analysisService.getById(createdAnalysis.getId());

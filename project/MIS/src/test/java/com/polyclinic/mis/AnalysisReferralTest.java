@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.Optional;
 
@@ -50,7 +51,7 @@ public class AnalysisReferralTest {
                 .usingRecursiveComparison()
                 .isEqualTo(readAssistant.get());
         Optional<Diagnosis> readDiagnosis = diagnosisService.getById("A00.0");
-        Date dateOfTaking = Date.valueOf(LocalDate.now());
+        Timestamp dateOfTaking = Timestamp.valueOf("2023-02-01 18:38:03");
         AnalysisReferral analysisReferral = new AnalysisReferral(readDiagnosis.get(),readDoctor.get(),readPatient.get(),"Клинико-диагностическая лаборатория",readAssistant.get(),"292","Выписано",dateOfTaking,"Кровь на сахар","Расписание");
         AnalysisReferral createdAnalysisReferral = analysisReferralService.add(analysisReferral);
         Optional<AnalysisReferral> readAnalysisReferral = analysisReferralService.getById(createdAnalysisReferral.getId());
@@ -80,7 +81,7 @@ public class AnalysisReferralTest {
                 .usingRecursiveComparison()
                 .isEqualTo(readAssistant.get());
         Optional<Diagnosis> readDiagnosis = diagnosisService.getById("A00.0");
-        Date dateOfTaking =Date.valueOf(LocalDate.now());
+        Timestamp dateOfTaking = Timestamp.valueOf("2023-02-01 18:38:03");
         AnalysisReferral analysisReferral = new AnalysisReferral(readDiagnosis.get(),readDoctor.get(),readPatient.get(),"Клинико-диагностическая лаборатория",readAssistant.get(),"292","Выписано",dateOfTaking,"Кровь на сахар","Расписание");
         AnalysisReferral createdAnalysisReferral = analysisReferralService.add(analysisReferral);
         Optional<AnalysisReferral> readAnalysisReferral = analysisReferralService.getById(createdAnalysisReferral.getId());
@@ -114,7 +115,7 @@ public class AnalysisReferralTest {
                 .usingRecursiveComparison()
                 .isEqualTo(readAssistant.get());
         Optional<Diagnosis> readDiagnosis = diagnosisService.getById("A00.0");
-        Date dateOfTaking = Date.valueOf(LocalDate.now());
+        Timestamp dateOfTaking = Timestamp.valueOf("2023-02-01 18:38:03");
         AnalysisReferral analysisReferral = new AnalysisReferral(readDiagnosis.get(),readDoctor.get(),readPatient.get(),"Клинико-диагностическая лаборатория",readAssistant.get(),"292","Выписано",dateOfTaking,"Кровь на сахар","Расписание");
         AnalysisReferral createdAnalysisReferral = analysisReferralService.add(analysisReferral);
         Optional<AnalysisReferral> readAnalysisReferral = analysisReferralService.getById(createdAnalysisReferral.getId());

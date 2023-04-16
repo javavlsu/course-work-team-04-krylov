@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Date;
+import java.sql.Timestamp;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -24,11 +26,11 @@ public class DoctorReferral {
     private Doctor doctorTarget;
     private String cabinetNum;
     private String status;
-    private Date dateOfTaking;
+    private Timestamp dateOfTaking;
     private String whatToResearch;
     private String schedule;
 
-    public DoctorReferral(Diagnosis diagnosis, Doctor doctorInitial, Patient patient, Doctor doctorTarget, String cabinetNum, String status, Date dateOfTaking, String whatToResearch, String schedule) {
+    public DoctorReferral(Diagnosis diagnosis, Doctor doctorInitial, Patient patient, Doctor doctorTarget, String cabinetNum, String status, Timestamp dateOfTaking, String whatToResearch, String schedule) {
         this.diagnosis = diagnosis;
         this.doctorInitial = doctorInitial;
         this.patient = patient;

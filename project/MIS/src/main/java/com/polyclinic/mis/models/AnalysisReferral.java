@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.thymeleaf.spring6.processor.SpringOptionFieldTagProcessor;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  * Направление на анализ
@@ -31,11 +32,11 @@ public class AnalysisReferral {
     private Assistant assistant;
     private String cabinetNum;
     private String status;
-    private Date dateOfTaking;
+    private Timestamp dateOfTaking;
     private String whatToResearch;
     private String schedule;
 
-    public AnalysisReferral(Diagnosis diagnosis, Doctor doctor, Patient patient, String laboratory, Assistant assistant, String cabinetNum, String status, Date dateOfTaking, String whatToResearch, String schedule) {
+    public AnalysisReferral(Diagnosis diagnosis, Doctor doctor, Patient patient, String laboratory, Assistant assistant, String cabinetNum, String status, Timestamp dateOfTaking, String whatToResearch, String schedule) {
         this.diagnosis = diagnosis;
         this.doctor = doctor;
         this.patient = patient;

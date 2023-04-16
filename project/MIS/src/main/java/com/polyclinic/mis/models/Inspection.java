@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  * Осмотр
@@ -24,12 +25,12 @@ public class Inspection {
     private String recipe;
     @ManyToOne
     private Diagnosis diagnosis;
-    private Date date;
+    private Timestamp date;
     private String type;
     @ManyToOne
     private Doctor doctor;
 
-    public Inspection(Patient patient, String complaint, String recipe, Diagnosis diagnosis, Date date, String type, Doctor doctor) {
+    public Inspection(Patient patient, String complaint, String recipe, Diagnosis diagnosis, Timestamp date, String type, Doctor doctor) {
         this.patient = patient;
         this.complaint = complaint;
         this.recipe = recipe;

@@ -44,14 +44,26 @@ public class WebSecurityConfiguration{
 
         http
                 .authorizeHttpRequests()
+                //Главная
                 .requestMatchers("/").permitAll()
+                //Регистрация
                 .requestMatchers("/Authenticate").permitAll()
                 .requestMatchers("/Register").permitAll()
+                //Подтверждение данных
                 .requestMatchers("/Patients/Create").hasAuthority("CanRegisterAsPatient")
                 .requestMatchers("/Receptionists/Create").hasAuthority("CanRegisterAsReceptionist")
                 .requestMatchers("/FunctionalDiagnosticsDoctors/Create").hasAuthority("CanRegisterAsFunctionalDiagnosticsDoctor")
                 .requestMatchers("/Doctors/Create").hasAuthority("CanRegisterAsDoctor")
                 .requestMatchers("/Assistants/Create").hasAuthority("CanRegisterAsAssistant")
+                //Админ
+                .requestMatchers("/AssignUserToARole/Create").hasAuthority("Admin")
+                //Анализ
+//                .requestMatchers("/Analyses").hasAnyAuthority("Doctor","Assistant","Admin")
+                .requestMatchers("/Analyses/Details").hasAnyAuthority("Doctor","Assistant","Admin")
+                .requestMatchers("/Analyses/Index/**").hasAnyAuthority("Doctor","Assistant","Admin")
+                .requestMatchers("/Analyses/Create").hasAnyAuthority("Assistant","Admin")
+                .requestMatchers("/Analyses/Update").hasAnyAuthority("Assistant","Admin")
+
 //                .authenticated()
 //                .requestMatchers("/Analyses").hasAuthority("Admin")
 //                .requestMatchers("/Examinations/**").authenticated()

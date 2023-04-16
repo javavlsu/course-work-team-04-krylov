@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
+
 @Service
 public class UserService {
     private PolyclinicUserRepository userRepository;
@@ -43,5 +45,11 @@ public class UserService {
     public PolyclinicUser updateUser(PolyclinicUser user) {
         return userRepository.saveAndFlush(user);
 
+    }
+    public List<PolyclinicUser> getAllUsers(){
+        return userRepository.findAll();
+    }
+    public PolyclinicUser getUserById(long id){
+        return userRepository.findById(id).get();
     }
 }

@@ -30,7 +30,7 @@
             </div>
             <div class="form-group">
                 <label class="control-label">Дата</label>
-                <input class="form-control" type="date" th:field = "*{analysis.date}"/>
+                <input class="form-control" type="datetime-local" th:field = "*{analysis.date}"/>
             </div>
             <div class="form-group">
                 <p></p>
@@ -39,7 +39,6 @@
         </form>
     </div>
 </div>
-<p>Glkj</p>
 <p th:utext="*{user.email}"></p>
 <div>
     <a href="/Analyses">Назад к списку</a>

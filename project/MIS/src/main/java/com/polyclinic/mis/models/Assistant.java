@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -52,6 +53,9 @@ public class Assistant {
     }
     public String ReturnFIOAndBirthDate()
     {
-            return lastName + " " + firstName + " " + middleName + " " + this.birthDate.toString();
+//            return lastName + " " + firstName + " " + middleName + " " + this.birthDate.toString();
+        String pattern = "dd-MM-yyyy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        return lastName + " " + firstName + " " + middleName + " " + simpleDateFormat.format(this.birthDate);
     }
 }

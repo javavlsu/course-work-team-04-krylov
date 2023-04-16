@@ -6,9 +6,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.boot.context.properties.bind.DefaultValue;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.Nullable;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -91,11 +93,13 @@ public class Patient {
                 '}';
     }
 
-    public String ReturnBirthDateForDisplay()
+    public String ReturnBirthDate()
     {
-            return this.birthDate.toString();
+        String pattern = "dd-MM-yyyy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        return simpleDateFormat.format(this.birthDate);
     }
-    public String ReturnPolisEndDateForDisplay()
+    public String ReturnPolisEndDate()
     {
             return this.polisEndDate.toString();
     }
@@ -105,6 +109,8 @@ public class Patient {
     }
     public String ReturnFIOAndBirthDate()
     {
-            return lastName + " " + firstName + " " + middleName + " " + this.birthDate.toString();
+        String pattern = "dd-MM-yyyy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        return lastName + " " + firstName + " " + middleName + " " + simpleDateFormat.format(this.birthDate);
     }
 }

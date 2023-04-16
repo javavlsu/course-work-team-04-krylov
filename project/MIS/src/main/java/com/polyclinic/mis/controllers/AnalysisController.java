@@ -5,15 +5,17 @@ import com.polyclinic.mis.models.Analysis;
 import com.polyclinic.mis.models.Diagnosis;
 import com.polyclinic.mis.service.impl.AnalysisServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -22,10 +24,40 @@ public class AnalysisController {
     AnalysisServiceImpl analysisService;
     @Autowired
     UserService userService;
-    @GetMapping("/Analyses")
+    @GetMapping("/Analyses/Index")
     public String Index(Model model){
-        Iterable<Analysis> analyses = analysisService.getAll();
-            model.addAttribute("analyses",analyses);
+//        Iterable<Analysis> analyses = analysisService.getAll();
+//        model.addAttribute("analyses",analyses);
+//        return "/Analyses/Index";
+        return findPaginated(1, "date" , "desc","","",model);
+    }
+
+    @GetMapping("/Analyses/Index/{pageNumber}")
+    public String findPaginated(
+            @PathVariable (value = "pageNumber") int pageNumber,
+            @RequestParam(value = "sortField") String sortField,
+            @RequestParam(value = "sortDir") String sortDir,
+            @RequestParam(value = "patientFIO") String patientFio,
+            @RequestParam(value = "patientBirthDate") String patientBirthDate,
+            Model model){
+        //todo page size from page https://www.youtube.com/watch?v=Aie8n12EFQc 11 00
+        int pageSize = 5;
+
+
+        Page<Analysis> page = analysisService.findPaginated(pageNumber,pageSize,sortField,sortDir,patientFio,patientBirthDate);
+        List<Analysis> analysisList = page.getContent();
+
+        model.addAttribute("currentPage", pageNumber);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
+        model.addAttribute("analyses", analysisList);
+
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir",sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc")?"desc":"asc");
+        model.addAttribute("patientFIO",patientFio);
+        model.addAttribute("patientBirthDate",patientBirthDate);
+
         return "/Analyses/Index";
     }
     @GetMapping("/Analyses/Create")
@@ -41,7 +73,7 @@ public class AnalysisController {
     @PostMapping("/Analyses/Create")
     public String Create(@ModelAttribute("analysis")Analysis analysis){
         analysisService.add(analysis);
-        return "redirect:/Analyses";
+        return "redirect:/Analyses/Index";
     }
     @GetMapping("Analyses/Edit/{id}")
     public String ShowEdit(@PathVariable(value = "id") long id, Model model){
@@ -58,7 +90,7 @@ public class AnalysisController {
     @GetMapping("Analyses/Delete/{id}")
     public String Delete(@PathVariable (value = "id") long id, Model model){
         analysisService.delete(id);
-        return "redirect:/Analyses";
+        return "redirect:/Analyses/Index";
     }
     @GetMapping("Analyses/Details/{id}")
     public String Details(@PathVariable (value = "id") long id, Model model){

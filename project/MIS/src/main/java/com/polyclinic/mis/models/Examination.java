@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 @Entity
 @Data
@@ -17,13 +18,13 @@ public class Examination {
     private long id;
     private String type;
     private String report;
-    private Date date;
+    private Timestamp date;
     @ManyToOne
     private FunctionalDiagnosticsDoctor functionalDiagnosticsDoctor;
     @ManyToOne
     private Patient patient;
 
-    public Examination(String type, String report, Date date, FunctionalDiagnosticsDoctor functionalDiagnosticsDoctor, Patient patient) {
+    public Examination(String type, String report, Timestamp date, FunctionalDiagnosticsDoctor functionalDiagnosticsDoctor, Patient patient) {
         this.type = type;
         this.report = report;
         this.date = date;

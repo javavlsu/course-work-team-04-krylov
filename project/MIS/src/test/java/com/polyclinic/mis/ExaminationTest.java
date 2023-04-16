@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.Optional;
 
@@ -41,7 +42,7 @@ public class ExaminationTest {
         assertThat(patient)
                 .usingRecursiveComparison()
                 .isEqualTo(readPatient.get());
-        Date date = Date.valueOf(LocalDate.now());
+        Timestamp date = Timestamp.valueOf("2023-02-01 18:38:03");
 
         Examination examination = new Examination("Электрокардиограмма","Заключение1",date,readFunctionalDiagnosticsDoctor.get(),readPatient.get());
         Examination createdExamination = examinationService.add(examination);
@@ -65,7 +66,7 @@ public class ExaminationTest {
         assertThat(patient)
                 .usingRecursiveComparison()
                 .isEqualTo(readPatient.get());
-        Date date = Date.valueOf(LocalDate.now());
+        Timestamp date = Timestamp.valueOf("2023-02-01 18:38:03");
 
         Examination examination = new Examination("Электрокардиограмма","Заключение1",date,readFunctionalDiagnosticsDoctor.get(),readPatient.get());
         Examination createdExamination = examinationService.add(examination);
@@ -93,7 +94,7 @@ public class ExaminationTest {
         assertThat(patient)
                 .usingRecursiveComparison()
                 .isEqualTo(readPatient.get());
-        Date date = Date.valueOf(LocalDate.now());
+        Timestamp date = Timestamp.valueOf("2023-02-01 18:38:03");
 
         Examination examination = new Examination("Электрокардиограмма","Заключение1",date,readFunctionalDiagnosticsDoctor.get(),readPatient.get());
         Examination createdExamination = examinationService.add(examination);

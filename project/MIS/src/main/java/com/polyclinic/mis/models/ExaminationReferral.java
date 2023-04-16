@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  * Направление на обследование
@@ -29,12 +30,12 @@ public class ExaminationReferral {
     private FunctionalDiagnosticsDoctor functionalDiagnosticsDoctor;
     private String cabinetNum;
     private String status;
-    private Date dateOfTaking;
+    private Timestamp dateOfTaking;
     private String whatToResearch;
     private String schedule;
 
 
-    public ExaminationReferral(Diagnosis diagnosis, Doctor doctor, Patient patient, String type, FunctionalDiagnosticsDoctor functionalDiagnosticsDoctor, String cabinetNum, String status, Date dateOfTaking, String whatToResearch, String schedule) {
+    public ExaminationReferral(Diagnosis diagnosis, Doctor doctor, Patient patient, String type, FunctionalDiagnosticsDoctor functionalDiagnosticsDoctor, String cabinetNum, String status, Timestamp dateOfTaking, String whatToResearch, String schedule) {
         this.diagnosis = diagnosis;
         this.doctor = doctor;
         this.patient = patient;

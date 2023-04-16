@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.Optional;
 
@@ -46,7 +47,7 @@ public class InspectionTest {
         assertThat(doctor)
                 .usingRecursiveComparison()
                 .isEqualTo(readDoctor.get());
-        Date dateOfTaking = Date.valueOf(LocalDate.now());
+        Timestamp dateOfTaking = Timestamp.valueOf("2023-02-01 18:38:03");
         Inspection inspection = new Inspection(readPatient.get(),"Жалобы","Рецепт",readDiagnosis.get(),dateOfTaking,"Первичный осмотр",readDoctor.get());
         Inspection createdInspection = inspectionService.add(inspection);
         Optional<Inspection> readInspection = inspectionService.getById(createdInspection.getId());
@@ -70,7 +71,8 @@ public class InspectionTest {
         assertThat(doctor)
                 .usingRecursiveComparison()
                 .isEqualTo(readDoctor.get());
-        Date dateOfTaking = Date.valueOf(LocalDate.now());
+        Timestamp dateOfTaking = Timestamp.valueOf("2023-02-01 18:38:03");
+
         Inspection inspection = new Inspection(readPatient.get(),"Жалобы","Рецепт",readDiagnosis.get(),dateOfTaking,"Первичный осмотр",readDoctor.get());
         Inspection createdInspection = inspectionService.add(inspection);
         Optional<Inspection> readInspection = inspectionService.getById(createdInspection.getId());
@@ -99,7 +101,8 @@ public class InspectionTest {
         assertThat(doctor)
                 .usingRecursiveComparison()
                 .isEqualTo(readDoctor.get());
-        Date dateOfTaking = Date.valueOf(LocalDate.now());
+        Timestamp dateOfTaking = Timestamp.valueOf("2023-02-01 18:38:03");
+
         Inspection inspection = new Inspection(readPatient.get(),"Жалобы","Рецепт",readDiagnosis.get(),dateOfTaking,"Первичный осмотр",readDoctor.get());
         Inspection createdInspection = inspectionService.add(inspection);
         Optional<Inspection> readInspection = inspectionService.getById(createdInspection.getId());

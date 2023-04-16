@@ -7,60 +7,121 @@
 <h1>Анализы</h1>
 
 <p style="margin-top: 20px">
-  <a href="Analyses/Create" class="btn btn-secondary">Создать</a>
+  <a href="/Analyses/Create" class="btn btn-secondary">Создать</a>
 </p>
-<form method="get" action="Index">
+<!--<form method="get" action="Index">-->
+<!--  <p>-->
+<!--  <h4>Поиск</h4>-->
+<!--  <p style="color:red;">Ошибка</p>-->
+<!--  <input type="search" placeholder="Введите слово для поиска" name="PatientFIO" style="width:600px;" />-->
+<!--  <p>Дата рождения пациента (Необязательно)</p>-->
+<!--  <input type="date" name="PatientBirthDate" style="width:300px;" />-->
+<!--  <input type="submit" value="Search" class="btn btn-primary" />-->
+<!--  <a href="">Получить список всех пациентов</a>-->
+<!--  </p>-->
+<!--</form>-->
+<form method="get" action="/Analyses/Index/1">
   <p>
   <h4>Поиск</h4>
   <p style="color:red;">Ошибка</p>
-  <input type="search" placeholder="Введите ФИО пациента (Обязательно)" name="PatientFIO" style="width:600px;" />
+  <input type="hidden" name = "sortField" th:value="${sortField}">
+  <input type="hidden" name="sortDir" th:value="${sortDir}">
+  <input type="search" placeholder="Введите ФИО пациента" name="patientFIO" style="width:600px;" required/>
   <p>Дата рождения пациента (Необязательно)</p>
-  <input type="date" name="PatientBirthDate" style="width:300px;" />
+  <input type="date" name="patientBirthDate" style="width:300px;" />
   <input type="submit" value="Search" class="btn btn-primary" />
-  <a href="">Получить список всех пациентов</a>
+  <a th:href="@{'/Analyses/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&patientFIO='+'&patientBirthDate'}">Получить список всех пациентов</a>
   </p>
 </form>
-<table class="table">
-  <thead>
-  <tr>
-    <th>
-      ФИО и дата рождения пациента
-    </th>
-    <th>
-      Тип
-    </th>
-    <th>
-      Заключение
-    </th>
-    <th>
-      ФИО Лаборанта
-    </th>
-    <th>
-      Дата проведения
-    </th>
-    <th></th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr th:each="el : ${analyses}">
-    <td th:text="${el.patient.ReturnFIOAndBirthDate}">
-    </td>
-    <td th:text="${el.type}">
-    </td>
-    <td th:text="${el.report}">
-    </td>
-    <td th:text="${el.assistant.ReturnFIOAndBirthDate}">
-    </td>
-    <td th:text="${el.date}">
-    </td>
-    <td>
-      <a th:href="@{/Analyses/Edit/{id}(id=${el.id})}">Edit</a> |
-      <a th:href="@{/Analyses/Details/{id}(id=${el.id})}">Details</a> |
-      <a th:href="@{/Analyses/Delete/{id}(id=${el.id})}">Delete</a>
-    </td>
-  </tr>
-  </tbody>
-</table>
 
+
+
+  <table class="table">
+    <thead>
+    <tr>
+      <th>
+        <a th:href="@{'/Analyses/Index/'+${currentPage}+'?sortField=patient.lastName&sortDir='+${reverseSortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate'+${patientBirthDate}}">
+          ФИО
+        </a>
+      </th>
+      <th>
+        <a th:href="@{'/Analyses/Index/'+${currentPage}+'?sortField=patient.birthDate&sortDir='+${reverseSortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate'+${patientBirthDate}}">
+          Дата рождения пациента
+        </a>
+      </th>
+      <th>
+        <a th:href="@{'/Analyses/Index/'+${currentPage}+'?sortField=type&sortDir='+${reverseSortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate'+${patientBirthDate}}">
+          Тип
+        </a>
+      </th>
+      <th>
+        <a th:href="@{'/Analyses/Index/'+${currentPage}+'?sortField=report&sortDir='+${reverseSortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate'+${patientBirthDate}}">
+          Заключение
+        </a>
+      </th>
+      <th>
+        <a th:href="@{'/Analyses/Index/'+${currentPage}+'?sortField=assistant.lastName&sortDir='+${reverseSortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate'+${patientBirthDate}}">
+          ФИО Лаборанта
+        </a>
+      </th>
+      <th>
+        <a th:href="@{'/Analyses/Index/'+${currentPage}+'?sortField=date&sortDir='+${reverseSortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate'+${patientBirthDate}}">
+          Дата проведения
+        </a>
+      </th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="el : ${analyses}">
+      <td th:text="${el.patient.ReturnFIO}"></td>
+      <td th:text="${el.patient.ReturnBirthDate}"></td>
+      <td th:text="${el.type}"></td>
+      <td th:text="${el.report}"></td>
+      <td th:text="${el.assistant.ReturnFIOAndBirthDate}"></td>
+      <!--    <td th:text="${el.date}">-->
+      <td th:text="${#temporals.format(el.date, 'dd-MM-yyyy HH:mm')}"></td></td>
+      <td>
+        <a th:href="@{/Analyses/Edit/{id}(id=${el.id})}">Edit</a> |
+        <a th:href="@{/Analyses/Details/{id}(id=${el.id})}">Details</a> |
+        <a th:href="@{/Analyses/Delete/{id}(id=${el.id})}">Delete</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <div th:if = "${totalPages > 1}">
+    <div class="row col-sm-10">
+      <div class="col-sm-2">
+        Количество записей: [[${totalItems}]]
+      </div>
+
+      <div class="col-sm-1">
+        <a th:if="${currentPage > 1}" th:href="@{'/Analyses/Index/'+${1}+'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate'+${patientBirthDate}}">Первая</a>
+        <span th:unless="${currentPage > 1}">Первая</span>
+      </div>
+      <div class="col-sm-1">
+        <a th:if="${currentPage > 1}" th:href="@{'/Analyses/Index/'+${currentPage - 1}+'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate'+${patientBirthDate}}">Назад</a>
+        <span th:unless="${currentPage > 1}">Назад</span>
+      </div>
+
+
+
+      <div class="col-sm-1">
+        <span th:each="i:${#numbers.sequence(1,totalPages)}">
+          <a th:if="${currentPage != i}" th:href="@{'/Analyses/Index/'+${i}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate'+${patientBirthDate}}">[[${i}]]</a>
+          <span th:unless="${currentPage != i}" >[[${i}]]</span> &nbsp; &nbsp;
+        </span>
+      </div>
+      <div class="col-sm-1">
+        <a th:if="${currentPage < totalPages}" th:href="@{'/Analyses/Index/'+${currentPage + 1}+'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate'+${patientBirthDate}}">Далее</a>
+        <span th:unless="${currentPage < totalPages}">Далее</span>
+      </div>
+      <div class="col-sm-1">
+        <a th:if="${currentPage < totalPages}" th:href="@{'/Analyses/Index/'+${totalPages}+'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate'+${patientBirthDate}}">Последняя</a>
+        <span th:unless="${currentPage < totalPages}">Последняя</span>
+      </div>
+    </div>
+
+  </div>
 </body>
 </html>

@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Date;
+import java.sql.Timestamp;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -17,14 +19,14 @@ public class DoctorAppointment {
 //    @ManyToOne
 //    private Patient patient;
 //    private String cabinetId;
-    private Date dateTime;
+    private Timestamp dateTime;
     private String status;
 //    @ManyToOne
 //    private Doctor doctor;
     @OneToOne
     private DoctorReferral doctorReferral;
 
-    public DoctorAppointment(Date dateTime, String status,DoctorReferral doctorReferral) {
+    public DoctorAppointment(Timestamp dateTime, String status,DoctorReferral doctorReferral) {
         //this.patient = patient;
         //this.cabinetId = cabinetId;
         this.dateTime = dateTime;

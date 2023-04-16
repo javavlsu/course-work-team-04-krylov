@@ -16,7 +16,7 @@ public class PatientServiceImpl implements PatientService {
     private PatientRepository patientRepository;
     @Override
     public Patient add(Patient patient) {
-        if (patient.getPolisEndDateString()!="")
+        if (patient.getPolisEndDate()!=null&&patient.getPolisEndDateString()!="")
         {
             patient.setPolisEndDate(Date.valueOf(patient.getPolisEndDateString()));
         }
