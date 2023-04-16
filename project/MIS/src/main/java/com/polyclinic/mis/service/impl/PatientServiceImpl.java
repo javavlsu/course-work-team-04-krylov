@@ -6,6 +6,7 @@ import com.polyclinic.mis.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,6 +16,10 @@ public class PatientServiceImpl implements PatientService {
     private PatientRepository patientRepository;
     @Override
     public Patient add(Patient patient) {
+        if (patient.getPolisEndDateString()!="")
+        {
+            patient.setPolisEndDate(Date.valueOf(patient.getPolisEndDateString()));
+        }
         return patientRepository.saveAndFlush(patient);
     }
     @Override

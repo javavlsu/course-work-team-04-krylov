@@ -16,41 +16,41 @@
                 <a href="/Authenticate" class="btn btn-primary btn-lg px-4 gap-3">Войти</a>
             </div>
         </div>
-        <div sec:authorize="hasRole('CanRegisterAsPatient')">
+        <div sec:authorize="hasAuthority('CanRegisterAsPatient')">
             <p class="lead mb-4">Для работы в системе как пациент необходимо подтвердить свои данные</p>
             <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
                 <a href="/Patients/Create" class="btn btn-primary btn-lg px-4 gap-3">Подтвердить данные</a>
             </div>
         </div>
 
-        <div sec:authorize="hasRole('CanRegisterAsDoctor')">
+        <div sec:authorize="hasAuthority('CanRegisterAsDoctor')">
             <p class="lead mb-4">Для работы в системе как врач необходимо подтвердить свои данные</p>
             <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
                 <a href="/Doctors/Create" class="btn btn-primary btn-lg px-4 gap-3">Подтвердить данные</a>
             </div>
         </div>
 
-        <div sec:authorize="hasRole('CanRegisterAsAssistant')">
+        <div sec:authorize="hasAuthority('CanRegisterAsAssistant')">
             <p class="lead mb-4">Для работы в системе как лаборант необходимо подтвердить свои данные</p>
             <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
                 <a href="/Assistants/Create" class="btn btn-primary btn-lg px-4 gap-3">Подтвердить данные</a>
             </div>
         </div>
 
-        <div sec:authorize="hasRole('CanRegisterAsFunctionalDiagnosticsDoctor')">
+        <div sec:authorize="hasAuthority('CanRegisterAsFunctionalDiagnosticsDoctor')">
             <p class="lead mb-4">Для работы в системе как врач функциональной диагностики необходимо подтвердить свои данные</p>
             <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
                 <a href="/FunctionalDiagnosticsDoctors/Create" class="btn btn-primary btn-lg px-4 gap-3">Подтвердить данные</a>
             </div>
         </div>
 
-        <div sec:authorize="hasRole('CanRegisterAsReceptionist')">
+        <div sec:authorize="hasAuthority('CanRegisterAsReceptionist')">
             <p class="lead mb-4">Для работы в системе как пациент необходимо подтвердить свои данные</p>
             <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
                 <a href="/Patients/Create" class="btn btn-primary btn-lg px-4 gap-3">Подтвердить данные</a>
             </div>
         </div>
-
+        <div sec:authorize="hasAuthority('Assistant')">
         <h3 class="display-5 fw-bold">Лаборант</h3>
         <p class="lead mb-4">Доступные Вам функции представлены ниже</p>
         <div class="d-grid gap-2  justify-content-sm-center">
@@ -59,6 +59,9 @@
             <a href="/AnalysisReferrals" class="btn btn-primary btn-lg px-4 gap-3">Список направлений на анализ</a>
             <a href="/Patients" class="btn btn-primary btn-lg px-4 gap-3">Список пациентов</a>
         </div>
+        </div>
+
+        <div sec:authorize="hasAuthority('FunctionalDiagnosticsDoctor')">
         <h3 class="display-5 fw-bold">Врач функциональной диагностики</h3>
         <p class="lead mb-4">Доступные Вам функции представлены ниже</p>
         <div class="d-grid gap-2  justify-content-sm-center">
@@ -67,6 +70,9 @@
             <a href="/ExaminationReferrals" class="btn btn-primary btn-lg px-4 gap-3">Список направлений на обследование</a>
             <a href="/Patients" class="btn btn-primary btn-lg px-4 gap-3">Список пациентов</a>
         </div>
+        </div>
+
+        <div sec:authorize="hasAuthority('Doctor')">
         <h3 class="display-5 fw-bold">Доктор</h3>
         <p class="lead mb-4">Доступные Вам функции представлены ниже</p>
         <div class="d-grid gap-2 justify-content-sm-center">
@@ -80,29 +86,42 @@
             <a href="/ExaminationReferrals" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть направления на обследование</a>
             <a href="/ExaminationReferrals/Create" class="btn btn-primary btn-lg px-4 gap-3">Создать направление на обследование</a>
         </div>
+        </div>
+
+        <div sec:authorize="hasAuthority('Receptionist')">
+
         <h3 class="display-5 fw-bold">Работник регистратуры</h3>
         <p class="lead mb-4">Доступные Вам функции представлены ниже</p>
         <div class="d-grid gap-2 justify-content-sm-center">
             <a href="/Patients" class="btn btn-primary btn-lg px-4 gap-3">Список пациентов</a>
             <a href="/DoctorAppointments" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть список всех заявок</a>
         </div>
+        </div>
+
+        <div sec:authorize="hasAuthority('Admin')">
+
         <h3 class="display-5 fw-bold">Админ</h3>
         <p class="lead mb-4">Доступные Вам функции представлены ниже</p>
         <div class="d-grid gap-2 justify-content-sm-center">
             <a href="/AssignUserToARole/Create" class="btn btn-primary btn-lg px-4 gap-3">Добавить роль пользователю</a>
         </div>
+        </div>
+
+        <div sec:authorize="hasAuthority('Patient')">
+
         <h3 class="display-5 fw-bold">Пациент</h3>
 
         <p class="lead mb-4">Доступные Вам функции представлены ниже</p>
         <div class="d-grid gap-2 justify-content-sm-center">
             <a href="/PatientDoctorAppointments/Create" class="btn btn-primary btn-lg px-4 gap-3">Подать заявку на прием у врача</a>
-            <a href="/PatientDoctorAppointments" class="btn btn-primary btn-lg px-4 gap-3">Cписок всех заявок</a>
+            <a href="/PatientDoctorAppointments" class="btn btn-primary btn-lg px-4 gap-3">Список всех заявок</a>
             <a href="/Doctors" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть список врачей</a>
             <a href="/PatientInspections" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть список осмотров</a>
-            <a href="/AnalysisReferrals" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть направления на анализ</a>
-            <a href="/ExaminationReferrals" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть направления на обследование</a>
-            <a href="/Analyses" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть анализы</a>
-            <a href="/Examinations" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть обследования</a>
+            <a href="/PatientAnalysisReferrals" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть направления на анализ</a>
+            <a href="/PatientExaminationReferrals" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть направления на обследование</a>
+            <a href="/PatientAnalyses" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть анализы</a>
+            <a href="/PatientExaminations" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть обследования</a>
+        </div>
         </div>
     </div>
 </div>

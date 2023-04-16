@@ -1,9 +1,12 @@
 package com.polyclinic.mis.controllers;
 
+import com.polyclinic.mis.auth.UserService;
 import com.polyclinic.mis.models.Analysis;
 import com.polyclinic.mis.models.Diagnosis;
 import com.polyclinic.mis.service.impl.AnalysisServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +20,8 @@ import java.util.Optional;
 public class AnalysisController {
     @Autowired
     AnalysisServiceImpl analysisService;
+    @Autowired
+    UserService userService;
     @GetMapping("/Analyses")
     public String Index(Model model){
         Iterable<Analysis> analyses = analysisService.getAll();
@@ -27,6 +32,10 @@ public class AnalysisController {
     public String ShowCreate(Model model){
         Analysis analysis = new Analysis();
         model.addAttribute("analysis",analysis);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        var user = userService.findUserByEmail(authentication.getName());
+        model.addAttribute("user",user);
+
         return "/Analyses/Create";
     }
     @PostMapping("/Analyses/Create")

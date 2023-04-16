@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.boot.context.properties.bind.DefaultValue;
+import org.springframework.lang.Nullable;
 
 import java.sql.Date;
 import java.util.List;
@@ -39,6 +41,9 @@ public class Patient {
 //    private List<Examination> Examinations;
 //    @OneToMany
 //    private List<Inspection> Inspections;
+
+    @Transient
+    private String polisEndDateString;
 
 
     public Patient(String firstName, String lastName, String middleName, Date birthDate, int polisId, String poilsCompany, int snilsNumber, String homeAddress, String workPlace, String workPosition, Date polisEndDate) {

@@ -1,11 +1,20 @@
 package com.polyclinic.mis.controllers;
 
+import com.polyclinic.mis.auth.UserService;
 import com.polyclinic.mis.models.AnalysisReferral;
 import com.polyclinic.mis.models.Examination;
 import com.polyclinic.mis.models.Patient;
+import com.polyclinic.mis.models.PolyclinicUser;
+import com.polyclinic.mis.repository.RoleRepository;
 import com.polyclinic.mis.service.impl.FunctionalDiagnosticsDoctorServiceImpl;
 import com.polyclinic.mis.service.impl.PatientServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +22,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -20,6 +31,12 @@ public class PatientController {
 
     @Autowired
     PatientServiceImpl patientService;
+    @Autowired
+    RoleRepository roleRepository;
+    @Autowired
+    UserService userService;
+    @Autowired
+    AuthenticationManager authenticationManager;
     @GetMapping("/Patients")
     public String Index(Model model){
         Iterable<Patient> patients = patientService.getAll();
@@ -34,9 +51,50 @@ public class PatientController {
     }
     @PostMapping("/Patients/Create")
     public String Create(@ModelAttribute("patient")Patient patient){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        var user = userService.findUserByEmail(email);
+        patient.setUser(user);
         patientService.add(patient);
-        return "redirect:/Patients";
+        assignRole(patient,user);
+//        var patientUser= patient.getUser();
+//        var roles = user.getRoles();
+//        roles.remove(roleRepository.findByName("CanRegisterAsPatient").get());
+//        roles.add(roleRepository.findByName("Patient").get());
+//        patientUser.setRoles(roles);
+//        userService.updateUser(patientUser);
+
+
+
+//        authenticationManager.authenticate((
+//                        new UsernamePasswordAuthenticationToken(patientUser.getEmail(),
+//                                patientUser.getPassword())
+//                )
+//        );
+
+        return "redirect:/";
     }
+    private void assignRole(Patient patient, PolyclinicUser user){
+        var patientUser= patient.getUser();
+        var roles = user.getRoles();
+        var canRegisterAsPatientRole = roleRepository.findByName("CanRegisterAsPatient").get();
+        roles.remove(canRegisterAsPatientRole);
+        var patientRole = roleRepository.findByName("Patient").get();
+        roles.add(patientRole);
+        patientUser.setRoles(roles);
+        userService.updateUser(patientUser);
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        List<GrantedAuthority> updatedAuthorities = new ArrayList<>(auth.getAuthorities());
+        updatedAuthorities.remove(new SimpleGrantedAuthority(canRegisterAsPatientRole.getName()));
+        updatedAuthorities.add(new SimpleGrantedAuthority(patientRole.getName()));
+
+        Authentication newAuth = new UsernamePasswordAuthenticationToken(auth.getPrincipal(), auth.getCredentials(), updatedAuthorities);
+
+        SecurityContextHolder.getContext().setAuthentication(newAuth);
+    }
+
+
     @GetMapping("Patients/Edit/{id}")
     public String ShowEdit(@PathVariable(value = "id") long id, Model model){
         Optional<Patient> patient = patientService.getById(id);

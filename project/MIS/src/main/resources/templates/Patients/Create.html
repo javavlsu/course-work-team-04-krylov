@@ -26,7 +26,7 @@
             </div>
             <div class="form-group">
                 <label class="control-label">Дата рождения</label>
-                <input class="form-control" type="date" th:field = "*{birthDate}"/>
+                <input class="form-control" type="date" th:field = "*{birthDate}" value=""/>
             </div>
             <div class="form-group">
                 <label class="control-label">Полис</label>
@@ -38,7 +38,7 @@
             </div>
             <div class="form-group">
                 <label class="control-label">Дата конца полиса</label>
-                <input class="form-control" type="date" th:field = "*{polisEndDate}"/>
+                <input class="form-control" type="date" th:field = "*{polisEndDateString}" th:valuetype="Date"/>
             </div>
             <div class="form-group">
                 <label class="control-label">СНИЛС</label>

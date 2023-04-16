@@ -4,8 +4,10 @@
 <body style="margin-bottom: 60px" class="container-fluid">
 <header th:replace="~{fragments/header :: header}"></header>
 
+<div class="px-4 py-5 my-5 container">
 <h1>Регистрация</h1>
 <hr />
+
 <div class="row">
     <div class="col-md-4">
         <form action="#" th:action="@{/Register}" th:object="${polyclinicUser}" method="POST">
@@ -25,9 +27,10 @@
     </div>
 </div>
 
+
 <div>
     <a href="/">Назад</a>
 </div>
-
+</div>
 </body>
 </html>

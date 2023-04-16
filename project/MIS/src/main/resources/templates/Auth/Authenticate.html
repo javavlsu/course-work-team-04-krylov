@@ -3,19 +3,19 @@
 <head th:replace="~{fragments/head :: head}"></head>
 <body style="margin-bottom: 60px" class="container-fluid">
 <header th:replace="~{fragments/header :: header}"></header>
-
+<div class="px-4 py-5 my-5 container">
 <h1>Вход</h1>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form action="#" th:action="@{/Authenticate}" th:object="${polyclinicUser}" method="POST">
+        <form action="#" th:action="@{/Authenticate}"  method="POST">
             <div class="form-group">
                 <label class="control-label">E-mail</label>
-                <input class="form-control" type="text" th:field = "*{email}"/>
+                <input class="form-control" type="text" name="email"/>
             </div>
             <div class="form-group">
                 <label class="control-label">Пароль</label>
-                <input class="form-control" type="password" th:field = "*{password}"/>
+                <input class="form-control" type="password" name="password"/>
             </div>
             <div class="form-group">
                 <p></p>
@@ -27,6 +27,7 @@
 
 <div>
     <a href="/">Назад</a>
+</div>
 </div>
 
 </body>
