@@ -49,38 +49,42 @@ public class AnalysisServiceImpl implements AnalysisService {
     public Page<Analysis> findPaginated(int pageNumber, int pageSize, String sortField, String sortDirection, String fio, String birthDate) {
         Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() : Sort.by(sortField).descending();
         Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, sort);
-//        if (birthDate.equals("")&&fio.equals("")){
-//            return analysisRepository.findAll(pageable);
-//        }
-//        else if (birthDate.equals("")&&!fio.equals("")){
-//            String[] splitFio = fio.split(" ");
-//            switch (splitFio.length){
-//                case 1:
-//                    return analysisRepository.findAll(splitFio[0],"","",null,pageable);
-//                case 2:
-//                    return analysisRepository.findAll(splitFio[0],splitFio[1],"",null,pageable);
-//                case 3:
-//                    return analysisRepository.findAll(splitFio[0],splitFio[1],splitFio[2],null,pageable);
-//            }
-//        }
-//        else if (!birthDate.equals("")&&!fio.equals("")){
-//
-//            String[] splitFio = fio.split(" ");
-//            switch (splitFio.length){
-//                case 1:
-//                    return analysisRepository.findAll(splitFio[0],"","",birthDate,pageable);
-//                case 2:
-//                    return analysisRepository.findAll(splitFio[0],splitFio[1],"",birthDate,pageable);
-//                case 3:
-//                    return analysisRepository.findAll(splitFio[0],splitFio[1],splitFio[2],birthDate,pageable);
-//            }
-//        }
-//        else if(!birthDate.equals("")&&fio.equals("")){
-//            return analysisRepository.findAll("","","",birthDate,pageable);
-//        }
+        if (birthDate.equals("")&&fio.equals("")){
+            return analysisRepository.findAll(pageable);
+        }
+        else if (birthDate.equals("")&&!fio.equals("")){
+            String[] splitFio = fio.split(" ");
+            switch (splitFio.length){
+                case 1:
+                    return analysisRepository.findAll(splitFio[0],"","","",pageable);
+                case 2:
+                    return analysisRepository.findAll(splitFio[0],splitFio[1],"","",pageable);
+                case 3:
+                    return analysisRepository.findAll(splitFio[0],splitFio[1],splitFio[2],"",pageable);
+            }
+        }
+        else if (!birthDate.equals("")&&!fio.equals("")){
 
-        String[] splitFio = fio.split(" ");
-        return analysisRepository.findAll(splitFio[0],"","","",pageable);
+            String[] splitFio = fio.split(" ");
+            switch (splitFio.length){
+                case 1:
+                    return analysisRepository.findAll(splitFio[0],"","",birthDate,pageable);
+                case 2:
+                    return analysisRepository.findAll(splitFio[0],splitFio[1],"",birthDate,pageable);
+                case 3:
+                    return analysisRepository.findAll(splitFio[0],splitFio[1],splitFio[2],birthDate,pageable);
+            }
+        }
+        else if(!birthDate.equals("")&&fio.equals("")){
+            return analysisRepository.findAll("","","",birthDate,pageable);
+        }
+
+
+
+//        String[] splitFio = fio.split(" ");
+//        return analysisRepository.findAll(splitFio[0],"","","",pageable);
+
+
 //        if (fio.equals("")){
 //            return analysisRepository.findAll(pageable);
 //        }
@@ -95,7 +99,7 @@ public class AnalysisServiceImpl implements AnalysisService {
 //                    return analysisRepository.findAll(splitFio[0],splitFio[1],splitFio[2],"",pageable);
 //            }
 //        }
-//        return analysisRepository.findAll(pageable);
+        return analysisRepository.findAll(pageable);
     }
 
 

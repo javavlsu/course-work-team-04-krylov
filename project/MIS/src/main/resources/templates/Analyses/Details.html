@@ -3,36 +3,39 @@
 <head th:replace="~{fragments/head :: head}"></head>
 <body style="margin-bottom: 60px" class="container-fluid">
 <header th:replace="~{fragments/header :: header}"></header>
-<h1>Информация</h1>
 
-<div th:object="${analysis}">
-  <h4>Анализ</h4>
-  <hr />
-  <dl class="row">
-    <dt class="col-sm-2">Id</dt>
-    <dd class="col-sm-10" th:utext= "*{id}"></dd>
+<div class="px-4 py-5 my-5 container-fluid">
+    <h1>Информация</h1>
 
-    <dt class="col-sm-2">Пациент</dt>
-    <dd class="col-sm-10" th:utext= "*{patient.ReturnFIOAndBirthDate}"></dd>
+    <div th:object="${analysis}">
+        <h4>Анализ</h4>
+        <hr/>
+        <dl class="row">
+            <dt class="col-sm-2">Id</dt>
+            <dd class="col-sm-10" th:utext="*{id}"></dd>
 
-    <dt class="col-sm-2">Тип</dt>
-    <dd class="col-sm-10" th:utext= "*{type}"></dd>
+            <dt class="col-sm-2">Пациент</dt>
+            <dd class="col-sm-10" th:utext="*{patient.ReturnFIOAndBirthDate}"></dd>
 
-    <dt class="col-sm-2">Заключение</dt>
-    <dd class="col-sm-10" th:utext= "*{report}"></dd>
+            <dt class="col-sm-2">Тип</dt>
+            <dd class="col-sm-10" th:utext="*{type}"></dd>
 
-    <dt class="col-sm-2">Лаборант</dt>
-    <dd class="col-sm-10" th:utext= "*{assistant.ReturnFIOAndBirthDate}"></dd>
+            <dt class="col-sm-2">Заключение</dt>
+            <dd class="col-sm-10" th:utext="*{report}"></dd>
 
-    <dt class="col-sm-2">Дата</dt>
-    <dd class="col-sm-10" th:utext= "*{date}"></dd>
+            <dt class="col-sm-2">Лаборант</dt>
+            <dd class="col-sm-10" th:utext="*{assistant.ReturnFIOAndBirthDate}"></dd>
 
-  </dl>
-</div>
-<a th:href="@{/Analyses/Edit/{id}(id=${id})}">Редактировать</a> |
-<a href="/Analyses/Index">Назад к списку</a>
-<div>
+            <dt class="col-sm-2">Дата</dt>
+            <dd class="col-sm-10" th:utext="*{date}"></dd>
 
+        </dl>
+    </div>
+    <a th:href="@{/Analyses/Edit/{id}(id=${id})}">Редактировать</a> |
+    <a href="/Analyses/Index">Назад к списку</a>
+    <div>
+
+    </div>
 </div>
 </body>
 </html>
