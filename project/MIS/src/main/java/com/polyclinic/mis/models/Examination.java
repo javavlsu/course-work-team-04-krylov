@@ -5,9 +5,11 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -18,13 +20,15 @@ public class Examination {
     private long id;
     private String type;
     private String report;
-    private Timestamp date;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    private LocalDateTime date;
     @ManyToOne
     private FunctionalDiagnosticsDoctor functionalDiagnosticsDoctor;
     @ManyToOne
     private Patient patient;
 
-    public Examination(String type, String report, Timestamp date, FunctionalDiagnosticsDoctor functionalDiagnosticsDoctor, Patient patient) {
+    public Examination(String type, String report, LocalDateTime date, FunctionalDiagnosticsDoctor functionalDiagnosticsDoctor, Patient patient) {
         this.type = type;
         this.report = report;
         this.date = date;

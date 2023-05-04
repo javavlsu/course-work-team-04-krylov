@@ -5,9 +5,11 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 /**
  * Направление на обследование
@@ -30,12 +32,13 @@ public class ExaminationReferral {
     private FunctionalDiagnosticsDoctor functionalDiagnosticsDoctor;
     private String cabinetNum;
     private String status;
-    private Timestamp dateOfTaking;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    private LocalDateTime dateOfTaking;
     private String whatToResearch;
     private String schedule;
 
 
-    public ExaminationReferral(Diagnosis diagnosis, Doctor doctor, Patient patient, String type, FunctionalDiagnosticsDoctor functionalDiagnosticsDoctor, String cabinetNum, String status, Timestamp dateOfTaking, String whatToResearch, String schedule) {
+    public ExaminationReferral(Diagnosis diagnosis, Doctor doctor, Patient patient, String type, FunctionalDiagnosticsDoctor functionalDiagnosticsDoctor, String cabinetNum, String status, LocalDateTime dateOfTaking, String whatToResearch, String schedule) {
         this.diagnosis = diagnosis;
         this.doctor = doctor;
         this.patient = patient;

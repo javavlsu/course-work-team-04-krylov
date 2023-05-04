@@ -11,6 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -32,7 +34,7 @@ public class AnalysisReferralTest {
     @Test
     void addAndReadAnalysisReferral(){
         Date birthDate = Date.valueOf("2000-02-01");
-        Doctor doctor = new Doctor("Василий","Иванович","Альбертович",birthDate,"Терапевт","Высшая категория","Доктор наук");
+        Doctor doctor = new Doctor("Анатолий","Иванович","Альбертович",birthDate,"Терапевт","Высшая категория","Доктор наук");
         Doctor createdDoctor = doctorService.add(doctor);
         Optional<Doctor> readDoctor = doctorService.getById(createdDoctor.getId());
         assertThat(doctor)
@@ -51,7 +53,12 @@ public class AnalysisReferralTest {
                 .usingRecursiveComparison()
                 .isEqualTo(readAssistant.get());
         Optional<Diagnosis> readDiagnosis = diagnosisService.getById("A00.0");
-        Timestamp dateOfTaking = Timestamp.valueOf("2023-02-01 18:38:03");
+//        Timestamp dateOfTaking = Timestamp.valueOf("2023-02-01 18:38:03");
+        String dateStr = "2023-02-03 18:38";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime dateOfTaking = LocalDateTime.parse(dateStr, formatter);
+
+
         AnalysisReferral analysisReferral = new AnalysisReferral(readDiagnosis.get(),readDoctor.get(),readPatient.get(),"Клинико-диагностическая лаборатория",readAssistant.get(),"292","Выписано",dateOfTaking,"Кровь на сахар","Расписание");
         AnalysisReferral createdAnalysisReferral = analysisReferralService.add(analysisReferral);
         Optional<AnalysisReferral> readAnalysisReferral = analysisReferralService.getById(createdAnalysisReferral.getId());
@@ -81,7 +88,11 @@ public class AnalysisReferralTest {
                 .usingRecursiveComparison()
                 .isEqualTo(readAssistant.get());
         Optional<Diagnosis> readDiagnosis = diagnosisService.getById("A00.0");
-        Timestamp dateOfTaking = Timestamp.valueOf("2023-02-01 18:38:03");
+//        Timestamp dateOfTaking = Timestamp.valueOf("2023-02-01 18:38:03");
+        String dateStr = "2023-02-04 18:38";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime dateOfTaking = LocalDateTime.parse(dateStr, formatter);
+
         AnalysisReferral analysisReferral = new AnalysisReferral(readDiagnosis.get(),readDoctor.get(),readPatient.get(),"Клинико-диагностическая лаборатория",readAssistant.get(),"292","Выписано",dateOfTaking,"Кровь на сахар","Расписание");
         AnalysisReferral createdAnalysisReferral = analysisReferralService.add(analysisReferral);
         Optional<AnalysisReferral> readAnalysisReferral = analysisReferralService.getById(createdAnalysisReferral.getId());
@@ -95,14 +106,14 @@ public class AnalysisReferralTest {
     }
     @Test
     void editAnalysisReferral(){
-        Date birthDate = Date.valueOf("2000-02-01");
-        Doctor doctor = new Doctor("Василий","Иванович","Альбертович",birthDate,"Терапевт","Высшая категория","Доктор наук");
+        Date birthDate = Date.valueOf("2001-02-01");
+        Doctor doctor = new Doctor("Антон","Марусланов","Олегович",birthDate,"Терапевт","Высшая категория","Доктор наук");
         Doctor createdDoctor = doctorService.add(doctor);
         Optional<Doctor> readDoctor = doctorService.getById(createdDoctor.getId());
         assertThat(doctor)
                 .usingRecursiveComparison()
                 .isEqualTo(readDoctor.get());
-        Patient patient = new Patient("Иван","Петров","Михайлович",birthDate,124563,"Компания1",123976,"Ул.Комарова д.23 кв.2","АЛЬТЕНАР","Системный администратор");
+        Patient patient = new Patient("Иван","Скворцов","Михайлович",birthDate,124563,"Компания1",123976,"Ул.Комарова д.23 кв.2","АЛЬТЕНАР","Системный администратор");
         Patient createdPatient = patientService.add(patient);
         Optional<Patient> readPatient = patientService.getById(createdPatient.getId());
         assertThat(patient)
@@ -115,7 +126,11 @@ public class AnalysisReferralTest {
                 .usingRecursiveComparison()
                 .isEqualTo(readAssistant.get());
         Optional<Diagnosis> readDiagnosis = diagnosisService.getById("A00.0");
-        Timestamp dateOfTaking = Timestamp.valueOf("2023-02-01 18:38:03");
+//        Timestamp dateOfTaking = Timestamp.valueOf("2023-02-01 18:38:03");
+        String dateStr = "2023-03-03 18:38";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime dateOfTaking = LocalDateTime.parse(dateStr, formatter);
+
         AnalysisReferral analysisReferral = new AnalysisReferral(readDiagnosis.get(),readDoctor.get(),readPatient.get(),"Клинико-диагностическая лаборатория",readAssistant.get(),"292","Выписано",dateOfTaking,"Кровь на сахар","Расписание");
         AnalysisReferral createdAnalysisReferral = analysisReferralService.add(analysisReferral);
         Optional<AnalysisReferral> readAnalysisReferral = analysisReferralService.getById(createdAnalysisReferral.getId());

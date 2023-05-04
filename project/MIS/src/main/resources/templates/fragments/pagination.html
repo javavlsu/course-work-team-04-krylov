@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security"
+>
+<div th:fragment="pages">
+    <div th:if="${totalPages > 1}">
+        <div class="row col-sm-10">
+            <div class="col-sm-2">
+                Количество записей: [[${totalItems}]]
+            </div>
+
+            <div class="col-sm-1">
+                <a th:if="${currentPage > 1}"
+                   th:href="@{'/'+${page}+'/Index/'+${1}+'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate='+${patientBirthDate}}">Первая</a>
+                <span th:unless="${currentPage > 1}">Первая</span>
+            </div>
+            <div class="col-sm-1">
+                <a th:if="${currentPage > 1}"
+                   th:href="@{'/'+${page}+'/Index/'+${currentPage - 1}+'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate='+${patientBirthDate}}">Назад</a>
+                <span th:unless="${currentPage > 1}">Назад</span>
+            </div>
+
+
+            <div class="col-auto">
+        <span th:each="i:${#numbers.sequence(1,totalPages)}">
+          <a th:if="${currentPage != i}"
+             th:href="@{'/'+${page}+'/Index/'+${i}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate='+${patientBirthDate}}">[[${i}]]</a>
+          <span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
+        </span>
+            </div>
+            <div class="col-sm-1">
+                <a th:if="${currentPage < totalPages}"
+                   th:href="@{'/'+${page}+'/Index/'+${currentPage + 1}+'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate='+${patientBirthDate}}">Далее</a>
+                <span th:unless="${currentPage < totalPages}">Далее</span>
+            </div>
+            <div class="col-sm-1">
+                <a th:if="${currentPage < totalPages}"
+                   th:href="@{'/'+${page}+'/Index/'+${totalPages}+'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate='+${patientBirthDate}}">Последняя</a>
+                <span th:unless="${currentPage < totalPages}">Последняя</span>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<a th:fragment="link" th:href="@{'/'+${page}+'/Index/'+${currentPage}+'?sortField='+${sortField}+'&sortDir='+${reverseSortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate='+${patientBirthDate}}">
+    <span th:text="${text}"></span>
+</a>
+
+<form th:fragment="search" method="get" th:action="'/'+${page}+'/Index/1'">
+    <p>
+    <h4>Поиск</h4>
+    <input type="hidden" name="sortField" th:value="${sortField}">
+    <input type="hidden" name="sortDir" th:value="${sortDir}">
+    <input type="search" placeholder="Введите ФИО пациента" name="patientFIO" style="width:600px;"
+           th:value="${patientFIO}"/>
+    <p>Год рождения пациента/Дата рождения пациента</p>
+    <input type="search" name="patientBirthDate" style="width:300px;" placeholder="yyyy / yyyy mm / yyyy mm dd"
+           th:value="${patientBirthDate}"/>
+    <input type="submit" value="Search" class="btn btn-primary"/>
+    <a th:href="@{'/'+${page}+'/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&patientFIO='+'&patientBirthDate='}">Получить список всех пациентов</a>
+    </p>
+</form>
+
+
+</html>

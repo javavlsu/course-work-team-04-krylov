@@ -15,6 +15,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -42,7 +44,9 @@ public class ExaminationTest {
         assertThat(patient)
                 .usingRecursiveComparison()
                 .isEqualTo(readPatient.get());
-        Timestamp date = Timestamp.valueOf("2023-02-01 18:38:03");
+        String dateStr = "2023-02-01 18:38";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime date = LocalDateTime.parse(dateStr, formatter);
 
         Examination examination = new Examination("Электрокардиограмма","Заключение1",date,readFunctionalDiagnosticsDoctor.get(),readPatient.get());
         Examination createdExamination = examinationService.add(examination);
@@ -66,7 +70,9 @@ public class ExaminationTest {
         assertThat(patient)
                 .usingRecursiveComparison()
                 .isEqualTo(readPatient.get());
-        Timestamp date = Timestamp.valueOf("2023-02-01 18:38:03");
+        String dateStr = "2023-02-01 18:38";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime date = LocalDateTime.parse(dateStr, formatter);
 
         Examination examination = new Examination("Электрокардиограмма","Заключение1",date,readFunctionalDiagnosticsDoctor.get(),readPatient.get());
         Examination createdExamination = examinationService.add(examination);
@@ -94,7 +100,9 @@ public class ExaminationTest {
         assertThat(patient)
                 .usingRecursiveComparison()
                 .isEqualTo(readPatient.get());
-        Timestamp date = Timestamp.valueOf("2023-02-01 18:38:03");
+        String dateStr = "2023-02-01 18:38";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime date = LocalDateTime.parse(dateStr, formatter);
 
         Examination examination = new Examination("Электрокардиограмма","Заключение1",date,readFunctionalDiagnosticsDoctor.get(),readPatient.get());
         Examination createdExamination = examinationService.add(examination);

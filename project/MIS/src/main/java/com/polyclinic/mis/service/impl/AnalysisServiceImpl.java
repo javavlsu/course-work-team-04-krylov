@@ -52,7 +52,7 @@ public class AnalysisServiceImpl implements AnalysisService {
         if (birthDate.equals("")&&fio.equals("")){
             return analysisRepository.findAll(pageable);
         }
-        else if (birthDate.equals("")&&!fio.equals("")){
+        else if (birthDate.equals("")){
             String[] splitFio = fio.split(" ");
             switch (splitFio.length){
                 case 1:
@@ -63,7 +63,7 @@ public class AnalysisServiceImpl implements AnalysisService {
                     return analysisRepository.findAll(splitFio[0],splitFio[1],splitFio[2],"",pageable);
             }
         }
-        else if (!birthDate.equals("")&&!fio.equals("")){
+        else if (!fio.equals("")){
 
             String[] splitFio = fio.split(" ");
             switch (splitFio.length){
@@ -75,30 +75,9 @@ public class AnalysisServiceImpl implements AnalysisService {
                     return analysisRepository.findAll(splitFio[0],splitFio[1],splitFio[2],birthDate,pageable);
             }
         }
-        else if(!birthDate.equals("")&&fio.equals("")){
+        else {
             return analysisRepository.findAll("","","",birthDate,pageable);
         }
-
-
-
-//        String[] splitFio = fio.split(" ");
-//        return analysisRepository.findAll(splitFio[0],"","","",pageable);
-
-
-//        if (fio.equals("")){
-//            return analysisRepository.findAll(pageable);
-//        }
-//        else{
-//            String[] splitFio = fio.split(" ");
-//            switch (splitFio.length){
-//                case 1:
-//                    return analysisRepository.findAll(splitFio[0],"","","",pageable);
-//                case 2:
-//                    return analysisRepository.findAll(splitFio[0],splitFio[1],"","",pageable);
-//                case 3:
-//                    return analysisRepository.findAll(splitFio[0],splitFio[1],splitFio[2],"",pageable);
-//            }
-//        }
         return analysisRepository.findAll(pageable);
     }
 

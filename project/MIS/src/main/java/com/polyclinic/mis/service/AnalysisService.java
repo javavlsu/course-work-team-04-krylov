@@ -17,7 +17,7 @@ public interface AnalysisService {
     List<Analysis> getAll();
 
 //    Page<Analysis> findPaginated(int pageNumber, int pageSize, String sortField, String sortDirection);
-        Page<Analysis> findPaginated(int pageNumber, int pageSize, String sortField, String sortDirection, String fio, String birthDate);
+    Page<Analysis> findPaginated(int pageNumber, int pageSize, String sortField, String sortDirection, String fio, String birthDate);
 
 //    Page<Analysis> findPaginatedWithSearch(int pageNumber, int pageSize, String sortField, String sortDirection, String fio, Date birthDate);
 }

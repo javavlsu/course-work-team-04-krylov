@@ -3,56 +3,87 @@
 <head th:replace="~{fragments/head :: head}"></head>
 <body style="margin-bottom: 60px" class="container-fluid">
 <header th:replace="~{fragments/header :: header}"></header>
-<h1>Список пациентов</h1>
+<div class="px-4 py-5 my-5 container-fluid">
 
-<form method="get" action="Index">
-    <p>
-    <p>Поиск</p>
-    <p style="color:red;">Ошибка</p>
-    <input type="search" placeholder="Введите ФИО пациента (Обязательно)" name="PatientFIO" style="width:600px;" />
-    <p>Дата рождения пациента (Необязательно)</p>
-    <input type="date"  name="PatientBirthDate" style="width:300px;" />
-    <input type="submit" value="Search" class="btn btn-primary" />
-    <a href="">Получить список всех пациентов</a>
-    </p>
-</form>
-<table class="table">
-    <thead>
-    <tr>
-        <th>Фамилия</th>
-        <th>Имя</th>
-        <th>Отчество</th>
-        <th>Дата рождения</th>
-        <th>Полис</th>
-        <th>Компания полиса</th>
-        <th>Дата конца полиса</th>
-        <th>СНИЛС</th>
-        <th>Домашний адрес</th>
-        <th>Место работы</th>
-        <th>Должность</th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="el : ${patients}">
-        <td th:text="${el.lastName}"></td>
-        <td th:text="${el.firstName}"></td>
-        <td th:text="${el.middleName}"></td>
-        <td th:text="${el.birthDate}"></td>
-        <td th:text="${el.polisId}"></td>
-        <td th:text="${el.poilsCompany}"></td>
-        <td th:text="${el.polisEndDate}"></td>
-        <td th:text="${el.snilsNumber}"></td>
-        <td th:text="${el.homeAddress}"></td>
-        <td th:text="${el.workPlace}"></td>
-        <td th:text="${el.workPosition}"></td>
-        <td>
-            <a th:href="@{/Patients/Edit/{id}(id=${el.id})}">Edit</a> |
-            <a th:href="@{/Patients/Details/{id}(id=${el.id})}">Details</a> |
-            <a th:href="@{/Patients/Delete/{id}(id=${el.id})}">Delete</a>
-        </td>
-    </tr>
-    </tbody>
-</table>
+    <h1>Список пациентов</h1>
+
+    <!--<form method="get" action="Index">-->
+    <!--    <p>-->
+    <!--    <p>Поиск</p>-->
+    <!--    <p style="color:red;">Ошибка</p>-->
+    <!--    <input type="search" placeholder="Введите ФИО пациента (Обязательно)" name="PatientFIO" style="width:600px;" />-->
+    <!--    <p>Дата рождения пациента (Необязательно)</p>-->
+    <!--    <input type="date"  name="PatientBirthDate" style="width:300px;" />-->
+    <!--    <input type="submit" value="Search" class="btn btn-primary" />-->
+    <!--    <a href="">Получить список всех пациентов</a>-->
+    <!--    </p>-->
+    <!--</form>-->
+
+
+    <!--  Поиск  -->
+    <form th:replace="~{fragments/pagination :: search(page='Patients')}"></form>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>
+                <a th:replace="~{fragments/pagination :: link(page='Patients',  sortField='lastName', text='Фамилия')}"></a>
+            </th>
+            <th>
+                <a th:replace="~{fragments/pagination :: link(page='Patients',  sortField='firstName', text='Имя')}"></a>
+            </th>
+            <th>
+                <a th:replace="~{fragments/pagination :: link(page='Patients',  sortField='middleName', text='Отчетчво')}"></a>
+            </th>
+            <th>
+                <a th:replace="~{fragments/pagination :: link(page='Patients',  sortField='birthDate', text='Дата рождения')}"></a>
+            </th>
+            <th>
+                <a th:replace="~{fragments/pagination :: link(page='Patients',  sortField='polis', text='Полис')}"></a>
+            </th>
+            <th>
+                <a th:replace="~{fragments/pagination :: link(page='Patients',  sortField='polisCompany', text='Компания полиса')}"></a>
+            </th>
+            <th>
+                <a th:replace="~{fragments/pagination :: link(page='Patients',  sortField='polisEndDate', text='Дата конца полиса')}"></a>
+            </th>
+            <th>
+                <a th:replace="~{fragments/pagination :: link(page='Patients',  sortField='snils', text='СНИЛС')}"></a>
+            </th>
+            <th>
+                <a th:replace="~{fragments/pagination :: link(page='Patients',  sortField='homeAddress', text='Домашний адрес')}"></a>
+            </th>
+            <th>
+                <a th:replace="~{fragments/pagination :: link(page='Patients',  sortField='workPlace', text='Место работы')}"></a>
+            </th>
+            <th>
+                <a th:replace="~{fragments/pagination :: link(page='Patients',  sortField='workPosition', text='Должность')}"></a>
+            </th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="el : ${patients}">
+            <td th:text="${el.lastName}"></td>
+            <td th:text="${el.firstName}"></td>
+            <td th:text="${el.middleName}"></td>
+            <td th:text="${el.birthDate}"></td>
+            <td th:text="${el.polisId}"></td>
+            <td th:text="${el.poilsCompany}"></td>
+            <td th:text="${el.polisEndDate}"></td>
+            <td th:text="${el.snilsNumber}"></td>
+            <td th:text="${el.homeAddress}"></td>
+            <td th:text="${el.workPlace}"></td>
+            <td th:text="${el.workPosition}"></td>
+            <td>
+                <a th:href="@{/Patients/Edit/{id}(id=${el.id})}">Edit</a> |
+                <a th:href="@{/Patients/Details/{id}(id=${el.id})}">Details</a> |
+                <a th:href="@{/Patients/Delete/{id}(id=${el.id})}">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div th:replace="~{fragments/pagination :: pages(page='Patients')}"></div>
+</div>
 </body>
 </html>

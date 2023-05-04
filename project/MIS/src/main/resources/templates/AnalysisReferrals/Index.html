@@ -3,59 +3,86 @@
 <head th:replace="~{fragments/head :: head}"></head>
 <body style="margin-bottom: 60px" class="container-fluid">
 <header th:replace="~{fragments/header :: header}"></header>
-<h1>Направления на анализ</h1>
-<p style="margin-top: 20px">
-  <a href="/AnalysisReferrals/Create" class="btn btn-secondary">Создать</a>
-</p>
+<div class="px-4 py-5 my-5 container-fluid">
+    <h1>Направления на анализ</h1>
+    <p style="margin-top: 20px">
+        <a href="/AnalysisReferrals/Create" class="btn btn-secondary">Создать</a>
+    </p>
 
-<form method="get" action="Index">
-  <p>
-  <h4>Поиск</h4>
-  <p style="color:red;">Ошибка</p>
-  <input type="search" placeholder="Введите ФИО пациента (Обязательно)" name="PatientFIO" style="width:600px;" />
-  <p>Дата рождения пациента (Необязательно)</p>
-  <input type="date" name="PatientBirthDate" style="width:300px;" />
-  <input type="submit" value="Search" class="btn btn-primary" />
-  <a href="">Получить список всех направлений на анализ</a>
-  </p>
-</form>
-<table class="table">
-  <thead>
-  <tr>
-    <th>Диагноз</th>
-    <th>Врач</th>
-    <th>Пациент</th>
-    <th>Лаборатория</th>
-    <th>Лаборант</th>
-    <th>Кабинет</th>
-    <th>Статус</th>
-    <th>Дата проведения</th>
-    <th>Что исследовать</th>
-    <th>Расписание</th>
-    <th></th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr th:each="el : ${analysisReferrals}">
-    <td th:text="${el.diagnosis.ReturnIdAndDescription}"></td>
-    <td th:text="${el.doctor.ReturnFIOAndSpeciality}"></td>
-    <td th:text="${el.patient.ReturnFIOAndBirthDate}"></td>
-    <td th:text="${el.laboratory}"></td>
-    <td th:text="${el.assistant.ReturnFIOAndBirthDate}"></td>
-    <td th:text="${el.cabinetNum}"></td>
-    <td th:text="${el.status}"></td>
-    <td th:text="${el.dateOfTaking}"></td>
-    <td th:text="${el.whatToResearch}"></td>
-    <td th:text="${el.schedule}"></td>
+    <!--  Поиск  -->
+    <form th:replace="~{fragments/pagination :: search(page='AnalysisReferrals')}"></form>
 
 
-    <td>
-      <a th:href="@{/AnalysisReferrals/Edit/{id}(id=${el.id})}">Edit</a> |
-      <a th:href="@{/AnalysisReferrals/Details/{id}(id=${el.id})}">Details</a> |
-      <a th:href="@{/AnalysisReferrals/Delete/{id}(id=${el.id})}">Delete</a>
-    </td>
-  </tr>
-  </tbody>
-</table>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>
+                <a th:replace="~{fragments/pagination :: link(page='AnalysisReferrals',  sortField='diagnosis.id', text='Диагноз')}"></a>
+            </th>
+            <th>
+                <a th:replace="~{fragments/pagination :: link(page='AnalysisReferrals',  sortField='doctor.lastName', text='Врач')}"></a>
+
+            </th>
+            <th>
+                <a th:replace="~{fragments/pagination :: link(page='AnalysisReferrals',  sortField='patient.lastName', text='Пациент')}"></a>
+
+            </th>
+            <th>
+                <a th:replace="~{fragments/pagination :: link(page='AnalysisReferrals',  sortField='laboratory', text='Лаборатория')}"></a>
+
+            </th>
+            <th>
+                <a th:replace="~{fragments/pagination :: link(page='AnalysisReferrals',  sortField='assistant.lastName', text='Лаборант')}"></a>
+            </th>
+            <th>
+                <a th:replace="~{fragments/pagination :: link(page='AnalysisReferrals',  sortField='cabinetNum', text='Кабинет')}"></a>
+
+            </th>
+            <th>
+                <a th:replace="~{fragments/pagination :: link(page='AnalysisReferrals',  sortField='status', text='Статус')}"></a>
+
+            </th>
+            <th>
+                <a th:replace="~{fragments/pagination :: link(page='AnalysisReferrals',  sortField='dateOfTaking', text='Дата проведения')}"></a>
+
+            </th>
+            <th>
+                <a th:replace="~{fragments/pagination :: link(page='AnalysisReferrals',  sortField='whatToResearch', text='Что исследовать')}"></a>
+
+            </th>
+            <th>
+                <a th:replace="~{fragments/pagination :: link(page='AnalysisReferrals',  sortField='reverseSortDir', text='Расписание')}"></a>
+            </th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="el : ${analysisReferrals}">
+            <td th:text="${el.diagnosis.ReturnIdAndDescription}"></td>
+            <td th:text="${el.doctor.ReturnFIOAndSpeciality}"></td>
+            <td th:text="${el.patient.ReturnFIOAndBirthDate}"></td>
+            <td th:text="${el.laboratory}"></td>
+            <td th:text="${el.assistant.ReturnFIOAndBirthDate}"></td>
+            <td th:text="${el.cabinetNum}"></td>
+            <td th:text="${el.status}"></td>
+            <td th:text="${#temporals.format(el.dateOfTaking, 'dd-MM-yyyy HH:mm')}"></td>
+            <td th:text="${el.whatToResearch}"></td>
+            <td th:text="${el.schedule}"></td>
+
+
+            <td>
+                <a th:href="@{/AnalysisReferrals/Edit/{id}(id=${el.id})}">Edit</a> |
+                <a th:href="@{/AnalysisReferrals/Details/{id}(id=${el.id})}">Details</a> |
+                <a th:href="@{/AnalysisReferrals/Delete/{id}(id=${el.id})}">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+
+    <!--   Страницы    -->
+    <div th:replace="~{fragments/pagination :: pages(page='AnalysisReferrals')}"></div>
+
+</div>
 </body>
 </html>

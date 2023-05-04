@@ -14,7 +14,7 @@ import java.util.Optional;
 public class DiagnosisController {
     @Autowired
     private DiagnosisServiceImpl diagnosisService;
-    @GetMapping("/Diagnoses")
+    @GetMapping("/Diagnoses/Index")
     public String Index(Model model){
         Iterable<Diagnosis> diagnoses = diagnosisService.getAll();
         model.addAttribute("diagnoses",diagnoses);
@@ -29,7 +29,7 @@ public class DiagnosisController {
     @PostMapping("/Diagnoses/Create")
     public String Create(@ModelAttribute("diagnosis")Diagnosis diagnosis){
         diagnosisService.add(diagnosis);
-        return "redirect:/Diagnoses";
+        return "redirect:/Diagnoses/Index";
     }
     @GetMapping("Diagnoses/Edit/{id}")
     public String ShowEdit(@PathVariable (value = "id") String id, Model model){
@@ -46,7 +46,7 @@ public class DiagnosisController {
     @GetMapping("Diagnoses/Delete/{id}")
     public String Delete(@PathVariable (value = "id") String id, Model model){
         diagnosisService.delete(id);
-        return "redirect:/Diagnoses";
+        return "redirect:/Diagnoses/Index";
     }
     @GetMapping("Diagnoses/Details/{id}")
     public String Details(@PathVariable (value = "id") String id, Model model){

@@ -9,6 +9,7 @@ import com.polyclinic.mis.repository.RoleRepository;
 import com.polyclinic.mis.service.impl.FunctionalDiagnosticsDoctorServiceImpl;
 import com.polyclinic.mis.service.impl.PatientServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -17,10 +18,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,12 +35,44 @@ public class PatientController {
     UserService userService;
     @Autowired
     AuthenticationManager authenticationManager;
-    @GetMapping("/Patients")
+    @GetMapping("/Patients/Index")
     public String Index(Model model){
-        Iterable<Patient> patients = patientService.getAll();
-        model.addAttribute("patients",patients);
+//        Iterable<Patient> patients = patientService.getAll();
+//        model.addAttribute("patients",patients);
+        return findPaginated(1, "lastName" , "desc","","",model);
+        //return "/Patients/Index";
+    }
+
+    @GetMapping("/Patients/Index/{pageNumber}")
+    public String findPaginated(
+            @PathVariable (value = "pageNumber") int pageNumber,
+            @RequestParam(value = "sortField") String sortField,
+            @RequestParam(value = "sortDir") String sortDir,
+            @RequestParam(value = "patientFIO") String patientFio,
+            @RequestParam(value = "patientBirthDate") String patientBirthDate,
+            Model model){
+        //todo page size from page https://www.youtube.com/watch?v=Aie8n12EFQc 11 00
+        int pageSize = 5;
+
+
+        Page<Patient> page = patientService.findPaginated(pageNumber,pageSize,sortField,sortDir,patientFio,patientBirthDate);
+        List<Patient> patients = page.getContent();
+
+        model.addAttribute("currentPage", pageNumber);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
+        model.addAttribute("patients", patients);
+
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir",sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc")?"desc":"asc");
+        model.addAttribute("patientFIO",patientFio);
+        model.addAttribute("patientBirthDate",patientBirthDate);
         return "/Patients/Index";
     }
+
+
+
     @GetMapping("/Patients/Create")
     public String ShowCreate(Model model){
         Patient patient = new Patient();
@@ -110,7 +140,7 @@ public class PatientController {
     @GetMapping("Patients/Delete/{id}")
     public String Delete(@PathVariable (value = "id") long id, Model model){
         patientService.delete(id);
-        return "redirect:/Patients";
+        return "redirect:/Patients/Index";
     }
     @GetMapping("Patients/Details/{id}")
     public String Details(@PathVariable (value = "id") long id, Model model){

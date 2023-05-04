@@ -30,7 +30,7 @@ public class AnalysisTest {
     PatientServiceImpl patientService;
     @Test
     void addAndReadAnalysis(){
-        Date birthDate = Date.valueOf("2000-02-01");
+        Date birthDate = Date.valueOf("2000-03-01");
         Assistant assistant = new Assistant("Виктор","Михайлов","Олегович",birthDate);
         Assistant createdAssistant = assistantService.add(assistant);
         Optional<Assistant> readAssistant = assistantService.getById(createdAssistant.getId());
@@ -90,7 +90,7 @@ public class AnalysisTest {
     }
     @Test
     void editAnalysis(){
-        Date birthDate = Date.valueOf("2000-02-01");
+        Date birthDate = Date.valueOf("2001-02-01");
         Assistant assistant = new Assistant("Виктор","Михайлов","Олегович",birthDate);
         Assistant createdAssistant = assistantService.add(assistant);
         Optional<Assistant> readAssistant = assistantService.getById(createdAssistant.getId());

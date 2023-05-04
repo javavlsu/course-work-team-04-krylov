@@ -14,7 +14,7 @@ import java.util.List;
 
 @Repository
 public interface AnalysisRepository extends JpaRepository<Analysis,Long> {
-    @Query("SELECT a from Analysis as a where a.patient.lastName like %:lastName% and a.patient.firstName like %:firstName% and a.patient.middleName like %:middleName% and FUNCTION('date_format',a.patient.birthDate,'%Y-%m-%d') like %:date%")
+    @Query("SELECT a from Analysis as a where a.patient.lastName like %:lastName% and a.patient.firstName like %:firstName% and a.patient.middleName like %:middleName% and FUNCTION('date_format',a.patient.birthDate,'%Y %m %d') like %:date%")
 
 //    @Query("SELECT a from Analysis as a where a.patient.lastName like %?1%")
     public Page<Analysis> findAll(@Param("lastName") String lastName, String firstName, String middleName, String date, Pageable pageable);

@@ -1,10 +1,15 @@
 package com.polyclinic.mis.service.impl;
 
+import com.polyclinic.mis.models.Analysis;
 import com.polyclinic.mis.models.Diagnosis;
 import com.polyclinic.mis.models.Patient;
 import com.polyclinic.mis.repository.DiagnosisRepository;
 import com.polyclinic.mis.service.DiagnosisService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -40,5 +45,19 @@ public class DiagnosisServiceImpl implements DiagnosisService {
     @Override
     public List<Diagnosis> getAll() {
         return diagnosisRepository.findAll();
+    }
+
+
+    @Override
+    public Page<Diagnosis> findPaginated(int pageNumber, int pageSize, String sortField, String sortDirection, String description, String id) {
+        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() : Sort.by(sortField).descending();
+        Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, sort);
+        if (description.equals("")&&id.equals("")){
+            return diagnosisRepository.findAll(pageable);
+        }
+        else {
+            diagnosisRepository.findAll(description, id, pageable);
+        }
+        return diagnosisRepository.findAll(pageable);
     }
 }

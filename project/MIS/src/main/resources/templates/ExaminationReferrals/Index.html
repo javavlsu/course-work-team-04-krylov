@@ -3,40 +3,55 @@
 <head th:replace="~{fragments/head :: head}"></head>
 <body style="margin-bottom: 60px" class="container-fluid">
 <header th:replace="~{fragments/header :: header}"></header>
+
+<div class="px-4 py-5 my-5 container-fluid">
 <h1>Направления на обследование</h1>
 <p style="margin-top: 20px">
   <a href="/ExaminationReferrals/Create" class="btn btn-secondary">Создать</a>
 </p>
 
-<form method="get" action="Index">
-  <p>
-  <h4>Поиск</h4>
-  <p style="color:red;">Ошибка</p>
-  <input type="search" placeholder="Введите ФИО пациента (Обязательно)" name="PatientFIO" style="width:600px;" />
-  <p>Дата рождения пациента (Необязательно)</p>
-  <input type="date" name="PatientBirthDate" style="width:300px;" />
-  <input type="submit" value="Search" class="btn btn-primary" />
-  <a href="">Получить список всех направлений на анализ</a>
-  </p>
-</form>
+  <!--  Поиск  -->
+  <form th:replace="~{fragments/pagination :: search(page='ExaminationReferrals')}"></form>
+
+
 <table class="table">
   <thead>
   <tr>
-    <th>Диагноз</th>
-    <th>Врач</th>
-    <th>Пациент</th>
-    <th>Тип</th>
-    <th>Врач функц. диагностики</th>
-    <th>Кабинет</th>
-    <th>Статус</th>
-    <th>Дата проведения</th>
-    <th>Что исследовать</th>
-    <th>Расписание</th>
+    <th>
+      <a th:replace="~{fragments/pagination :: link(page='ExaminationReferrals',  sortField='diagnosis.id', text='Диагноз')}"></a>
+    </th>
+    <th>
+      <a th:replace="~{fragments/pagination :: link(page='ExaminationReferrals',  sortField='doctor.lastName', text='Врач')}"></a>
+    </th>
+    <th>
+      <a th:replace="~{fragments/pagination :: link(page='ExaminationReferrals',  sortField='patient.lastName', text='Пациент')}"></a>
+    </th>
+    <th>
+      <a th:replace="~{fragments/pagination :: link(page='ExaminationReferrals',  sortField='type', text='Тип')}"></a>
+    </th>
+    <th>
+      <a th:replace="~{fragments/pagination :: link(page='ExaminationReferrals',  sortField='functionalDiagnosticsDoctor.lastName', text='Врач функц. диагностики')}"></a>
+    </th>
+    <th>
+      <a th:replace="~{fragments/pagination :: link(page='ExaminationReferrals',  sortField='cabinetNum', text='Кабинет')}"></a>
+    </th>
+    <th>
+      <a th:replace="~{fragments/pagination :: link(page='ExaminationReferrals',  sortField='status', text='Статус')}"></a>
+    </th>
+    <th>
+      <a th:replace="~{fragments/pagination :: link(page='ExaminationReferrals',  sortField='dateOfTaking', text='Дата проведения')}"></a>
+    </th>
+    <th>
+      <a th:replace="~{fragments/pagination :: link(page='ExaminationReferrals',  sortField='whatToResearch', text='Что исследовать')}"></a>
+    </th>
+    <th>
+      <a th:replace="~{fragments/pagination :: link(page='ExaminationReferrals',  sortField='schedule', text='Расписание')}"></a>
+    </th>
     <th></th>
   </tr>
   </thead>
   <tbody>
-  <tr th:each="el : ${doctors}">
+  <tr th:each="el : ${examinationReferrals}">
     <td th:text="${el.diagnosis.ReturnIdAndDescription}"></td>
     <td th:text="${el.doctor.ReturnFIOAndSpeciality}"></td>
     <td th:text="${el.patient.ReturnFIOAndBirthDate}"></td>
@@ -44,9 +59,9 @@
     <td th:text="${el.functionalDiagnosticsDoctor.ReturnFIOAndBirthDate}"></td>
     <td th:text="${el.cabinetNum}"></td>
     <td th:text="${el.status}"></td>
-    <td th:text="${el.dateOfTaking}"></td>
+    <td th:text="${#temporals.format(el.dateOfTaking, 'dd-MM-yyyy HH:mm')}"></td>
     <td th:text="${el.whatToResearch}"></td>
-    <td th:text="${el.schedules}"></td>
+    <td th:text="${el.schedule}"></td>
     <td>
       <a th:href="@{/ExaminationReferrals/Edit/{id}(id=${el.id})}">Edit</a> |
       <a th:href="@{/ExaminationReferrals/Details/{id}(id=${el.id})}">Details</a> |
@@ -55,10 +70,10 @@
   </tr>
   </tbody>
 </table>
+</div>
 
+<!--   Страницы    -->
+<div th:replace="~{fragments/pagination :: pages(page='ExaminationReferrals')}"></div>
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>
