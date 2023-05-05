@@ -1,8 +1,11 @@
 package com.polyclinic.mis.service;
 
+import com.polyclinic.mis.models.AnalysisReferral;
 import com.polyclinic.mis.models.DoctorAppointment;
 import com.polyclinic.mis.models.Receptionist;
+import org.springframework.data.domain.Page;
 
+import javax.print.Doc;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,4 +15,5 @@ public interface DoctorAppointmentService {
     void delete(Long id);
     DoctorAppointment edit(DoctorAppointment doctorAppointment);
     List<DoctorAppointment> getAll();
+    Page<DoctorAppointment> findPaginated(int pageNumber, int pageSize, String sortField, String sortDirection, String fio, String birthDate, String status);
 }

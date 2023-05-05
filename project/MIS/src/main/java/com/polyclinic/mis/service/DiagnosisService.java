@@ -10,10 +10,16 @@ import java.util.Optional;
 
 public interface DiagnosisService {
     Diagnosis add(Diagnosis diagnosis);
+
     Optional<Diagnosis> getById(String id);
+
     void delete(String id);
+
     List<Diagnosis> findByDescriptionContaining(String description);
+
     Diagnosis edit(Diagnosis diagnosis);
+
     List<Diagnosis> getAll();
-    Page<Diagnosis> findPaginated(int pageNumber, int pageSize, String sortField, String sortDirection, String description, String id);
+
+    Page<Diagnosis> findPaginated(int pageNumber, int pageSize, String sortField, String sortDirection, String id, String description);
 }

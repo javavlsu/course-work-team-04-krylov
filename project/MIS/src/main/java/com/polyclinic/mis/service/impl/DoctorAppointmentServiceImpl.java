@@ -1,10 +1,15 @@
 package com.polyclinic.mis.service.impl;
 
+import com.polyclinic.mis.models.AnalysisReferral;
 import com.polyclinic.mis.models.DoctorAppointment;
 import com.polyclinic.mis.models.Patient;
 import com.polyclinic.mis.repository.DoctorAppointmentRepository;
 import com.polyclinic.mis.service.DoctorAppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,5 +40,40 @@ public class DoctorAppointmentServiceImpl implements DoctorAppointmentService {
     @Override
     public List<DoctorAppointment> getAll() {
         return doctorAppointmentRepository.findAll();
+    }
+    @Override
+    public Page<DoctorAppointment> findPaginated(int pageNumber, int pageSize, String sortField, String sortDirection, String fio, String birthDate, String status) {
+        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() : Sort.by(sortField).descending();
+        Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, sort);
+        if (birthDate.equals("")&&fio.equals("")){
+            return doctorAppointmentRepository.findAll(status,pageable);
+        }
+        else if (birthDate.equals("")){
+            String[] splitFio = fio.split(" ");
+            switch (splitFio.length){
+                case 1:
+                    return doctorAppointmentRepository.findAll(splitFio[0],"","","",status,pageable);
+                case 2:
+                    return doctorAppointmentRepository.findAll(splitFio[0],splitFio[1],"","",status,pageable);
+                case 3:
+                    return doctorAppointmentRepository.findAll(splitFio[0],splitFio[1],splitFio[2],"",status,pageable);
+            }
+        }
+        else if (!fio.equals("")){
+
+            String[] splitFio = fio.split(" ");
+            switch (splitFio.length){
+                case 1:
+                    return doctorAppointmentRepository.findAll(splitFio[0],"","",birthDate,status,pageable);
+                case 2:
+                    return doctorAppointmentRepository.findAll(splitFio[0],splitFio[1],"",birthDate,status,pageable);
+                case 3:
+                    return doctorAppointmentRepository.findAll(splitFio[0],splitFio[1],splitFio[2],birthDate,status,pageable);
+            }
+        }
+        else {
+            return doctorAppointmentRepository.findAll("","","",birthDate,status,pageable);
+        }
+        return doctorAppointmentRepository.findAll(status,pageable);
     }
 }

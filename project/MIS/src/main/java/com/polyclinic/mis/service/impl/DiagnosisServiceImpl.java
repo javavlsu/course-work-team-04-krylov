@@ -19,17 +19,20 @@ import java.util.Optional;
 public class DiagnosisServiceImpl implements DiagnosisService {
     @Autowired
     private DiagnosisRepository diagnosisRepository;
+
     @Override
     public Diagnosis add(Diagnosis diagnosis) {
         return diagnosisRepository.saveAndFlush(diagnosis);
     }
+
     @Override
-    public Optional<Diagnosis> getById(String id){
+    public Optional<Diagnosis> getById(String id) {
         return diagnosisRepository.findById(id);
     }
+
     @Override
     public void delete(String id) {
-    diagnosisRepository.deleteById(id);
+        diagnosisRepository.deleteById(id);
     }
 
     @Override
@@ -49,15 +52,13 @@ public class DiagnosisServiceImpl implements DiagnosisService {
 
 
     @Override
-    public Page<Diagnosis> findPaginated(int pageNumber, int pageSize, String sortField, String sortDirection, String description, String id) {
+    public Page<Diagnosis> findPaginated(int pageNumber, int pageSize, String sortField, String sortDirection, String id, String description) {
         Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() : Sort.by(sortField).descending();
         Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, sort);
-        if (description.equals("")&&id.equals("")){
+        if (description.equals("") && id.equals("")) {
             return diagnosisRepository.findAll(pageable);
+        } else {
+            return diagnosisRepository.findAll(id, description, pageable);
         }
-        else {
-            diagnosisRepository.findAll(description, id, pageable);
-        }
-        return diagnosisRepository.findAll(pageable);
     }
 }

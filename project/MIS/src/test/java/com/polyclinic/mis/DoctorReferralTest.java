@@ -16,6 +16,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -52,8 +54,9 @@ public class DoctorReferralTest {
                 .usingRecursiveComparison()
                 .isEqualTo(readDoctorTarget.get());
         Optional<Diagnosis> readDiagnosis = diagnosisService.getById("A00.0");
-        Timestamp date = Timestamp.valueOf("2023-02-01 18:38:03");
-
+        String dateStr = "2023-01-03 18:38";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime date = LocalDateTime.parse(dateStr, formatter);
         DoctorReferral doctorReferral = new DoctorReferral(readDiagnosis.get(),readDoctorInitial.get(),readPatient.get(),readDoctorTarget.get(),"676","Выписано",date,"Нервы кистей рук","Расписание");
         DoctorReferral createdDoctorReferral = doctorReferralService.add(doctorReferral);
         Optional<DoctorReferral> readDoctorReferral = doctorReferralService.getById(createdDoctorReferral.getId());
@@ -85,7 +88,9 @@ public class DoctorReferralTest {
                 .usingRecursiveComparison()
                 .isEqualTo(readDoctorTarget.get());
         Optional<Diagnosis> readDiagnosis = diagnosisService.getById("A00.0");
-        Timestamp date = Timestamp.valueOf("2023-02-01 18:38:03");
+        String dateStr = "2023-02-03 18:38";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime date = LocalDateTime.parse(dateStr, formatter);
 
         DoctorReferral doctorReferral = new DoctorReferral(readDiagnosis.get(),readDoctorInitial.get(),readPatient.get(),readDoctorTarget.get(),"676","Выписано",date,"Нервы кистей рук","Расписаниев");
         DoctorReferral createdDoctorReferral = doctorReferralService.add(doctorReferral);
@@ -120,7 +125,9 @@ public class DoctorReferralTest {
                 .usingRecursiveComparison()
                 .isEqualTo(readDoctorTarget.get());
         Optional<Diagnosis> readDiagnosis = diagnosisService.getById("A00.0");
-        Timestamp date = Timestamp.valueOf("2023-02-01 18:38:03");
+        String dateStr = "2023-02-03 18:38";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime date = LocalDateTime.parse(dateStr, formatter);
 
         DoctorReferral doctorReferral = new DoctorReferral(readDiagnosis.get(),readDoctorInitial.get(),readPatient.get(),readDoctorTarget.get(),"676","Выписано",date,"Нервы кистей рук","Расписаниев");
         DoctorReferral createdDoctorReferral = doctorReferralService.add(doctorReferral);

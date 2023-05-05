@@ -5,9 +5,11 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -16,22 +18,18 @@ public class DoctorAppointment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-//    @ManyToOne
-//    private Patient patient;
-//    private String cabinetId;
-    private Timestamp dateTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    private LocalDateTime dateTime;
     private String status;
-//    @ManyToOne
-//    private Doctor doctor;
     @OneToOne
     private DoctorReferral doctorReferral;
 
-    public DoctorAppointment(Timestamp dateTime, String status,DoctorReferral doctorReferral) {
+    public DoctorAppointment(LocalDateTime dateTime, String status, DoctorReferral doctorReferral) {
         //this.patient = patient;
         //this.cabinetId = cabinetId;
         this.dateTime = dateTime;
         this.status = status;
-       // this.doctor = doctor;
+        // this.doctor = doctor;
         this.doctorReferral = doctorReferral;
     }
 

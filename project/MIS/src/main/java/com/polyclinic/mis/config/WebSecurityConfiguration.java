@@ -94,6 +94,12 @@ public class WebSecurityConfiguration{
                 .requestMatchers("/Diagnoses/Create").hasAnyAuthority("Admin")
                 .requestMatchers("/Diagnoses/Update/**").hasAnyAuthority("Admin")
 
+                //Заявления на прием врача
+                .requestMatchers("/DoctorAppointments/Details/**").hasAnyAuthority("Doctor","Admin","Receptionist")
+                .requestMatchers("/DoctorAppointments/Index/**").hasAnyAuthority("Doctor","Admin","Receptionist")
+                .requestMatchers("/DoctorAppointments/Create").hasAnyAuthority("Doctor","Admin","Receptionist")
+                .requestMatchers("/DoctorAppointments/Update/**").hasAnyAuthority("Doctor","Admin","Receptionist")
+
 
 //                .authenticated()
 //                .requestMatchers("/Analyses").hasAuthority("Admin")
