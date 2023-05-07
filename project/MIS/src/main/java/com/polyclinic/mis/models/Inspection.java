@@ -5,9 +5,11 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 /**
  * Осмотр
@@ -25,12 +27,13 @@ public class Inspection {
     private String recipe;
     @ManyToOne
     private Diagnosis diagnosis;
-    private Timestamp date;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    private LocalDateTime date;
     private String type;
     @ManyToOne
     private Doctor doctor;
 
-    public Inspection(Patient patient, String complaint, String recipe, Diagnosis diagnosis, Timestamp date, String type, Doctor doctor) {
+    public Inspection(Patient patient, String complaint, String recipe, Diagnosis diagnosis, LocalDateTime date, String type, Doctor doctor) {
         this.patient = patient;
         this.complaint = complaint;
         this.recipe = recipe;

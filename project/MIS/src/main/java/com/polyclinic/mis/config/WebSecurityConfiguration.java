@@ -100,6 +100,18 @@ public class WebSecurityConfiguration{
                 .requestMatchers("/DoctorAppointments/Create").hasAnyAuthority("Doctor","Admin","Receptionist")
                 .requestMatchers("/DoctorAppointments/Update/**").hasAnyAuthority("Doctor","Admin","Receptionist")
 
+                //Осмотры
+                .requestMatchers("/Inspections/Details/**").hasAnyAuthority("Doctor","Admin","Patient")
+                .requestMatchers("/Inspections/Index/**").hasAnyAuthority("Doctor","Admin","Patient")
+                .requestMatchers("/Inspections/Create").hasAnyAuthority("Doctor","Admin")
+                .requestMatchers("/Inspections/Update/**").hasAnyAuthority("Doctor","Admin")
+
+
+                //Направления ко врачу
+                .requestMatchers("/DoctorReferrals/Details/**").hasAnyAuthority("Doctor","Admin","Patient")
+                .requestMatchers("/DoctorReferrals/Index/**").hasAnyAuthority("Doctor","Admin","Patient")
+                .requestMatchers("/DoctorReferrals/Create").hasAnyAuthority("Doctor","Admin")
+                .requestMatchers("/DoctorReferrals/Update/**").hasAnyAuthority("Doctor","Admin")
 
 //                .authenticated()
 //                .requestMatchers("/Analyses").hasAuthority("Admin")
