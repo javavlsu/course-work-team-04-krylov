@@ -3,50 +3,120 @@
 <head th:replace="~{fragments/head :: head}"></head>
 <body style="margin-bottom: 60px" class="container-fluid">
 <header th:replace="~{fragments/header :: header}"></header>
-<h1>Список лаборантов</h1>
 
-<form method="get" action="Index">
-    <p>
-    <p>Поиск</p>
-    <p style="color:red;">Ошибка</p>
-    <input type="search" placeholder="Введите ФИО лаборанта (Обязательно)" name="AssistantFIO" style="width:600px;" />
-    <p>Дата рождения пациента (Необязательно)</p>
-    <input type="date"  name="AssistantBirthDate" style="width:300px;" />
-    <input type="submit" value="Search" class="btn btn-primary" />
-    <a href="">Получить список всех лаборантов</a>
-    </p>
-</form>
-<table class="table">
-    <thead>
-    <tr>
-        <th>
-            Фамилия
-        </th>
-        <th>
-           Имя
-        </th>
-        <th>
-           Отчество
-        </th>
-        <th>
-          Дата рождения
-        </th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="el : ${assistants}">
-        <td th:text="${el.lastName}"></td>
-        <td th:text="${el.firstName}"></td>
-        <td th:text="${el.middleName}"></td>
-        <td th:text="${el.birthDate}"></td>
-        <td>
-            <a th:href="@{/Assistants/Edit/{id}(id=${el.id})}">Edit</a> |
-            <a th:href="@{/Assistants/Details/{id}(id=${el.id})}">Details</a> |
-            <a th:href="@{/Assistants/Delete/{id}(id=${el.id})}">Delete</a>
-        </td>
-    </tr>
-    </tbody>
-</table>
+<div class="px-4 py-5 my-5 container-fluid">
+
+    <h1>Список лаборантов</h1>
+
+    <!--<form method="get" action="Index">-->
+    <!--    <p>-->
+    <!--    <p>Поиск</p>-->
+    <!--    <p style="color:red;">Ошибка</p>-->
+    <!--    <input type="search" placeholder="Введите ФИО лаборанта (Обязательно)" name="AssistantFIO" style="width:600px;" />-->
+    <!--    <p>Дата рождения пациента (Необязательно)</p>-->
+    <!--    <input type="date"  name="AssistantBirthDate" style="width:300px;" />-->
+    <!--    <input type="submit" value="Search" class="btn btn-primary" />-->
+    <!--    <a href="">Получить список всех лаборантов</a>-->
+    <!--    </p>-->
+    <!--</form>-->
+
+
+    <form method="get" th:action="'/Assistants/Index/1'">
+        <p>
+        <h4>Поиск</h4>
+        <input type="hidden" name="sortField" th:value="${sortField}">
+        <input type="hidden" name="sortDir" th:value="${sortDir}">
+        <input type="search" placeholder="Введите ФИО лаборанта" name="assistantFIO" style="width:600px;"
+               th:value="${assistantFIO}"/>
+        <p>Год рождения лаборанта/Дата рождения лаборанта</p>
+        <input type="search" name="assistantBirthDate" style="width:300px;" placeholder="yyyy / yyyy mm / yyyy mm dd"
+               th:value="${assistantBirthDate}"/>
+        <input type="submit" value="Search" class="btn btn-primary"/>
+        <a th:href="@{'/Assistants/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&assistantFIO='+'&assistantBirthDate='}">Получить
+            список всех лаборантов</a>
+        </p>
+    </form>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>
+                <a th:href="@{'/Assistants/Index/'+${currentPage}+'?sortField=lastName&sortDir='+${reverseSortDir}+'&assistantFIO='+${assistantFIO}+'&assistantBirthDate='+${assistantBirthDate}}">
+                    <span>Фамилия</span>
+                </a>
+            </th>
+            <th>
+                <a th:href="@{'/Assistants/Index/'+${currentPage}+'?sortField=firstName&sortDir='+${reverseSortDir}+'&assistantFIO='+${assistantFIO}+'&assistantBirthDate='+${assistantBirthDate}}">
+                    <span>Имя</span>
+                </a>
+
+            </th>
+            <th>
+                <a th:href="@{'/Assistants/Index/'+${currentPage}+'?sortField=middleName&sortDir='+${reverseSortDir}+'&assistantFIO='+${assistantFIO}+'&assistantBirthDate='+${assistantBirthDate}}">
+                    <span>Отчество</span>
+                </a>
+            </th>
+            <th>
+                <a th:href="@{'/Assistants/Index/'+${currentPage}+'?sortField=birthDate&sortDir='+${reverseSortDir}+'&assistantFIO='+${assistantFIO}+'&assistantBirthDate='+${assistantBirthDate}}">
+                    <span>Дата рождения</span>
+                </a>
+            </th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="el : ${assistants}">
+            <td th:text="${el.lastName}"></td>
+            <td th:text="${el.firstName}"></td>
+            <td th:text="${el.middleName}"></td>
+            <td th:text="${el.birthDate}"></td>
+            <td>
+                <a th:href="@{/Assistants/Edit/{id}(id=${el.id})}">Edit</a> |
+                <a th:href="@{/Assistants/Details/{id}(id=${el.id})}">Details</a> |
+                <a th:href="@{/Assistants/Delete/{id}(id=${el.id})}">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div th:if="${totalPages > 1}">
+        <div class="row col-sm-10">
+            <div class="col-sm-2">
+                Количество записей: [[${totalItems}]]
+            </div>
+
+            <div class="col-sm-1">
+                <a th:if="${currentPage > 1}"
+                   th:href="@{'/Assistants/Index/'+${1}+'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&assistantFIO='+${assistantFIO}+'&assistantBirthDate='+${assistantBirthDate}}">Первая</a>
+                <span th:unless="${currentPage > 1}">Первая</span>
+            </div>
+            <div class="col-sm-1">
+                <a th:if="${currentPage > 1}"
+                   th:href="@{'/Assistants/Index/'+${currentPage - 1}+'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&assistantFIO='+${assistantFIO}+'&assistantBirthDate='+${assistantBirthDate}}">Назад</a>
+                <span th:unless="${currentPage > 1}">Назад</span>
+            </div>
+
+
+            <div class="col-auto">
+        <span th:each="i:${#numbers.sequence(1,totalPages)}">
+          <a th:if="${currentPage != i}"
+             th:href="@{'/Assistants/Index/'+${i}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&assistantFIO='+${assistantFIO}+'&assistantBirthDate='+${assistantBirthDate}}">[[${i}]]</a>
+          <span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
+        </span>
+            </div>
+            <div class="col-sm-1">
+                <a th:if="${currentPage < totalPages}"
+                   th:href="@{'/Assistants/Index/'+${currentPage + 1}+'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&assistantFIO='+${assistantFIO}+'&assistantBirthDate='+${assistantBirthDate}}">Далее</a>
+                <span th:unless="${currentPage < totalPages}">Далее</span>
+            </div>
+            <div class="col-sm-1">
+                <a th:if="${currentPage < totalPages}"
+                   th:href="@{'/Assistants/Index/'+${totalPages}+'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&assistantFIO='+${assistantFIO}+'&assistantBirthDate='+${assistantBirthDate}}">Последняя</a>
+                <span th:unless="${currentPage < totalPages}">Последняя</span>
+            </div>
+        </div>
+
+    </div>
+</div>
 </body>
 </html>

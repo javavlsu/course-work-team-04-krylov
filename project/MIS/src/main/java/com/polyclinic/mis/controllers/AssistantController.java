@@ -1,14 +1,12 @@
 package com.polyclinic.mis.controllers;
 
 import com.polyclinic.mis.auth.UserService;
-import com.polyclinic.mis.models.AnalysisReferral;
-import com.polyclinic.mis.models.Assistant;
-import com.polyclinic.mis.models.Doctor;
-import com.polyclinic.mis.models.PolyclinicUser;
+import com.polyclinic.mis.models.*;
 import com.polyclinic.mis.repository.RoleRepository;
 import com.polyclinic.mis.service.impl.AnalysisReferralServiceImpl;
 import com.polyclinic.mis.service.impl.AssistantServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -17,10 +15,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,13 +31,41 @@ public class AssistantController {
     UserService userService;
     @Autowired
     AuthenticationManager authenticationManager;
-    @GetMapping("/Assistants")
+    @GetMapping("/Assistants/Index")
     public String Index(Model model){
-        Iterable<Assistant> assistants = assistantService.getAll();
-        model.addAttribute("assistants",assistants);
-        return "/Assistants/Index";
+//        Iterable<Assistant> assistants = assistantService.getAll();
+//        model.addAttribute("assistants",assistants);
+//        return "/Assistants/Index";
+        return findPaginated(1, "lastName" , "desc","","",model);
     }
 
+    @GetMapping("/Assistants/Index/{pageNumber}")
+    public String findPaginated(
+            @PathVariable (value = "pageNumber") int pageNumber,
+            @RequestParam(value = "sortField") String sortField,
+            @RequestParam(value = "sortDir") String sortDir,
+            @RequestParam(value = "assistantFIO") String assistantFio,
+            @RequestParam(value = "assistantBirthDate") String assistantBirthDate,
+            Model model){
+        //todo page size from page https://www.youtube.com/watch?v=Aie8n12EFQc 11 00
+        int pageSize = 5;
+
+
+        Page<Assistant> page = assistantService.findPaginated(pageNumber,pageSize,sortField,sortDir,assistantFio,assistantBirthDate);
+        List<Assistant> assistants = page.getContent();
+
+        model.addAttribute("currentPage", pageNumber);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
+        model.addAttribute("assistants", assistants);
+
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir",sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc")?"desc":"asc");
+        model.addAttribute("assistantFIO",assistantFio);
+        model.addAttribute("assistantBirthDate",assistantBirthDate);
+        return "/Assistants/Index";
+    }
     @GetMapping("/Assistants/Create")
     public String ShowCreate(Model model){
         Assistant assistant = new Assistant();
@@ -59,7 +82,7 @@ public class AssistantController {
         assistantService.add(assistant);
 
         assignRole(assistant,user);
-        return "redirect:/Assistants";
+        return "redirect:/Assistants/Index";
     }
     private void assignRole(Assistant assistant, PolyclinicUser user){
         var assistantUser= assistant.getUser();
@@ -98,7 +121,7 @@ public class AssistantController {
     @GetMapping("Assistants/Delete/{id}")
     public String Delete(@PathVariable (value = "id") long id, Model model){
         assistantService.delete(id);
-        return "redirect:/Assistants";
+        return "redirect:/Assistants/Index";
     }
     @GetMapping("Assistants/Details/{id}")
     public String Details(@PathVariable (value = "id") long id, Model model){

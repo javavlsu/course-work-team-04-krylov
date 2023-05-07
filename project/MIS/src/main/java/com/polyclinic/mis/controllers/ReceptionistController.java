@@ -1,14 +1,12 @@
 package com.polyclinic.mis.controllers;
 
 import com.polyclinic.mis.auth.UserService;
-import com.polyclinic.mis.models.AnalysisReferral;
-import com.polyclinic.mis.models.Patient;
-import com.polyclinic.mis.models.PolyclinicUser;
-import com.polyclinic.mis.models.Receptionist;
+import com.polyclinic.mis.models.*;
 import com.polyclinic.mis.repository.RoleRepository;
 import com.polyclinic.mis.service.impl.FunctionalDiagnosticsDoctorServiceImpl;
 import com.polyclinic.mis.service.impl.ReceptionistServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -17,10 +15,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,10 +32,39 @@ public class ReceptionistController {
     UserService userService;
     @Autowired
     AuthenticationManager authenticationManager;
-    @GetMapping("/Receptionists")
+    @GetMapping("/Receptionists/Index")
     public String Index(Model model){
-        Iterable<Receptionist> receptionists = receptionistService.getAll();
-        model.addAttribute("receptionists",receptionists);
+//        Iterable<Receptionist> receptionists = receptionistService.getAll();
+//        model.addAttribute("receptionists",receptionists);
+//        return "/Receptionists/Index";
+        return findPaginated(1, "lastName" , "desc","","",model);
+
+    }
+    @GetMapping("/Receptionists/Index/{pageNumber}")
+    public String findPaginated(
+            @PathVariable (value = "pageNumber") int pageNumber,
+            @RequestParam(value = "sortField") String sortField,
+            @RequestParam(value = "sortDir") String sortDir,
+            @RequestParam(value = "receptionistFIO") String receptionistFio,
+            @RequestParam(value = "receptionistBirthDate") String receptionistBirthDate,
+            Model model){
+        //todo page size from page https://www.youtube.com/watch?v=Aie8n12EFQc 11 00
+        int pageSize = 5;
+
+
+        Page<Receptionist> page = receptionistService.findPaginated(pageNumber,pageSize,sortField,sortDir,receptionistFio,receptionistBirthDate);
+        List<Receptionist> receptionists = page.getContent();
+
+        model.addAttribute("currentPage", pageNumber);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
+        model.addAttribute("receptionists", receptionists);
+
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir",sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc")?"desc":"asc");
+        model.addAttribute("receptionistFIO",receptionistFio);
+        model.addAttribute("receptionistBirthDate",receptionistBirthDate);
         return "/Receptionists/Index";
     }
     @GetMapping("/Receptionists/Create")
@@ -49,6 +73,7 @@ public class ReceptionistController {
         model.addAttribute("receptionist",receptionist);
         return "/Receptionists/Create";
     }
+
     @PostMapping("/Receptionists/Create")
     public String Create(@ModelAttribute("receptionist")Receptionist receptionist){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -59,7 +84,7 @@ public class ReceptionistController {
         receptionistService.add(receptionist);
 
         assignRole(receptionist,user);
-        return "redirect:/Receptionists";
+        return "redirect:/Receptionists/Index";
     }
     private void assignRole(Receptionist receptionist, PolyclinicUser user){
         var receptionistUser= receptionist.getUser();
@@ -96,7 +121,7 @@ public class ReceptionistController {
     @GetMapping("Receptionists/Delete/{id}")
     public String Delete(@PathVariable (value = "id") long id, Model model){
         receptionistService.delete(id);
-        return "redirect:/Receptionists";
+        return "redirect:/Receptionists/Index";
     }
     @GetMapping("Receptionists/Details/{id}")
     public String Details(@PathVariable (value = "id") long id, Model model){

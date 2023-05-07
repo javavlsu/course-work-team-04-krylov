@@ -50,11 +50,6 @@ public class WebSecurityConfiguration{
                 .requestMatchers("/Authenticate").permitAll()
                 .requestMatchers("/Register").permitAll()
                 //Подтверждение данных
-                .requestMatchers("/Patients/Create").hasAuthority("CanRegisterAsPatient")
-                .requestMatchers("/Receptionists/Create").hasAuthority("CanRegisterAsReceptionist")
-                .requestMatchers("/FunctionalDiagnosticsDoctors/Create").hasAuthority("CanRegisterAsFunctionalDiagnosticsDoctor")
-                .requestMatchers("/Doctors/Create").hasAuthority("CanRegisterAsDoctor")
-                .requestMatchers("/Assistants/Create").hasAuthority("CanRegisterAsAssistant")
                 //Админ
                 .requestMatchers("/AssignUserToARole/Create").hasAuthority("Admin")
                 //Анализ
@@ -112,6 +107,25 @@ public class WebSecurityConfiguration{
                 .requestMatchers("/DoctorReferrals/Index/**").hasAnyAuthority("Doctor","Admin","Patient")
                 .requestMatchers("/DoctorReferrals/Create").hasAnyAuthority("Doctor","Admin")
                 .requestMatchers("/DoctorReferrals/Update/**").hasAnyAuthority("Doctor","Admin")
+
+                //Лаборанты
+                .requestMatchers("/Assistants/Details/**").hasAnyAuthority("Admin")
+                .requestMatchers("/Assistants/Index/**").hasAnyAuthority("Admin")
+                .requestMatchers("/Assistants/Create").hasAnyAuthority("Admin","CanRegisterAsAssistant")
+                .requestMatchers("/Assistants/Update/**").hasAnyAuthority("Admin")
+
+                //Мед регистраторы
+                .requestMatchers("/Receptionists/Details/**").hasAnyAuthority("Admin")
+                .requestMatchers("/Receptionists/Index/**").hasAnyAuthority("Admin")
+                .requestMatchers("/Receptionists/Create").hasAnyAuthority("Admin","CanRegisterAsReceptionist")
+                .requestMatchers("/Receptionists/Update/**").hasAnyAuthority("Admin")
+
+                //Врачи
+                .requestMatchers("/Doctors/Details/**").hasAnyAuthority("Admin","Patient")
+                .requestMatchers("/Doctors/Index/**").hasAnyAuthority("Admin","Patient")
+                .requestMatchers("/Doctors/Create").hasAnyAuthority("Admin","CanRegisterAsDoctor")
+                .requestMatchers("/Doctors/Update/**").hasAnyAuthority("Admin")
+
 
 //                .authenticated()
 //                .requestMatchers("/Analyses").hasAuthority("Admin")

@@ -5,17 +5,41 @@
 <header th:replace="~{fragments/header :: header}"></header>
 <h1>Список врачей</h1>
 
-<form method="get" action="Index">
+<!--<form method="get" action="Index">-->
+<!--    <p>-->
+<!--    <p>Поиск</p>-->
+<!--    <p style="color:red;">Ошибка</p>-->
+<!--    <input type="search" placeholder="Введите ФИО врача (Обязательно)" name="DoctorFIO" style="width:600px;" />-->
+<!--    <p></p>-->
+<!--    <input type="search"  name="DoctorSpeciality" style="width:500px;" placeholder="Специальность врача" />-->
+<!--    <input type="submit" value="Search" class="btn btn-primary" />-->
+<!--    <a href="">Получить список всех врачей</a>-->
+<!--    </p>-->
+<!--</form>-->
+
+<form method="get" th:action="'/Doctors/Index/1'">
     <p>
-    <p>Поиск</p>
-    <p style="color:red;">Ошибка</p>
-    <input type="search" placeholder="Введите ФИО врача (Обязательно)" name="DoctorFIO" style="width:600px;" />
-    <p></p>
-    <input type="search"  name="DoctorSpeciality" style="width:500px;" placeholder="Специальность (Необязательно)" />
-    <input type="submit" value="Search" class="btn btn-primary" />
-    <a href="">Получить список всех врачей</a>
+    <h4>Поиск</h4>
+    <input type="hidden" name="sortField" th:value="${sortField}">
+    <input type="hidden" name="sortDir" th:value="${sortDir}">
+    <input type="search" placeholder="Введите ФИО врача" name="doctorFIO" style="width:600px;"
+           th:value="${doctorFIO}"/>
+    <p>Специальность врача</p>
+    <select  name="doctorSpeciality" id="doctorSpeciality"  class="form-control" th:value="${speciality}">
+        <option value="" selected></option>
+        <option th:each="speciality : ${specialities}" th:value="${speciality}" th:text="${speciality}"  th:selected="${speciality==doctorSpeciality}"></option>
+    </select>
+
+<!--    <input type="search" name="assistantBirthDate" style="width:300px;" placeholder="yyyy / yyyy mm / yyyy mm dd"-->
+<!--           th:value="${assistantBirthDate}"/>-->
+<!--    <input type="search"  name="DoctorSpeciality" style="width:500px;" placeholder="Специальность врача" />-->
+    <input type="submit" value="Search" class="btn btn-primary"/>
+    <a th:href="@{'/Doctors/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&doctorFIO='+'&doctorBirthDate='}">Получить
+        список всех лаборантов</a>
     </p>
 </form>
+
+
 <table class="table">
     <thead>
     <tr>
