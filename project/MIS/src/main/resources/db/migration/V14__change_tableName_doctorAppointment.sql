@@ -1,0 +1,1 @@
+alter table doctor_appointment rename doctor_referral_appointment;

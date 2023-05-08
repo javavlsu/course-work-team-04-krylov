@@ -4,33 +4,35 @@
 <body style="margin-bottom: 60px" class="container-fluid">
 <header th:replace="~{fragments/header :: header}"></header>
 
+<div class="px-4 py-5 my-5 container-fluid">
 
-<h1>Изменить</h1>
+    <h1>Изменить</h1>
 
-<h4>Диагноз</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form action="#" th:action="@{/Diagnoses/Create}" th:object="${diagnosis}" method="POST">
-            <div class="form-group">
-                <label class="control-label">Код МКБ</label>
-<!--                <select id="patients" class="form-control"><option></option></select>-->
-                <input class="form-control" type="text" th:field = "*{id}"/>
-            </div>
-            <div class="form-group">
-                <label class="control-label">Описание</label>
-                <input class="form-control" type="text" th:field = "*{description}"/>
-            </div>
-            <div class="form-group">
-                <p></p>
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+    <h4>Диагноз</h4>
+    <hr/>
+    <div class="row">
+        <div class="col-md-4">
+            <form action="#" th:action="@{/Diagnoses/Create}" th:object="${diagnosis}" method="POST">
+                <div class="form-group">
+                    <label class="control-label">Код МКБ</label>
+                    <!--                <select id="patients" class="form-control"><option></option></select>-->
+                    <input class="form-control" type="text" th:field="*{id}"/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Описание</label>
+                    <input class="form-control" type="text" th:field="*{description}"/>
+                </div>
+                <div class="form-group">
+                    <p></p>
+                    <input type="submit" value="Create" class="btn btn-primary"/>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 
-<div>
-    <a href="/Diagnoses">Назад к списку</a>
+    <div>
+        <a href="/Diagnoses/Index">Назад к списку</a>
+    </div>
 </div>
 
 <div th:replace="~{fragments/ajaxImports :: ajaxScripts}"></div>

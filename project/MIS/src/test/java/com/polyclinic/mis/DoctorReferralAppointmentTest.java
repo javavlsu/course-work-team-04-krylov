@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.sql.Date;
-import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
@@ -17,13 +15,13 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-public class DoctorAppointmentTest {
+public class DoctorReferralAppointmentTest {
     @Autowired
     DoctorServiceImpl doctorService;
     @Autowired
     PatientServiceImpl patientService;
     @Autowired
-    DoctorAppointmentServiceImpl doctorAppointmentService;
+    DoctorReferralAppointmentServiceImpl doctorAppointmentService;
     @Autowired
     DiagnosisServiceImpl diagnosisService;
     @Autowired
@@ -37,7 +35,7 @@ public class DoctorAppointmentTest {
         assertThat(doctor)
                 .usingRecursiveComparison()
                 .isEqualTo(readDoctor.get());
-        Patient patient = new Patient("Иван","Петров","Михайлович",birthDate,124563,"Компания1",123976,"Ул.Комарова д.23 кв.2","АЛЬТЕНАР","Системный администратор");
+        Patient patient = new Patient("Иван","Петров","Михайлович",birthDate,"124563","Компания1","123976","Ул.Комарова д.23 кв.2","АЛЬТЕНАР","Системный администратор");
         Patient createdPatient = patientService.add(patient);
         Optional<Patient> readPatient = patientService.getById(createdPatient.getId());
         assertThat(patient)
@@ -64,10 +62,10 @@ public class DoctorAppointmentTest {
                 .isEqualTo(readDoctorReferral.get());
 
 
-        DoctorAppointment doctorAppointment = new DoctorAppointment(date,"Использована",readDoctorReferral.get());
-        DoctorAppointment createdDoctorAppointment = doctorAppointmentService.add(doctorAppointment);
-        Optional<DoctorAppointment> readDoctorAppointment = doctorAppointmentService.getById(createdDoctorAppointment.getId());
-        assertThat(doctorAppointment)
+        DoctorReferralAppointment doctorReferralAppointment = new DoctorReferralAppointment(date,"Использована",readDoctorReferral.get());
+        DoctorReferralAppointment createdDoctorReferralAppointment = doctorAppointmentService.add(doctorReferralAppointment);
+        Optional<DoctorReferralAppointment> readDoctorAppointment = doctorAppointmentService.getById(createdDoctorReferralAppointment.getId());
+        assertThat(doctorReferralAppointment)
                 .usingRecursiveComparison()
                 .isEqualTo(readDoctorAppointment.get());
 
@@ -82,7 +80,7 @@ public class DoctorAppointmentTest {
         assertThat(doctor)
                 .usingRecursiveComparison()
                 .isEqualTo(readDoctor.get());
-        Patient patient = new Patient("Иван","Петров","Михайлович",birthDate,124563,"Компания1",123976,"Ул.Комарова д.23 кв.2","АЛЬТЕНАР","Системный администратор");
+        Patient patient = new Patient("Иван","Петров","Михайлович",birthDate,"124563","Компания1","123976","Ул.Комарова д.23 кв.2","АЛЬТЕНАР","Системный администратор");
         Patient createdPatient = patientService.add(patient);
         Optional<Patient> readPatient = patientService.getById(createdPatient.getId());
         assertThat(patient)
@@ -108,18 +106,18 @@ public class DoctorAppointmentTest {
                 .isEqualTo(readDoctorReferral.get());
 
 
-        DoctorAppointment doctorAppointment = new DoctorAppointment(date,"Ожидает подтверждения",readDoctorReferral.get());
-        DoctorAppointment createdDoctorAppointment = doctorAppointmentService.add(doctorAppointment);
-        Optional<DoctorAppointment> readDoctorAppointment = doctorAppointmentService.getById(createdDoctorAppointment.getId());
-        assertThat(doctorAppointment)
+        DoctorReferralAppointment doctorReferralAppointment = new DoctorReferralAppointment(date,"Ожидает подтверждения",readDoctorReferral.get());
+        DoctorReferralAppointment createdDoctorReferralAppointment = doctorAppointmentService.add(doctorReferralAppointment);
+        Optional<DoctorReferralAppointment> readDoctorAppointment = doctorAppointmentService.getById(createdDoctorReferralAppointment.getId());
+        assertThat(doctorReferralAppointment)
                 .usingRecursiveComparison()
                 .isEqualTo(readDoctorAppointment.get());
-        assertThat(doctorAppointment)
+        assertThat(doctorReferralAppointment)
                 .usingRecursiveComparison()
                 .isEqualTo(readDoctorAppointment.get());
 
-        doctorAppointmentService.delete(createdDoctorAppointment.getId());
-        readDoctorAppointment = doctorAppointmentService.getById(createdDoctorAppointment.getId());
+        doctorAppointmentService.delete(createdDoctorReferralAppointment.getId());
+        readDoctorAppointment = doctorAppointmentService.getById(createdDoctorReferralAppointment.getId());
         Assertions.assertFalse(readDoctorAppointment.isPresent());
     }
     @Test
@@ -132,7 +130,7 @@ public class DoctorAppointmentTest {
         assertThat(doctor)
                 .usingRecursiveComparison()
                 .isEqualTo(readDoctor.get());
-        Patient patient = new Patient("Иван","Петров","Михайлович",birthDate,124563,"Компания1",123976,"Ул.Комарова д.23 кв.2","АЛЬТЕНАР","Системный администратор");
+        Patient patient = new Patient("Иван","Петров","Михайлович",birthDate,"124563","Компания1","123976","Ул.Комарова д.23 кв.2","АЛЬТЕНАР","Системный администратор");
         Patient createdPatient = patientService.add(patient);
         Optional<Patient> readPatient = patientService.getById(createdPatient.getId());
         assertThat(patient)
@@ -157,17 +155,17 @@ public class DoctorAppointmentTest {
                 .isEqualTo(readDoctorReferral.get());
 
 
-        DoctorAppointment doctorAppointment = new DoctorAppointment(date,"Выписано",readDoctorReferral.get());
-        DoctorAppointment createdDoctorAppointment = doctorAppointmentService.add(doctorAppointment);
-        Optional<DoctorAppointment> readDoctorAppointment = doctorAppointmentService.getById(createdDoctorAppointment.getId());
-        assertThat(doctorAppointment)
+        DoctorReferralAppointment doctorReferralAppointment = new DoctorReferralAppointment(date,"Выписано",readDoctorReferral.get());
+        DoctorReferralAppointment createdDoctorReferralAppointment = doctorAppointmentService.add(doctorReferralAppointment);
+        Optional<DoctorReferralAppointment> readDoctorAppointment = doctorAppointmentService.getById(createdDoctorReferralAppointment.getId());
+        assertThat(doctorReferralAppointment)
                 .usingRecursiveComparison()
                 .isEqualTo(readDoctorAppointment.get());
 
-        doctorAppointment.setStatus("Ожидает подтверждения");
-        DoctorAppointment editedDoctorAppointment = doctorAppointmentService.edit(doctorAppointment);
-        Optional<DoctorAppointment> readEditedDoctorAppointment = doctorAppointmentService.getById(editedDoctorAppointment.getId());
-        assertThat(doctorAppointment)
+        doctorReferralAppointment.setStatus("Ожидает подтверждения");
+        DoctorReferralAppointment editedDoctorReferralAppointment = doctorAppointmentService.edit(doctorReferralAppointment);
+        Optional<DoctorReferralAppointment> readEditedDoctorAppointment = doctorAppointmentService.getById(editedDoctorReferralAppointment.getId());
+        assertThat(doctorReferralAppointment)
                 .usingRecursiveComparison()
                 .isEqualTo(readEditedDoctorAppointment.get());
     }

@@ -3,32 +3,35 @@
 <head th:replace="~{fragments/head :: head}"></head>
 <body style="margin-bottom: 60px" class="container-fluid">
 <header th:replace="~{fragments/header :: header}"></header>
-<h1>Информация</h1>
+<div class="px-4 py-5 my-5 container-fluid">
 
-<div th:object="${assistant}">
-  <h4>Лаборант</h4>
-  <hr />
-  <dl class="row">
-    <dt class="col-sm-2">Id</dt>
-    <dd class="col-sm-10" th:utext= "*{id}"></dd>
+    <h1>Информация</h1>
 
-    <dt class="col-sm-2">Фамилия</dt>
-    <dd class="col-sm-10" th:utext= "*{lastName}"></dd>
+    <div th:object="${assistant}">
+        <h4>Лаборант</h4>
+        <hr/>
+        <dl class="row">
+            <dt class="col-sm-2">Id</dt>
+            <dd class="col-sm-10" th:utext="*{id}"></dd>
 
-    <dt class="col-sm-2">Имя</dt>
-    <dd class="col-sm-10" th:utext= "*{firstName}"></dd>
+            <dt class="col-sm-2">Фамилия</dt>
+            <dd class="col-sm-10" th:utext="*{lastName}"></dd>
 
-    <dt class="col-sm-2">Отчество</dt>
-    <dd class="col-sm-10" th:utext= "*{middleName}"></dd>
+            <dt class="col-sm-2">Имя</dt>
+            <dd class="col-sm-10" th:utext="*{firstName}"></dd>
 
-    <dt class="col-sm-2">Дата рождения</dt>
-    <dd class="col-sm-10" th:utext= "*{birthDate}"></dd>
-  </dl>
-</div>
-<a th:href="@{/Assistants/Edit/{id}(id=${id})}">Редактировать</a> |
-<a href="/Assistants">Назад к списку</a>
-<div>
+            <dt class="col-sm-2">Отчество</dt>
+            <dd class="col-sm-10" th:utext="*{middleName}"></dd>
 
+            <dt class="col-sm-2">Дата рождения</dt>
+            <dd class="col-sm-10" th:utext="*{birthDate}"></dd>
+        </dl>
+    </div>
+    <div>
+    <a th:href="@{/Assistants/Edit/{id}(id=${id})}">Редактировать</a> |
+    <a href="/Assistants/Index">Назад к списку</a>
+
+    </div>
 </div>
 </body>
 </html>

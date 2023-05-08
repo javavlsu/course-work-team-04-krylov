@@ -1,10 +1,11 @@
 package com.polyclinic.mis.service.impl;
 
-import com.polyclinic.mis.models.AnalysisReferral;
 import com.polyclinic.mis.models.DoctorAppointment;
-import com.polyclinic.mis.models.Patient;
+import com.polyclinic.mis.models.DoctorReferralAppointment;
 import com.polyclinic.mis.repository.DoctorAppointmentRepository;
+import com.polyclinic.mis.repository.DoctorReferralAppointmentRepository;
 import com.polyclinic.mis.service.DoctorAppointmentService;
+import com.polyclinic.mis.service.DoctorReferralAppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -29,7 +30,7 @@ public class DoctorAppointmentServiceImpl implements DoctorAppointmentService {
     }
     @Override
     public void delete(Long id) {
-    doctorAppointmentRepository.deleteById(id);
+        doctorAppointmentRepository.deleteById(id);
     }
 
     @Override

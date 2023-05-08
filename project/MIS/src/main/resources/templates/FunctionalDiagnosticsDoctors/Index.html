@@ -3,42 +3,46 @@
 <head th:replace="~{fragments/head :: head}"></head>
 <body style="margin-bottom: 60px" class="container-fluid">
 <header th:replace="~{fragments/header :: header}"></header>
-<h1>Список врачей функциональной диагностки</h1>
+<div class="px-4 py-5 my-5 container-fluid">
 
-<form method="get" action="Index">
-    <p>
-    <p>Поиск</p>
-    <p style="color:red;">Ошибка</p>
-    <input type="search" placeholder="Введите ФИО врача функциональной диагностики (Обязательно)" name="FunctionalDiagnosticsDoctorFIO" style="width:600px;" />
-    <p>Дата рождения врача функциональной диагностки (Необязательно)</p>
-    <input type="date"  name="FunctionalDiagnosticsDoctorBirthDate" style="width:300px;" />
-    <input type="submit" value="Search" class="btn btn-primary" />
-    <a href="">Получить список всех врачей функциональной диагностки</a>
-    </p>
-</form>
-<table class="table">
-    <thead>
-    <tr>
-        <th>Фамилия</th>
-        <th>Имя</th>
-        <th>Отчество</th>
-        <th>Дата рождения</th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="el : ${functionalDiagnosticsDoctors}">
-        <td th:text="${el.lastName}"></td>
-        <td th:text="${el.firstName}"></td>
-        <td th:text="${el.middleName}"></td>
-        <td th:text="${el.birthDate}"></td>
-        <td>
-            <a th:href="@{/FunctionalDiagnosticsDoctors/Edit/{id}(id=${el.id})}">Edit</a> |
-            <a th:href="@{/FunctionalDiagnosticsDoctors/Details/{id}(id=${el.id})}">Details</a> |
-            <a th:href="@{/FunctionalDiagnosticsDoctors/Delete/{id}(id=${el.id})}">Delete</a>
-        </td>
-    </tr>
-    </tbody>
-</table>
+    <h1>Список врачей функциональной диагностки</h1>
+
+    <form method="get" action="Index">
+        <p>
+        <p>Поиск</p>
+        <p style="color:red;">Ошибка</p>
+        <input type="search" placeholder="Введите ФИО врача функциональной диагностики (Обязательно)"
+               name="FunctionalDiagnosticsDoctorFIO" style="width:600px;"/>
+        <p>Дата рождения врача функциональной диагностки (Необязательно)</p>
+        <input type="date" name="FunctionalDiagnosticsDoctorBirthDate" style="width:300px;"/>
+        <input type="submit" value="Search" class="btn btn-primary"/>
+        <a href="">Получить список всех врачей функциональной диагностки</a>
+        </p>
+    </form>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Фамилия</th>
+            <th>Имя</th>
+            <th>Отчество</th>
+            <th>Дата рождения</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="el : ${functionalDiagnosticsDoctors}">
+            <td th:text="${el.lastName}"></td>
+            <td th:text="${el.firstName}"></td>
+            <td th:text="${el.middleName}"></td>
+            <td th:text="${el.birthDate}"></td>
+            <td>
+                <a th:href="@{/FunctionalDiagnosticsDoctors/Edit/{id}(id=${el.id})}">Edit</a> |
+                <a th:href="@{/FunctionalDiagnosticsDoctors/Details/{id}(id=${el.id})}">Details</a> |
+                <a th:href="@{/FunctionalDiagnosticsDoctors/Delete/{id}(id=${el.id})}">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

@@ -41,7 +41,7 @@ public class DoctorReferralTest {
         assertThat(doctorInitial)
                 .usingRecursiveComparison()
                 .isEqualTo(readDoctorInitial.get());
-        Patient patient = new Patient("Иван","Петров","Михайлович",birthDate,124563,"Компания1",123976,"Ул.Комарова д.23 кв.2","АЛЬТЕНАР","Системный администратор");
+        Patient patient = new Patient("Иван","Петров","Михайлович",birthDate,"124563","Компания1","123976","Ул.Комарова д.23 кв.2","АЛЬТЕНАР","Системный администратор");
         Patient createdPatient = patientService.add(patient);
         Optional<Patient> readPatient = patientService.getById(createdPatient.getId());
         assertThat(patient)
@@ -75,7 +75,7 @@ public class DoctorReferralTest {
         assertThat(doctorInitial)
                 .usingRecursiveComparison()
                 .isEqualTo(readDoctorInitial.get());
-        Patient patient = new Patient("Иван","Петров","Михайлович",birthDate,124563,"Компания1",123976,"Ул.Комарова д.23 кв.2","АЛЬТЕНАР","Системный администратор");
+        Patient patient = new Patient("Иван","Петров","Михайлович",birthDate,"124563","Компания1","123976","Ул.Комарова д.23 кв.2","АЛЬТЕНАР","Системный администратор");
         Patient createdPatient = patientService.add(patient);
         Optional<Patient> readPatient = patientService.getById(createdPatient.getId());
         assertThat(patient)
@@ -112,7 +112,7 @@ public class DoctorReferralTest {
         assertThat(doctorInitial)
                 .usingRecursiveComparison()
                 .isEqualTo(readDoctorInitial.get());
-        Patient patient = new Patient("Иван","Петров","Михайлович",birthDate,124563,"Компания1",123976,"Ул.Комарова д.23 кв.2","АЛЬТЕНАР","Системный администратор");
+        Patient patient = new Patient("Иван","Петров","Михайлович",birthDate,"124563","Компания1","123976","Ул.Комарова д.23 кв.2","АЛЬТЕНАР","Системный администратор");
         Patient createdPatient = patientService.add(patient);
         Optional<Patient> readPatient = patientService.getById(createdPatient.getId());
         assertThat(patient)

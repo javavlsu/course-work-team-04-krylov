@@ -28,10 +28,13 @@ public class Patient {
     private String middleName;
     private Date birthDate;
     //public PolyclinicUser PolyclinicUser
-    private int polisId;
+
+    //ТУт
+    private String polisId;
     private String poilsCompany;
     private Date polisEndDate;
-    private int snilsNumber;
+    //Тут
+    private String  snilsNumber;
     private String homeAddress;
     private String workPlace;
     private String workPosition;
@@ -48,7 +51,7 @@ public class Patient {
     private String polisEndDateString;
 
 
-    public Patient(String firstName, String lastName, String middleName, Date birthDate, int polisId, String poilsCompany, int snilsNumber, String homeAddress, String workPlace, String workPosition, Date polisEndDate) {
+    public Patient(String firstName, String lastName, String middleName, Date birthDate, String polisId, String poilsCompany, String snilsNumber, String homeAddress, String workPlace, String workPosition, Date polisEndDate) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;
@@ -61,7 +64,7 @@ public class Patient {
         this.workPlace = workPlace;
         this.workPosition = workPosition;
     }
-    public Patient(String firstName, String lastName, String middleName, Date birthDate, int polisId, String poilsCompany, int snilsNumber, String homeAddress, String workPlace, String workPosition) {
+    public Patient(String firstName, String lastName, String middleName, Date birthDate, String polisId, String poilsCompany, String snilsNumber, String homeAddress, String workPlace, String workPosition) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;

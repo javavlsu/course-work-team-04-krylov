@@ -1,9 +1,6 @@
 package com.polyclinic.mis.controllers;
 
-import com.polyclinic.mis.models.DoctorAppointment;
 import com.polyclinic.mis.models.DoctorReferralAppointment;
-import com.polyclinic.mis.service.DoctorAppointmentService;
-import com.polyclinic.mis.service.impl.DoctorAppointmentServiceImpl;
 import com.polyclinic.mis.service.impl.DoctorReferralAppointmentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,10 +12,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-public class DoctorAppointmentController {
+public class DoctorReferralAppointmentController {
     @Autowired
-    DoctorAppointmentServiceImpl doctorAppointmentService;
-    @GetMapping("/DoctorAppointments/Index")
+    DoctorReferralAppointmentServiceImpl doctorAppointmentService;
+    @GetMapping("/DoctorReferralAppointments/Index")
     public String Index(Model model){
 //        Iterable<DoctorReferralAppointment> doctorAppointments = doctorAppointmentService.getAll();
 //        model.addAttribute("doctorAppointments",doctorAppointments);
@@ -26,7 +23,7 @@ public class DoctorAppointmentController {
         return findPaginated(1, "status" , "desc","","","",model);
     }
 
-    @GetMapping("/DoctorAppointments/Index/{pageNumber}")
+    @GetMapping("/DoctorReferralAppointments/Index/{pageNumber}")
     public String findPaginated(
             @PathVariable (value = "pageNumber") int pageNumber,
             @RequestParam(value = "sortField") String sortField,
@@ -39,13 +36,13 @@ public class DoctorAppointmentController {
         int pageSize = 5;
 
 
-        Page<DoctorAppointment> page = doctorAppointmentService.findPaginated(pageNumber,pageSize,sortField,sortDir,patientFio,patientBirthDate,status);
-        List<DoctorAppointment> doctorAppointments = page.getContent();
+        Page<DoctorReferralAppointment> page = doctorAppointmentService.findPaginated(pageNumber,pageSize,sortField,sortDir,patientFio,patientBirthDate,status);
+        List<DoctorReferralAppointment> doctorReferralAppointments = page.getContent();
 
         model.addAttribute("currentPage", pageNumber);
         model.addAttribute("totalPages", page.getTotalPages());
         model.addAttribute("totalItems", page.getTotalElements());
-        model.addAttribute("doctorAppointments", doctorAppointments);
+        model.addAttribute("doctorReferralAppointments", doctorReferralAppointments);
 
         model.addAttribute("sortField", sortField);
         model.addAttribute("sortDir",sortDir);
@@ -55,43 +52,43 @@ public class DoctorAppointmentController {
         model.addAttribute("status",status);
 
 
-        return "/DoctorAppointments/Index";
+        return "/DoctorReferralAppointments/Index";
     }
 
-    @GetMapping("/DoctorAppointments/Create")
+    @GetMapping("/DoctorReferralAppointments/Create")
     public String ShowCreate(Model model){
-        DoctorAppointment doctorAppointment = new DoctorAppointment();
-        model.addAttribute("doctorAppointment", doctorAppointment);
-        return "/DoctorAppointments/Create";
+        DoctorReferralAppointment doctorReferralAppointment = new DoctorReferralAppointment();
+        model.addAttribute("doctorReferralAppointment", doctorReferralAppointment);
+        return "/DoctorReferralAppointments/Create";
     }
-    @PostMapping("/DoctorAppointments/Create")
-    public String Create(@ModelAttribute("doctorAppointment") DoctorAppointment doctorAppointment){
-        doctorAppointmentService.add(doctorAppointment);
-        return "redirect:/DoctorAppointments/Index";
+    @PostMapping("/DoctorReferralAppointments/Create")
+    public String Create(@ModelAttribute("doctorReferralAppointment") DoctorReferralAppointment doctorReferralAppointment){
+        doctorAppointmentService.add(doctorReferralAppointment);
+        return "redirect:/DoctorReferralAppointments/Index";
     }
     @GetMapping("DoctorReferralAppointments/Edit/{id}")
     public String ShowEdit(@PathVariable(value = "id") long id, Model model){
-        Optional<DoctorAppointment> doctorAppointment = doctorAppointmentService.getById(id);
+        Optional<DoctorReferralAppointment> doctorAppointment = doctorAppointmentService.getById(id);
         if (doctorAppointment.isPresent()){
-            model.addAttribute("doctorAppointment",doctorAppointment.get());
-            return "/DoctorAppointments/Update";
+            model.addAttribute("doctorReferralAppointment",doctorAppointment.get());
+            return "/DoctorReferralAppointments/Update";
         }
         else {
             //todo
             return "/Error";
         }
     }
-    @GetMapping("DoctorAppointments/Delete/{id}")
+    @GetMapping("DoctorReferralAppointments/Delete/{id}")
     public String Delete(@PathVariable (value = "id") long id, Model model){
         doctorAppointmentService.delete(id);
-        return "redirect:/DoctorAppointments/Index";
+        return "redirect:/DoctorReferralAppointments/Index";
     }
-    @GetMapping("DoctorAppointments/Details/{id}")
+    @GetMapping("DoctorReferralAppointments/Details/{id}")
     public String Details(@PathVariable (value = "id") long id, Model model){
-        Optional<DoctorAppointment> doctorAppointment = doctorAppointmentService.getById(id);
+        Optional<DoctorReferralAppointment> doctorAppointment = doctorAppointmentService.getById(id);
         if (doctorAppointment.isPresent()){
-            model.addAttribute("doctorAppointment",doctorAppointment.get());
-            return "/DoctorAppointments/Details";
+            model.addAttribute("doctorReferralAppointment",doctorAppointment.get());
+            return "/DoctorReferralAppointments/Details";
         }
         else {
             //todo

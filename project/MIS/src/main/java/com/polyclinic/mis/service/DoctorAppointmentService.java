@@ -1,11 +1,9 @@
 package com.polyclinic.mis.service;
 
-import com.polyclinic.mis.models.AnalysisReferral;
 import com.polyclinic.mis.models.DoctorAppointment;
-import com.polyclinic.mis.models.Receptionist;
+import com.polyclinic.mis.models.DoctorReferralAppointment;
 import org.springframework.data.domain.Page;
 
-import javax.print.Doc;
 import java.util.List;
 import java.util.Optional;
 

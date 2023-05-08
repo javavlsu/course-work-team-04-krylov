@@ -68,7 +68,7 @@ public class WebSecurityConfiguration{
                 //Пациенты
                 .requestMatchers("/Patients/Details/**").hasAnyAuthority("Doctor","Assistant","Admin","Receptionist","FunctionalDiagnosticsDoctor")
                 .requestMatchers("/Patients/Index/**").hasAnyAuthority("Doctor","Assistant","Admin","Receptionist","FunctionalDiagnosticsDoctor")
-                .requestMatchers("/Patients/Create").hasAnyAuthority("Assistant","Admin","Receptionist","FunctionalDiagnosticsDoctor")
+                .requestMatchers("/Patients/Create").hasAnyAuthority("Admin","CanRegisterAsPatient")
                 .requestMatchers("/Patients/Update/**").hasAnyAuthority("Assistant","Admin","Receptionist","FunctionalDiagnosticsDoctor")
 
                 //Обследования
@@ -89,11 +89,11 @@ public class WebSecurityConfiguration{
                 .requestMatchers("/Diagnoses/Create").hasAnyAuthority("Admin")
                 .requestMatchers("/Diagnoses/Update/**").hasAnyAuthority("Admin")
 
-                //Заявления на прием врача
-                .requestMatchers("/DoctorAppointments/Details/**").hasAnyAuthority("Doctor","Admin","Receptionist")
-                .requestMatchers("/DoctorAppointments/Index/**").hasAnyAuthority("Doctor","Admin","Receptionist")
-                .requestMatchers("/DoctorAppointments/Create").hasAnyAuthority("Doctor","Admin","Receptionist")
-                .requestMatchers("/DoctorAppointments/Update/**").hasAnyAuthority("Doctor","Admin","Receptionist")
+                //Заявления на прием врача по направлению
+                .requestMatchers("/DoctorReferralAppointments/Details/**").hasAnyAuthority("Doctor","Admin","Receptionist")
+                .requestMatchers("/DoctorReferralAppointments/Index/**").hasAnyAuthority("Doctor","Admin","Receptionist")
+                .requestMatchers("/DoctorReferralAppointments/Create").hasAnyAuthority("Doctor","Admin","Receptionist")
+                .requestMatchers("/DoctorReferralAppointments/Update/**").hasAnyAuthority("Doctor","Admin","Receptionist")
 
                 //Осмотры
                 .requestMatchers("/Inspections/Details/**").hasAnyAuthority("Doctor","Admin","Patient")

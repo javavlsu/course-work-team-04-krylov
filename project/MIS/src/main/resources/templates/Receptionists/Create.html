@@ -4,42 +4,43 @@
 <body style="margin-bottom: 60px" class="container-fluid">
 <header th:replace="~{fragments/header :: header}"></header>
 
+<div class="px-4 py-5 my-5 container-fluid">
 
-<h1>Регистрация</h1>
+    <h1>Регистрация</h1>
 
-<h4>Медицинский регистратор</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form action="#" th:action="@{/Receptionists/Create}" th:object="${receptionist}" method="POST">
-            <div class="form-group">
-                <label class="control-label">Фамилия</label>
-                <input class="form-control" type="text" th:field = "*{lastName}"/>
-            </div>
-            <div class="form-group">
-                <label class="control-label">Имя</label>
-                <input class="form-control" type="text" th:field = "*{firstName}"/>
-            </div>
-            <div class="form-group">
-                <label class="control-label">Отчество</label>
-                <input class="form-control" type="text" th:field = "*{middleName}"/>
-            </div>
-            <div class="form-group">
-                <label class="control-label">Дата рождения</label>
-                <input class="form-control" type="date" th:field = "*{birthDate}"/>
-            </div>
-            <div class="form-group">
-                <p></p>
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+    <h4>Медицинский регистратор</h4>
+    <hr/>
+    <div class="row">
+        <div class="col-md-4">
+            <form action="#" th:action="@{/Receptionists/Create}" th:object="${receptionist}" method="POST">
+                <div class="form-group">
+                    <label class="control-label">Фамилия</label>
+                    <input class="form-control" type="text" th:field="*{lastName}"/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Имя</label>
+                    <input class="form-control" type="text" th:field="*{firstName}"/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Отчество</label>
+                    <input class="form-control" type="text" th:field="*{middleName}"/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Дата рождения</label>
+                    <input class="form-control" type="date" th:field="*{birthDate}"/>
+                </div>
+                <div class="form-group">
+                    <p></p>
+                    <input type="submit" value="Create" class="btn btn-primary"/>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a href="/Receptionists/Index">Назад к списку</a>
     </div>
 </div>
-
-<div>
-    <a href="/Receptionists">Назад к списку</a>
-</div>
-
 <div th:replace="~{fragments/ajaxImports :: ajaxScripts}"></div>
 
 <script>
