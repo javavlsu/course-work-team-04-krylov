@@ -53,13 +53,13 @@ public class DoctorController {
 
 
         Page<Doctor> page = doctorService.findPaginated(pageNumber,pageSize,sortField,sortDir,doctorFIO,doctorSpeciality);
-        List<Doctor> receptionists = page.getContent();
+        List<Doctor> doctors = page.getContent();
         String[] specialities = doctorService.getAllSpecialities();
 
         model.addAttribute("currentPage", pageNumber);
         model.addAttribute("totalPages", page.getTotalPages());
         model.addAttribute("totalItems", page.getTotalElements());
-        model.addAttribute("receptionists", receptionists);
+        model.addAttribute("doctors", doctors);
 
         model.addAttribute("sortField", sortField);
         model.addAttribute("sortDir",sortDir);
