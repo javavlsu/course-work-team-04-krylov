@@ -16,4 +16,7 @@ public interface DoctorAppointmentRepository extends JpaRepository<DoctorAppoint
 
     @Query("SELECT a from DoctorAppointment as a where a.status like %:status%")
     public Page<DoctorAppointment> findAll(String status, Pageable pageable);
+
+    @Query("SELECT a from DoctorAppointment as a where a.status like %:status% and a.patient.id = :patientId")
+    public Page<DoctorAppointment> findForOnePatient(String status, long patientId, Pageable pageable);
 }

@@ -20,6 +20,8 @@ import java.util.Optional;
 public class DoctorAppointmentServiceImpl implements DoctorAppointmentService {
     @Autowired
     private DoctorAppointmentRepository doctorAppointmentRepository;
+    @Autowired
+    private PolyclinicUserServiceImpl polyclinicUserService;
     @Override
     public DoctorAppointment add(DoctorAppointment doctorAppointment) {
         return doctorAppointmentRepository.saveAndFlush(doctorAppointment);
@@ -77,4 +79,13 @@ public class DoctorAppointmentServiceImpl implements DoctorAppointmentService {
         }
         return doctorAppointmentRepository.findAll(status,pageable);
     }
+    @Override
+    public Page<DoctorAppointment> patientFindPaginated(int pageNumber, int pageSize, String sortField, String sortDirection, String status) {
+        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() : Sort.by(sortField).descending();
+        Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, sort);
+        var patient = polyclinicUserService.getPatientFromContext();
+            return doctorAppointmentRepository.findForOnePatient(status,patient.getId(),pageable);
+
+    }
+
 }

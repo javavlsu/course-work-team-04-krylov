@@ -19,6 +19,8 @@ import java.util.Optional;
 public class PatientServiceImpl implements PatientService {
     @Autowired
     private PatientRepository patientRepository;
+    @Autowired
+    private PolyclinicUserServiceImpl polyclinicUserService;
     @Override
     public Patient add(Patient patient) {
         if (patient.getPolisEndDate()!=null&&patient.getPolisEndDateString()!="")
@@ -81,5 +83,9 @@ public class PatientServiceImpl implements PatientService {
             return patientRepository.findAll("","","",birthDate,pageable);
         }
         return patientRepository.findAll(pageable);
+    }
+
+    public Patient currentPatient(){
+        return polyclinicUserService.getPatientFromContext();
     }
 }

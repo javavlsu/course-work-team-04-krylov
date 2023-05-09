@@ -15,8 +15,11 @@ import java.util.List;
 public interface DoctorRepository extends JpaRepository<Doctor, Long> {
 
     @Query("select a.speciality from Doctor as a group by a.speciality")
-    String[] getAllSpecialities();
+    String[] findAllSpecialities();
 
     @Query("SELECT a from Doctor as a where a.lastName like %:lastName% and a.firstName like %:firstName% and a.middleName like %:middleName% and a.speciality like %:speciality%")
     Page<Doctor> findAll(@Param("lastName") String lastName, String firstName, String middleName, String speciality, Pageable pageable);
+
+    @Query("select a from Doctor as a where a.speciality = 'Терапевт'")
+    List<Doctor> findAllTherapists();
 }

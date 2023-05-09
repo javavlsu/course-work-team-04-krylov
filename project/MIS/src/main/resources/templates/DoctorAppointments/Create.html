@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head}"></head>
+<body style="margin-bottom: 60px" class="container-fluid">
+<header th:replace="~{fragments/header :: header}"></header>
+<div class="px-4 py-5 my-5 container-fluid">
+
+
+    <h1>Создать</h1>
+
+    <h4>Запись ко врачу</h4>
+    <hr/>
+    <div class="row">
+        <div class="col-md-4">
+            <form action="#" th:action="@{/DoctorAppointments/Create}" th:object="${doctorAppointment}" method="POST">
+                <div class="form-group">
+                    <label class="control-label">Пациент</label>
+                    <input class="form-control" type="text"  th:value="${patient}" readonly/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Терапевт</label>
+<!--                    <input class="form-control" type="text" th:field="*{doctor.id}"/>-->
+                    <select th:field="*{doctor}" id="doctors" class="form-control">
+                        <option value="" selected></option>
+                        <option th:each="doctor : ${doctors}" th:value="${doctor.id}" th:text="${doctor.ReturnFIOAndSpeciality}"></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Время</label>
+                    <input class="form-control" type="datetime-local" th:field="*{date}"/>
+                </div>
+<!--                <div class="form-group">-->
+<!--                    <label class="control-label">Кабинет</label>-->
+<!--                    <input class="form-control" type="text" th:field="*{cabinetNum}"/>-->
+<!--                </div>-->
+<!--                <div class="form-group">-->
+<!--                    <label class="control-label">Диагноз</label>-->
+<!--                    <input class="form-control" type="text" th:field="*{diagnosis}"/>-->
+<!--                </div>-->
+<!--                <div class="form-group">-->
+<!--                    <label class="control-label">Статус</label>-->
+<!--                    <input class="form-control" type="text" th:field="*{status}"/>-->
+<!--                </div>-->
+                <div class="form-group">
+                    <p></p>
+                    <input type="submit" value="Записаться" class="btn btn-primary"/>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a href="/PatientDoctorAppointments/Index">Назад к списку</a>
+    </div>
+
+    <div th:replace="~{fragments/ajaxImports :: ajaxScripts}"></div>
+
+    <script>
+        $(document).ready(function () {
+            $("#doctors").select2({
+                placeholder: "Выберите терапевта",
+                theme: "bootstrap4",
+                allowClear: true
+            });
+        });
+    </script>
+</div>
+</body>
+</html>

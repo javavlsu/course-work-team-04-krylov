@@ -14,4 +14,6 @@ public interface DoctorAppointmentService {
     DoctorAppointment edit(DoctorAppointment doctorAppointment);
     List<DoctorAppointment> getAll();
     Page<DoctorAppointment> findPaginated(int pageNumber, int pageSize, String sortField, String sortDirection, String fio, String birthDate, String status);
+
+    Page<DoctorAppointment> patientFindPaginated(int pageNumber, int pageSize, String sortField, String sortDirection, String status);
 }

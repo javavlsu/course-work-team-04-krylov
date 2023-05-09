@@ -14,7 +14,7 @@ import java.util.Optional;
 @Controller
 public class DoctorReferralAppointmentController {
     @Autowired
-    DoctorReferralAppointmentServiceImpl doctorAppointmentService;
+    DoctorReferralAppointmentServiceImpl doctorReferralAppointmentService;
     @GetMapping("/DoctorReferralAppointments/Index")
     public String Index(Model model){
 //        Iterable<DoctorReferralAppointment> doctorAppointments = doctorAppointmentService.getAll();
@@ -36,7 +36,7 @@ public class DoctorReferralAppointmentController {
         int pageSize = 5;
 
 
-        Page<DoctorReferralAppointment> page = doctorAppointmentService.findPaginated(pageNumber,pageSize,sortField,sortDir,patientFio,patientBirthDate,status);
+        Page<DoctorReferralAppointment> page = doctorReferralAppointmentService.findPaginated(pageNumber,pageSize,sortField,sortDir,patientFio,patientBirthDate,status);
         List<DoctorReferralAppointment> doctorReferralAppointments = page.getContent();
 
         model.addAttribute("currentPage", pageNumber);
@@ -63,12 +63,12 @@ public class DoctorReferralAppointmentController {
     }
     @PostMapping("/DoctorReferralAppointments/Create")
     public String Create(@ModelAttribute("doctorReferralAppointment") DoctorReferralAppointment doctorReferralAppointment){
-        doctorAppointmentService.add(doctorReferralAppointment);
+        doctorReferralAppointmentService.add(doctorReferralAppointment);
         return "redirect:/DoctorReferralAppointments/Index";
     }
     @GetMapping("DoctorReferralAppointments/Edit/{id}")
     public String ShowEdit(@PathVariable(value = "id") long id, Model model){
-        Optional<DoctorReferralAppointment> doctorAppointment = doctorAppointmentService.getById(id);
+        Optional<DoctorReferralAppointment> doctorAppointment = doctorReferralAppointmentService.getById(id);
         if (doctorAppointment.isPresent()){
             model.addAttribute("doctorReferralAppointment",doctorAppointment.get());
             return "/DoctorReferralAppointments/Update";
@@ -80,12 +80,12 @@ public class DoctorReferralAppointmentController {
     }
     @GetMapping("DoctorReferralAppointments/Delete/{id}")
     public String Delete(@PathVariable (value = "id") long id, Model model){
-        doctorAppointmentService.delete(id);
+        doctorReferralAppointmentService.delete(id);
         return "redirect:/DoctorReferralAppointments/Index";
     }
     @GetMapping("DoctorReferralAppointments/Details/{id}")
     public String Details(@PathVariable (value = "id") long id, Model model){
-        Optional<DoctorReferralAppointment> doctorAppointment = doctorAppointmentService.getById(id);
+        Optional<DoctorReferralAppointment> doctorAppointment = doctorReferralAppointmentService.getById(id);
         if (doctorAppointment.isPresent()){
             model.addAttribute("doctorReferralAppointment",doctorAppointment.get());
             return "/DoctorReferralAppointments/Details";

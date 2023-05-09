@@ -126,6 +126,16 @@ public class WebSecurityConfiguration{
                 .requestMatchers("/Doctors/Create").hasAnyAuthority("Admin","CanRegisterAsDoctor")
                 .requestMatchers("/Doctors/Update/**").hasAnyAuthority("Admin")
 
+                //Заявления на первичный прием у врача
+                .requestMatchers("/DoctorAppointments/Details/**").hasAnyAuthority("Doctor","Admin","Receptionist")
+                .requestMatchers("/DoctorAppointments/Index/**").hasAnyAuthority("Doctor","Admin","Receptionist")
+                .requestMatchers("/PatientDoctorAppointments/Index/**").hasAnyAuthority("Admin","Patient")
+                .requestMatchers("/PatientDoctorAppointments/Create").hasAnyAuthority("Admin","Patient")
+                .requestMatchers("/DoctorAppointments/Update/**").hasAnyAuthority("Doctor","Admin","Receptionist")
+
+                //Профиль пациента
+                .requestMatchers("/PatientProfile").hasAnyAuthority("Admin","Patient")
+
 
 //                .authenticated()
 //                .requestMatchers("/Analyses").hasAuthority("Admin")

@@ -154,4 +154,11 @@ public class PatientController {
             return "/Error";
         }
     }
+
+    @GetMapping("PatientProfile")
+    public String Profile(Model model){
+
+        model.addAttribute("patient",patientService.currentPatient());
+        return "/Patients/Details";
+    }
 }

@@ -67,6 +67,10 @@ public class DoctorServiceImpl implements DoctorService {
     }
     @Override
     public String[] getAllSpecialities(){
-        return doctorRepository.getAllSpecialities();
+        return doctorRepository.findAllSpecialities();
+    }
+
+    public List<Doctor> getAllTherapists(){
+        return doctorRepository.findAllTherapists();
     }
 }

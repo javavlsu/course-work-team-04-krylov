@@ -10,4 +10,5 @@ import java.util.Optional;
 public interface PolyclinicUserRepository extends JpaRepository<PolyclinicUser,Long> {
     Optional<PolyclinicUser> findByEmail(String email);
     Boolean existsByEmail(String email);
+
 }
