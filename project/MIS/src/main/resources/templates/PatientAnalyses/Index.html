@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head}"></head>
+<body style="margin-bottom: 60px" class="container-fluid">
+<header th:replace="~{fragments/header :: header}"></header>
+
+<div class="px-4 py-5 my-5 container-fluid">
+    <h1>Анализы</h1>
+
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>
+                <a th:replace="~{fragments/pagination :: link(page='PatientAnalyses',  sortField='patient.lastName', text='Пациент')}"></a>
+            </th>
+            <th>
+                <a th:replace="~{fragments/pagination :: link(page='PatientAnalyses',  sortField='patient.birthDate', text='Дата рождения пациента')}"></a>
+
+            </th>
+            <th>
+                <a th:replace="~{fragments/pagination :: link(page='PatientAnalyses',  sortField='type', text='Тип')}"></a>
+
+            </th>
+            <th>
+                <a th:replace="~{fragments/pagination :: link(page='PatientAnalyses',  sortField='report', text='Заключение')}"></a>
+
+            </th>
+            <th>
+                <a th:replace="~{fragments/pagination :: link(page='PatientAnalyses',  sortField='assistant.lastName', text='Лаборант')}"></a>
+
+            </th>
+            <th>
+                <a th:replace="~{fragments/pagination :: link(page='PatientAnalyses',  sortField='date', text='Дата проведения')}"></a>
+
+            </th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="el : ${analyses}">
+            <td th:text="${el.patient.ReturnFIO}"></td>
+            <td th:text="${el.patient.ReturnBirthDate}"></td>
+            <td th:text="${el.type}"></td>
+            <td th:text="${el.report}"></td>
+            <td th:text="${el.assistant.ReturnFIOAndBirthDate}"></td>
+            <!--    <td th:text="${el.date}">-->
+            <td th:text="${#temporals.format(el.date, 'dd-MM-yyyy HH:mm')}"></td>
+            </td>
+            <td>
+<!--                <a th:href="@{/Analyses/Edit/{id}(id=${el.id})}">Edit</a> |-->
+                <a th:href="@{/Analyses/Details/{id}(id=${el.id})}">Details</a>
+<!--                <a th:href="@{/Analyses/Delete/{id}(id=${el.id})}">Delete</a>-->
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div th:replace="~{fragments/pagination :: pages(page='PatientAnalyses')}"></div>
+</div>
+</body>
+</html>

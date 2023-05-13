@@ -1,6 +1,7 @@
 package com.polyclinic.mis.service.impl;
 
 import com.polyclinic.mis.models.Analysis;
+import com.polyclinic.mis.models.Examination;
 import com.polyclinic.mis.models.Inspection;
 import com.polyclinic.mis.models.Patient;
 import com.polyclinic.mis.repository.InspectionRepository;
@@ -19,6 +20,8 @@ import java.util.Optional;
 public class InspectionServiceImpl implements InspectionService {
     @Autowired
     private InspectionRepository inspectionRepository;
+    @Autowired
+    private PolyclinicUserServiceImpl polyclinicUserService;
     @Override
     public Inspection add(Inspection inspection) {
         return inspectionRepository.saveAndFlush(inspection);
@@ -76,5 +79,13 @@ public class InspectionServiceImpl implements InspectionService {
             return inspectionRepository.findAll("","","",birthDate,pageable);
         }
         return inspectionRepository.findAll(pageable);
+    }
+    @Override
+    public Page<Inspection> patientFindPaginated(int pageNumber, int pageSize, String sortField, String sortDirection) {
+        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() : Sort.by(sortField).descending();
+        Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, sort);
+        var patient = polyclinicUserService.getPatientFromContext();
+        return inspectionRepository.findForOnePatient(patient.getId(),pageable);
+
     }
 }

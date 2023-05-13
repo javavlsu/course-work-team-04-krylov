@@ -20,4 +20,6 @@ public interface AnalysisService {
     Page<Analysis> findPaginated(int pageNumber, int pageSize, String sortField, String sortDirection, String fio, String birthDate);
 
 //    Page<Analysis> findPaginatedWithSearch(int pageNumber, int pageSize, String sortField, String sortDirection, String fio, Date birthDate);
+    Page<Analysis> patientFindPaginated(int pageNumber, int pageSize, String sortField, String sortDirection);
+
 }

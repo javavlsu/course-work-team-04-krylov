@@ -56,6 +56,8 @@ public class WebSecurityConfiguration{
 //                .requestMatchers("/Analyses").hasAnyAuthority("Doctor","Assistant","Admin")
                 .requestMatchers("/Analyses/Details/**").hasAnyAuthority("Doctor","Assistant","Admin")
                 .requestMatchers("/Analyses/Index/**").hasAnyAuthority("Doctor","Assistant","Admin")
+                .requestMatchers("/PatientAnalyses/Details/**").hasAnyAuthority("Patient","Admin")
+                .requestMatchers("/PatientAnalyses/Index/**").hasAnyAuthority("Patient","Admin")
                 .requestMatchers("/Analyses/Create").hasAnyAuthority("Assistant","Admin")
                 .requestMatchers("/Analyses/Update/**").hasAnyAuthority("Assistant","Admin")
 
@@ -74,6 +76,8 @@ public class WebSecurityConfiguration{
                 //Обследования
                 .requestMatchers("/Examinations/Details/**").hasAnyAuthority("Doctor","Admin","FunctionalDiagnosticsDoctor")
                 .requestMatchers("/Examinations/Index/**").hasAnyAuthority("Doctor","Admin","FunctionalDiagnosticsDoctor")
+                .requestMatchers("/PatientExaminations/Details/**").hasAnyAuthority("Patient","Admin")
+                .requestMatchers("/PatientExaminations/Index/**").hasAnyAuthority("Patient","Admin")
                 .requestMatchers("/Examinations/Create").hasAnyAuthority("Doctor","Admin","FunctionalDiagnosticsDoctor")
                 .requestMatchers("/Examinations/Update/**").hasAnyAuthority("Doctor","Admin","FunctionalDiagnosticsDoctor")
 
@@ -96,8 +100,10 @@ public class WebSecurityConfiguration{
                 .requestMatchers("/DoctorReferralAppointments/Update/**").hasAnyAuthority("Doctor","Admin","Receptionist")
 
                 //Осмотры
-                .requestMatchers("/Inspections/Details/**").hasAnyAuthority("Doctor","Admin","Patient")
-                .requestMatchers("/Inspections/Index/**").hasAnyAuthority("Doctor","Admin","Patient")
+                .requestMatchers("/Inspections/Details/**").hasAnyAuthority("Doctor","Admin")
+                .requestMatchers("/Inspections/Index/**").hasAnyAuthority("Doctor","Admin")
+                .requestMatchers("/PatientInspections/Details/**").hasAnyAuthority("Admin","Patient")
+                .requestMatchers("/PatientInspections/Index/**").hasAnyAuthority("Admin","Patient")
                 .requestMatchers("/Inspections/Create").hasAnyAuthority("Doctor","Admin")
                 .requestMatchers("/Inspections/Update/**").hasAnyAuthority("Doctor","Admin")
 
