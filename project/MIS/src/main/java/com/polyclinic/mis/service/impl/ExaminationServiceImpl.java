@@ -19,6 +19,8 @@ import java.util.Optional;
 public class ExaminationServiceImpl implements ExaminationService {
     @Autowired
     private ExaminationRepository examinationRepository;
+    @Autowired
+    private PolyclinicUserServiceImpl polyclinicUserService;
     @Override
     public Examination add(Examination examination) {
         return examinationRepository.saveAndFlush(examination);
@@ -76,5 +78,13 @@ public class ExaminationServiceImpl implements ExaminationService {
             return examinationRepository.findAll("","","",birthDate,pageable);
         }
         return examinationRepository.findAll(pageable);
+    }
+    @Override
+    public Page<Examination> patientFindPaginated(int pageNumber, int pageSize, String sortField, String sortDirection) {
+        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() : Sort.by(sortField).descending();
+        Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, sort);
+        var patient = polyclinicUserService.getPatientFromContext();
+        return examinationRepository.findForOnePatient(patient.getId(),pageable);
+
     }
 }

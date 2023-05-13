@@ -1,6 +1,7 @@
 package com.polyclinic.mis.service;
 
 import com.polyclinic.mis.models.Analysis;
+import com.polyclinic.mis.models.Examination;
 import com.polyclinic.mis.models.Inspection;
 import com.polyclinic.mis.models.Receptionist;
 import org.springframework.data.domain.Page;
@@ -16,5 +17,8 @@ public interface InspectionService {
     List<Inspection> getAll();
 
     Page<Inspection> findPaginated(int pageNumber, int pageSize, String sortField, String sortDirection, String fio, String birthDate);
+
+    Page<Inspection> patientFindPaginated(int pageNumber, int pageSize, String sortField, String sortDirection);
+
 
 }

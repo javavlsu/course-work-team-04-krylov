@@ -18,4 +18,6 @@ public interface AnalysisRepository extends JpaRepository<Analysis,Long> {
 
 //    @Query("SELECT a from Analysis as a where a.patient.lastName like %?1%")
     public Page<Analysis> findAll(@Param("lastName") String lastName, String firstName, String middleName, String date, Pageable pageable);
+    @Query("SELECT a from Analysis as a where a.patient.id = :patientId")
+    public Page<Analysis> findForOnePatient(long patientId, Pageable pageable);
 }

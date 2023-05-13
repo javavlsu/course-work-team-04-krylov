@@ -15,4 +15,6 @@ public interface ExaminationRepository extends JpaRepository<Examination,Long> {
 
 //    @Query("SELECT a from Analysis as a where a.patient.lastName like %?1%")
     public Page<Examination> findAll(@Param("lastName") String lastName, String firstName, String middleName, String date, Pageable pageable);
+    @Query("SELECT a from Examination as a where a.patient.id = :patientId")
+    public Page<Examination> findForOnePatient(long patientId, Pageable pageable);
 }

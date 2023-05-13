@@ -28,8 +28,6 @@ public class InspectionController {
 //        return "/Inspections/Index";
         return findPaginated(1, "date" , "desc","","",model);
     }
-
-
     @GetMapping("/Inspections/Index/{pageNumber}")
     public String findPaginated(
             @PathVariable (value = "pageNumber") int pageNumber,
@@ -58,6 +56,42 @@ public class InspectionController {
 
         return "/Inspections/Index";
     }
+
+    @GetMapping("/PatientInspections/Index/{pageNumber}")
+    public String patientFindPaginated(
+            @PathVariable (value = "pageNumber") int pageNumber,
+            @RequestParam(value = "sortField") String sortField,
+            @RequestParam(value = "sortDir") String sortDir,
+            Model model){
+        //todo page size from page https://www.youtube.com/watch?v=Aie8n12EFQc 11 00
+        int pageSize = 5;
+
+
+        Page<Inspection> page = inspectionService.patientFindPaginated(pageNumber,pageSize,sortField,sortDir);
+        List<Inspection> inspections = page.getContent();
+
+        model.addAttribute("currentPage", pageNumber);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
+        model.addAttribute("inspections", inspections);
+
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir",sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc")?"desc":"asc");
+
+        return "/PatientInspections/Index";
+    }
+
+    @GetMapping("/PatientInspections/Index")
+    public String PatientIndex(Model model){
+//        Iterable<Inspection> inspections = inspectionService.getAll();
+//        model.addAttribute("inspections",inspections);
+//        return "/Inspections/Index";
+        return patientFindPaginated(1, "date" , "desc",model);
+    }
+
+
+
     @GetMapping("/Inspections/Create")
     public String ShowCreate(Model model){
         Inspection inspection = new Inspection();

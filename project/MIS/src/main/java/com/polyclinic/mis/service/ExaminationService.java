@@ -15,4 +15,7 @@ public interface ExaminationService {
     Examination edit(Examination examination);
     List<Examination> getAll();
     Page<Examination> findPaginated(int pageNumber, int pageSize, String sortField, String sortDirection, String fio, String birthDate);
+
+    Page<Examination> patientFindPaginated(int pageNumber, int pageSize, String sortField, String sortDirection);
+
 }
