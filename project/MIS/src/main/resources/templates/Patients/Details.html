@@ -63,7 +63,7 @@
                 </div>
             </div>
             <div class="col-sm" style="width: 10%">
-<!--                <div sec:authorize="hasAnyAuthority('Patient')">-->
+                <!--                <div sec:authorize="hasAnyAuthority('Patient')">-->
                 <div th:if="${ownProfile} == true ">
                     <div class="d-grid gap-2 justify-content-sm-center">
                         <a href="/PatientAnalyses/Index" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть список
@@ -84,6 +84,35 @@
                             список направлений на прием у врача</a>
                     </div>
                 </div>
+                <div th:if="${ownProfile} == false " sec:authorize="hasAnyAuthority('Admin','Doctor')">
+                    <div class="d-grid gap-2 justify-content-sm-center">
+                        <!--                        <a th:href="@{'/Analyses/Index/1?'+'sortField='+'date'+'&'+'sortDir=desc'+'&'+'patientFIO='+${patient.lastName}+'+'+${patient.firstName}+'+'+${patient.middleName}+'&'+'patientBirthDate='}" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть список-->
+                        <a th:href="@{'/Analyses/Index/1?'+'sortField='+'date'+'&'+'sortDir=desc'+'&'+'patientFIO='+${patient.getFIOForRequest}+'&'+'patientBirthDate='+${patient.getBirthDateForRequest}}"
+                           class="btn btn-primary btn-lg px-4 gap-3">Посмотреть список анализов</a>
+                        <!--                        <a href="/Examinations/Index" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть список-->
+                        <a th:href="@{'/Examinations/Index/1?'+'sortField='+'date'+'&'+'sortDir=desc'+'&'+'patientFIO='+${patient.getFIOForRequest}+'&'+'patientBirthDate='+${patient.getBirthDateForRequest}}"
+                           class="btn btn-primary btn-lg px-4 gap-3">Посмотреть список обследований</a>
+                        <!--                        <a href="/Inspections/Index" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть список-->
+                        <a th:href="@{'/Inspections/Index/1?'+'sortField='+'date'+'&'+'sortDir=desc'+'&'+'patientFIO='+${patient.getFIOForRequest}+'&'+'patientBirthDate='+${patient.getBirthDateForRequest}}"
+                           class="btn btn-primary btn-lg px-4 gap-3">Посмотреть список осмотров</a>
+                        <!--                        <a href="/DoctorAppointments/Index" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть-->
+                        <a th:href="@{'/DoctorAppointments/Index/1?'+'sortField='+'date'+'&'+'sortDir=desc'+'&'+'patientFIO='+${patient.getFIOForRequest}+'&'+'patientBirthDate='+${patient.getBirthDateForRequest}+'&status=Подтверждена%20регистратурой'}"
+                           class="btn btn-primary btn-lg px-4 gap-3">Посмотреть список заявок на первичный осмотр</a>
+                        <!--                        <a href="/DoctorReferralAppointments/Index" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть-->
+                        <a th:href="@{'/DoctorReferralAppointments/Index/1?'+'sortField='+'dateTime'+'&'+'sortDir=desc'+'&'+'patientFIO='+${patient.getFIOForRequest}+'&'+'patientBirthDate='+${patient.getBirthDateForRequest}+'&status=Подтверждена%20регистратурой'}"
+                           class="btn btn-primary btn-lg px-4 gap-3">Посмотреть список заявок на осмотр</a>
+                        <!--                        <a href="/ExaminationReferrals/Index" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть-->
+                        <a th:href="@{'/ExaminationReferrals/Index/1?'+'sortField='+'dateOfTaking'+'&'+'sortDir=desc'+'&'+'patientFIO='+${patient.getFIOForRequest}+'&'+'patientBirthDate='+${patient.getBirthDateForRequest}}"
+                           class="btn btn-primary btn-lg px-4 gap-3">Посмотреть список направлений на обследование</a>
+                        <!--                        <a href="/AnalysisReferrals/Index" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть-->
+                        <a th:href="@{'/AnalysisReferrals/Index/1?'+'sortField='+'dateOfTaking'+'&'+'sortDir=desc'+'&'+'patientFIO='+${patient.getFIOForRequest}+'&'+'patientBirthDate='+${patient.getBirthDateForRequest}}"
+                           class="btn btn-primary btn-lg px-4 gap-3">Посмотреть список направлений на анализ</a>
+                        <!--                        <a href="/DoctorReferrals/Index" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть-->
+                        <a th:href="@{'/AnalysisReferrals/Index/1?'+'sortField='+'dateOfTaking'+'&'+'sortDir=desc'+'&'+'patientFIO='+${patient.getFIOForRequest}+'&'+'patientBirthDate='+${patient.getBirthDateForRequest}}"
+                           class="btn btn-primary btn-lg px-4 gap-3">Посмотреть список направлений на прием у врача</a>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>

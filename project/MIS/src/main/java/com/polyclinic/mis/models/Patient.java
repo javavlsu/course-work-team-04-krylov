@@ -102,6 +102,15 @@ public class Patient {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         return simpleDateFormat.format(this.birthDate);
     }
+    public String getFIOForRequest(){
+        return lastName+"+"+firstName+"+"+middleName+"+";
+    }
+    public String getBirthDateForRequest(){
+        String pattern = "yyyy+MM+dd";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        String date = simpleDateFormat.format(birthDate);
+        return date;
+    }
     public String ReturnPolisEndDate()
     {
             return this.polisEndDate.toString();
