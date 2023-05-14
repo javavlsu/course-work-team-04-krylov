@@ -1,5 +1,6 @@
 package com.polyclinic.mis.service.impl;
 
+import com.polyclinic.mis.models.DoctorAppointment;
 import com.polyclinic.mis.models.DoctorReferralAppointment;
 import com.polyclinic.mis.repository.DoctorReferralAppointmentRepository;
 import com.polyclinic.mis.service.DoctorReferralAppointmentService;
@@ -9,14 +10,18 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class DoctorReferralAppointmentServiceImpl implements DoctorReferralAppointmentService {
     @Autowired
     private DoctorReferralAppointmentRepository doctorReferralAppointmentRepository;
+    @Autowired
+    private PolyclinicUserServiceImpl polyclinicUserService;
     @Override
     public DoctorReferralAppointment add(DoctorReferralAppointment doctorReferralAppointment) {
         return doctorReferralAppointmentRepository.saveAndFlush(doctorReferralAppointment);
@@ -74,4 +79,13 @@ public class DoctorReferralAppointmentServiceImpl implements DoctorReferralAppoi
         }
         return doctorReferralAppointmentRepository.findAll(status,pageable);
     }
+    @Override
+    public Page<DoctorReferralAppointment> patientFindPaginated(int pageNumber, int pageSize, String sortField, String sortDirection, String status) {
+        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() : Sort.by(sortField).descending();
+        Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, sort);
+        var patient = polyclinicUserService.getPatientFromContext();
+        return doctorReferralAppointmentRepository.findForOnePatient(status,patient.getId(),pageable);
+
+    }
+
 }

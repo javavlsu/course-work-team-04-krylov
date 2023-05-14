@@ -4,10 +4,12 @@ import com.polyclinic.mis.models.Assistant;
 import com.polyclinic.mis.models.Diagnosis;
 import com.polyclinic.mis.models.Receptionist;
 import org.springframework.data.domain.Page;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
+@Transactional
 public interface ReceptionistService {
 
     Receptionist add(Receptionist receptionist);

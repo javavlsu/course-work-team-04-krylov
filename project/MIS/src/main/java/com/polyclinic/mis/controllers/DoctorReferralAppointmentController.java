@@ -55,6 +55,42 @@ public class DoctorReferralAppointmentController {
         return "/DoctorReferralAppointments/Index";
     }
 
+    @GetMapping("/PatientDoctorReferralAppointments/Index")
+    public String PatientIndex(Model model){
+//        Iterable<DoctorReferralAppointment> doctorAppointments = doctorAppointmentService.getAll();
+//        model.addAttribute("doctorAppointments",doctorAppointments);
+//        return "/DoctorAppointments/Index";
+        return patientFindPaginated(1, "status" , "desc","",model);
+    }
+
+    @GetMapping("/PatientDoctorReferralAppointments/Index/{pageNumber}")
+    public String patientFindPaginated(
+            @PathVariable (value = "pageNumber") int pageNumber,
+            @RequestParam(value = "sortField") String sortField,
+            @RequestParam(value = "sortDir") String sortDir,
+            @RequestParam(value = "status") String status,
+            Model model){
+        //todo page size from page https://www.youtube.com/watch?v=Aie8n12EFQc 11 00
+        int pageSize = 5;
+
+
+        Page<DoctorReferralAppointment> page = doctorReferralAppointmentService.patientFindPaginated(pageNumber,pageSize,sortField,sortDir,status);
+        List<DoctorReferralAppointment> doctorReferralAppointments = page.getContent();
+
+        model.addAttribute("currentPage", pageNumber);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
+        model.addAttribute("doctorReferralAppointments", doctorReferralAppointments);
+
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir",sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc")?"desc":"asc");
+        model.addAttribute("status",status);
+
+
+        return "/PatientDoctorReferralAppointments/Index";
+    }
+
     @GetMapping("/DoctorReferralAppointments/Create")
     public String ShowCreate(Model model){
         DoctorReferralAppointment doctorReferralAppointment = new DoctorReferralAppointment();

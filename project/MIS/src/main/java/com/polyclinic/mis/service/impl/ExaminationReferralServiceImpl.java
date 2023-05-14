@@ -1,6 +1,7 @@
 package com.polyclinic.mis.service.impl;
 
 import com.polyclinic.mis.models.AnalysisReferral;
+import com.polyclinic.mis.models.Examination;
 import com.polyclinic.mis.models.ExaminationReferral;
 import com.polyclinic.mis.models.Patient;
 import com.polyclinic.mis.repository.ExaminationReferralRepository;
@@ -12,14 +13,19 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class ExaminationReferralServiceImpl implements ExaminationReferralService {
     @Autowired
     private ExaminationReferralRepository examinationReferralRepository;
+
+    @Autowired
+    private PolyclinicUserServiceImpl polyclinicUserService;
     @Override
     public ExaminationReferral add(ExaminationReferral examinationReferral) {
         return examinationReferralRepository.saveAndFlush(examinationReferral);
@@ -77,5 +83,13 @@ public class ExaminationReferralServiceImpl implements ExaminationReferralServic
             return examinationReferralRepository.findAll("","","",birthDate,pageable);
         }
         return examinationReferralRepository.findAll(pageable);
+    }
+    @Override
+    public Page<ExaminationReferral> patientFindPaginated(int pageNumber, int pageSize, String sortField, String sortDirection) {
+        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() : Sort.by(sortField).descending();
+        Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, sort);
+        var patient = polyclinicUserService.getPatientFromContext();
+        return examinationReferralRepository.findForOnePatient(patient.getId(),pageable);
+
     }
 }

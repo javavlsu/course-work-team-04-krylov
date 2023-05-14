@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head}"></head>
+<body style="margin-bottom: 60px" class="container-fluid">
+<header th:replace="~{fragments/header :: header}"></header>
+
+<div class="px-4 py-5 my-5 container-fluid">
+<h1>Направления на обследование</h1>
+
+
+<table class="table">
+  <thead>
+  <tr>
+    <th>
+      <a th:replace="~{fragments/pagination :: link(page='PatientExaminationReferrals',  sortField='diagnosis.id', text='Диагноз')}"></a>
+    </th>
+    <th>
+      <a th:replace="~{fragments/pagination :: link(page='PatientExaminationReferrals',  sortField='doctor.lastName', text='Врач')}"></a>
+    </th>
+    <th>
+      <a th:replace="~{fragments/pagination :: link(page='PatientExaminationReferrals',  sortField='patient.lastName', text='Пациент')}"></a>
+    </th>
+    <th>
+      <a th:replace="~{fragments/pagination :: link(page='PatientExaminationReferrals',  sortField='type', text='Тип')}"></a>
+    </th>
+    <th>
+      <a th:replace="~{fragments/pagination :: link(page='PatientExaminationReferrals',  sortField='functionalDiagnosticsDoctor.lastName', text='Врач функц. диагностики')}"></a>
+    </th>
+    <th>
+      <a th:replace="~{fragments/pagination :: link(page='PatientExaminationReferrals',  sortField='cabinetNum', text='Кабинет')}"></a>
+    </th>
+    <th>
+      <a th:replace="~{fragments/pagination :: link(page='PatientExaminationReferrals',  sortField='status', text='Статус')}"></a>
+    </th>
+    <th>
+      <a th:replace="~{fragments/pagination :: link(page='PatientExaminationReferrals',  sortField='dateOfTaking', text='Дата проведения')}"></a>
+    </th>
+    <th>
+      <a th:replace="~{fragments/pagination :: link(page='PatientExaminationReferrals',  sortField='whatToResearch', text='Что исследовать')}"></a>
+    </th>
+    <th>
+      <a th:replace="~{fragments/pagination :: link(page='PatientExaminationReferrals',  sortField='schedule', text='Расписание')}"></a>
+    </th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="el : ${examinationReferrals}">
+    <td th:text="${el.diagnosis.ReturnIdAndDescription}"></td>
+    <td th:text="${el.doctor.ReturnFIOAndSpeciality}"></td>
+    <td th:text="${el.patient.ReturnFIOAndBirthDate}"></td>
+    <td th:text="${el.type}"></td>
+    <td th:text="${el.functionalDiagnosticsDoctor.ReturnFIOAndBirthDate}"></td>
+    <td th:text="${el.cabinetNum}"></td>
+    <td th:text="${el.status}"></td>
+    <td th:text="${#temporals.format(el.dateOfTaking, 'dd-MM-yyyy HH:mm')}"></td>
+    <td th:text="${el.whatToResearch}"></td>
+    <td th:text="${el.schedule}"></td>
+    <td>
+      <a th:href="@{/PatientExaminationReferrals/Details/{id}(id=${el.id})}">Details</a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+</div>
+
+<!--   Страницы    -->
+<div th:replace="~{fragments/pagination :: pages(page='PatientExaminationReferrals')}"></div>
+
+</body>
+</html>

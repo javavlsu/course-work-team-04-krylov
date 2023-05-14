@@ -3,10 +3,12 @@ package com.polyclinic.mis.service;
 import com.polyclinic.mis.models.DoctorAppointment;
 import com.polyclinic.mis.models.DoctorReferralAppointment;
 import org.springframework.data.domain.Page;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
+@Transactional
 public interface DoctorAppointmentService {
     DoctorAppointment add(DoctorAppointment doctorAppointment);
     Optional<DoctorAppointment> getById(Long id);

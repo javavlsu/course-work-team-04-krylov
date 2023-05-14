@@ -147,6 +147,8 @@ public class PatientController {
         Optional<Patient> patient = patientService.getById(id);
         if (patient.isPresent()){
             model.addAttribute("patient",patient.get());
+
+            model.addAttribute("ownProfile", false);
             return "/Patients/Details";
         }
         else {
@@ -159,6 +161,7 @@ public class PatientController {
     public String Profile(Model model){
 
         model.addAttribute("patient",patientService.currentPatient());
+        model.addAttribute("ownProfile", true);
         return "/Patients/Details";
     }
 }

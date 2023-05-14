@@ -64,6 +64,8 @@ public class WebSecurityConfiguration{
                 //Направление на анализ
                 .requestMatchers("/AnalysisReferrals/Details/**").hasAnyAuthority("Doctor","Assistant","Admin","Receptionist")
                 .requestMatchers("/AnalysisReferrals/Index/**").hasAnyAuthority("Doctor","Assistant","Admin","Receptionist")
+                .requestMatchers("/PatientAnalysisReferrals/Details/**").hasAnyAuthority("Patient","Admin")
+                .requestMatchers("/PatientAnalysisReferrals/Index/**").hasAnyAuthority("Patient","Admin")
                 .requestMatchers("/AnalysisReferrals/Create").hasAnyAuthority("Assistant","Admin","Receptionist")
                 .requestMatchers("/AnalysisReferrals/Update/**").hasAnyAuthority("Assistant","Admin","Receptionist")
 
@@ -84,6 +86,8 @@ public class WebSecurityConfiguration{
                 //Направления на обследования
                 .requestMatchers("/ExaminationReferrals/Details/**").hasAnyAuthority("Doctor","Admin","FunctionalDiagnosticsDoctor","Receptionist")
                 .requestMatchers("/ExaminationReferrals/Index/**").hasAnyAuthority("Doctor","Admin","FunctionalDiagnosticsDoctor","Receptionist")
+                .requestMatchers("/PatientExaminationReferrals/Details/**").hasAnyAuthority("Doctor","Admin")
+                .requestMatchers("/PatientExaminationReferrals/Index/**").hasAnyAuthority("Patient","Admin")
                 .requestMatchers("/ExaminationReferrals/Create").hasAnyAuthority("Doctor","Admin","FunctionalDiagnosticsDoctor","Receptionist")
                 .requestMatchers("/ExaminationReferrals/Update/**").hasAnyAuthority("Doctor","Admin","FunctionalDiagnosticsDoctor","Receptionist")
 
@@ -96,6 +100,8 @@ public class WebSecurityConfiguration{
                 //Заявления на прием врача по направлению
                 .requestMatchers("/DoctorReferralAppointments/Details/**").hasAnyAuthority("Doctor","Admin","Receptionist")
                 .requestMatchers("/DoctorReferralAppointments/Index/**").hasAnyAuthority("Doctor","Admin","Receptionist")
+                .requestMatchers("/PatientDoctorReferralAppointments/Details/**").hasAnyAuthority("Patient","Admin")
+                .requestMatchers("/PatientDoctorReferralAppointments/Index/**").hasAnyAuthority("Patient","Admin")
                 .requestMatchers("/DoctorReferralAppointments/Create").hasAnyAuthority("Doctor","Admin","Receptionist")
                 .requestMatchers("/DoctorReferralAppointments/Update/**").hasAnyAuthority("Doctor","Admin","Receptionist")
 
@@ -111,6 +117,8 @@ public class WebSecurityConfiguration{
                 //Направления ко врачу
                 .requestMatchers("/DoctorReferrals/Details/**").hasAnyAuthority("Doctor","Admin","Patient")
                 .requestMatchers("/DoctorReferrals/Index/**").hasAnyAuthority("Doctor","Admin","Patient")
+                .requestMatchers("/PatientDoctorReferrals/Details/**").hasAnyAuthority("Patient","Admin")
+                .requestMatchers("/PatientDoctorReferrals/Index/**").hasAnyAuthority("Patient","Admin")
                 .requestMatchers("/DoctorReferrals/Create").hasAnyAuthority("Doctor","Admin")
                 .requestMatchers("/DoctorReferrals/Update/**").hasAnyAuthority("Doctor","Admin")
 

@@ -3,10 +3,12 @@ package com.polyclinic.mis.service;
 import com.polyclinic.mis.models.PolyclinicUser;
 import com.polyclinic.mis.models.Receptionist;
 import org.springframework.data.domain.Page;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
+@Transactional
 public interface PolyclinicUserService {
 
     PolyclinicUser add(PolyclinicUser polyclinicUser);

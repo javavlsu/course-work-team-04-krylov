@@ -15,4 +15,7 @@ public interface AnalysisReferralRepository extends JpaRepository<AnalysisReferr
 
 //    @Query("SELECT a from Analysis as a where a.patient.lastName like %?1%")
     public Page<AnalysisReferral> findAll(@Param("lastName") String lastName, String firstName, String middleName, String date, Pageable pageable);
+
+    @Query("SELECT a from AnalysisReferral as a where a.patient.id = :patientId")
+    public Page<AnalysisReferral> findForOnePatient(long patientId, Pageable pageable);
 }

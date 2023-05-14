@@ -63,7 +63,8 @@
                 </div>
             </div>
             <div class="col-sm" style="width: 10%">
-                <div sec:authorize="hasAnyAuthority('Patient')">
+<!--                <div sec:authorize="hasAnyAuthority('Patient')">-->
+                <div th:if="${ownProfile} == true ">
                     <div class="d-grid gap-2 justify-content-sm-center">
                         <a href="/PatientAnalyses/Index" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть список
                             анализов</a>

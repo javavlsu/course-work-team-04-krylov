@@ -1,5 +1,6 @@
 package com.polyclinic.mis.repository;
 
+import com.polyclinic.mis.models.DoctorAppointment;
 import com.polyclinic.mis.models.DoctorReferralAppointment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,4 +16,7 @@ public interface DoctorReferralAppointmentRepository extends JpaRepository<Docto
 
     @Query("SELECT a from DoctorReferralAppointment as a where a.status like %:status%")
     public Page<DoctorReferralAppointment> findAll(String status, Pageable pageable);
+
+    @Query("SELECT a from DoctorReferralAppointment as a where a.status like %:status% and a.doctorReferral.patient.id = :patientId")
+    public Page<DoctorReferralAppointment> findForOnePatient(String status, long patientId, Pageable pageable);
 }

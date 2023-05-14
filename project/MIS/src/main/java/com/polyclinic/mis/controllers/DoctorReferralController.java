@@ -57,6 +57,40 @@ public class DoctorReferralController {
         return "/DoctorReferrals/Index";
     }
 
+
+    @GetMapping("/PatientDoctorReferrals/Index")
+    public String PatientIndex(Model model){
+//        Iterable<DoctorReferral> doctorReferrals = doctorReferralService.getAll();
+//        model.addAttribute("doctorReferrals",doctorReferrals);
+//        return "/DoctorReferrals/Index";
+        return patientFindPaginated(1, "dateOfTaking" , "desc",model);
+
+    }
+
+    @GetMapping("/PatientDoctorReferrals/Index/{pageNumber}")
+    public String patientFindPaginated(
+            @PathVariable (value = "pageNumber") int pageNumber,
+            @RequestParam(value = "sortField") String sortField,
+            @RequestParam(value = "sortDir") String sortDir,
+            Model model){
+        //todo page size from page https://www.youtube.com/watch?v=Aie8n12EFQc 11 00
+        int pageSize = 5;
+
+
+        Page<DoctorReferral> page = doctorReferralService.patientFindPaginated(pageNumber,pageSize,sortField,sortDir);
+        List<DoctorReferral> doctorReferrals = page.getContent();
+
+        model.addAttribute("currentPage", pageNumber);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
+        model.addAttribute("doctorReferrals", doctorReferrals);
+
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir",sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc")?"desc":"asc");
+
+        return "/PatientDoctorReferrals/Index";
+    }
     @GetMapping("/DoctorReferrals/Create")
     public String ShowCreate(Model model){
         DoctorReferral doctorReferral = new DoctorReferral();

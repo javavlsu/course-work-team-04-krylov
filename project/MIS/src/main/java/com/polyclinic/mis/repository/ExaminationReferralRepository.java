@@ -1,6 +1,7 @@
 package com.polyclinic.mis.repository;
 
 import com.polyclinic.mis.models.AnalysisReferral;
+import com.polyclinic.mis.models.Examination;
 import com.polyclinic.mis.models.ExaminationReferral;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,4 +16,7 @@ public interface ExaminationReferralRepository extends JpaRepository<Examination
 
 //    @Query("SELECT a from Analysis as a where a.patient.lastName like %?1%")
     public Page<ExaminationReferral> findAll(@Param("lastName") String lastName, String firstName, String middleName, String date, Pageable pageable);
+
+    @Query("SELECT a from ExaminationReferral as a where a.patient.id = :patientId")
+    public Page<ExaminationReferral> findForOnePatient(long patientId, Pageable pageable);
 }

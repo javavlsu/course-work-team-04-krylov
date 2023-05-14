@@ -11,14 +11,19 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class DoctorReferralServiceImpl implements DoctorReferralService {
     @Autowired
     private DoctorReferralRepository doctorReferralRepository;
+
+    @Autowired
+    private PolyclinicUserServiceImpl polyclinicUserService;
     @Override
     public DoctorReferral add(DoctorReferral doctorReferral) {
         return doctorReferralRepository.saveAndFlush(doctorReferral);
@@ -76,5 +81,14 @@ public class DoctorReferralServiceImpl implements DoctorReferralService {
             return doctorReferralRepository.findAll("","","",birthDate,pageable);
         }
         return doctorReferralRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<DoctorReferral> patientFindPaginated(int pageNumber, int pageSize, String sortField, String sortDirection) {
+        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() : Sort.by(sortField).descending();
+        Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, sort);
+        var patient = polyclinicUserService.getPatientFromContext();
+        return doctorReferralRepository.findForOnePatient(patient.getId(),pageable);
+
     }
 }

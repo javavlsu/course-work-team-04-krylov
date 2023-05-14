@@ -3,12 +3,14 @@ package com.polyclinic.mis.service;
 import com.polyclinic.mis.models.Analysis;
 import com.polyclinic.mis.models.Receptionist;
 import org.springframework.data.domain.Page;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.awt.print.Pageable;
 import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
+@Transactional
 public interface AnalysisService {
     Analysis add(Analysis analysis);
     Optional<Analysis> getById(Long id);
