@@ -27,6 +27,10 @@ public class FunctionalDiagnosticsDoctor {
 
     @OneToOne
     private PolyclinicUser user;
+
+    @ManyToOne
+    private ExaminationCabinet cabinet;
+
     //public PolyclinicUser PolyclinicUser;
 //    @OneToMany
 //    private List<Examination> examinations;

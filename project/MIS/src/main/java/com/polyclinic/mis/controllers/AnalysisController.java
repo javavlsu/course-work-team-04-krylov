@@ -134,6 +134,18 @@ public class AnalysisController {
             return "/Error";
         }
     }
+//    @GetMapping("Analyses/Edit")
+//    public String Edit(@PathVariable(value = "id") long id, Model model){
+//        Optional<Analysis> analysis = analysisService.getById(id);
+//        if (analysis.isPresent()){
+//            model.addAttribute("analysis",analysis.get());
+//            return "/Analyses/Update";
+//        }
+//        else {
+//            //todo
+//            return "/Error";
+//        }
+//    }
     @GetMapping("Analyses/Delete/{id}")
     public String Delete(@PathVariable (value = "id") long id, Model model){
         analysisService.delete(id);

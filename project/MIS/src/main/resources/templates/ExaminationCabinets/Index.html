@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head}"></head>
+<body style="margin-bottom: 60px" class="container-fluid">
+<header th:replace="~{fragments/header :: header}"></header>
+
+<div class="px-4 py-5 my-5 container-fluid">
+
+    <h1>Кабинеты для обследований</h1>
+
+        <p style="margin-top: 20px">
+            <a href="/ExaminationCabinets/Create" class="btn btn-secondary">Создать</a>
+        </p>
+
+    <form method="get" th:action="'/ExaminationCabinets/Index/1'">
+        <p>
+        <h4>Поиск</h4>
+        <input type="hidden" name="sortField" th:value="${sortField}">
+        <input type="hidden" name="sortDir" th:value="${sortDir}">
+        <input type="search" placeholder="Название лаборатории" name="name" style="width:600px;"
+               th:value="${name}"/>
+        <p></p>
+        <input type="submit" value="Поиск" class="btn btn-primary"/>
+        <a th:href="@{'/ExaminationCabinets/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&name='}">Получить
+            список всех кабинетов</a>
+        </p>
+    </form>
+
+
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>
+                <a th:href="@{'/ExaminationCabinets/Index/'+${currentPage}+'?sortField=name&sortDir='+${reverseSortDir}+'&name='+${name}}">
+                    <span>Наименование кабинета</span>
+                </a>
+            </th>
+            <th>
+                <a th:href="@{'/ExaminationCabinets/Index/'+${currentPage}+'?sortField=number&sortDir='+${reverseSortDir}+'&name='+${name}}">
+                    <span>Номер кабинета</span>
+                </a>
+            </th>
+            <th>
+                <a th:href="@{'/ExaminationCabinets/Index/'+${currentPage}+'?sortField=schedule&sortDir='+${reverseSortDir}+'&name='+${name}}">
+                    <span>Расписание</span>
+                </a>
+            </th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="el : ${examinationCabinets}">
+            <td th:text="${el.name} ?: ''"></td>
+            <td th:text="${el.number}"></td>
+            <td th:text="${el.schedule}"></td>
+            <!--            <td th:text="${el.doctorReferral.dateOfTaking}"></td>-->
+            <td>
+                <a th:href="@{/ExaminationCabinets/Edit/{id}(id=${el.id})}">Edit</a> |
+                <a th:href="@{/ExaminationCabinets/Details/{id}(id=${el.id})}">Details</a> |
+                <a th:href="@{/ExaminationCabinets/Delete/{id}(id=${el.id})}">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div th:if="${totalPages > 1}">
+        <div class="row col-sm-10">
+            <div class="col-sm-2">
+                Количество записей: [[${totalItems}]]
+            </div>
+
+            <div class="col-sm-1">
+                <a th:if="${currentPage > 1}"
+                   th:href="@{'/ExaminationCabinets/Index/'+${1}+'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&name='+${name}}">Первая</a>
+                <span th:unless="${currentPage > 1}">Первая</span>
+            </div>
+            <div class="col-sm-1">
+                <a th:if="${currentPage > 1}"
+                   th:href="@{'/ExaminationCabinets/Index/'+${currentPage - 1}+'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&name='+${name}}">Назад</a>
+                <span th:unless="${currentPage > 1}">Назад</span>
+            </div>
+
+
+            <div class="col-auto">
+        <span th:each="i:${#numbers.sequence(1,totalPages)}">
+          <a th:if="${currentPage != i}"
+             th:href="@{'/ExaminationCabinets/Index/'+${i}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&name='+${name}}">[[${i}]]</a>
+          <span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
+        </span>
+            </div>
+            <div class="col-sm-1">
+                <a th:if="${currentPage < totalPages}"
+                   th:href="@{'/ExaminationCabinets/Index/'+${currentPage + 1}+'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&name='+${name}}">Далее</a>
+                <span th:unless="${currentPage < totalPages}">Далее</span>
+            </div>
+            <div class="col-sm-1">
+                <a th:if="${currentPage < totalPages}"
+                   th:href="@{'/ExaminationCabinets/Index/'+${totalPages}+'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&name='+${name}}">Последняя</a>
+                <span th:unless="${currentPage < totalPages}">Последняя</span>
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

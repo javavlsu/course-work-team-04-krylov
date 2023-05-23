@@ -152,6 +152,12 @@ public class WebSecurityConfiguration{
                 //Профиль пациента
                 .requestMatchers("/PatientProfile").hasAnyAuthority("Admin","Patient")
 
+                //Кабинеты для анализов
+                .requestMatchers("/AnalysisCabinets/Details/**").hasAnyAuthority("Admin","Doctor","Assistants")
+                .requestMatchers("/AnalysisCabinets/Index/**").hasAnyAuthority("Admin","Doctor","Assistants")
+                .requestMatchers("/AnalysisCabinets/Create").hasAnyAuthority("Admin")
+                .requestMatchers("/AnalysisCabinets/Update/**").hasAnyAuthority("Admin")
+
 
 //                .authenticated()
 //                .requestMatchers("/Analyses").hasAuthority("Admin")

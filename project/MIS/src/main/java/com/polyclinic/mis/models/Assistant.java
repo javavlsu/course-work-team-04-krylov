@@ -26,6 +26,10 @@ public class Assistant {
     private Date birthDate;
     @OneToOne
     private PolyclinicUser user;
+
+    @ManyToOne
+    private AnalysisCabinet cabinet;
+
     //@OneToMany
     //private List<Analysis> analyses;
     public Assistant(String firstName, String lastName, String middleName, Date birthDate) {

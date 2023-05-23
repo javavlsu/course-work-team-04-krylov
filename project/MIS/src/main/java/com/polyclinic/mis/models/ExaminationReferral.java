@@ -27,28 +27,33 @@ public class ExaminationReferral {
     private Doctor doctor;
     @ManyToOne
     private Patient patient;
-    private String type;
+//    private String type;
+
+    @ManyToOne
+    private ExaminationCabinet cabinet;
+
+
 //    @ManyToOne
 //    private FunctionalDiagnosticsDoctor functionalDiagnosticsDoctor;
-    private String cabinetNum;
+//    private String cabinetNum;
     private String status;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime dateOfTaking;
     private String whatToResearch;
-    private String schedule;
+//    private String schedule;
 
 
-    public ExaminationReferral(Diagnosis diagnosis, Doctor doctor, Patient patient, String type, String cabinetNum, String status, LocalDateTime dateOfTaking, String whatToResearch, String schedule) {
+    public ExaminationReferral(Diagnosis diagnosis, Doctor doctor, Patient patient, String status, LocalDateTime dateOfTaking, String whatToResearch) {
         this.diagnosis = diagnosis;
         this.doctor = doctor;
         this.patient = patient;
-        this.type = type;
+//        this.type = type;
 //        this.functionalDiagnosticsDoctor = functionalDiagnosticsDoctor;
-        this.cabinetNum = cabinetNum;
+//        this.cabinetNum = cabinetNum;
         this.status = status;
         this.dateOfTaking = dateOfTaking;
         this.whatToResearch = whatToResearch;
-        this.schedule = schedule;
+//        this.schedule = schedule;
     }
 
     @Override
@@ -58,12 +63,12 @@ public class ExaminationReferral {
                 ", diagnosis=" + diagnosis +
                 ", doctor=" + doctor +
                 ", patient=" + patient +
-                ", type='" + type + '\'' +
-                ", cabinetNum='" + cabinetNum + '\'' +
+//                ", type='" + type + '\'' +
+//                ", cabinetNum='" + cabinetNum + '\'' +
                 ", status='" + status + '\'' +
                 ", dateOfTaking=" + dateOfTaking +
                 ", whatToResearch='" + whatToResearch + '\'' +
-                ", schedule='" + schedule + '\'' +
+//                ", schedule='" + schedule + '\'' +
                 '}';
     }
 }
