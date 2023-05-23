@@ -2,8 +2,8 @@ package com.polyclinic.mis.controllers;
 
 import com.polyclinic.mis.models.Analysis;
 import com.polyclinic.mis.models.AnalysisReferral;
-import com.polyclinic.mis.service.impl.AnalysisReferralServiceImpl;
-import com.polyclinic.mis.service.impl.AnalysisServiceImpl;
+import com.polyclinic.mis.models.Doctor;
+import com.polyclinic.mis.service.impl.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -17,6 +17,15 @@ import java.util.Optional;
 public class AnalysisReferralController {
     @Autowired
     AnalysisReferralServiceImpl analysisReferralService;
+
+    @Autowired
+    PatientServiceImpl patientService;
+
+    @Autowired
+    DiagnosisServiceImpl diagnosisService;
+
+    @Autowired
+    DoctorServiceImpl doctorService;
     @GetMapping("/AnalysisReferrals/Index")
     public String Index(Model model){
 //        Iterable<AnalysisReferral> analysisReferrals = analysisReferralService.getAll();
@@ -91,12 +100,30 @@ public class AnalysisReferralController {
     public String ShowCreateWithoutParam(Model model){
         AnalysisReferral analysisReferral = new AnalysisReferral();
         model.addAttribute("analysisReferral",analysisReferral);
+
+        var patients = patientService.getAll();
+        model.addAttribute("patients",patients);
+        var diagnoses = diagnosisService.getAll();
+        model.addAttribute("diagnoses",diagnoses);
+
+        Doctor doctor = doctorService.currentDoctor();
+        model.addAttribute("doctorId",doctor.getId());
+        model.addAttribute("currentStatus","Выписано");
+
+
+
         return "/AnalysisReferrals/Create";
     }
     @GetMapping("/AnalysisReferrals/Create/{patientId}")
     public String ShowCreate(@PathVariable(required = false) Long patientId, Model model){
         AnalysisReferral analysisReferral = new AnalysisReferral();
         model.addAttribute("analysisReferral",analysisReferral);
+        var diagnoses = diagnosisService.getAll();
+        model.addAttribute("diagnoses",diagnoses);
+
+        Doctor doctor = doctorService.currentDoctor();
+        model.addAttribute("doctorId",doctor.getId());
+        model.addAttribute("currentStatus","Выписано");
         return "/AnalysisReferrals/Create";
     }
     @PostMapping("/AnalysisReferrals/Create")

@@ -25,9 +25,9 @@
                 <a th:replace="~{fragments/pagination :: link(page='PatientAnalysisReferrals',  sortField='laboratory', text='Лаборатория')}"></a>
 
             </th>
-            <th>
-                <a th:replace="~{fragments/pagination :: link(page='PatientAnalysisReferrals',  sortField='assistant.lastName', text='Лаборант')}"></a>
-            </th>
+<!--            <th>-->
+<!--                <a th:replace="~{fragments/pagination :: link(page='PatientAnalysisReferrals',  sortField='assistant.lastName', text='Лаборант')}"></a>-->
+<!--            </th>-->
             <th>
                 <a th:replace="~{fragments/pagination :: link(page='PatientAnalysisReferrals',  sortField='cabinetNum', text='Кабинет')}"></a>
 
@@ -56,7 +56,7 @@
             <td th:text="${el.doctor.ReturnFIOAndSpeciality}"></td>
             <td th:text="${el.patient.ReturnFIOAndBirthDate}"></td>
             <td th:text="${el.laboratory}"></td>
-            <td th:text="${el.assistant.ReturnFIOAndBirthDate}"></td>
+<!--            <td th:text="${el.assistant.ReturnFIOAndBirthDate}"></td>-->
             <td th:text="${el.cabinetNum}"></td>
             <td th:text="${el.status}"></td>
             <td th:text="${#temporals.format(el.dateOfTaking, 'dd-MM-yyyy HH:mm')}"></td>

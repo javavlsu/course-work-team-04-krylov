@@ -124,7 +124,9 @@ public class InspectionController {
     public String ShowCreate(@PathVariable(required = false) Long patientId, Model model){
         Inspection inspection = new Inspection();
         model.addAttribute("inspection",inspection);
+
         model.addAttribute("patientId",patientId);
+
         var diagnoses = diagnosisService.getAll();
         model.addAttribute("diagnoses",diagnoses);
 

@@ -48,10 +48,10 @@ public class AnalysisReferralTest {
                 .isEqualTo(readPatient.get());
         Assistant assistant = new Assistant("Виктор","Михайлов","Олегович",birthDate);
         Assistant createdAssistant = assistantService.add(assistant);
-        Optional<Assistant> readAssistant = assistantService.getById(createdAssistant.getId());
-        assertThat(assistant)
-                .usingRecursiveComparison()
-                .isEqualTo(readAssistant.get());
+//        Optional<Assistant> readAssistant = assistantService.getById(createdAssistant.getId());
+//        assertThat(assistant)
+//                .usingRecursiveComparison()
+//                .isEqualTo(readAssistant.get());
         Optional<Diagnosis> readDiagnosis = diagnosisService.getById("A00.0");
 //        Timestamp dateOfTaking = Timestamp.valueOf("2023-02-01 18:38:03");
         String dateStr = "2023-02-03 18:38";
@@ -59,7 +59,7 @@ public class AnalysisReferralTest {
         LocalDateTime dateOfTaking = LocalDateTime.parse(dateStr, formatter);
 
 
-        AnalysisReferral analysisReferral = new AnalysisReferral(readDiagnosis.get(),readDoctor.get(),readPatient.get(),"Клинико-диагностическая лаборатория",readAssistant.get(),"292","Выписано",dateOfTaking,"Кровь на сахар","Расписание");
+        AnalysisReferral analysisReferral = new AnalysisReferral(readDiagnosis.get(),readDoctor.get(),readPatient.get(),"Клинико-диагностическая лаборатория","292","Выписано",dateOfTaking,"Кровь на сахар","Расписание");
         AnalysisReferral createdAnalysisReferral = analysisReferralService.add(analysisReferral);
         Optional<AnalysisReferral> readAnalysisReferral = analysisReferralService.getById(createdAnalysisReferral.getId());
         assertThat(analysisReferral)
@@ -83,17 +83,17 @@ public class AnalysisReferralTest {
                 .isEqualTo(readPatient.get());
         Assistant assistant = new Assistant("Виктор","Михайлов","Олегович",birthDate);
         Assistant createdAssistant = assistantService.add(assistant);
-        Optional<Assistant> readAssistant = assistantService.getById(createdAssistant.getId());
-        assertThat(assistant)
-                .usingRecursiveComparison()
-                .isEqualTo(readAssistant.get());
+//        Optional<Assistant> readAssistant = assistantService.getById(createdAssistant.getId());
+//        assertThat(assistant)
+//                .usingRecursiveComparison()
+//                .isEqualTo(readAssistant.get());
         Optional<Diagnosis> readDiagnosis = diagnosisService.getById("A00.0");
 //        Timestamp dateOfTaking = Timestamp.valueOf("2023-02-01 18:38:03");
         String dateStr = "2023-02-04 18:38";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         LocalDateTime dateOfTaking = LocalDateTime.parse(dateStr, formatter);
 
-        AnalysisReferral analysisReferral = new AnalysisReferral(readDiagnosis.get(),readDoctor.get(),readPatient.get(),"Клинико-диагностическая лаборатория",readAssistant.get(),"292","Выписано",dateOfTaking,"Кровь на сахар","Расписание");
+        AnalysisReferral analysisReferral = new AnalysisReferral(readDiagnosis.get(),readDoctor.get(),readPatient.get(),"Клинико-диагностическая лаборатория","292","Выписано",dateOfTaking,"Кровь на сахар","Расписание");
         AnalysisReferral createdAnalysisReferral = analysisReferralService.add(analysisReferral);
         Optional<AnalysisReferral> readAnalysisReferral = analysisReferralService.getById(createdAnalysisReferral.getId());
         assertThat(analysisReferral)
@@ -119,19 +119,19 @@ public class AnalysisReferralTest {
         assertThat(patient)
                 .usingRecursiveComparison()
                 .isEqualTo(readPatient.get());
-        Assistant assistant = new Assistant("Виктор","Михайлов","Олегович",birthDate);
-        Assistant createdAssistant = assistantService.add(assistant);
-        Optional<Assistant> readAssistant = assistantService.getById(createdAssistant.getId());
-        assertThat(assistant)
-                .usingRecursiveComparison()
-                .isEqualTo(readAssistant.get());
+//        Assistant assistant = new Assistant("Виктор","Михайлов","Олегович",birthDate);
+//        Assistant createdAssistant = assistantService.add(assistant);
+//        Optional<Assistant> readAssistant = assistantService.getById(createdAssistant.getId());
+//        assertThat(assistant)
+//                .usingRecursiveComparison()
+//                .isEqualTo(readAssistant.get());
         Optional<Diagnosis> readDiagnosis = diagnosisService.getById("A00.0");
 //        Timestamp dateOfTaking = Timestamp.valueOf("2023-02-01 18:38:03");
         String dateStr = "2023-03-03 18:38";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         LocalDateTime dateOfTaking = LocalDateTime.parse(dateStr, formatter);
 
-        AnalysisReferral analysisReferral = new AnalysisReferral(readDiagnosis.get(),readDoctor.get(),readPatient.get(),"Клинико-диагностическая лаборатория",readAssistant.get(),"292","Выписано",dateOfTaking,"Кровь на сахар","Расписание");
+        AnalysisReferral analysisReferral = new AnalysisReferral(readDiagnosis.get(),readDoctor.get(),readPatient.get(),"Клинико-диагностическая лаборатория","292","Выписано",dateOfTaking,"Кровь на сахар","Расписание");
         AnalysisReferral createdAnalysisReferral = analysisReferralService.add(analysisReferral);
         Optional<AnalysisReferral> readAnalysisReferral = analysisReferralService.getById(createdAnalysisReferral.getId());
         assertThat(analysisReferral)

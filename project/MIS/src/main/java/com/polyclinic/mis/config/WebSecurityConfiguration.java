@@ -45,7 +45,7 @@ public class WebSecurityConfiguration{
         http
                 .authorizeHttpRequests()
                 //Главная
-                .requestMatchers("/").permitAll()
+                .requestMatchers("/**").permitAll()
                 //Регистрация
                 .requestMatchers("/Authenticate").permitAll()
                 .requestMatchers("/Register").permitAll()

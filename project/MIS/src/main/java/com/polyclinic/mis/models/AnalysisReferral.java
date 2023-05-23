@@ -30,8 +30,8 @@ public class AnalysisReferral {
 
     private Patient patient;
     private String laboratory;
-    @ManyToOne
-    private Assistant assistant;
+//    @ManyToOne
+//    private Assistant assistant;
     private String cabinetNum;
     private String status;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
@@ -39,12 +39,12 @@ public class AnalysisReferral {
     private String whatToResearch;
     private String schedule;
 
-    public AnalysisReferral(Diagnosis diagnosis, Doctor doctor, Patient patient, String laboratory, Assistant assistant, String cabinetNum, String status, LocalDateTime dateOfTaking, String whatToResearch, String schedule) {
+    public AnalysisReferral(Diagnosis diagnosis, Doctor doctor, Patient patient, String laboratory, String cabinetNum, String status, LocalDateTime dateOfTaking, String whatToResearch, String schedule) {
         this.diagnosis = diagnosis;
         this.doctor = doctor;
         this.patient = patient;
         this.laboratory = laboratory;
-        this.assistant = assistant;
+//        this.assistant = assistant;
         this.cabinetNum = cabinetNum;
         this.status = status;
         this.dateOfTaking = dateOfTaking;
@@ -60,7 +60,6 @@ public class AnalysisReferral {
                 ", doctor=" + doctor +
                 ", patient=" + patient +
                 ", laboratory='" + laboratory + '\'' +
-                ", assistant=" + assistant +
                 ", cabinetNum='" + cabinetNum + '\'' +
                 ", status='" + status + '\'' +
                 ", dateOfTaking=" + dateOfTaking +

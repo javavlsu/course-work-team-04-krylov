@@ -16,32 +16,49 @@
                   method="POST">
                 <div class="form-group">
                     <label class="control-label">Диагноз</label>
-                    <input class="form-control" type="text" th:field="*{diagnosis.id}"/>
+<!--                    <input class="form-control" type="text" th:field="*{diagnosis.id}"/>-->
+                    <select th:field="*{diagnosis.id}" id="diagnoses" class="form-control">
+                        <option value=""></option>
+                        <option th:each="diagnosis : ${diagnoses}" th:value="${diagnosis.id}" th:text="${diagnosis.ReturnIdAndDescription}"></option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Врач</label>
-                    <input class="form-control" type="text" th:field="*{doctor.id}"/>
+<!--                    <input class="form-control" type="text" th:field="*{doctor.id}"/>-->
+                    <input class="form-control" type="text" th:id="doctor.id" th:name="doctor.id" th:value="${doctorId}" readonly/>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Пациент</label>
-                    <input class="form-control" type="text" th:field="*{patient.id}"/>
+<!--                    <input class="form-control" type="text" th:field="*{patient.id}"/>-->
+
+                    <div th:if="${patientId}==null">
+                        <select th:field="*{patient}" id="patients" class="form-control">
+                            <option value=""></option>
+                            <option th:each="patient : ${patients}" th:value="${patient.id}" th:text="${patient.ReturnFIOAndBirthDate}"></option>
+                        </select>
+                    </div>
+                    <div th:if="${patientId}!=null">
+                        <input class="form-control" type="text" th:id="patient.id" th:name="patient.id" th:value="${patientId}" readonly/>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label class="control-label">Врач функц. диагностики</label>
-                    <input class="form-control" type="text" th:field="*{functionalDiagnosticsDoctor.id}"/>
-                </div>
+<!--                <div class="form-group">-->
+<!--                    <label class="control-label">Врач функц. диагностики</label>-->
+<!--                    <input class="form-control" type="text" th:field="*{functionalDiagnosticsDoctor.id}"/>-->
+<!--                </div>-->
                 <div class="form-group">
                     <label class="control-label">Кабинет</label>
                     <input class="form-control" type="text" th:field="*{cabinetNum}"/>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Статус</label>
-                    <input class="form-control" type="text" th:field="*{status}"/>
+<!--                    <input class="form-control" type="text" th:field="*{status}"/>-->
+                    <input class="form-control" type="text" th:id="status" th:name="status" th:value="${currentStatus}" readonly/>
+
                 </div>
-                <div class="form-group">
-                    <label class="control-label">Дата проведения</label>
-                    <input class="form-control" type="datetime-local" th:field="*{dateOfTaking}"/>
-                </div>
+<!--                <div class="form-group">-->
+<!--                    <label class="control-label">Дата проведения</label>-->
+<!--                    <input class="form-control" type="datetime-local" th:field="*{dateOfTaking}"/>-->
+<!--                </div>-->
                 <div class="form-group">
                     <label class="control-label">Что исследовать</label>
                     <input class="form-control" type="text" th:field="*{whatToResearch}"/>
@@ -52,7 +69,7 @@
                 </div>
                 <div class="form-group">
                     <p></p>
-                    <input type="submit" value="Create" class="btn btn-primary"/>
+                    <input type="submit" value="Создать" class="btn btn-primary"/>
                 </div>
             </form>
         </div>
@@ -68,7 +85,12 @@
 <script>
     $(document).ready(function () {
         $("#patients").select2({
-            placeholder: "Выбирете пациента",
+            placeholder: "Выберите пациента",
+            theme: "bootstrap4",
+            allowClear: true
+        });
+        $("#diagnoses").select2({
+            placeholder: "Выберите диагноз",
             theme: "bootstrap4",
             allowClear: true
         });
@@ -76,4 +98,3 @@
 </script>
 </body>
 </html>
-`

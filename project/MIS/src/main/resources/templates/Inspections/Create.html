@@ -17,8 +17,8 @@
                     <label class="control-label">Пациент</label>
                     <!--                    <input class="form-control" type="text" th:field="*{patient.id}" th:value="${patientId}"/>-->
                     <div th:if="${patientId}==null">
-                        <select th:field="*{patient.id}" id="patients" class="form-control">
-<!--                            <option th:value="-1" selected>Выберите пациента</option>-->
+<!-- ?????????????????????????????????????????                       -->
+                        <select th:field="*{patient}" id="patients" class="form-control">
                             <option value=""></option>
                             <option th:each="patient : ${patients}" th:value="${patient.id}" th:text="${patient.ReturnFIOAndBirthDate}"></option>
                         </select>

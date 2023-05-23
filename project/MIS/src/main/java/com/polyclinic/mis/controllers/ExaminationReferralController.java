@@ -1,10 +1,10 @@
 package com.polyclinic.mis.controllers;
 
 import com.polyclinic.mis.models.AnalysisReferral;
+import com.polyclinic.mis.models.Doctor;
 import com.polyclinic.mis.models.Examination;
 import com.polyclinic.mis.models.ExaminationReferral;
-import com.polyclinic.mis.service.impl.AnalysisReferralServiceImpl;
-import com.polyclinic.mis.service.impl.ExaminationReferralServiceImpl;
+import com.polyclinic.mis.service.impl.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -18,6 +18,15 @@ import java.util.Optional;
 public class ExaminationReferralController {
     @Autowired
     ExaminationReferralServiceImpl examinationReferralService;
+
+    @Autowired
+    PatientServiceImpl patientService;
+
+    @Autowired
+    DiagnosisServiceImpl diagnosisService;
+
+    @Autowired
+    DoctorServiceImpl doctorService;
     @GetMapping("/ExaminationReferrals/Index")
     public String Index(Model model){
         return findPaginated(1, "dateOfTaking" , "desc","","",model);
@@ -84,11 +93,37 @@ public class ExaminationReferralController {
     }
 
     @GetMapping("/ExaminationReferrals/Create")
-    public String ShowCreate(Model model){
+    public String ShowCreateWithoutParam(Model model){
         ExaminationReferral examinationReferral = new ExaminationReferral();
         model.addAttribute("examinationReferral",examinationReferral);
+
+        var patients = patientService.getAll();
+        model.addAttribute("patients",patients);
+        var diagnoses = diagnosisService.getAll();
+        model.addAttribute("diagnoses",diagnoses);
+
+        Doctor doctor = doctorService.currentDoctor();
+        model.addAttribute("doctorId",doctor.getId());
+        model.addAttribute("currentStatus","Выписано");
+
+
         return "/ExaminationReferrals/Create";
     }
+
+    @GetMapping("/ExaminationReferrals/Create/{patientId}")
+    public String ShowCreate(@PathVariable(required = false) Long patientId,Model model){
+        ExaminationReferral examinationReferral = new ExaminationReferral();
+        model.addAttribute("examinationReferral",examinationReferral);
+
+        var diagnoses = diagnosisService.getAll();
+        model.addAttribute("diagnoses",diagnoses);
+
+        Doctor doctor = doctorService.currentDoctor();
+        model.addAttribute("doctorId",doctor.getId());
+        model.addAttribute("currentStatus","Выписано");
+        return "/ExaminationReferrals/Create";
+    }
+
     @PostMapping("/ExaminationReferrals/Create")
     public String Create(@ModelAttribute("examinationReferral")ExaminationReferral examinationReferral){
         examinationReferralService.add(examinationReferral);

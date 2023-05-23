@@ -44,12 +44,12 @@ public class ExaminatonReferralTest {
         assertThat(patient)
                 .usingRecursiveComparison()
                 .isEqualTo(readPatient.get());
-        FunctionalDiagnosticsDoctor functionalDiagnosticsDoctor = new FunctionalDiagnosticsDoctor("Виктор","Михайлов","Олегович",birthDate);
-        FunctionalDiagnosticsDoctor createdFunctionalDiagnosticsDoctor = functionalDiagnosticsDoctorService.add(functionalDiagnosticsDoctor);
-        Optional<FunctionalDiagnosticsDoctor> readFunctionalDiagnosticsDoctor = functionalDiagnosticsDoctorService.getById(createdFunctionalDiagnosticsDoctor.getId());
-        assertThat(functionalDiagnosticsDoctor)
-                .usingRecursiveComparison()
-                .isEqualTo(readFunctionalDiagnosticsDoctor.get());
+//        FunctionalDiagnosticsDoctor functionalDiagnosticsDoctor = new FunctionalDiagnosticsDoctor("Виктор","Михайлов","Олегович",birthDate);
+//        FunctionalDiagnosticsDoctor createdFunctionalDiagnosticsDoctor = functionalDiagnosticsDoctorService.add(functionalDiagnosticsDoctor);
+//        Optional<FunctionalDiagnosticsDoctor> readFunctionalDiagnosticsDoctor = functionalDiagnosticsDoctorService.getById(createdFunctionalDiagnosticsDoctor.getId());
+//        assertThat(functionalDiagnosticsDoctor)
+//                .usingRecursiveComparison()
+//                .isEqualTo(readFunctionalDiagnosticsDoctor.get());
         Optional<Diagnosis> readDiagnosis = diagnosisService.getById("A00.0");
 //        Timestamp dateOfTaking = Timestamp.valueOf("2023-02-01 18:38:03");
         String dateStr = "2023-02-03 18:38";
@@ -57,7 +57,7 @@ public class ExaminatonReferralTest {
         LocalDateTime dateOfTaking = LocalDateTime.parse(dateStr, formatter);
 
 
-        ExaminationReferral examinationReferral = new ExaminationReferral(readDiagnosis.get(),readDoctor.get(),readPatient.get(),"Клинико-диагностическая лаборатория",readFunctionalDiagnosticsDoctor.get(),"292","Выписано",dateOfTaking,"Кровь на сахар","Расписание");
+        ExaminationReferral examinationReferral = new ExaminationReferral(readDiagnosis.get(),readDoctor.get(),readPatient.get(),"Клинико-диагностическая лаборатория","292","Выписано",dateOfTaking,"Кровь на сахар","Расписание");
         ExaminationReferral createdExaminationReferral = examinationReferralService.add(examinationReferral);
         Optional<ExaminationReferral> readExaminationReferral = examinationReferralService.getById(createdExaminationReferral.getId());
         assertThat(examinationReferral)
@@ -79,12 +79,12 @@ public class ExaminatonReferralTest {
         assertThat(patient)
                 .usingRecursiveComparison()
                 .isEqualTo(readPatient.get());
-        FunctionalDiagnosticsDoctor functionalDiagnosticsDoctor = new FunctionalDiagnosticsDoctor("Виктор","Савельев","Олегович",birthDate);
-        FunctionalDiagnosticsDoctor createdFunctionalDiagnosticsDoctor = functionalDiagnosticsDoctorService.add(functionalDiagnosticsDoctor);
-        Optional<FunctionalDiagnosticsDoctor> readFunctionalDiagnosticsDoctor = functionalDiagnosticsDoctorService.getById(createdFunctionalDiagnosticsDoctor.getId());
-        assertThat(functionalDiagnosticsDoctor)
-                .usingRecursiveComparison()
-                .isEqualTo(readFunctionalDiagnosticsDoctor.get());
+//        FunctionalDiagnosticsDoctor functionalDiagnosticsDoctor = new FunctionalDiagnosticsDoctor("Виктор","Савельев","Олегович",birthDate);
+//        FunctionalDiagnosticsDoctor createdFunctionalDiagnosticsDoctor = functionalDiagnosticsDoctorService.add(functionalDiagnosticsDoctor);
+//        Optional<FunctionalDiagnosticsDoctor> readFunctionalDiagnosticsDoctor = functionalDiagnosticsDoctorService.getById(createdFunctionalDiagnosticsDoctor.getId());
+//        assertThat(functionalDiagnosticsDoctor)
+//                .usingRecursiveComparison()
+//                .isEqualTo(readFunctionalDiagnosticsDoctor.get());
         Optional<Diagnosis> readDiagnosis = diagnosisService.getById("A00.0");
 //        Timestamp dateOfTaking = Timestamp.valueOf("2023-02-01 18:38:03");
         String dateStr = "2022-03-03 18:38";
@@ -92,7 +92,7 @@ public class ExaminatonReferralTest {
         LocalDateTime dateOfTaking = LocalDateTime.parse(dateStr, formatter);
 
 
-        ExaminationReferral examinationReferral = new ExaminationReferral(readDiagnosis.get(),readDoctor.get(),readPatient.get(),"Клинико-диагностическая лаборатория",readFunctionalDiagnosticsDoctor.get(),"292","Выписано",dateOfTaking,"Кровь на сахар","Расписание");
+        ExaminationReferral examinationReferral = new ExaminationReferral(readDiagnosis.get(),readDoctor.get(),readPatient.get(),"Клинико-диагностическая лаборатория","292","Выписано",dateOfTaking,"Кровь на сахар","Расписание");
         ExaminationReferral createdExaminationReferral = examinationReferralService.add(examinationReferral);
         Optional<ExaminationReferral> readExaminationReferral = examinationReferralService.getById(createdExaminationReferral.getId());
         assertThat(examinationReferral)
@@ -118,12 +118,12 @@ public class ExaminatonReferralTest {
         assertThat(patient)
                 .usingRecursiveComparison()
                 .isEqualTo(readPatient.get());
-        FunctionalDiagnosticsDoctor functionalDiagnosticsDoctor = new FunctionalDiagnosticsDoctor("Виктор","Савельев","Олегович",birthDate);
-        FunctionalDiagnosticsDoctor createdFunctionalDiagnosticsDoctor = functionalDiagnosticsDoctorService.add(functionalDiagnosticsDoctor);
-        Optional<FunctionalDiagnosticsDoctor> readFunctionalDiagnosticsDoctor = functionalDiagnosticsDoctorService.getById(createdFunctionalDiagnosticsDoctor.getId());
-        assertThat(functionalDiagnosticsDoctor)
-                .usingRecursiveComparison()
-                .isEqualTo(readFunctionalDiagnosticsDoctor.get());
+//        FunctionalDiagnosticsDoctor functionalDiagnosticsDoctor = new FunctionalDiagnosticsDoctor("Виктор","Савельев","Олегович",birthDate);
+//        FunctionalDiagnosticsDoctor createdFunctionalDiagnosticsDoctor = functionalDiagnosticsDoctorService.add(functionalDiagnosticsDoctor);
+//        Optional<FunctionalDiagnosticsDoctor> readFunctionalDiagnosticsDoctor = functionalDiagnosticsDoctorService.getById(createdFunctionalDiagnosticsDoctor.getId());
+//        assertThat(functionalDiagnosticsDoctor)
+//                .usingRecursiveComparison()
+//                .isEqualTo(readFunctionalDiagnosticsDoctor.get());
         Optional<Diagnosis> readDiagnosis = diagnosisService.getById("A00.0");
 //        Timestamp dateOfTaking = Timestamp.valueOf("2023-02-01 18:38:03");
         String dateStr = "2022-03-03 18:38";
@@ -131,7 +131,7 @@ public class ExaminatonReferralTest {
         LocalDateTime dateOfTaking = LocalDateTime.parse(dateStr, formatter);
 
 
-        ExaminationReferral examinationReferral = new ExaminationReferral(readDiagnosis.get(),readDoctor.get(),readPatient.get(),"Клинико-диагностическая лаборатория",readFunctionalDiagnosticsDoctor.get(),"292","Выписано",dateOfTaking,"Кровь на сахар","Расписание");
+        ExaminationReferral examinationReferral = new ExaminationReferral(readDiagnosis.get(),readDoctor.get(),readPatient.get(),"Клинико-диагностическая лаборатория","292","Выписано",dateOfTaking,"Кровь на сахар","Расписание");
         ExaminationReferral createdExaminationReferral = examinationReferralService.add(examinationReferral);
         Optional<ExaminationReferral> readExaminationReferral = examinationReferralService.getById(createdExaminationReferral.getId());
         assertThat(examinationReferral)
