@@ -1,6 +1,8 @@
 package com.polyclinic.mis.service.impl;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.polyclinic.mis.models.Assistant;
+import com.polyclinic.mis.models.Doctor;
 import com.polyclinic.mis.models.Patient;
 import com.polyclinic.mis.repository.AssistantRepository;
 import com.polyclinic.mis.service.AssistantService;
@@ -20,6 +22,9 @@ import java.util.Optional;
 public class AssistantServiceImpl implements AssistantService {
     @Autowired
     private AssistantRepository assistantRepository;
+
+    @Autowired
+    private PolyclinicUserServiceImpl polyclinicUserService;
     @Override
     public Assistant add(Assistant assistant) {
         return assistantRepository.saveAndFlush(assistant);
@@ -78,4 +83,8 @@ public class AssistantServiceImpl implements AssistantService {
         }
         return assistantRepository.findAll(pageable);
     }
+    public Assistant currentAssistant(){
+        return polyclinicUserService.getAssistantFromContext();
+    }
+
 }

@@ -110,6 +110,19 @@
                         <!--                        <a href="/DoctorReferrals/Index" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть-->
                         <a th:href="@{'/AnalysisReferrals/Index/1?'+'sortField='+'dateOfTaking'+'&'+'sortDir=desc'+'&'+'patientFIO='+${patient.getFIOForRequest}+'&'+'patientBirthDate='+${patient.getBirthDateForRequest}}"
                            class="btn btn-primary btn-lg px-4 gap-3">Посмотреть список направлений на прием у врача</a>
+
+                        <p></p>
+                        <a th:href="@{'/Inspections/Create/'+${patient.id}}"
+                           class="btn btn-success btn-lg px-4 gap-3">Создать осмотр</a>
+
+                        <a th:href="@{'/AnalysisReferrals/Create/'+${patient.id}}"
+                           class="btn btn-success btn-lg px-4 gap-3">Создать направление на анализ</a>
+
+                        <a th:href="@{'/ExaminationReferrals/Create/'+${patient.id}}"
+                           class="btn btn-success btn-lg px-4 gap-3">Создать направление на обследование</a>
+
+                        <a th:href="@{'/DoctorReferrals/Create/'+${patient.id}}"
+                           class="btn btn-success btn-lg px-4 gap-3">Создать направление ко врачу</a>
                     </div>
                 </div>
 

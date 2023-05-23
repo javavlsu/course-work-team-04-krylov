@@ -31,39 +31,39 @@
                 </div>
                 <div class="form-group">
                     <label class="control-label">Специальность</label>
-                    <input class="form-control" type="date" th:field="*{speciality}"/>
+                    <input class="form-control" type="text" th:field="*{speciality}"/>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Категория</label>
-                    <input class="form-control" type="date" th:field="*{category}"/>
+                    <input class="form-control" type="text" th:field="*{category}"/>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Степень</label>
-                    <input class="form-control" type="date" th:field="*{degree}"/>
+                    <input class="form-control" type="text" th:field="*{degree}"/>
                 </div>
                 <div class="form-group">
                     <p></p>
-                    <input type="submit" value="Create" class="btn btn-primary"/>
+                    <input type="submit" value="Подтвердить" class="btn btn-primary"/>
                 </div>
             </form>
         </div>
     </div>
 
-    <div>
-        <a href="/Doctors/Index">Назад к списку</a>
-    </div>
+<!--    <div>-->
+<!--        <a href="/Doctors/Index">Назад к списку</a>-->
+<!--    </div>-->
 </div>
 
-<div th:replace="~{fragments/ajaxImports :: ajaxScripts}"></div>
+<!--<div th:replace="~{fragments/ajaxImports :: ajaxScripts}"></div>-->
 
-<script>
-    $(document).ready(function () {
-        $("#patients").select2({
-            placeholder: "Выбирете пациента",
-            theme: "bootstrap4",
-            allowClear: true
-        });
-    });
+<!--<script>-->
+<!--    $(document).ready(function () {-->
+<!--        $("#patients").select2({-->
+<!--            placeholder: "Выбирете пациента",-->
+<!--            theme: "bootstrap4",-->
+<!--            allowClear: true-->
+<!--        });-->
+<!--    });-->
 </script>
 </body>
 </html>

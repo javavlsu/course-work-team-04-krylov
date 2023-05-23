@@ -1,11 +1,7 @@
 package com.polyclinic.mis.service.impl;
 
-import com.polyclinic.mis.models.Patient;
-import com.polyclinic.mis.models.PolyclinicUser;
-import com.polyclinic.mis.models.Receptionist;
-import com.polyclinic.mis.repository.PatientRepository;
-import com.polyclinic.mis.repository.PolyclinicUserRepository;
-import com.polyclinic.mis.repository.ReceptionistRepository;
+import com.polyclinic.mis.models.*;
+import com.polyclinic.mis.repository.*;
 import com.polyclinic.mis.service.PolyclinicUserService;
 import com.polyclinic.mis.service.ReceptionistService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +24,15 @@ public class PolyclinicUserServiceImpl implements PolyclinicUserService {
     private PolyclinicUserRepository polyclinicUserRepository;
     @Autowired
     private PatientRepository patientRepository;
+
+    @Autowired
+    private DoctorRepository doctorRepository;
+
+    @Autowired
+    private AssistantRepository assistantRepository;
+
+    @Autowired
+    private FunctionalDiagnosticsDoctorRepository functionalDiagnosticsDoctorRepository;
     @Override
     public PolyclinicUser add(PolyclinicUser polyclinicUser) {
         return polyclinicUserRepository.saveAndFlush(polyclinicUser);
@@ -66,6 +71,24 @@ public class PolyclinicUserServiceImpl implements PolyclinicUserService {
         PolyclinicUser user = getUserFromContext();
         Patient patient = patientRepository.findByUserId(user.getId()).get();
         return patient;
+    }
+
+    public Doctor getDoctorFromContext(){
+        PolyclinicUser user = getUserFromContext();
+        Doctor doctor = doctorRepository.findByUserId(user.getId()).get();
+        return doctor;
+    }
+
+    public Assistant getAssistantFromContext(){
+        PolyclinicUser user = getUserFromContext();
+        Assistant assistant = assistantRepository.findByUserId(user.getId()).get();
+        return assistant;
+    }
+
+    public FunctionalDiagnosticsDoctor getFunctionalDiagnosticsDoctorFromContext(){
+        PolyclinicUser user = getUserFromContext();
+        FunctionalDiagnosticsDoctor functionalDiagnosticsDoctor = functionalDiagnosticsDoctorRepository.findByUserId(user.getId()).get();
+        return functionalDiagnosticsDoctor;
     }
 
 

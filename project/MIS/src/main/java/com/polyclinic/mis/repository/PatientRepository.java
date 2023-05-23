@@ -19,4 +19,7 @@ public interface PatientRepository extends JpaRepository<Patient,Long> {
 
     @Query("select a from Patient as a where a.user.id = :id")
     public Optional<Patient> findByUserId(Long id);
+
+    @Query("select a from Patient as a where a.lastName like %:lastName%")
+    public Optional<Patient> findByLastName(String lastName);
 }

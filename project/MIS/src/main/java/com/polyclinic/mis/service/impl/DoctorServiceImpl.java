@@ -21,6 +21,9 @@ import java.util.Optional;
 public class DoctorServiceImpl implements DoctorService {
     @Autowired
     private DoctorRepository doctorRepository;
+
+    @Autowired
+    private PolyclinicUserServiceImpl polyclinicUserService;
     @Override
     public Doctor add(Doctor doctor) {
         return doctorRepository.saveAndFlush(doctor);
@@ -74,5 +77,9 @@ public class DoctorServiceImpl implements DoctorService {
 
     public List<Doctor> getAllTherapists(){
         return doctorRepository.findAllTherapists();
+    }
+
+    public Doctor currentDoctor(){
+        return polyclinicUserService.getDoctorFromContext();
     }
 }

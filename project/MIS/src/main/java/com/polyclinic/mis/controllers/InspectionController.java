@@ -1,11 +1,7 @@
 package com.polyclinic.mis.controllers;
 
-import com.polyclinic.mis.models.Analysis;
-import com.polyclinic.mis.models.AnalysisReferral;
-import com.polyclinic.mis.models.Examination;
-import com.polyclinic.mis.models.Inspection;
-import com.polyclinic.mis.service.impl.FunctionalDiagnosticsDoctorServiceImpl;
-import com.polyclinic.mis.service.impl.InspectionServiceImpl;
+import com.polyclinic.mis.models.*;
+import com.polyclinic.mis.service.impl.*;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,6 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +22,14 @@ public class InspectionController {
 
     @Autowired
     InspectionServiceImpl inspectionService;
+    @Autowired
+    PatientServiceImpl patientService;
+
+    @Autowired
+    DiagnosisServiceImpl diagnosisService;
+
+    @Autowired
+    DoctorServiceImpl doctorService;
     @GetMapping("/Inspections/Index")
     public String Index(Model model){
 //        Iterable<Inspection> inspections = inspectionService.getAll();
@@ -91,11 +100,42 @@ public class InspectionController {
     }
 
 
-
     @GetMapping("/Inspections/Create")
-    public String ShowCreate(Model model){
+    public String ShowCreateWithoutParam(Model model){
         Inspection inspection = new Inspection();
         model.addAttribute("inspection",inspection);
+        var patients = patientService.getAll();
+        model.addAttribute("patients",patients);
+
+        var diagnoses = diagnosisService.getAll();
+        model.addAttribute("diagnoses",diagnoses);
+//
+//        LocalDateTime currentDate = LocalDateTime.now();
+//        model.addAttribute("currentDate",currentDate);
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime now = LocalDateTime.now();
+        model.addAttribute("currentDate",dateTimeFormatter.format(now));
+
+        Doctor doctor = doctorService.currentDoctor();
+        model.addAttribute("doctorId",doctor.getId());
+        return "/Inspections/Create";
+    }
+    @GetMapping("/Inspections/Create/{patientId}")
+    public String ShowCreate(@PathVariable(required = false) Long patientId, Model model){
+        Inspection inspection = new Inspection();
+        model.addAttribute("inspection",inspection);
+        model.addAttribute("patientId",patientId);
+        var diagnoses = diagnosisService.getAll();
+        model.addAttribute("diagnoses",diagnoses);
+
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime now = LocalDateTime.now();
+        model.addAttribute("currentDate",dateTimeFormatter.format(now));
+
+
+        Doctor doctor = doctorService.currentDoctor();
+        model.addAttribute("doctorId",doctor.getId());
+
         return "/Inspections/Create";
     }
     @PostMapping("/Inspections/Create")

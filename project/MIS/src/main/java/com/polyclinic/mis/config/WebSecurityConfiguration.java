@@ -66,8 +66,9 @@ public class WebSecurityConfiguration{
                 .requestMatchers("/AnalysisReferrals/Index/**").hasAnyAuthority("Doctor","Assistant","Admin","Receptionist")
                 .requestMatchers("/PatientAnalysisReferrals/Details/**").hasAnyAuthority("Patient","Admin")
                 .requestMatchers("/PatientAnalysisReferrals/Index/**").hasAnyAuthority("Patient","Admin")
-                .requestMatchers("/AnalysisReferrals/Create").hasAnyAuthority("Assistant","Admin","Receptionist")
-                .requestMatchers("/AnalysisReferrals/Update/**").hasAnyAuthority("Assistant","Admin","Receptionist")
+                .requestMatchers("/AnalysisReferrals/Create").hasAnyAuthority("Assistant","Admin","Receptionist","Doctor")
+                .requestMatchers("/AnalysisReferrals/Create/**").hasAnyAuthority("Assistant","Admin","Receptionist","Doctor")
+                .requestMatchers("/AnalysisReferrals/Update/**").hasAnyAuthority("Assistant","Admin","Receptionist","Doctor")
 
                 //Пациенты
                 .requestMatchers("/Patients/Details/**").hasAnyAuthority("Doctor","Assistant","Admin","Receptionist","FunctionalDiagnosticsDoctor")
@@ -110,6 +111,7 @@ public class WebSecurityConfiguration{
                 .requestMatchers("/Inspections/Index/**").hasAnyAuthority("Doctor","Admin")
                 .requestMatchers("/PatientInspections/Details/**").hasAnyAuthority("Admin","Patient")
                 .requestMatchers("/PatientInspections/Index/**").hasAnyAuthority("Admin","Patient")
+                .requestMatchers("/Inspections/Create/**").hasAnyAuthority("Doctor","Admin")
                 .requestMatchers("/Inspections/Create").hasAnyAuthority("Doctor","Admin")
                 .requestMatchers("/Inspections/Update/**").hasAnyAuthority("Doctor","Admin")
 

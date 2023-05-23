@@ -15,7 +15,17 @@
             <form action="#" th:action="@{/Inspections/Create}" th:object="${inspection}" method="POST">
                 <div class="form-group">
                     <label class="control-label">Пациент</label>
-                    <input class="form-control" type="text" th:field="*{patient.id}"/>
+                    <!--                    <input class="form-control" type="text" th:field="*{patient.id}" th:value="${patientId}"/>-->
+                    <div th:if="${patientId}==null">
+                        <select th:field="*{patient.id}" id="patients" class="form-control">
+<!--                            <option th:value="-1" selected>Выберите пациента</option>-->
+                            <option value=""></option>
+                            <option th:each="patient : ${patients}" th:value="${patient.id}" th:text="${patient.ReturnFIOAndBirthDate}"></option>
+                        </select>
+                    </div>
+                    <div th:if="${patientId}!=null">
+                        <input class="form-control" type="text" th:id="patient.id" th:name="patient.id" th:value="${patientId}" readonly/>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Жалобы</label>
@@ -27,11 +37,19 @@
                 </div>
                 <div class="form-group">
                     <label class="control-label">Диагноз</label>
-                    <input class="form-control" type="text" th:field="*{diagnosis.id}"/>
+<!--                    <input class="form-control" type="text" th:field="*{diagnosis.id}"/>-->
+                    <select th:field="*{diagnosis.id}" id="diagnoses" class="form-control">
+                        <option value=""></option>
+                        <option th:each="diagnosis : ${diagnoses}" th:value="${diagnosis.id}" th:text="${diagnosis.ReturnIdAndDescription}"></option>
+                    </select>
+
                 </div>
                 <div class="form-group">
                     <label class="control-label">Дата проведения</label>
-                    <input class="form-control" type="date" th:field="*{date}"/>
+<!--                    <input class="form-control" type="datetime-local" th:field="*{date}"/>-->
+                    <input class="form-control" type="datetime-local" th:id="date" th:name="date" th:value="${currentDate}"/>
+
+
                 </div>
                 <div class="form-group">
                     <label class="control-label">Тип</label>
@@ -39,11 +57,13 @@
                 </div>
                 <div class="form-group">
                     <label class="control-label">Врач</label>
-                    <input class="form-control" type="text" th:field="*{doctor.id}"/>
+<!--                    <input class="form-control" type="text" th:field="*{doctor.id}"/>-->
+                    <input class="form-control" type="text" th:id="doctor.id" th:name="doctor.id" th:value="${doctorId}" readonly/>
+
                 </div>
                 <div class="form-group">
                     <p></p>
-                    <input type="submit" value="Create" class="btn btn-primary"/>
+                    <input type="submit" value="Создать" class="btn btn-primary"/>
                 </div>
             </form>
         </div>
@@ -59,12 +79,51 @@
 <script>
     $(document).ready(function () {
         $("#patients").select2({
-            placeholder: "Выбирете пациента",
+            placeholder: "Выберите пациента",
+            theme: "bootstrap4",
+            allowClear: true
+        });
+        $("#diagnoses").select2({
+            placeholder: "Выберите диагноз",
             theme: "bootstrap4",
             allowClear: true
         });
     });
 </script>
+
+<!--<script>-->
+<!--    $(document).ready(function () {-->
+<!--        $("#patients").select2({-->
+<!--            minimumInputLength: 3,-->
+<!--            placeholder: "Выберите пациента",-->
+<!--            theme: "bootstrap4",-->
+<!--            allowClear: true,-->
+<!--            ajax: {-->
+
+<!--                url: 'http://localhost:8081/Patients/getForSearch',-->
+<!--                dataType: 'json',-->
+
+<!--                data: function (params) {-->
+<!--                    console.log(params.term);-->
+<!--                    return {-->
+<!--                        q: params.term, // search term-->
+<!--                    };-->
+<!--                },-->
+<!--                processResults: function (response) {-->
+<!--                    var procedures = [];-->
+<!--                    for (let i = 0; i < response.length; i++) {-->
+<!--                        procedures.push({-->
+<!--                            id: response[i].id,-->
+<!--                            text: response[i].lastName +' '+ response[i].firstName+' '+response[i].middleName,-->
+<!--                        })-->
+<!--                    }-->
+<!--                    return { results: procedures }-->
+<!--                },-->
+<!--                cache: true,-->
+<!--            },-->
+<!--        });-->
+<!--    });-->
+<!--</script>-->
+
 </body>
 </html>
-`

@@ -83,11 +83,9 @@ public class DoctorController {
         String email = authentication.getName();
         var user = userService.findUserByEmail(email);
         doctor.setUser(user);
-
         doctorService.add(doctor);
-
         assignRole(doctor,user);
-        return "redirect:/Doctors/Index";
+        return "redirect:/";
     }
 
     private void assignRole(Doctor doctor, PolyclinicUser user){

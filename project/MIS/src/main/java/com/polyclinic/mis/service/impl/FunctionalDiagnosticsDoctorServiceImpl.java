@@ -1,5 +1,6 @@
 package com.polyclinic.mis.service.impl;
 
+import com.polyclinic.mis.models.Assistant;
 import com.polyclinic.mis.models.FunctionalDiagnosticsDoctor;
 import com.polyclinic.mis.models.Patient;
 import com.polyclinic.mis.repository.FunctionalDiagnosticsDoctorRepository;
@@ -16,6 +17,9 @@ import java.util.Optional;
 public class FunctionalDiagnosticsDoctorServiceImpl implements FunctionalDiagnosticsDoctorService {
     @Autowired
     public FunctionalDiagnosticsDoctorRepository functionalDiagnosticsDoctorRepository;
+
+    @Autowired
+    private PolyclinicUserServiceImpl polyclinicUserService;
     @Override
     public FunctionalDiagnosticsDoctor add(FunctionalDiagnosticsDoctor functionalDiagnosticsDoctor) {
         return functionalDiagnosticsDoctorRepository.saveAndFlush(functionalDiagnosticsDoctor);
@@ -37,5 +41,10 @@ public class FunctionalDiagnosticsDoctorServiceImpl implements FunctionalDiagnos
     @Override
     public List<FunctionalDiagnosticsDoctor> getAll() {
         return functionalDiagnosticsDoctorRepository.findAll();
+    }
+
+
+    public FunctionalDiagnosticsDoctor currentFunctionalDiagnosticsDoctor(){
+        return polyclinicUserService.getFunctionalDiagnosticsDoctorFromContext();
     }
 }

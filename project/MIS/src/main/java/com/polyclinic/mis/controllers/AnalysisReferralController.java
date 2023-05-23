@@ -88,7 +88,13 @@ public class AnalysisReferralController {
     }
 
     @GetMapping("/AnalysisReferrals/Create")
-    public String ShowCreate(Model model){
+    public String ShowCreateWithoutParam(Model model){
+        AnalysisReferral analysisReferral = new AnalysisReferral();
+        model.addAttribute("analysisReferral",analysisReferral);
+        return "/AnalysisReferrals/Create";
+    }
+    @GetMapping("/AnalysisReferrals/Create/{patientId}")
+    public String ShowCreate(@PathVariable(required = false) Long patientId, Model model){
         AnalysisReferral analysisReferral = new AnalysisReferral();
         model.addAttribute("analysisReferral",analysisReferral);
         return "/AnalysisReferrals/Create";

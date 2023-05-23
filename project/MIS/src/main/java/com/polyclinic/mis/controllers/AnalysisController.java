@@ -97,6 +97,17 @@ public class AnalysisController {
 
 
     @GetMapping("/Analyses/Create")
+    public String ShowCreateWithoutParam(Model model){
+        Analysis analysis = new Analysis();
+        model.addAttribute("analysis",analysis);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        var user = userService.findUserByEmail(authentication.getName());
+        model.addAttribute("user",user);
+
+        return "/Analyses/Create";
+    }
+
+    @GetMapping("/Analyses/Create/{patientId}")
     public String ShowCreate(Model model){
         Analysis analysis = new Analysis();
         model.addAttribute("analysis",analysis);

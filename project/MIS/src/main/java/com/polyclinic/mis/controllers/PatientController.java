@@ -164,4 +164,10 @@ public class PatientController {
         model.addAttribute("ownProfile", true);
         return "/Patients/Details";
     }
+
+//    @ResponseBody
+//    @GetMapping("Patients/getForSearch/{q}")
+//    public List<Patient> getPatientsForSearch(@PathVariable(value = "q",required = false) String query{
+//        return patientService.getAll();
+//    }
 }
