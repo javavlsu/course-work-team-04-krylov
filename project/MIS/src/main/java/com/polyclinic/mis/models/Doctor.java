@@ -25,6 +25,9 @@ public class Doctor {
     @OneToOne
     private PolyclinicUser user;
 
+    @ManyToOne
+    private DoctorCabinet cabinet;
+
     public Doctor(String firstName, String lastName, String middleName, Date birthDate, String speciality, String category, String degree) {
         this.firstName = firstName;
         this.lastName = lastName;

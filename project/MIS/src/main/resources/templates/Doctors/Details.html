@@ -12,28 +12,37 @@
         <hr/>
         <dl class="row">
             <dt class="col-sm-2">Id</dt>
-            <dd class="col-sm-10" th:utext="*{id}"></dd>
+            <dd class="col-sm-10" th:utext="*{id}?: ''"></dd>
 
             <dt class="col-sm-2">Фамилия</dt>
-            <dd class="col-sm-10" th:utext="*{lastName}"></dd>
+            <dd class="col-sm-10" th:utext="*{lastName}?: ''"></dd>
 
             <dt class="col-sm-2">Имя</dt>
-            <dd class="col-sm-10" th:utext="*{firstName}"></dd>
+            <dd class="col-sm-10" th:utext="*{firstName}?: ''"></dd>
 
             <dt class="col-sm-2">Отчество</dt>
-            <dd class="col-sm-10" th:utext="*{middleName}"></dd>
+            <dd class="col-sm-10" th:utext="*{middleName}?: ''"></dd>
 
             <dt class="col-sm-2">Дата рождения</dt>
-            <dd class="col-sm-10" th:utext="*{birthDate}"></dd>
+            <dd class="col-sm-10" th:utext="*{birthDate}?: ''"></dd>
 
             <dt class="col-sm-2">Специальность</dt>
-            <dd class="col-sm-10" th:utext="*{speciality}"></dd>
+            <dd class="col-sm-10" th:utext="*{speciality}?: ''"></dd>
 
             <dt class="col-sm-2">Категория</dt>
-            <dd class="col-sm-10" th:utext="*{category}"></dd>
+            <dd class="col-sm-10" th:utext="*{category}?: ''"></dd>
 
             <dt class="col-sm-2">Степень</dt>
-            <dd class="col-sm-10" th:utext="*{degree}"></dd>
+            <dd class="col-sm-10" th:utext="*{degree}?: ''"></dd>
+
+            <dt class="col-sm-2">Кабинет</dt>
+            <dd class="col-sm-10" th:utext="*{cabinet?.name}"></dd>
+
+            <dt class="col-sm-2">Номер кабинета</dt>
+            <dd class="col-sm-10" th:utext="*{cabinet?.number}"></dd>
+
+            <dt class="col-sm-2">Расписание</dt>
+            <dd class="col-sm-10" th:utext="*{cabinet?.schedule}"></dd>
         </dl>
     </div>
     <div>

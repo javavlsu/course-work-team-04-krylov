@@ -61,15 +61,36 @@
                     <span>Дата рождения</span>
                 </a>
             </th>
+            <th>
+                <a th:href="@{'/Assistants/Index/'+${currentPage}+'?sortField=cabinet.name&sortDir='+${reverseSortDir}+'&assistantFIO='+${assistantFIO}+'&assistantBirthDate='+${assistantBirthDate}}">
+                    <span>Название кабинета</span>
+                </a>
+            </th>
+            <th>
+                <a th:href="@{'/Assistants/Index/'+${currentPage}+'?sortField=cabinet.number&sortDir='+${reverseSortDir}+'&assistantFIO='+${assistantFIO}+'&assistantBirthDate='+${assistantBirthDate}}">
+                    <span>Номер кабинета</span>
+                </a>
+            </th>
+
+            <th>
+                <a th:href="@{'/Assistants/Index/'+${currentPage}+'?sortField=cabinet.schedule&sortDir='+${reverseSortDir}+'&assistantFIO='+${assistantFIO}+'&assistantBirthDate='+${assistantBirthDate}}">
+                    <span>Расписание</span>
+                </a>
+            </th>
+
             <th></th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="el : ${assistants}">
-            <td th:text="${el.lastName}"></td>
-            <td th:text="${el.firstName}"></td>
-            <td th:text="${el.middleName}"></td>
-            <td th:text="${el.birthDate}"></td>
+            <td th:text="${el?.lastName}"></td>
+            <td th:text="${el?.firstName}"></td>
+            <td th:text="${el?.middleName}"></td>
+            <td th:text="${el?.birthDate}"></td>
+            <td th:text="${el?.cabinet?.name}"></td>
+            <td th:text="${el?.cabinet?.number}"></td>
+            <td th:text="${el?.cabinet?.schedule}"></td>
+
             <td>
                 <a th:href="@{/Assistants/Edit/{id}(id=${el.id})}">Edit</a> |
                 <a th:href="@{/Assistants/Details/{id}(id=${el.id})}">Details</a> |

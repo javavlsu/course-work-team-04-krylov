@@ -20,15 +20,28 @@
                 <div class="form-group">
                     <label class="control-label">Терапевт</label>
 <!--                    <input class="form-control" type="text" th:field="*{doctor.id}"/>-->
-                    <select th:field="*{doctor}" id="doctors" class="form-control">
+                    <select th:field="*{doctor}" id="doctors" class="form-control" onchange="therapistSelected()">
                         <option value="" selected></option>
                         <option th:each="doctor : ${doctors}" th:value="${doctor.id}" th:text="${doctor.ReturnFIOAndSpeciality}"></option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label class="control-label">Время</label>
-                    <input class="form-control" type="datetime-local" th:field="*{date}"/>
+                    <label class="control-label">День</label>
+                    <input class="form-control" type="date" name="day" max="2023-06-27" min="2023-05-25" id="day"  onchange="getAppointmentTimes(this.value)" disabled/>
                 </div>
+
+                <div class="form-group">
+                    <label class="control-label">Время</label>
+                    <select class="form-control" name="time" id="time" disabled>
+
+                    </select>
+                </div>
+
+
+<!--                <div class="form-group">-->
+<!--                    <label class="control-label">Время</label>-->
+<!--                    <input class="form-control" type="datetime-local" th:field="*{date}"/>-->
+<!--                </div>-->
 <!--                <div class="form-group">-->
 <!--                    <label class="control-label">Кабинет</label>-->
 <!--                    <input class="form-control" type="text" th:field="*{cabinetNum}"/>-->
@@ -63,6 +76,50 @@
                 allowClear: true
             });
         });
+    </script>
+
+    <script>
+        function getAppointmentTimes(date){
+            // console.log(date)
+            let timeDropDown = document.querySelector("#time")
+            let doctorChosen = $('#doctors').val();
+            let currentDate = new Date().toJSON().slice(0, 10);
+            console.log("Start")
+            console.log(doctorChosen)
+            if(doctorChosen !== '' && date>=currentDate) {
+
+                $.ajax({
+                    type: "GET",
+                    url: "http://localhost:8081/GetAppointmentTimes",
+                    success: function (data) {
+                        let times = data
+                        let out = "";
+
+                        out += '<option value="">Выберите время</option>';
+                        for (let time of data) {
+                            out += '<option value="' + time + '">' + time + '</option>';
+                            console.log(time);
+                        }
+                        timeDropDown.innerHTML = out;
+                        $("#time").attr("disabled", false);
+
+                        // console.log(data);
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert(jqXHR.status);
+                    },
+                    dataType: "json"
+                });
+                // console.log()
+            }
+        }
+
+    </script>
+    <script>
+        function therapistSelected(){
+            $("#day").attr("disabled", false);
+        }
+
     </script>
 </div>
 </body>

@@ -15,16 +15,25 @@
             <dd class="col-sm-10" th:utext="*{id}"></dd>
 
             <dt class="col-sm-2">Фамилия</dt>
-            <dd class="col-sm-10" th:utext="*{lastName}"></dd>
+            <dd class="col-sm-10" th:utext="*{lastName} ?: ''"></dd>
 
             <dt class="col-sm-2">Имя</dt>
-            <dd class="col-sm-10" th:utext="*{firstName}"></dd>
+            <dd class="col-sm-10" th:utext="*{firstName} ?: ''"></dd>
 
             <dt class="col-sm-2">Отчество</dt>
-            <dd class="col-sm-10" th:utext="*{middleName}"></dd>
+            <dd class="col-sm-10" th:utext="*{middleName} ?: ''"></dd>
 
             <dt class="col-sm-2">Дата рождения</dt>
-            <dd class="col-sm-10" th:utext="*{birthDate}"></dd>
+            <dd class="col-sm-10" th:utext="*{birthDate} ?: ''"></dd>
+
+            <dt class="col-sm-2">Кабинет</dt>
+            <dd class="col-sm-10" th:utext="*{cabinet?.name}"></dd>
+
+            <dt class="col-sm-2">Номер кабинета</dt>
+            <dd class="col-sm-10" th:utext="*{cabinet?.number}"></dd>
+
+            <dt class="col-sm-2">Расписание</dt>
+            <dd class="col-sm-10" th:utext="*{cabinet?.schedule}"></dd>
         </dl>
     </div>
     <div>

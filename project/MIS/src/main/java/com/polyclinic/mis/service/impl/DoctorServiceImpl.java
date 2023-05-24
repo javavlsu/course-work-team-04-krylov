@@ -79,6 +79,11 @@ public class DoctorServiceImpl implements DoctorService {
         return doctorRepository.findAllTherapists();
     }
 
+    public List<Doctor> getAllNotTherapists(){
+        return doctorRepository.findAllNotTherapists();
+    }
+
+
     public Doctor currentDoctor(){
         return polyclinicUserService.getDoctorFromContext();
     }

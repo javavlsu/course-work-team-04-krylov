@@ -3,6 +3,8 @@ package com.polyclinic.mis.controllers;
 import com.polyclinic.mis.auth.UserService;
 import com.polyclinic.mis.models.*;
 import com.polyclinic.mis.repository.RoleRepository;
+import com.polyclinic.mis.service.AnalysisCabinetService;
+import com.polyclinic.mis.service.impl.AnalysisCabinetServiceImpl;
 import com.polyclinic.mis.service.impl.AnalysisReferralServiceImpl;
 import com.polyclinic.mis.service.impl.AssistantServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,9 @@ public class AssistantController {
     UserService userService;
     @Autowired
     AuthenticationManager authenticationManager;
+
+    @Autowired
+    AnalysisCabinetServiceImpl analysisCabinetService;
     @GetMapping("/Assistants/Index")
     public String Index(Model model){
 //        Iterable<Assistant> assistants = assistantService.getAll();
@@ -111,12 +116,21 @@ public class AssistantController {
         Optional<Assistant> assistant = assistantService.getById(id);
         if (assistant.isPresent()){
             model.addAttribute("assistant",assistant.get());
+
+            var cabinets = analysisCabinetService.getAll();
+            model.addAttribute("cabinets",cabinets);
             return "/Assistants/Update";
         }
         else {
             //todo
             return "/Error";
         }
+    }
+
+    @PostMapping("Assistants/Edit")
+    public String Edit(@ModelAttribute("assistant") Assistant assistant){
+        assistantService.edit(assistant);
+        return "redirect:/Assistants/Index";
     }
     @GetMapping("Assistants/Delete/{id}")
     public String Delete(@PathVariable (value = "id") long id, Model model){

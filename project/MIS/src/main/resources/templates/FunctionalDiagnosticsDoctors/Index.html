@@ -5,36 +5,94 @@
 <header th:replace="~{fragments/header :: header}"></header>
 <div class="px-4 py-5 my-5 container-fluid">
 
-    <h1>Список врачей функциональной диагностки</h1>
+    <h1>Список врачей функциональной диагностики</h1>
 
-    <form method="get" action="Index">
+    <!--    <form method="get" action="Index">-->
+    <!--        <p>-->
+    <!--        <p>Поиск</p>-->
+    <!--        <p style="color:red;">Ошибка</p>-->
+    <!--        <input type="search" placeholder="Введите ФИО врача функциональной диагностики (Обязательно)"-->
+    <!--               name="FunctionalDiagnosticsDoctorFIO" style="width:600px;"/>-->
+    <!--        <p>Дата рождения врача функциональной диагностки (Необязательно)</p>-->
+    <!--        <input type="date" name="FunctionalDiagnosticsDoctorBirthDate" style="width:300px;"/>-->
+    <!--        <input type="submit" value="Search" class="btn btn-primary"/>-->
+    <!--        <a href="">Получить список всех врачей функциональной диагностки</a>-->
+    <!--        </p>-->
+    <!--    </form>-->
+    <form method="get" th:action="'/FunctionalDiagnosticsDoctors/Index/1'">
         <p>
-        <p>Поиск</p>
-        <p style="color:red;">Ошибка</p>
-        <input type="search" placeholder="Введите ФИО врача функциональной диагностики (Обязательно)"
-               name="FunctionalDiagnosticsDoctorFIO" style="width:600px;"/>
-        <p>Дата рождения врача функциональной диагностки (Необязательно)</p>
-        <input type="date" name="FunctionalDiagnosticsDoctorBirthDate" style="width:300px;"/>
+        <h4>Поиск</h4>
+        <input type="hidden" name="sortField" th:value="${sortField}">
+        <input type="hidden" name="sortDir" th:value="${sortDir}">
+        <input type="search" placeholder="Введите ФИО врача функциональной диагностики"
+               name="functionalDiagnosticsDoctorFIO" style="width:600px;"
+               th:value="${functionalDiagnosticsDoctorFIO}"/>
+        <p>Год рождения врача функциональной диагностики/Дата рождения врача функциональной диагностики</p>
+        <input type="search" name="functionalDiagnosticsDoctorBirthDate" style="width:300px;"
+               placeholder="yyyy / yyyy mm / yyyy mm dd"
+               th:value="${functionalDiagnosticsDoctorBirthDate}"/>
         <input type="submit" value="Search" class="btn btn-primary"/>
-        <a href="">Получить список всех врачей функциональной диагностки</a>
+        <a th:href="@{'/FunctionalDiagnosticsDoctors/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&functionalDiagnosticsDoctorFIO='+'&functionalDiagnosticsDoctorBirthDate='}">Получить
+            список всех врачей функциональной диагностики</a>
         </p>
     </form>
+
+
     <table class="table">
         <thead>
         <tr>
-            <th>Фамилия</th>
-            <th>Имя</th>
-            <th>Отчество</th>
-            <th>Дата рождения</th>
+            <th>
+                <a th:href="@{'/FunctionalDiagnosticsDoctors/Index/'+${currentPage}+'?sortField=lastName&sortDir='+${reverseSortDir}+'&functionalDiagnosticsDoctorFIO='+${functionalDiagnosticsDoctorFIO}+'&functionalDiagnosticsDoctorBirthDate='+${functionalDiagnosticsDoctorBirthDate}}">
+                    <span>Фамилия</span>
+                </a>
+            </th>
+
+            <th>
+                <a th:href="@{'/FunctionalDiagnosticsDoctors/Index/'+${currentPage}+'?sortField=firstName&sortDir='+${reverseSortDir}+'&functionalDiagnosticsDoctorFIO='+${functionalDiagnosticsDoctorFIO}+'&functionalDiagnosticsDoctorBirthDate='+${functionalDiagnosticsDoctorBirthDate}}">
+                    <span>Имя</span>
+                </a>
+            </th>
+            <th>
+                <a th:href="@{'/FunctionalDiagnosticsDoctors/Index/'+${currentPage}+'?sortField=middleName&sortDir='+${reverseSortDir}+'&functionalDiagnosticsDoctorFIO='+${functionalDiagnosticsDoctorFIO}+'&functionalDiagnosticsDoctorBirthDate='+${functionalDiagnosticsDoctorBirthDate}}">
+                    <span>Отчество</span>
+                </a>
+            </th>
+            <th>
+                <a th:href="@{'/FunctionalDiagnosticsDoctors/Index/'+${currentPage}+'?sortField=birthDate&sortDir='+${reverseSortDir}+'&functionalDiagnosticsDoctorFIO='+${functionalDiagnosticsDoctorFIO}+'&functionalDiagnosticsDoctorBirthDate='+${functionalDiagnosticsDoctorBirthDate}}">
+                    <span>Дата рождения</span>
+                </a>
+            </th>
+            <th>
+                <a th:href="@{'/FunctionalDiagnosticsDoctors/Index/'+${currentPage}+'?sortField=cabinet.name&sortDir='+${reverseSortDir}+'&functionalDiagnosticsDoctorFIO='+${functionalDiagnosticsDoctorFIO}+'&functionalDiagnosticsDoctorBirthDate='+${functionalDiagnosticsDoctorBirthDate}}">
+                    <span>Название кабинета</span>
+                </a>
+            </th>
+            <th>
+                <a th:href="@{'/FunctionalDiagnosticsDoctors/Index/'+${currentPage}+'?sortField=cabinet.number&sortDir='+${reverseSortDir}+'&functionalDiagnosticsDoctorFIO='+${functionalDiagnosticsDoctorFIO}+'&functionalDiagnosticsDoctorBirthDate='+${functionalDiagnosticsDoctorBirthDate}}">
+                    <span>Номер кабинета</span>
+                </a>
+            </th>
+
+            <th>
+                <a th:href="@{'/FunctionalDiagnosticsDoctors/Index/'+${currentPage}+'?sortField=cabinet.schedule&sortDir='+${reverseSortDir}+'&functionalDiagnosticsDoctorFIO='+${functionalDiagnosticsDoctorFIO}+'&functionalDiagnosticsDoctorBirthDate='+${functionalDiagnosticsDoctorBirthDate}}">
+                    <span>Расписание</span>
+                </a>
+            </th>
+
             <th></th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="el : ${functionalDiagnosticsDoctors}">
-            <td th:text="${el.lastName}"></td>
-            <td th:text="${el.firstName}"></td>
-            <td th:text="${el.middleName}"></td>
-            <td th:text="${el.birthDate}"></td>
+            <td th:text="${el?.lastName}"></td>
+            <td th:text="${el?.firstName}"></td>
+            <td th:text="${el?.middleName}"></td>
+            <td th:text="${el?.birthDate}"></td>
+            <td th:text="${el?.cabinet?.name}"></td>
+            <td th:text="${el?.cabinet?.number}"></td>
+
+            <td th:text="${el?.cabinet?.schedule}"></td>
+
             <td>
                 <a th:href="@{/FunctionalDiagnosticsDoctors/Edit/{id}(id=${el.id})}">Edit</a> |
                 <a th:href="@{/FunctionalDiagnosticsDoctors/Details/{id}(id=${el.id})}">Details</a> |
@@ -43,6 +101,44 @@
         </tr>
         </tbody>
     </table>
+    <div th:if="${totalPages > 1}">
+        <div class="row col-sm-10">
+            <div class="col-sm-2">
+                Количество записей: [[${totalItems}]]
+            </div>
+
+            <div class="col-sm-1">
+                <a th:if="${currentPage > 1}"
+                   th:href="@{'/FunctionalDiagnosticsDoctors/Index/'+${1}+'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&functionalDiagnosticsDoctorFIO='+${functionalDiagnosticsDoctorFIO}+'&functionalDiagnosticsDoctorBirthDate='+${functionalDiagnosticsDoctorBirthDate}}">Первая</a>
+                <span th:unless="${currentPage > 1}">Первая</span>
+            </div>
+            <div class="col-sm-1">
+                <a th:if="${currentPage > 1}"
+                   th:href="@{'/FunctionalDiagnosticsDoctors/Index/'+${currentPage - 1}+'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&functionalDiagnosticsDoctorFIO='+${functionalDiagnosticsDoctorFIO}+'&functionalDiagnosticsDoctorBirthDate='+${functionalDiagnosticsDoctorBirthDate}}">Назад</a>
+                <span th:unless="${currentPage > 1}">Назад</span>
+            </div>
+
+
+            <div class="col-auto">
+        <span th:each="i:${#numbers.sequence(1,totalPages)}">
+          <a th:if="${currentPage != i}"
+             th:href="@{'/FunctionalDiagnosticsDoctors/Index/'+${i}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&functionalDiagnosticsDoctorFIO='+${functionalDiagnosticsDoctorFIO}+'&functionalDiagnosticsDoctorBirthDate='+${functionalDiagnosticsDoctorBirthDate}}">[[${i}]]</a>
+          <span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
+        </span>
+            </div>
+            <div class="col-sm-1">
+                <a th:if="${currentPage < totalPages}"
+                   th:href="@{'/FunctionalDiagnosticsDoctors/Index/'+${currentPage + 1}+'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&functionalDiagnosticsDoctorFIO='+${functionalDiagnosticsDoctorFIO}+'&functionalDiagnosticsDoctorBirthDate='+${functionalDiagnosticsDoctorBirthDate}}">Далее</a>
+                <span th:unless="${currentPage < totalPages}">Далее</span>
+            </div>
+            <div class="col-sm-1">
+                <a th:if="${currentPage < totalPages}"
+                   th:href="@{'/FunctionalDiagnosticsDoctors/Index/'+${totalPages}+'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&functionalDiagnosticsDoctorFIO='+${functionalDiagnosticsDoctorFIO}+'&functionalDiagnosticsDoctorBirthDate='+${functionalDiagnosticsDoctorBirthDate}}">Последняя</a>
+                <span th:unless="${currentPage < totalPages}">Последняя</span>
+            </div>
+        </div>
+
+    </div>
 </div>
 </body>
 </html>

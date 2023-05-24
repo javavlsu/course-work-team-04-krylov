@@ -3,6 +3,7 @@ package com.polyclinic.mis.controllers;
 import com.polyclinic.mis.auth.UserService;
 import com.polyclinic.mis.models.*;
 import com.polyclinic.mis.repository.RoleRepository;
+import com.polyclinic.mis.service.DoctorCabinetService;
 import com.polyclinic.mis.service.impl.AnalysisReferralServiceImpl;
 import com.polyclinic.mis.service.impl.DoctorServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,9 @@ public class DoctorController {
     UserService userService;
     @Autowired
     AuthenticationManager authenticationManager;
+
+    @Autowired
+    DoctorCabinetService doctorCabinetService;
     @GetMapping("/Doctors/Index")
     public String Index(Model model){
 //        Iterable<Doctor> doctors = doctorService.getAll();
@@ -68,6 +72,8 @@ public class DoctorController {
         model.addAttribute("doctorSpeciality",doctorSpeciality);
 
         model.addAttribute("specialities",specialities);
+
+
 
         return "/Doctors/Index";
     }
@@ -113,12 +119,20 @@ public class DoctorController {
         Optional<Doctor> doctor = doctorService.getById(id);
         if (doctor.isPresent()){
             model.addAttribute("doctor",doctor.get());
+
+            var cabinets = doctorCabinetService.getAll();
+            model.addAttribute("cabinets",cabinets);
             return "/Doctors/Update";
         }
         else {
             //todo
             return "/Error";
         }
+    }
+    @PostMapping("Doctors/Edit")
+    public String Edit(@ModelAttribute("doctor") Doctor doctor){
+        doctorService.edit(doctor);
+        return "redirect:/Doctors/Index";
     }
     @GetMapping("Doctors/Delete/{id}")
     public String Delete(@PathVariable (value = "id") long id, Model model){

@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @NoArgsConstructor
-public class ExaminationCabinet {
+public class DoctorCabinet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;

@@ -25,6 +25,9 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long> {
     @Query("select a from Doctor as a where a.speciality = 'Терапевт'")
     List<Doctor> findAllTherapists();
 
+    @Query("select a from Doctor as a where a.speciality <> 'Терапевт'")
+    List<Doctor> findAllNotTherapists();
+
     @Query("select a from Doctor as a where a.user.id = :id")
     public Optional<Doctor> findByUserId(Long id);
 }
