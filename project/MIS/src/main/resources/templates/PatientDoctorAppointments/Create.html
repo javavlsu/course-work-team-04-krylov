@@ -15,26 +15,37 @@
             <form action="#" th:action="@{/PatientDoctorAppointments/Create}" th:object="${doctorAppointment}" method="POST">
                 <div class="form-group">
                     <label class="control-label">Пациент</label>
-                    <input class="form-control" type="text" th:value="${patientId}" th:name="patient" th:id="patient" readonly/>
+
+                    <input class="form-control" type="text" th:value="${patientId}" th:name="patient" th:id="patient" readonly required/>
+                    <p th:if="${#fields.hasErrors('patient')}" class="text-danger" th:errors="*{patient}"></p>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Терапевт</label>
-<!--                    <input class="form-control" type="text" th:field="*{doctor.id}"/>-->
-                    <select th:field="*{doctor}" id="doctors" class="form-control" onchange="therapistSelected()">
+
+
+                    <!--                    <input class="form-control" type="text" th:field="*{doctor.id}"/>-->
+                    <select th:field="*{doctor}" id="doctors" class="form-control" onchange="therapistSelected()" required>
                         <option value="" selected></option>
                         <option th:each="doctor : ${doctors}" th:value="${doctor.id}" th:text="${doctor.ReturnFIOAndSpeciality}"></option>
                     </select>
+                    <p th:if="${#fields.hasErrors('doctor')}" class="text-danger" th:errors="*{doctor}"></p>
                 </div>
                 <div class="form-group">
                     <label class="control-label">День</label>
-                    <input class="form-control" type="date" name="day" max="2023-06-27" min="2023-05-25" id="day"  onchange="getAppointmentTimes(this.value)" disabled/>
-                </div>
+                    <input class="form-control" th:name="date" th:id="date" type="date" name="date" th:min="${startOfAppointment}" th:max="${endOfAppointment}" id="date" onchange="getAppointmentTimes(this.value)" disabled required/>
+                    <p th:if="${#fields.hasErrors('date')}" class="text-danger" th:errors="*{date}"></p>
+                    <p class="text-danger" id="noAppointmentForDateError" name="noAppointmentForDateError" hidden>На данную дату нет времени для записи</p>
 
+                </div>
+<!--                min="2023-05-25"-->
+<!--                max="2023-06-27"-->
                 <div class="form-group">
                     <label class="control-label">Время</label>
-                    <select class="form-control" name="time" id="time" disabled>
 
+                    <select class="form-control" th:name="time" th:id="time" name="time" id="time" disabled required>
                     </select>
+                    <p th:if="${#fields.hasErrors('time')}" class="text-danger" th:errors="*{time}"></p>
+                    <p th:if="${appointmentTaken}==true" class="text-danger">Время приема занято. Выберите другое время</p>
                 </div>
 
 
@@ -84,24 +95,33 @@
             let timeDropDown = document.querySelector("#time")
             let doctorChosen = $('#doctors').val();
             let currentDate = new Date().toJSON().slice(0, 10);
-            console.log("Start")
-            console.log(doctorChosen)
+            let dateChosen = $('#date').val();
+            let noAppointmentForDateError = document.querySelector("#noAppointmentForDateError")
+            console.log("Start");
             if(doctorChosen !== '' && date>=currentDate) {
-
+                console.log(doctorChosen);
+                console.log(dateChosen);
                 $.ajax({
                     type: "GET",
-                    url: "http://localhost:8081/GetAppointmentTimes",
+                    url: "http://localhost:8081/GetAppointmentTimes/"+doctorChosen+"?dateChosen="+dateChosen,
                     success: function (data) {
-                        let times = data
+                        // let times = data
                         let out = "";
-
-                        out += '<option value="">Выберите время</option>';
-                        for (let time of data) {
-                            out += '<option value="' + time + '">' + time + '</option>';
-                            console.log(time);
+                        if (jQuery.isEmptyObject(data)){
+                            $("#noAppointmentForDateError").attr("hidden", false)
+                            timeDropDown.innerHTML = "";
+                            $("#time").attr("disabled", true);
                         }
-                        timeDropDown.innerHTML = out;
-                        $("#time").attr("disabled", false);
+                        else {
+                            $("#noAppointmentForDateError").attr("hidden", true)
+                            out += '<option value="" disabled>Выберите время</option>';
+                            for (let time of data) {
+                                out += '<option value="' + time + '">' + time + '</option>';
+                                // console.log(time);
+                            }
+                            timeDropDown.innerHTML = out;
+                            $("#time").attr("disabled", false);
+                        }
 
                         // console.log(data);
                     },
@@ -117,7 +137,7 @@
     </script>
     <script>
         function therapistSelected(){
-            $("#day").attr("disabled", false);
+            $("#date").attr("disabled", false);
         }
 
     </script>

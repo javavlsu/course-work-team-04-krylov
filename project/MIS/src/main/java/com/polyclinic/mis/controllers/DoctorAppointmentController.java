@@ -5,20 +5,25 @@ import com.polyclinic.mis.repository.PatientRepository;
 import com.polyclinic.mis.repository.PolyclinicUserRepository;
 import com.polyclinic.mis.service.DoctorAppointmentService;
 import com.polyclinic.mis.service.TherapistAppointmentTimeService;
-import com.polyclinic.mis.service.impl.DoctorAppointmentServiceImpl;
-import com.polyclinic.mis.service.impl.DoctorReferralAppointmentServiceImpl;
-import com.polyclinic.mis.service.impl.DoctorServiceImpl;
-import com.polyclinic.mis.service.impl.PolyclinicUserServiceImpl;
+import com.polyclinic.mis.service.impl.*;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 @Controller
@@ -31,7 +36,7 @@ public class DoctorAppointmentController {
     DoctorServiceImpl doctorService;
 
     @Autowired
-    TherapistAppointmentTimeService therapistAppointmentTimeService;
+    TherapistAppointmentTimeServiceImpl therapistAppointmentTimeService;
 
     @GetMapping("/DoctorAppointments/Index")
     public String Index(Model model) {
@@ -119,19 +124,91 @@ public class DoctorAppointmentController {
         var doctors = doctorService.getAllTherapists();
         model.addAttribute("patientId", patient.getId());
         model.addAttribute("doctors", doctors);
+        LocalDate startOfAppointment = LocalDate.now();
+        model.addAttribute("startOfAppointment",startOfAppointment);
+        LocalDate endOfAppointment = LocalDate.now().plusDays(7);
+        model.addAttribute("endOfAppointment",endOfAppointment);
+
+
+        model.addAttribute("appointmentTaken", false);
 
         return "/PatientDoctorAppointments/Create";
     }
 
+    @PostMapping("/PatientDoctorAppointments/Create")
+    public String Create(@Valid @ModelAttribute("doctorAppointment") DoctorAppointment doctorAppointment,
+                         BindingResult result,
+                         Model model) {
+        if (result.hasErrors()){
+            doctorAppointment.setDoctor(null);
+            model.addAttribute("doctorAppointment",doctorAppointment);
+            Patient patient = polyclinicUserService.getPatientFromContext();
+            var doctors = doctorService.getAllTherapists();
+            model.addAttribute("patientId", patient.getId());
+            model.addAttribute("doctors", doctors);
+            LocalDate startOfAppointment = LocalDate.now();
+            model.addAttribute("startOfAppointment",startOfAppointment);
+            LocalDate endOfAppointment = LocalDate.now().plusDays(7);
+            model.addAttribute("endOfAppointment",endOfAppointment);
+
+            model.addAttribute("appointmentTaken", false);
+
+            return "/PatientDoctorAppointments/Create";
+        }
+        else {
+            Boolean taken = false;
+            var therapistAppointments = doctorAppointmentService.getByDoctorIdAndDateAndTime(doctorAppointment.getDoctor().getId(),doctorAppointment.getDate(),doctorAppointment.getTime());
+            if (therapistAppointments.size()==0){
+                doctorAppointment.setStatus("Ожидает подтверждения");
+                doctorAppointmentService.add(doctorAppointment);
+                return "redirect:/PatientDoctorAppointments/Index";
+            }
+
+            else {
+                doctorAppointment.setDoctor(null);
+                model.addAttribute("doctorAppointment",doctorAppointment);
+                Patient patient = polyclinicUserService.getPatientFromContext();
+                var doctors = doctorService.getAllTherapists();
+                model.addAttribute("patientId", patient.getId());
+                model.addAttribute("doctors", doctors);
+                LocalDate startOfAppointment = LocalDate.now();
+                model.addAttribute("startOfAppointment",startOfAppointment);
+                LocalDate endOfAppointment = LocalDate.now().plusDays(7);
+                model.addAttribute("endOfAppointment",endOfAppointment);
+
+                model.addAttribute("appointmentTaken", true);
+                return "/PatientDoctorAppointments/Create";
+            }
+
+        }
+    }
 
     @ResponseBody
-    @GetMapping("/GetAppointmentTimes")
-    public List<?> getAppointmentTimes() {
-        var therapistAppointmentTimeList = therapistAppointmentTimeService.getAll();
+    @GetMapping("/GetAppointmentTimes/{doctorId}")
+    public List<?> getAppointmentTimes(
+            @PathVariable(value = "doctorId") long doctorId,
+            @RequestParam(value = "dateChosen")Date dateChosen) {
+        Locale locale = new Locale("ru","RU");
+        DateFormat formatter = new SimpleDateFormat("EEEE", locale);
+        String dayOfTheWeek = formatter.format(dateChosen);
+        dayOfTheWeek = dayOfTheWeek.substring(0,1).toUpperCase(locale)+dayOfTheWeek.substring(1);
+//        var therapistAppointmentTimeList = therapistAppointmentTimeService.getByDoctorId(doctorId);
 
+        var therapistAppointmentTimeList = therapistAppointmentTimeService.getByDoctorIdAndWeekDay(doctorId,dayOfTheWeek);
+
+        var therapistAppointments = doctorAppointmentService.getByDoctorIdAndDate(doctorId,dateChosen);
         List<String> times = new ArrayList<>();
 
-        for (int i = 0; i < therapistAppointmentTimeList.size(); i++) {
+//        times.add(dayOfTheWeek);
+
+        for (int i = 0; i<therapistAppointments.size();i++) {
+            for (int j = 0; j < therapistAppointmentTimeList.size(); j++) {
+                if (therapistAppointments.get(i).getTime().equals(therapistAppointmentTimeList.get(j).getTime())){
+                    therapistAppointmentTimeList.remove(j);
+                }
+            }
+        }
+        for (int i = 0; i<therapistAppointmentTimeList.size();i++){
             times.add(therapistAppointmentTimeList.get(i).getTime().toString());
         }
 
@@ -140,13 +217,6 @@ public class DoctorAppointmentController {
 
     }
 
-
-    @PostMapping("/PatientDoctorAppointments/Create")
-    public String Create(@ModelAttribute("doctorAppointment") DoctorAppointment doctorAppointment) {
-        doctorAppointment.setStatus("Ожидает подтверждения");
-        doctorAppointmentService.add(doctorAppointment);
-        return "redirect:/PatientDoctorAppointments/Index";
-    }
 
     @GetMapping("DoctorAppointments/Edit/{id}")
     public String ShowEdit(@PathVariable(value = "id") long id, Model model) {

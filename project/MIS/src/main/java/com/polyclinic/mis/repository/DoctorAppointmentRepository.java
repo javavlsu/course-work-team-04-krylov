@@ -9,6 +9,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Date;
+import java.sql.Time;
+import java.util.List;
+
 @Repository
 public interface DoctorAppointmentRepository extends JpaRepository<DoctorAppointment, Long> {
     @Query("SELECT a from DoctorAppointment as a where a.patient.lastName like %:lastName% and a.patient.firstName like %:firstName% and a.patient.middleName like %:middleName% and FUNCTION('date_format',a.patient.birthDate,'%Y %m %d') like %:date% and a.status like %:status%")
@@ -19,4 +23,11 @@ public interface DoctorAppointmentRepository extends JpaRepository<DoctorAppoint
 
     @Query("SELECT a from DoctorAppointment as a where a.status like %:status% and a.patient.id = :patientId")
     public Page<DoctorAppointment> findForOnePatient(String status, long patientId, Pageable pageable);
+
+    @Query("SELECT a from DoctorAppointment as a where a.doctor.id = :doctorId and a.date = :date")
+    public List<DoctorAppointment> findByDoctorIdAndDate(long doctorId, Date date);
+
+    @Query("SELECT a from DoctorAppointment as a where a.doctor.id = :doctorId and a.date = :date and a.time = :time")
+    public List<DoctorAppointment> findByDoctorIdAndDateAndTime(long doctorId, Date date, Time time);
+
 }

@@ -14,6 +14,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Date;
+import java.sql.Time;
 import java.util.List;
 import java.util.Optional;
 
@@ -89,5 +91,13 @@ public class DoctorAppointmentServiceImpl implements DoctorAppointmentService {
             return doctorAppointmentRepository.findForOnePatient(status,patient.getId(),pageable);
 
     }
+
+    public List<DoctorAppointment> getByDoctorIdAndDate(long doctorId, Date date){
+        return doctorAppointmentRepository.findByDoctorIdAndDate(doctorId,date);
+    }
+    public List<DoctorAppointment> getByDoctorIdAndDateAndTime(long doctorId, Date date, Time time){
+        return doctorAppointmentRepository.findByDoctorIdAndDateAndTime(doctorId,date,time);
+    }
+
 
 }

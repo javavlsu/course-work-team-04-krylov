@@ -46,6 +46,14 @@ public class TherapistAppointmentTimeServiceImpl implements TherapistAppointment
         return therapistAppointmentTimeRepository.findAll();
     }
 
+    public List<TherapistAppointmentTime> getByDoctorId(long id) {
+        return therapistAppointmentTimeRepository.findByDoctorId(id);
+    }
+
+    public List<TherapistAppointmentTime> getByDoctorIdAndWeekDay(long id,String weekDay) {
+        return therapistAppointmentTimeRepository.findByDoctorIdAndWeekDay(id, weekDay);
+    }
+
     @Override
     public Page<TherapistAppointmentTime> findPaginated(int pageNumber, int pageSize, String sortField, String sortDirection, String fio) {
         Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() : Sort.by(sortField).descending();

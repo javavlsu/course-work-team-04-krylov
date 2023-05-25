@@ -173,10 +173,13 @@ public class WebSecurityConfiguration{
                 .requestMatchers("/PatientDoctorAppointments/Index/**").hasAnyAuthority("Admin","Patient")
                 .requestMatchers("/PatientDoctorAppointments/Create").hasAnyAuthority("Admin","Patient")
 
-                .requestMatchers("/GetAppointmentTimes/**").hasAnyAuthority("Admin","Patient")
+
                 .requestMatchers("/DoctorAppointments/Edit/**").hasAnyAuthority("Doctor","Admin","Receptionist")
                 .requestMatchers("/DoctorAppointments/Delete/**").hasAnyAuthority("Admin")
 
+                //Часы приема работы терапевтов
+                .requestMatchers("/GetAppointmentTimes/**").hasAnyAuthority("Admin","Patient")
+                .requestMatchers("/GetAppointmentTimes").hasAnyAuthority("Admin","Patient")
 
                 //Профиль пациента
                 .requestMatchers("/PatientProfile").hasAnyAuthority("Admin","Patient")

@@ -39,7 +39,7 @@ public class TherapistAppointmentTimeController {
             @RequestParam(value = "doctorFIO") String doctorFio,
             Model model){
         //todo page size from page https://www.youtube.com/watch?v=Aie8n12EFQc 11 00
-        int pageSize = 5;
+        int pageSize = 20;
 
 
         Page<TherapistAppointmentTime> page = therapistAppointmentTimeService.findPaginated(pageNumber,pageSize,sortField,sortDir,doctorFio);
