@@ -1,6 +1,7 @@
 package com.polyclinic.mis.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,13 +25,18 @@ public class Analysis {
     private long id;
     //private int patientId;
     @ManyToOne
+    @NotNull(message = "Поле Пациент не может быть пустым")
     private Patient patient;
+    @NotNull(message = "Поле Тип не может быть пустым")
     private String type;
+    @NotNull(message = "Поле Заключение не может быть пустым")
     private String report;
     @ManyToOne
+    @NotNull(message = "Поле Лаборант не может быть пустым")
     private Assistant assistant;
     //    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    @NotNull(message = "Поле Дата не может быть пустым")
     private LocalDateTime date;
 
     public Analysis(Patient patient, String type, String report, Assistant assistant, LocalDateTime date) {

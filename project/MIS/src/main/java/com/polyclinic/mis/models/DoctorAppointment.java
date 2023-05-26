@@ -25,7 +25,7 @@ public class DoctorAppointment {
 //    private Diagnosis diagnosis;
 
     @ManyToOne
-    @NotNull(message = "Выберите врача")
+    @NotNull(message = "Поле Терапевт не может быть пустым")
     private Doctor doctor;
 
 
@@ -37,10 +37,10 @@ public class DoctorAppointment {
 //    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
 //    private LocalDateTime date;
 
-    @NotNull (message = "Выберите дату записи")
+    @NotNull (message = "Поле Дата записи не может быть пустым")
     private Date date;
 
-    @NotNull (message = "Выберите время записи")
+    @NotNull (message = "Поле время записи не может быть пустым")
     private Time time;
 
 }
