@@ -11,37 +11,60 @@
     <hr/>
     <div class="row">
         <div class="col-md-4">
-            <form action="#" th:action="@{/Analyses/Create}" method="POST">
+            <form action="#" th:action="@{/AssistantAnalyses/Create}" method="POST" th:object="${analysis}">
+                <div class="form-group">
+                    <label class="control-label">Направление на анализ</label>
+                    <input class="form-control" type="text" th:id="analysisReferral.id" th:name="analysisReferral.id" th:value="${referralId}" readonly required/>
+                    <p th:if="${#fields.hasErrors('analysisReferral.id')}" class="text-danger" th:errors="*{analysisReferral.id}"></p>
+
+                    <!--                    <input class="form-control" type="text" th:field="*{assistant.id}"/>-->
+                </div>
                 <div class="form-group">
                     <label class="control-label">Пациент</label>
-                    <input class="form-control" type="text" th:field="*{analysis.patient}"/>
+                    <div th:if="${patientId}==null">
+                        <select th:field="*{patient}" id="patients" class="form-control" required>
+                            <option value=""></option>
+                            <option th:each="patient : ${patients}" th:value="${patient.id}"
+                                    th:text="${patient.ReturnFIOAndBirthDate}"></option>
+                        </select>
+                        <p th:if="${#fields.hasErrors('patient')}" class="text-danger" th:errors="*{patient}"></p>
+                    </div>
+                    <div th:if="${patientId}!=null">
+                        <input class="form-control" type="text" th:id="patient.id" th:name="patient.id" th:value="${patientId}" readonly required/>
+                        <p th:if="${#fields.hasErrors('patient')}" class="text-danger" th:errors="*{patient}"></p>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Тип</label>
-                    <input class="form-control" type="text" th:field="*{analysis.type}"/>
+                    <input class="form-control" type="text" th:field="*{type}"/>
+                    <p th:if="${#fields.hasErrors('type')}" class="text-danger" th:errors="*{type}"></p>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Заключение</label>
-                    <input class="form-control" type="text" th:field="*{analysis.report}"/>
+                    <input class="form-control" type="text" th:field="*{report}"/>
+                    <p th:if="${#fields.hasErrors('report')}" class="text-danger" th:errors="*{report}"></p>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Лаборант</label>
-                    <input class="form-control" type="text" th:field="*{analysis.assistant}"/>
+                    <input class="form-control" type="text" th:id="assistant.id" th:name="assistant.id" th:value="${assistantId}" readonly required/>
+                    <p th:if="${#fields.hasErrors('assistant.id')}" class="text-danger" th:errors="*{assistant.id}"></p>
+
+                    <!--                    <input class="form-control" type="text" th:field="*{assistant.id}"/>-->
                 </div>
                 <div class="form-group">
                     <label class="control-label">Дата</label>
-                    <input class="form-control" type="datetime-local" th:field="*{analysis.date}"/>
+                    <input class="form-control" type="datetime-local" th:id="date" th:name="date" th:value="${currentDate}" required/>
+                    <p th:if="${#fields.hasErrors('date')}" class="text-danger" th:errors="*{date}"></p>
                 </div>
                 <div class="form-group">
                     <p></p>
-                    <input type="submit" value="Create" class="btn btn-primary"/>
+                    <input type="submit" value="Создать" class="btn btn-primary"/>
                 </div>
             </form>
         </div>
     </div>
-    <p th:utext="*{user.email}"></p>
     <div>
-        <a href="/Analyses/Index">Назад к списку</a>
+        <a href="/AssistantAnalyses/Index">Назад к списку</a>
     </div>
 
 </div>

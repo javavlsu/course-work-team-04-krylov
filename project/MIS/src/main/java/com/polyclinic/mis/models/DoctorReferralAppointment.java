@@ -7,6 +7,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
+
+//todo Удалить
 @Entity
 @Data
 @NoArgsConstructor

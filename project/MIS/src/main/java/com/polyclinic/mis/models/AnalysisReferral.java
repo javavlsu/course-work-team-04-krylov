@@ -41,13 +41,15 @@ public class AnalysisReferral {
 //    private Assistant assistant;
 //    private String cabinetNum;
     private String status;
-
-    //todo Убрать. Переделать направления
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
-    @NotNull(message = "Поле Дата проведения не может быть пустым")
     private LocalDateTime dateOfTaking;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    private LocalDateTime dateOfIssue;
     @NotNull(message = "Поле Что исследовать не может быть пустым")
     private String whatToResearch;
+
+
 //    private String schedule;
 
     public AnalysisReferral(Diagnosis diagnosis, Doctor doctor, Patient patient, String status, LocalDateTime dateOfTaking, String whatToResearch) {

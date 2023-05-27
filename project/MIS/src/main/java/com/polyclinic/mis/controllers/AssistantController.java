@@ -75,7 +75,7 @@ public class AssistantController {
     public String ShowCreate(Model model){
         Assistant assistant = new Assistant();
         model.addAttribute("assistant",assistant);
-        return "/Assistants/Create";
+        return "Assistants/Create";
     }
     @PostMapping("/Assistants/Create")
     public String Create(@ModelAttribute("assistant")Assistant assistant){
@@ -87,7 +87,7 @@ public class AssistantController {
         assistantService.add(assistant);
 
         assignRole(assistant,user);
-        return "redirect:/Assistants/Index";
+        return "redirect:/";
     }
     private void assignRole(Assistant assistant, PolyclinicUser user){
         var assistantUser= assistant.getUser();

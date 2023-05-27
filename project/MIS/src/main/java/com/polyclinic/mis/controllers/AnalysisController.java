@@ -2,14 +2,21 @@ package com.polyclinic.mis.controllers;
 
 import com.polyclinic.mis.auth.UserService;
 import com.polyclinic.mis.models.Analysis;
+import com.polyclinic.mis.models.AnalysisReferral;
+import com.polyclinic.mis.models.Assistant;
 import com.polyclinic.mis.models.Diagnosis;
+import com.polyclinic.mis.service.impl.AnalysisReferralServiceImpl;
 import com.polyclinic.mis.service.impl.AnalysisServiceImpl;
+import com.polyclinic.mis.service.impl.AssistantServiceImpl;
+import com.polyclinic.mis.service.impl.PatientServiceImpl;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
@@ -24,6 +31,13 @@ public class AnalysisController {
     AnalysisServiceImpl analysisService;
     @Autowired
     UserService userService;
+    @Autowired
+    AssistantServiceImpl assistantService;
+    @Autowired
+    PatientServiceImpl patientService;
+
+    @Autowired
+    AnalysisReferralServiceImpl analysisReferralService;
     @GetMapping("/Analyses/Index")
     public String Index(Model model){
 //        Iterable<Analysis> analyses = analysisService.getAll();
@@ -58,8 +72,49 @@ public class AnalysisController {
         model.addAttribute("patientFIO",patientFio);
         model.addAttribute("patientBirthDate",patientBirthDate);
 
+        model.addAttribute("currentPage","Analyses");
+
         return "/Analyses/Index";
     }
+    @GetMapping("/AssistantAnalyses/Index")
+    public String AssistantIndex(Model model){
+//        Iterable<Analysis> analyses = analysisService.getAll();
+//        model.addAttribute("analyses",analyses);
+//        return "/Analyses/Index";
+        return assistantFindPaginated(1, "date" , "desc","","",model);
+    }
+    @GetMapping("/AssistantAnalyses/Index/{pageNumber}")
+    public String assistantFindPaginated(
+            @PathVariable (value = "pageNumber") int pageNumber,
+            @RequestParam(value = "sortField") String sortField,
+            @RequestParam(value = "sortDir") String sortDir,
+            @RequestParam(value = "patientFIO") String patientFio,
+            @RequestParam(value = "patientBirthDate") String patientBirthDate,
+            Model model){
+        //todo page size from page https://www.youtube.com/watch?v=Aie8n12EFQc 11 00
+        int pageSize = 5;
+
+
+        Page<Analysis> page = analysisService.findPaginatedForCabinet(pageNumber,pageSize,sortField,sortDir,patientFio,patientBirthDate);
+        List<Analysis> analysisList = page.getContent();
+
+        model.addAttribute("currentPage", pageNumber);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
+        model.addAttribute("analyses", analysisList);
+
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir",sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc")?"desc":"asc");
+        model.addAttribute("patientFIO",patientFio);
+        model.addAttribute("patientBirthDate",patientBirthDate);
+
+        model.addAttribute("currentPage","AssistantAnalyses");
+
+        return "/Analyses/Index";
+    }
+
+
     @GetMapping("/PatientAnalyses/Index")
     public String PatientIndex(Model model){
 //        Iterable<Analysis> analyses = analysisService.getAll();
@@ -96,33 +151,80 @@ public class AnalysisController {
 
 
 
-    @GetMapping("/Analyses/Create")
+    @GetMapping("/AssistantAnalyses/Create")
     public String ShowCreateWithoutParam(Model model){
         Analysis analysis = new Analysis();
         model.addAttribute("analysis",analysis);
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        var user = userService.findUserByEmail(authentication.getName());
-        model.addAttribute("user",user);
+
+        var patients = patientService.getAll();
+        model.addAttribute("patients",patients);
+
+        Assistant assistant = assistantService.currentAssistant();
+        model.addAttribute("assistantId",assistant.getId());
+
+        model.addAttribute("currentDate",LocalDateTime.now());
+
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        var user = userService.findUserByEmail(authentication.getName());
+//        model.addAttribute("user",user);
 
         return "/Analyses/Create";
     }
 
-    @GetMapping("/Analyses/Create/{patientId}")
-    public String ShowCreate(Model model){
+    @GetMapping("/AssistantAnalyses/Create/{referralId}")
+    public String ShowCreate(@PathVariable(required = false) Long referralId,
+                             Model model){
         Analysis analysis = new Analysis();
         model.addAttribute("analysis",analysis);
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        var user = userService.findUserByEmail(authentication.getName());
-        model.addAttribute("user",user);
+        AnalysisReferral analysisReferral = analysisReferralService.getById(referralId).get();
+
+        analysisReferral.setStatus("Пройдено");
+        analysisReferral.setDateOfTaking(LocalDateTime.now());
+        analysisReferralService.edit(analysisReferral);
+
+        model.addAttribute("patientId",analysisReferral.getPatient().getId());
+
+        Assistant assistant = assistantService.currentAssistant();
+        model.addAttribute("assistantId",assistant.getId());
+
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime now = LocalDateTime.now();
+        model.addAttribute("currentDate",dateTimeFormatter.format(now));
+
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        var user = userService.findUserByEmail(authentication.getName());
+//        model.addAttribute("user",user);
 
         return "/Analyses/Create";
     }
-    @PostMapping("/Analyses/Create")
-    public String Create(@ModelAttribute("analysis")Analysis analysis){
-        analysisService.add(analysis);
-        return "redirect:/Analyses/Index";
+    @PostMapping("/AssistantAnalyses/Create")
+    public String Create(@Valid @ModelAttribute("analysis")Analysis analysis,
+                         BindingResult result,
+                         Model model){
+        if (result.hasErrors()){
+            model.addAttribute("analysis",analysis);
+
+            Assistant assistant = assistantService.currentAssistant();
+            model.addAttribute("assistantId",assistant);
+
+
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            LocalDateTime now = LocalDateTime.now();
+            model.addAttribute("currentDate",dateTimeFormatter.format(now));
+            if (analysis.getPatient().equals(null)) {
+                return "/Analyses/Create";
+            }
+            else {
+                return "/Analyses/Create/"+analysis.getPatient().getId();
+            }
+
+        }
+        else {
+            analysisService.add(analysis);
+            return "redirect:/AssistantAnalyses/Index";
+        }
     }
-    @GetMapping("Analyses/Edit/{id}")
+    @GetMapping("AssistantAnalyses/Edit/{id}")
     public String ShowEdit(@PathVariable(value = "id") long id, Model model){
         Optional<Analysis> analysis = analysisService.getById(id);
         if (analysis.isPresent()){
@@ -146,10 +248,22 @@ public class AnalysisController {
 //            return "/Error";
 //        }
 //    }
-    @GetMapping("Analyses/Delete/{id}")
+    @GetMapping("AssistantAnalyses/Delete/{id}")
     public String Delete(@PathVariable (value = "id") long id, Model model){
         analysisService.delete(id);
-        return "redirect:/Analyses/Index";
+        return "redirect:/AssistantAnalyses/Index";
+    }
+    @GetMapping("AssistantAnalyses/Details/{id}")
+    public String AssistantDetails(@PathVariable (value = "id") long id, Model model){
+        Optional<Analysis> analysis = analysisService.getById(id);
+        if (analysis.isPresent()){
+            model.addAttribute("analysis",analysis.get());
+            return "/Analyses/Details";
+        }
+        else {
+            //todo
+            return "/Error";
+        }
     }
     @GetMapping("Analyses/Details/{id}")
     public String Details(@PathVariable (value = "id") long id, Model model){
@@ -157,6 +271,23 @@ public class AnalysisController {
         if (analysis.isPresent()){
             model.addAttribute("analysis",analysis.get());
             return "/Analyses/Details";
+        }
+        else {
+            //todo
+            return "/Error";
+        }
+    }
+    @GetMapping("PatientAnalyses/Details/{id}")
+    public String PatientDetails(@PathVariable (value = "id") long id, Model model){
+        Optional<Analysis> analysis = analysisService.getById(id);
+        if (analysis.isPresent()){
+            if(patientService.currentPatient().getId()!=analysis.get().getPatient().getId()){
+                return "/Error";
+            }
+            else {
+                model.addAttribute("analysis", analysis.get());
+                return "/Analyses/Details";
+            }
         }
         else {
             //todo

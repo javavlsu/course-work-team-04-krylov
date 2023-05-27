@@ -1,6 +1,7 @@
 package com.polyclinic.mis.service.impl;
 
 import com.polyclinic.mis.models.Analysis;
+import com.polyclinic.mis.models.AnalysisReferral;
 import com.polyclinic.mis.models.DoctorAppointment;
 import com.polyclinic.mis.models.Patient;
 import com.polyclinic.mis.repository.AnalysisRepository;
@@ -27,6 +28,8 @@ public class AnalysisServiceImpl implements AnalysisService {
     private AnalysisRepository analysisRepository;
     @Autowired
     private PolyclinicUserServiceImpl polyclinicUserService;
+
+
     @Override
     public Analysis add(Analysis analysis) {
         return analysisRepository.saveAndFlush(analysis);
@@ -93,5 +96,42 @@ public class AnalysisServiceImpl implements AnalysisService {
         return analysisRepository.findForOnePatient(patient.getId(),pageable);
 
     }
+
+    public Page<Analysis> findPaginatedForCabinet(int pageNumber, int pageSize, String sortField, String sortDirection, String fio, String birthDate) {
+        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() : Sort.by(sortField).descending();
+        Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, sort);
+        var assistant = polyclinicUserService.getAssistantFromContext();
+        if (birthDate.equals("")&&fio.equals("")){
+            return analysisRepository.findForCabinetNoSearch(assistant.getCabinet().getId(),pageable);
+        }
+        else if (birthDate.equals("")){
+            String[] splitFio = fio.split(" ");
+            switch (splitFio.length){
+                case 1:
+                    return analysisRepository.findForCabinet(splitFio[0],"","","",assistant.getCabinet().getId(),pageable);
+                case 2:
+                    return analysisRepository.findForCabinet(splitFio[0],splitFio[1],"","",assistant.getCabinet().getId(),pageable);
+                case 3:
+                    return analysisRepository.findForCabinet(splitFio[0],splitFio[1],splitFio[2],"",assistant.getCabinet().getId(),pageable);
+            }
+        }
+        else if (!fio.equals("")){
+
+            String[] splitFio = fio.split(" ");
+            switch (splitFio.length){
+                case 1:
+                    return analysisRepository.findForCabinet(splitFio[0],"","",birthDate,assistant.getCabinet().getId(),pageable);
+                case 2:
+                    return analysisRepository.findForCabinet(splitFio[0],splitFio[1],"",birthDate,assistant.getCabinet().getId(),pageable);
+                case 3:
+                    return analysisRepository.findForCabinet(splitFio[0],splitFio[1],splitFio[2],birthDate,assistant.getCabinet().getId(),pageable);
+            }
+        }
+        else {
+            return analysisRepository.findForCabinet("","","",birthDate,assistant.getCabinet().getId(),pageable);
+        }
+        return analysisRepository.findForCabinetNoSearch(assistant.getCabinet().getId(),pageable);
+    }
+
 
 }

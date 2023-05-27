@@ -14,60 +14,68 @@
         <div class="col-md-4">
             <form action="#" th:action="@{/AnalysisReferrals/Create}" th:object="${analysisReferral}" method="POST">
                 <div class="form-group">
+                    <label class="control-label">Врач</label>
+                    <!--                    <input class="form-control" type="text" th:field="*{doctor.id}"/>-->
+                    <input class="form-control" type="text" th:id="doctor.id" th:name="doctor.id" th:value="${doctorId}" readonly required/>
+                    <p th:if="${#fields.hasErrors('doctor.id')}" class="text-danger" th:errors="*{doctor.id}"></p>
+                </div>
+                <div class="form-group">
                     <label class="control-label">Диагноз</label>
 <!--                    <input class="form-control" type="text" th:field="*{diagnosis.id}"/>-->
-                    <select th:field="*{diagnosis.id}" id="diagnoses" class="form-control">
+                    <select th:field="*{diagnosis.id}" id="diagnoses" class="form-control" required>
                         <option value=""></option>
                         <option th:each="diagnosis : ${diagnoses}" th:value="${diagnosis.id}" th:text="${diagnosis.ReturnIdAndDescription}"></option>
                     </select>
+                    <p th:if="${#fields.hasErrors('diagnosis.id')}" class="text-danger" th:errors="*{diagnosis.id}"></p>
                 </div>
-                <div class="form-group">
-                    <label class="control-label">Врач</label>
-<!--                    <input class="form-control" type="text" th:field="*{doctor.id}"/>-->
-                    <input class="form-control" type="text" th:id="doctor.id" th:name="doctor.id" th:value="${doctorId}" readonly/>
-                </div>
+
                 <div class="form-group">
                     <label class="control-label">Пациент</label>
 <!--                    <input class="form-control" type="text" th:field="*{patient.id}"/>-->
                     <div th:if="${patientId}==null">
-                        <select th:field="*{patient}" id="patients" class="form-control">
+                        <select th:field="*{patient}" id="patients" class="form-control" required>
                             <option value=""></option>
                             <option th:each="patient : ${patients}" th:value="${patient.id}" th:text="${patient.ReturnFIOAndBirthDate}"></option>
                         </select>
+                        <p th:if="${#fields.hasErrors('patient')}" class="text-danger" th:errors="*{patient}"></p>
                     </div>
                     <div th:if="${patientId}!=null">
-                        <input class="form-control" type="text" th:id="patient.id" th:name="patient.id" th:value="${patientId}" readonly/>
+                        <input class="form-control" type="text" th:id="patient.id" th:name="patient.id" th:value="${patientId}" readonly required/>
+                        <p th:if="${#fields.hasErrors('patient')}" class="text-danger" th:errors="*{patient}"></p>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Лаборатория</label>
-                    <input class="form-control" type="text" th:field="*{laboratory}"/>
+<!--                    <input class="form-control" type="text" th:field="*{cabinet}" required/>-->
+                    <select th:field="*{cabinet}" id="cabinets" class="form-control" required>
+                        <option value=""></option>
+                        <option th:each="cabinet : ${cabinets}" th:value="${cabinet.id}?: ''" th:text="${cabinet.ReturnNameAndNumber}?: ''"></option>
+                    </select>
+                    <p th:if="${#fields.hasErrors('cabinet')}" class="text-danger" th:errors="*{cabinet}"></p>
                 </div>
+
 <!--                <div class="form-group">-->
 <!--                    <label class="control-label">Лаборант</label>-->
 <!--                    <input class="form-control" type="text" th:field="*{assistant.id}"/>-->
 <!--                </div>-->
-                <div class="form-group">
-                    <label class="control-label">Кабинет</label>
-                    <input class="form-control" type="text" th:field="*{cabinetNum}"/>
-                </div>
-                <div class="form-group">
-                    <label class="control-label">Статус</label>
-<!--                    <input class="form-control" type="text" th:field="*{status}"/>-->
-                    <input class="form-control" type="text" th:id="status" th:name="status" th:value="${currentStatus}" readonly/>
 
-                </div>
+
+<!--                <div class="form-group">-->
+<!--                    <label class="control-label">Статус</label>-->
+<!--&lt;!&ndash;                    <input class="form-control" type="text" th:field="*{status}"/>&ndash;&gt;-->
+<!--                    <input class="form-control" type="text" th:id="status" th:name="status" th:value="${currentStatus}" readonly/>-->
+
+<!--                </div>-->
+
+
 <!--                <div class="form-group">-->
 <!--                    <label class="control-label">Дата проведения</label>-->
 <!--                    <input class="form-control" type="datetime-local" th:field="*{dateOfTaking}"/>-->
 <!--                </div>-->
                 <div class="form-group">
                     <label class="control-label">Что исследовать</label>
-                    <input class="form-control" type="text" th:field="*{whatToResearch}"/>
-                </div>
-                <div class="form-group">
-                    <label class="control-label">Расписание</label>
-                    <input class="form-control" type="text" th:field="*{schedule}"/>
+                    <input class="form-control" type="text" th:field="*{whatToResearch}" required/>
+                    <p th:if="${#fields.hasErrors('whatToResearch')}" class="text-danger" th:errors="*{whatToResearch}"></p>
                 </div>
                 <div class="form-group">
                     <p></p>
@@ -92,6 +100,11 @@
         });
         $("#diagnoses").select2({
             placeholder: "Выберите диагноз",
+            theme: "bootstrap4",
+            allowClear: true
+        });
+        $("#cabinets").select2({
+            placeholder: "Выберите лабораторию",
             theme: "bootstrap4",
             allowClear: true
         });

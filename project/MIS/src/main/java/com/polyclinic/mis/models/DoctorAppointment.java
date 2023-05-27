@@ -40,7 +40,7 @@ public class DoctorAppointment {
     @NotNull (message = "Поле Дата записи не может быть пустым")
     private Date date;
 
-    @NotNull (message = "Поле время записи не может быть пустым")
+    @NotNull (message = "Поле Время записи не может быть пустым")
     private Time time;
 
 }

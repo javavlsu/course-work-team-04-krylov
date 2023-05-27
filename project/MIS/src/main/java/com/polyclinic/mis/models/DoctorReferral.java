@@ -1,6 +1,7 @@
 package com.polyclinic.mis.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,18 +20,23 @@ public class DoctorReferral {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @ManyToOne
+    @NotNull(message = "Поле Диагноз не может быть пустым")
     private Diagnosis diagnosis;
     @ManyToOne
+    @NotNull(message = "Поле Врач выписавший направление не может быть пустым")
     private Doctor doctorInitial;
     @ManyToOne
+    @NotNull(message = "Поле Пациент не может быть пустым")
     private Patient patient;
     @ManyToOne
+    @NotNull(message = "Поле Врач к кому выписано направление не может быть пустым")
     private Doctor doctorTarget;
     private String cabinetNum;
     private String status;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime dateOfTaking;
+    @NotNull(message = "Поле Что обследовать не может быть пустым")
     private String whatToResearch;
     private String schedule;
 

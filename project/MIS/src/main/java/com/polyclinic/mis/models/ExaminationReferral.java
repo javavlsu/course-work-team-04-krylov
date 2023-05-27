@@ -1,6 +1,7 @@
 package com.polyclinic.mis.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,14 +23,18 @@ public class ExaminationReferral {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @ManyToOne
+    @NotNull(message = "Поле Диагноз не может быть пустым")
     private Diagnosis diagnosis;
     @ManyToOne
+    @NotNull(message = "Поле Врач не может быть пустым")
     private Doctor doctor;
     @ManyToOne
+    @NotNull(message = "Поле Пациент не может быть пустым")
     private Patient patient;
 //    private String type;
 
     @ManyToOne
+    @NotNull(message = "Поле Кабинет не может быть пустым")
     private ExaminationCabinet cabinet;
 
 
@@ -39,6 +44,7 @@ public class ExaminationReferral {
     private String status;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime dateOfTaking;
+    @NotNull(message = "Поле Что обследовать не может быть пустым")
     private String whatToResearch;
 //    private String schedule;
 

@@ -17,22 +17,24 @@
                 <div class="form-group">
                     <label class="control-label">Врач</label>
                     <div th:if="${doctorId}==null">
-                        <select th:field="*{doctor}" id="doctors" class="form-control">
+                        <select th:field="*{doctor}" id="doctors" class="form-control" required>
                             <option value=""></option>
                             <option th:each="doctor : ${doctors}" th:value="${doctor.id}"
                                     th:text="${doctor.ReturnFIOAndSpeciality}"></option>
                         </select>
+                        <p th:if="${#fields.hasErrors('doctor')}" class="text-danger" th:errors="*{doctor}"></p>
                         <!--                        <input class="form-control" type="text" th:field="*{doctor.id}"/>-->
                     </div>
 
                     <div th:if="${doctorId}!=null">
                         <input class="form-control" type="text" th:id="doctor.id" th:name="doctor.id"
-                               th:value="${doctorId}" readonly/>
+                               th:value="${doctorId}" readonly required/>
+                        <p th:if="${#fields.hasErrors('doctor')}" class="text-danger" th:errors="*{doctor}"></p>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label">День недели</label>
-                    <select th:field="*{dayOfTheWeek}" id="daysOfTheWeek" class="form-control">
+                    <select th:field="*{dayOfTheWeek}" id="daysOfTheWeek" class="form-control" required>
                         <option value=""></option>
                         <option value="Понедельник">Понедельник</option>
                         <option value="Вторник">Вторник</option>
@@ -42,11 +44,12 @@
                         <option value="Суббота">Суббота</option>
                         <option value="Воскресенье">Воскресенье</option>
                     </select>
+                    <p th:if="${#fields.hasErrors('dayOfTheWeek')}" class="text-danger" th:errors="*{dayOfTheWeek}"></p>
                 </div>
 
                 <div class="form-group">
                     <label class="control-label">Время</label>
-                    <input class="form-control" type="time" th:field="*{timeString}"/>
+                    <input class="form-control" type="time" th:field="*{timeString}" required/>
                 </div>
                 <div class="form-group">
                     <p></p>

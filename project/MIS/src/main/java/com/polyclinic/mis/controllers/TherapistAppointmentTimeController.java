@@ -5,10 +5,12 @@ import com.polyclinic.mis.models.TherapistAppointmentTime;
 import com.polyclinic.mis.service.DoctorAppointmentTimeService;
 import com.polyclinic.mis.service.TherapistAppointmentTimeService;
 import com.polyclinic.mis.service.impl.DoctorServiceImpl;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Time;
@@ -76,11 +78,27 @@ public class TherapistAppointmentTimeController {
     }
 
     @PostMapping("/TherapistAppointmentTimes/Create")
-    public String Create(@ModelAttribute("therapistAppointmentTime") TherapistAppointmentTime therapistAppointmentTime){
-        Time time = Time.valueOf(therapistAppointmentTime.getTimeString()+":00");
-        therapistAppointmentTime.setTime(time);
-        therapistAppointmentTimeService.add(therapistAppointmentTime);
-        return "redirect:/TherapistAppointmentTimes/Create/"+therapistAppointmentTime.getDoctor().getId();
+    public String Create(@Valid @ModelAttribute("therapistAppointmentTime") TherapistAppointmentTime therapistAppointmentTime,
+                         BindingResult result,
+                         Model model){
+        if (result.hasErrors()){
+            model.addAttribute("therapistAppointmentTime",therapistAppointmentTime);
+            if (therapistAppointmentTime.getDoctor().equals(null)){
+                var doctors = doctorService.getAllNotTherapists();
+                model.addAttribute("doctors",doctors);
+                return "/TherapistAppointmentTimes/Create";
+            }
+            else {
+                model.addAttribute("doctorId",therapistAppointmentTime.getDoctor().getId());
+                return "/TherapistAppointmentTimes/Create/"+therapistAppointmentTime.getDoctor().getId();
+            }
+        }
+        else {
+            Time time = Time.valueOf(therapistAppointmentTime.getTimeString() + ":00");
+            therapistAppointmentTime.setTime(time);
+            therapistAppointmentTimeService.add(therapistAppointmentTime);
+            return "redirect:/TherapistAppointmentTimes/Create/" + therapistAppointmentTime.getDoctor().getId();
+        }
     }
 
 
@@ -100,11 +118,20 @@ public class TherapistAppointmentTimeController {
     }
 
     @PostMapping("TherapistAppointmentTimes/Edit")
-    public String Edit(@ModelAttribute("therapistAppointmentTime") TherapistAppointmentTime therapistAppointmentTime){
-        Time time = Time.valueOf(therapistAppointmentTime.getTimeString()+":00");
-        therapistAppointmentTime.setTime(time);
-        therapistAppointmentTimeService.edit(therapistAppointmentTime);
-        return "redirect:/TherapistAppointmentTimes/Index";
+    public String Edit(@Valid @ModelAttribute("therapistAppointmentTime") TherapistAppointmentTime therapistAppointmentTime,
+                       BindingResult result,
+                       Model model){
+        if (result.hasErrors()){
+            therapistAppointmentTime.setTimeString(therapistAppointmentTime.getTime().toString());
+            model.addAttribute("therapistAppointmentTime",therapistAppointmentTime);
+            return "TherapistAppointmentTimes/Edit/"+therapistAppointmentTime.getId();
+        }
+        else {
+            Time time = Time.valueOf(therapistAppointmentTime.getTimeString() + ":00");
+            therapistAppointmentTime.setTime(time);
+            therapistAppointmentTimeService.edit(therapistAppointmentTime);
+            return "redirect:/TherapistAppointmentTimes/Index";
+        }
     }
     @GetMapping("TherapistAppointmentTimes/Delete/{id}")
     public String Delete(@PathVariable (value = "id") long id, Model model){

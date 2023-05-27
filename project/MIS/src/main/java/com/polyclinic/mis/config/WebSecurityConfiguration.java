@@ -57,9 +57,19 @@ public class WebSecurityConfiguration{
 //                .requestMatchers("/Analyses").hasAnyAuthority("Doctor","Assistant","Admin")
                 .requestMatchers("/Analyses/Details/**").hasAnyAuthority("Doctor","Assistant","Admin")
                 .requestMatchers("/Analyses/Index/**").hasAnyAuthority("Doctor","Assistant","Admin")
+
+                .requestMatchers("/AssistantAnalyses/Index/**").hasAnyAuthority("Doctor","Assistant","Admin")
+                .requestMatchers("/AssistantAnalyses/Details/**").hasAnyAuthority("Doctor","Assistant","Admin")
+                .requestMatchers("/AssistantAnalyses/Delete/**").hasAnyAuthority("Doctor","Assistant","Admin")
+                .requestMatchers("/AssistantAnalyses/Edit/**").hasAnyAuthority("Doctor","Assistant","Admin")
+                .requestMatchers("/AssistantAnalyses/Create").hasAnyAuthority("Assistant","Admin")
+                .requestMatchers("/AssistantAnalyses/Create/**").hasAnyAuthority("Assistant","Admin")
+
+
                 .requestMatchers("/PatientAnalyses/Details/**").hasAnyAuthority("Patient","Admin")
                 .requestMatchers("/PatientAnalyses/Index/**").hasAnyAuthority("Patient","Admin")
                 .requestMatchers("/Analyses/Create").hasAnyAuthority("Assistant","Admin")
+                .requestMatchers("/Analyses/Create/**").hasAnyAuthority("Assistant","Admin")
                 .requestMatchers("/Analyses/Edit/**").hasAnyAuthority("Assistant","Admin")
                 .requestMatchers("/Analyses/Delete/**").hasAnyAuthority("Admin")
 
@@ -67,13 +77,15 @@ public class WebSecurityConfiguration{
                 //Направление на анализ
                 .requestMatchers("/AnalysisReferrals/Details/**").hasAnyAuthority("Doctor","Assistant","Admin","Receptionist")
                 .requestMatchers("/AnalysisReferrals/Index/**").hasAnyAuthority("Doctor","Assistant","Admin","Receptionist")
+                .requestMatchers("/AssistantAnalysisReferrals/Index/**").hasAnyAuthority("Doctor","Assistant","Admin","Receptionist")
+
                 .requestMatchers("/PatientAnalysisReferrals/Details/**").hasAnyAuthority("Patient","Admin")
                 .requestMatchers("/PatientAnalysisReferrals/Index/**").hasAnyAuthority("Patient","Admin")
                 .requestMatchers("/AnalysisReferrals/Create").hasAnyAuthority("Assistant","Admin","Receptionist","Doctor")
                 .requestMatchers("/AnalysisReferrals/Create/**").hasAnyAuthority("Assistant","Admin","Receptionist","Doctor")
                 .requestMatchers("/AnalysisReferrals/Edit/**").hasAnyAuthority("Assistant","Admin","Receptionist","Doctor")
                 .requestMatchers("/AnalysisReferrals/Delete/**").hasAnyAuthority("Admin")
-
+                .requestMatchers("/AssistantAnalysisReferrals/CreateAnalysis/**").hasAnyAuthority("Admin","Assistant")
 
                 //Пациенты
                 .requestMatchers("/Patients/Details/**").hasAnyAuthority("Doctor","Assistant","Admin","Receptionist","FunctionalDiagnosticsDoctor")

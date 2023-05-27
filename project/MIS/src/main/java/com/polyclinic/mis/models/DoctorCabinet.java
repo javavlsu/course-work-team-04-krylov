@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,11 +16,14 @@ public class DoctorCabinet {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+
+    @NotNull(message = "Поле Название кабинета записи не может быть пустым")
     private String name;
+    @NotNull(message = "Поле Номер кабинета не может быть пустым")
     private String number;
     private String schedule;
 
-    public String ReturnNameAndNumber(){
+    public String ReturnNameAndNumber() {
         return name + " " + number;
     }
 }

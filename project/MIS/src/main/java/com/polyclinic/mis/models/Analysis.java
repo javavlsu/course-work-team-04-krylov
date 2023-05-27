@@ -39,6 +39,9 @@ public class Analysis {
     @NotNull(message = "Поле Дата не может быть пустым")
     private LocalDateTime date;
 
+    @ManyToOne
+    private AnalysisReferral analysisReferral;
+
     public Analysis(Patient patient, String type, String report, Assistant assistant, LocalDateTime date) {
         this.patient = patient;
         this.type = type;

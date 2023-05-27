@@ -12,22 +12,22 @@
     <hr/>
     <div class="row">
         <div class="col-md-4">
-            <form action="#" th:action="@{/TherapistAppointmentTimes/Edit}" th:object="${doctorAppointmentTime}" method="POST">
+            <form action="#" th:action="@{/TherapistAppointmentTimes/Edit}" th:object="${therapistAppointmentTime}" method="POST">
                 <div class="form-group">
                     <label class="control-label">Id</label>
                     <input class="form-control" type="text" th:field="*{id}" readonly/>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Врач</label>
-                    <input class="form-control" type="text" th:field="*{doctor.id}"/>
+                    <input class="form-control" type="text" th:field="*{doctor.id}" required/>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Время</label>
-                    <input class="form-control" type="time" th:field="*{timeString}"/>
+                    <input class="form-control" type="time" th:field="*{timeString}" required/>
                 </div>
                 <div class="form-group">
                     <label class="control-label">День недели</label>
-                    <select th:field="*{dayOfTheWeek}" id="daysOfTheWeek" class="form-control">
+                    <select th:field="*{dayOfTheWeek}" id="daysOfTheWeek" class="form-control" required>
                         <option value=""></option>
                         <option value="Понедельник">Понедельник</option>
                         <option value="Вторник">Вторник</option>

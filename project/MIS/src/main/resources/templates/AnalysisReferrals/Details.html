@@ -15,34 +15,33 @@
             <dd class="col-sm-10" th:utext="*{id}"></dd>
 
             <dt class="col-sm-2">Диагноз</dt>
-            <dd class="col-sm-10" th:utext="*{diagnosis.ReturnIdAndDescription}"></dd>
+            <dd class="col-sm-10" th:utext="*{diagnosis?.ReturnIdAndDescription}?: ''"></dd>
 
             <dt class="col-sm-2">Врач</dt>
-            <dd class="col-sm-10" th:utext="*{doctor.ReturnFIOAndBirthDate}"></dd>
+            <dd class="col-sm-10" th:utext="*{doctor?.ReturnFIOAndSpeciality}?: ''"></dd>
 
             <dt class="col-sm-2">Пациент</dt>
-            <dd class="col-sm-10" th:utext="*{patient.ReturnFIOAndBirthDate}"></dd>
+            <dd class="col-sm-10" th:utext="*{patient?.ReturnFIOAndBirthDate}?: ''"></dd>
 
             <dt class="col-sm-2">Лаборатория</dt>
-            <dd class="col-sm-10" th:utext="*{laboratory}"></dd>
+            <dd class="col-sm-10" th:utext="*{cabinet?.name}?: ''"></dd>
 
+            <dt class="col-sm-2">Номер кабинета</dt>
+            <dd class="col-sm-10" th:utext="*{cabinet?.number}?: ''"></dd>
+
+            <dt class="col-sm-2">Расписание кабинета</dt>
+            <dd class="col-sm-10" th:utext="*{cabinet?.schedule}?: ''"></dd>
 <!--            <dt class="col-sm-2">Лаборант</dt>-->
 <!--            <dd class="col-sm-10" th:utext="*{assistant.ReturnFIOAndBirthDate}"></dd>-->
 
-            <dt class="col-sm-2">Кабинет</dt>
-            <dd class="col-sm-10" th:utext="*{cabinetNum}"></dd>
-
             <dt class="col-sm-2">Статус</dt>
-            <dd class="col-sm-10" th:utext="*{status}"></dd>
+            <dd class="col-sm-10" th:utext="*{status}?: ''"></dd>
 
             <dt class="col-sm-2">Дата проведения</dt>
-            <dd class="col-sm-10" th:utext="*{dateOfTaking}"></dd>
+            <dd class="col-sm-10" th:utext="*{dateOfTaking}?: ''"></dd>
 
             <dt class="col-sm-2">Что исследовать</dt>
-            <dd class="col-sm-10" th:utext="*{whatToResearch}"></dd>
-
-            <dt class="col-sm-2">Расписание</dt>
-            <dd class="col-sm-10" th:utext="*{schedule}"></dd>
+            <dd class="col-sm-10" th:utext="*{whatToResearch}?: ''"></dd>
 
         </dl>
     </div>

@@ -1,6 +1,7 @@
 package com.polyclinic.mis.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,17 +24,23 @@ public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @NotNull(message = "Поле Имя не может быть пустым")
     private String firstName;
+    @NotNull(message = "Поле Фамилия не может быть пустым")
     private String lastName;
     private String middleName;
+    @NotNull(message = "Поле Дата рождения не может быть пустым")
     private Date birthDate;
     //public PolyclinicUser PolyclinicUser
 
     //ТУт
+    @NotNull(message = "Поле Номер полиса не может быть пустым")
     private String polisId;
+    @NotNull(message = "Поле Страховая организация не может быть пустым")
     private String poilsCompany;
     private Date polisEndDate;
     //Тут
+    @NotNull(message = "Поле Номер СНИЛС не может быть пустым")
     private String  snilsNumber;
     private String homeAddress;
     private String workPlace;

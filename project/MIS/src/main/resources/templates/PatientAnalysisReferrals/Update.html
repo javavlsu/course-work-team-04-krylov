@@ -12,7 +12,11 @@
     <hr/>
     <div class="row">
         <div class="col-md-4">
-            <form action="#" th:action="@{/AnalysisReferrals/Create}" th:object="${analysisReferral}" method="POST">
+            <form action="#" th:action="@{/AnalysisReferrals/Edit}" th:object="${analysisReferral}" method="POST">
+                <div class="form-group">
+                    <label class="control-label">Id</label>
+                    <input class="form-control" type="text" th:field="*{id}" readonly/>
+                </div>
                 <div class="form-group">
                     <label class="control-label">Диагноз</label>
                     <input class="form-control" type="text" th:field="*{diagnosis.id}"/>
@@ -55,7 +59,7 @@
                 </div>
                 <div class="form-group">
                     <p></p>
-                    <input type="submit" value="Create" class="btn btn-primary"/>
+                    <input type="submit" value="Обновить" class="btn btn-primary"/>
                 </div>
             </form>
         </div>

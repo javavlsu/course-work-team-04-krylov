@@ -12,10 +12,18 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AnalysisReferralRepository extends JpaRepository<AnalysisReferral,Long> {
     @Query("SELECT a from AnalysisReferral as a where a.patient.lastName like %:lastName% and a.patient.firstName like %:firstName% and a.patient.middleName like %:middleName% and FUNCTION('date_format',a.patient.birthDate,'%Y %m %d') like %:date%")
-
-//    @Query("SELECT a from Analysis as a where a.patient.lastName like %?1%")
     public Page<AnalysisReferral> findAll(@Param("lastName") String lastName, String firstName, String middleName, String date, Pageable pageable);
 
     @Query("SELECT a from AnalysisReferral as a where a.patient.id = :patientId")
     public Page<AnalysisReferral> findForOnePatient(long patientId, Pageable pageable);
+
+    @Query("SELECT a from AnalysisReferral as a where a.patient.lastName like %:lastName% and a.patient.firstName like %:firstName% and a.patient.middleName like %:middleName% and FUNCTION('date_format',a.patient.birthDate,'%Y %m %d') like %:date% and a.cabinet.id=:cabinetId")
+    public Page<AnalysisReferral> findForCabinet(@Param("lastName") String lastName, String firstName, String middleName, String date, long cabinetId,Pageable pageable);
+
+
+    @Query("SELECT a from AnalysisReferral as a where a.cabinet.id=:cabinetId")
+    public Page<AnalysisReferral> findForCabinetNoSearch(long cabinetId, Pageable pageable);
+
+//    @Query("SELECT a from AnalysisReferral as a where a.cabinet.id = :cabinetId")
+//    public Page<AnalysisReferral> findForCabinet(long cabinetId, Pageable pageable);
 }

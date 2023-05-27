@@ -7,5 +7,5 @@ create table doctor_cabinet
     primary key (id)
 ) engine=InnoDB;
 
-alter table doctor add column cabinet bigint;
-alter table doctor add constraint doctor_cabinet foreign key (cabinet) references doctor_cabinet (id);
+alter table doctor add column cabinet_id bigint;
+alter table doctor add constraint doctor_cabinet foreign key (cabinet_id) references doctor_cabinet (id);

@@ -92,4 +92,42 @@ public class AnalysisReferralServiceImpl implements AnalysisReferralService {
         return analysisReferralRepository.findForOnePatient(patient.getId(),pageable);
 
     }
+
+    public Page<AnalysisReferral> findPaginatedForCabinet(int pageNumber, int pageSize, String sortField, String sortDirection, String fio, String birthDate) {
+        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() : Sort.by(sortField).descending();
+        Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, sort);
+        var assistant = polyclinicUserService.getAssistantFromContext();
+        if (birthDate.equals("")&&fio.equals("")){
+            return analysisReferralRepository.findForCabinetNoSearch(assistant.getCabinet().getId(),pageable);
+        }
+        else if (birthDate.equals("")){
+            String[] splitFio = fio.split(" ");
+            switch (splitFio.length){
+                case 1:
+                    return analysisReferralRepository.findForCabinet(splitFio[0],"","","",assistant.getCabinet().getId(),pageable);
+                case 2:
+                    return analysisReferralRepository.findForCabinet(splitFio[0],splitFio[1],"","",assistant.getCabinet().getId(),pageable);
+                case 3:
+                    return analysisReferralRepository.findForCabinet(splitFio[0],splitFio[1],splitFio[2],"",assistant.getCabinet().getId(),pageable);
+            }
+        }
+        else if (!fio.equals("")){
+
+            String[] splitFio = fio.split(" ");
+            switch (splitFio.length){
+                case 1:
+                    return analysisReferralRepository.findForCabinet(splitFio[0],"","",birthDate,assistant.getCabinet().getId(),pageable);
+                case 2:
+                    return analysisReferralRepository.findForCabinet(splitFio[0],splitFio[1],"",birthDate,assistant.getCabinet().getId(),pageable);
+                case 3:
+                    return analysisReferralRepository.findForCabinet(splitFio[0],splitFio[1],splitFio[2],birthDate,assistant.getCabinet().getId(),pageable);
+            }
+        }
+        else {
+            return analysisReferralRepository.findForCabinet("","","",birthDate,assistant.getCabinet().getId(),pageable);
+        }
+        return analysisReferralRepository.findForCabinetNoSearch(assistant.getCabinet().getId(),pageable);
+    }
+
+
 }
