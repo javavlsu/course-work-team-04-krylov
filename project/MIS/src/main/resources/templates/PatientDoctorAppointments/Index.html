@@ -7,34 +7,38 @@
 
 <div class="px-4 py-5 my-5 container-fluid">
 
-    <h1>Заявки на прием ко врачу</h1>
+    <h1>Заявки на прием к терапевту</h1>
 
     <p style="margin-top: 20px">
         <a href="/PatientDoctorAppointments/Create" class="btn btn-secondary">Записаться</a>
     </p>
     <a th:href="@{'/PatientDoctorAppointments/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&status='}">Получить
-        список всех пациентов</a>
+        список всех заявок</a>
 
     <p></p>
+<!--    <a class="btn btn-primary"-->
+<!--       th:href="@{'/PatientDoctorAppointments/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&status=Ожидает+подтверждения'}">-->
+<!--        Ожидает подтверждения-->
+<!--    </a>-->
+<!--    <a class="btn btn-primary"-->
+<!--       th:href="@{'/PatientDoctorAppointments/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&status=Отменена регистратурой'}">-->
+<!--        Отменена регистратурой-->
+<!--    </a>-->
+<!--    <a class="btn btn-primary"-->
+<!--       th:href="@{'/PatientDoctorAppointments/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&status=Подтверждена регистратурой'}">-->
+<!--        Подтверждена регистратурой-->
+<!--    </a>-->
+<!--    <a class="btn btn-primary"-->
+<!--       th:href="@{'/PatientDoctorAppointments/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&status=Отменена пациентом'}">-->
+<!--        Отменена пациентом-->
+<!--    </a>-->
+<!--    <a class="btn btn-primary"-->
+<!--       th:href="@{'/PatientDoctorAppointments/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&status=Просрочена'}">-->
+<!--        Просрочена-->
+<!--    </a>-->
     <a class="btn btn-primary"
-       th:href="@{'/PatientDoctorAppointments/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&status=Ожидает+подтверждения'}">
-        Ожидает подтверждения
-    </a>
-    <a class="btn btn-primary"
-       th:href="@{'/PatientDoctorAppointments/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&status=Отменена регистратурой'}">
-        Отменена регистратурой
-    </a>
-    <a class="btn btn-primary"
-       th:href="@{'/PatientDoctorAppointments/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&status=Подтверждена регистратурой'}">
-        Подтверждена регистратурой
-    </a>
-    <a class="btn btn-primary"
-       th:href="@{'/PatientDoctorAppointments/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&status=Отменена пациентом'}">
-        Отменена пациентом
-    </a>
-    <a class="btn btn-primary"
-       th:href="@{'/PatientDoctorAppointments/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&status=Просрочена'}">
-        Просрочена
+       th:href="@{'/PatientDoctorAppointments/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&status=Создана'}">
+        Создана
     </a>
     <a class="btn btn-primary"
        th:href="@{'/PatientDoctorAppointments/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&status=Использована'}">

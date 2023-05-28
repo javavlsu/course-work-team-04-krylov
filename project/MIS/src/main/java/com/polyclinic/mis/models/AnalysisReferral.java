@@ -10,6 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.thymeleaf.spring6.processor.SpringOptionFieldTagProcessor;
 
 import java.sql.Date;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
@@ -48,6 +49,7 @@ public class AnalysisReferral {
     private LocalDateTime dateOfIssue;
     @NotNull(message = "Поле Что исследовать не может быть пустым")
     private String whatToResearch;
+
 
 
 //    private String schedule;

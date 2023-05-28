@@ -34,6 +34,9 @@ public class Examination {
     @NotNull(message = "Поле Пациент не может быть пустым")
     private Patient patient;
 
+    @ManyToOne
+    private ExaminationReferral examinationReferral;
+
     public Examination(String type, String report, LocalDateTime date, FunctionalDiagnosticsDoctor functionalDiagnosticsDoctor, Patient patient) {
         this.type = type;
         this.report = report;

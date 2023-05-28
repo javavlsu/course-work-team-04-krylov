@@ -1,9 +1,6 @@
 package com.polyclinic.mis.service.impl;
 
-import com.polyclinic.mis.models.AnalysisReferral;
-import com.polyclinic.mis.models.Examination;
-import com.polyclinic.mis.models.ExaminationReferral;
-import com.polyclinic.mis.models.Patient;
+import com.polyclinic.mis.models.*;
 import com.polyclinic.mis.repository.ExaminationReferralRepository;
 import com.polyclinic.mis.repository.ExaminationRepository;
 import com.polyclinic.mis.service.ExaminationReferralService;
@@ -15,6 +12,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Date;
+import java.sql.Time;
 import java.util.List;
 import java.util.Optional;
 
@@ -92,4 +91,49 @@ public class ExaminationReferralServiceImpl implements ExaminationReferralServic
         return examinationReferralRepository.findForOnePatient(patient.getId(),pageable);
 
     }
+
+    public List<ExaminationReferral> getByCabinetIdAndDate(long doctorId, Date date){
+        return examinationReferralRepository.findByCabinetIdAndDate(doctorId,date);
+    }
+    public List<ExaminationReferral> getByCabinetIdAndDateAndTime(long doctorId, Date date, Time time){
+        return examinationReferralRepository.findByCabinetIdAndDateAndTime(doctorId,date,time);
+    }
+    public Page<ExaminationReferral> findPaginatedForCabinet(int pageNumber, int pageSize, String sortField, String sortDirection, String fio, String birthDate) {
+        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() : Sort.by(sortField).descending();
+        Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, sort);
+        var functionalDiagnosticsDoctor = polyclinicUserService.getFunctionalDiagnosticsDoctorFromContext();
+        if (birthDate.equals("")&&fio.equals("")){
+            return examinationReferralRepository.findForCabinetNoSearch(functionalDiagnosticsDoctor.getCabinet().getId(),pageable);
+        }
+        else if (birthDate.equals("")){
+            String[] splitFio = fio.split(" ");
+            switch (splitFio.length){
+                case 1:
+                    return examinationReferralRepository.findForCabinet(splitFio[0],"","","",functionalDiagnosticsDoctor.getCabinet().getId(),pageable);
+                case 2:
+                    return examinationReferralRepository.findForCabinet(splitFio[0],splitFio[1],"","",functionalDiagnosticsDoctor.getCabinet().getId(),pageable);
+                case 3:
+                    return examinationReferralRepository.findForCabinet(splitFio[0],splitFio[1],splitFio[2],"",functionalDiagnosticsDoctor.getCabinet().getId(),pageable);
+            }
+        }
+        else if (!fio.equals("")){
+
+            String[] splitFio = fio.split(" ");
+            switch (splitFio.length){
+                case 1:
+                    return examinationReferralRepository.findForCabinet(splitFio[0],"","",birthDate,functionalDiagnosticsDoctor.getCabinet().getId(),pageable);
+                case 2:
+                    return examinationReferralRepository.findForCabinet(splitFio[0],splitFio[1],"",birthDate,functionalDiagnosticsDoctor.getCabinet().getId(),pageable);
+                case 3:
+                    return examinationReferralRepository.findForCabinet(splitFio[0],splitFio[1],splitFio[2],birthDate,functionalDiagnosticsDoctor.getCabinet().getId(),pageable);
+            }
+        }
+        else {
+            return examinationReferralRepository.findForCabinet("","","",birthDate,functionalDiagnosticsDoctor.getCabinet().getId(),pageable);
+        }
+        return examinationReferralRepository.findForCabinetNoSearch(functionalDiagnosticsDoctor.getCabinet().getId(),pageable);
+    }
+
+
+
 }

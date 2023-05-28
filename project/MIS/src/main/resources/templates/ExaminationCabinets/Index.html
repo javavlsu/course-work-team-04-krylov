@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 <head th:replace="~{fragments/head :: head}"></head>
 <body style="margin-bottom: 60px" class="container-fluid">
 <header th:replace="~{fragments/header :: header}"></header>
@@ -9,9 +10,9 @@
 
     <h1>Кабинеты для обследований</h1>
 
-        <p style="margin-top: 20px">
-            <a href="/ExaminationCabinets/Create" class="btn btn-secondary">Создать</a>
-        </p>
+    <p style="margin-top: 20px">
+        <a href="/ExaminationCabinets/Create" class="btn btn-secondary">Создать</a>
+    </p>
 
     <form method="get" th:action="'/ExaminationCabinets/Index/1'">
         <p>
@@ -26,7 +27,6 @@
             список всех кабинетов</a>
         </p>
     </form>
-
 
 
     <table class="table">
@@ -60,6 +60,9 @@
                 <a th:href="@{/ExaminationCabinets/Edit/{id}(id=${el.id})}">Edit</a> |
                 <a th:href="@{/ExaminationCabinets/Details/{id}(id=${el.id})}">Details</a> |
                 <a th:href="@{/ExaminationCabinets/Delete/{id}(id=${el.id})}">Delete</a>
+                <div sec:authorize="hasAnyAuthority('Admin')">
+                    <a th:href="@{/ExaminationCabinetReferralTimes/Create/{id}(id=${el.id})}">Создать время приема</a>
+                </div>
             </td>
         </tr>
         </tbody>

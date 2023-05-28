@@ -12,37 +12,69 @@
     <hr/>
     <div class="row">
         <div class="col-md-4">
-            <form action="#" th:action="@{/Examinations/Create}" th:object="${examination}" method="POST">
+            <form action="#" th:action="@{/FunctionalDoctorExaminations/Create}" th:object="${examination}" method="POST">
+
+                <div class="form-group">
+                    <label class="control-label">Направление на анализ</label>
+                    <input class="form-control" type="text" th:id="examinationReferral.id" th:name="examinationReferral.id" th:value="${referralId}" readonly required/>
+                    <p th:if="${#fields.hasErrors('examinationReferral.id')}" class="text-danger" th:errors="*{examinationReferral.id}"></p>
+
+                    <!--                    <input class="form-control" type="text" th:field="*{assistant.id}"/>-->
+                </div>
+
                 <div class="form-group">
                     <label class="control-label">Пациент</label>
-                    <input class="form-control" type="text" th:field="*{patient.id}"/>
+                    <div th:if="${patientId}==null">
+                        <select th:field="*{patient}" id="patients" class="form-control" required>
+                            <option value=""></option>
+                            <option th:each="patient : ${patients}" th:value="${patient.id}"
+                                    th:text="${patient.ReturnFIOAndBirthDate}"></option>
+                        </select>
+                        <p th:if="${#fields.hasErrors('patient')}" class="text-danger" th:errors="*{patient}"></p>
+                    </div>
+                    <div th:if="${patientId}!=null">
+                        <input class="form-control" type="text" th:id="patient.id" th:name="patient.id" th:value="${patientId}" readonly required/>
+                        <p th:if="${#fields.hasErrors('patient')}" class="text-danger" th:errors="*{patient}"></p>
+                    </div>
                 </div>
+
+
                 <div class="form-group">
                     <label class="control-label">Тип</label>
                     <input class="form-control" type="text" th:field="*{type}"/>
+                    <p th:if="${#fields.hasErrors('type')}" class="text-danger" th:errors="*{type}"></p>
                 </div>
+
+
                 <div class="form-group">
                     <label class="control-label">Заключение</label>
                     <input class="form-control" type="text" th:field="*{report}"/>
                 </div>
+
                 <div class="form-group">
                     <label class="control-label">Врач функц. диагностики</label>
-                    <input class="form-control" type="text" th:field="*{functionalDiagnosticsDoctor.id}"/>
+                    <input class="form-control" type="text" th:id="functionalDiagnosticsDoctor.id" th:name="functionalDiagnosticsDoctor.id" th:value="${functionalDiagnosticsDoctorId}" readonly required/>
+                    <p th:if="${#fields.hasErrors('functionalDiagnosticsDoctor.id')}" class="text-danger" th:errors="*{functionalDiagnosticsDoctor.id}"></p>
+
+                    <!--                    <input class="form-control" type="text" th:field="*{assistant.id}"/>-->
                 </div>
+
                 <div class="form-group">
                     <label class="control-label">Дата</label>
-                    <input class="form-control" type="date" th:field="*{date}"/>
+                    <input class="form-control" type="datetime-local" th:id="date" th:name="date" th:value="${currentDate}" required/>
+                    <p th:if="${#fields.hasErrors('date')}" class="text-danger" th:errors="*{date}"></p>
                 </div>
+
                 <div class="form-group">
                     <p></p>
-                    <input type="submit" value="Create" class="btn btn-primary"/>
+                    <input type="submit" value="Создать" class="btn btn-primary"/>
                 </div>
             </form>
         </div>
     </div>
 
     <div>
-        <a href="/Examinations/Index">Назад к списку</a>
+        <a th:href="@{/{page}/Index(page=${currentPageLink})}">Назад к списку</a>
     </div>
 </div>
 <div th:replace="~{fragments/ajaxImports :: ajaxScripts}"></div>

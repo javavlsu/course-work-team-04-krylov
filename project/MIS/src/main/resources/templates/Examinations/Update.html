@@ -12,7 +12,7 @@
     <hr/>
     <div class="row">
         <div class="col-md-4">
-            <form action="#" th:action="@{/Examinations/Edit}" th:object="${examination}" method="POST">
+            <form action="#" th:action="@{/FunctionalDoctorExaminations/Edit}" th:object="${examination}" method="POST">
                 <div class="form-group">
                     <label class="control-label">Id</label>
                     <input class="form-control" type="text" th:field="*{id}" readonly/>
@@ -46,7 +46,7 @@
     </div>
 
     <div>
-        <a href="/Examinations/Index">Назад к списку</a>
+        <a href="/FunctionalDoctorExaminations/Index">Назад к списку</a>
     </div>
 </div>
 <div th:replace="~{fragments/ajaxImports :: ajaxScripts}"></div>

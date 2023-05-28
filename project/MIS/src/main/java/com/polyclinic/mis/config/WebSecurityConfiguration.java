@@ -94,6 +94,12 @@ public class WebSecurityConfiguration{
                 .requestMatchers("/Patients/Edit/**").hasAnyAuthority("Assistant","Admin","Receptionist","FunctionalDiagnosticsDoctor")
                 .requestMatchers("/Patients/Delete/**").hasAnyAuthority("Admin")
 
+                //Врачи функциональной диагностики
+                .requestMatchers("/FunctionalDiagnosticsDoctors/Details/**").hasAnyAuthority("Admin","Receptionist","FunctionalDiagnosticsDoctor")
+                .requestMatchers("/FunctionalDiagnosticsDoctors/Index/**").hasAnyAuthority("Doctor","Assistant","Admin","Receptionist","FunctionalDiagnosticsDoctor")
+                .requestMatchers("/FunctionalDiagnosticsDoctors/Create").hasAnyAuthority("Admin","CanRegisterAsFunctionalDiagnosticsDoctor")
+                .requestMatchers("/FunctionalDiagnosticsDoctors/Edit/**").hasAnyAuthority("Assistant","Admin","Receptionist","FunctionalDiagnosticsDoctor")
+                .requestMatchers("/FunctionalDiagnosticsDoctors/Delete/**").hasAnyAuthority("Admin")
 
                 //Обследования
                 .requestMatchers("/Examinations/Details/**").hasAnyAuthority("Doctor","Admin","FunctionalDiagnosticsDoctor")
@@ -105,15 +111,39 @@ public class WebSecurityConfiguration{
                 .requestMatchers("/Examinations/Delete/**").hasAnyAuthority("Admin")
 
 
+
+                .requestMatchers("/FunctionalDoctorExaminations/Index/**").hasAnyAuthority("Doctor","FunctionalDiagnosticsDoctor","Admin")
+                .requestMatchers("/FunctionalDoctorExaminations/Details/**").hasAnyAuthority("Doctor","FunctionalDiagnosticsDoctor","Admin")
+                .requestMatchers("/FunctionalDoctorExaminations/Delete/**").hasAnyAuthority("Doctor","FunctionalDiagnosticsDoctor","Admin")
+                .requestMatchers("/FunctionalDoctorExaminations/Edit/**").hasAnyAuthority("Doctor","FunctionalDiagnosticsDoctor","Admin")
+                .requestMatchers("/FunctionalDoctorExaminations/Create").hasAnyAuthority("FunctionalDiagnosticsDoctor","Admin")
+                .requestMatchers("/FunctionalDoctorExaminations/Create/**").hasAnyAuthority("FunctionalDiagnosticsDoctor","Admin")
+
                 //Направления на обследования
                 .requestMatchers("/ExaminationReferrals/Details/**").hasAnyAuthority("Doctor","Admin","FunctionalDiagnosticsDoctor","Receptionist")
                 .requestMatchers("/ExaminationReferrals/Index/**").hasAnyAuthority("Doctor","Admin","FunctionalDiagnosticsDoctor","Receptionist")
                 .requestMatchers("/PatientExaminationReferrals/Details/**").hasAnyAuthority("Doctor","Admin")
                 .requestMatchers("/PatientExaminationReferrals/Index/**").hasAnyAuthority("Patient","Admin")
                 .requestMatchers("/ExaminationReferrals/Create").hasAnyAuthority("Doctor","Admin","FunctionalDiagnosticsDoctor","Receptionist")
+                .requestMatchers("/ExaminationReferrals/Create/**").hasAnyAuthority("Doctor","Admin","FunctionalDiagnosticsDoctor","Receptionist")
+
                 .requestMatchers("/ExaminationReferrals/Edit/**").hasAnyAuthority("Doctor","Admin","FunctionalDiagnosticsDoctor","Receptionist")
                 .requestMatchers("/ExaminationReferrals/Delete/**").hasAnyAuthority("Admin")
 
+
+                .requestMatchers("/FunctionalDoctorExaminationReferrals/Details/**").hasAnyAuthority("Doctor","Admin","FunctionalDiagnosticsDoctor","Receptionist")
+                .requestMatchers("/FunctionalDoctorExaminationReferrals/Index").hasAnyAuthority("Doctor","Admin","FunctionalDiagnosticsDoctor","Receptionist")
+                .requestMatchers("/FunctionalDoctorExaminationReferrals/Index/**").hasAnyAuthority("Doctor","Admin","FunctionalDiagnosticsDoctor","Receptionist")
+                .requestMatchers("/FunctionalDoctorExaminationReferrals/Create").hasAnyAuthority("Doctor","Admin","FunctionalDiagnosticsDoctor","Receptionist")
+                .requestMatchers("/FunctionalDoctorExaminationReferrals/Create/**").hasAnyAuthority("Doctor","Admin","FunctionalDiagnosticsDoctor","Receptionist")
+
+                .requestMatchers("/FunctionalDoctorExaminationReferrals/CreateExamination/**").hasAnyAuthority("Admin","FunctionalDiagnosticsDoctor")
+
+
+
+                //Часы приема кабинета функциональной диагностики
+                .requestMatchers("/GetExaminationReferralTimes/**").hasAnyAuthority("Admin","Doctor")
+                .requestMatchers("/GetExaminationReferralTimes").hasAnyAuthority("Admin","Doctor")
 
                 //Диагнозы
                 .requestMatchers("/Diagnoses/Details/**").hasAnyAuthority("Doctor","Admin")
@@ -235,7 +265,14 @@ public class WebSecurityConfiguration{
                 .requestMatchers("/TherapistAppointmentTimes/Edit/**").hasAnyAuthority("Admin")
                 .requestMatchers("/TherapistAppointmentTimes/Delete/**").hasAnyAuthority("Admin")
 
+                //Время работы кабинетов для обследований
+                .requestMatchers("/ExaminationCabinetReferralTimes/Details/**").hasAnyAuthority("Admin")
+                .requestMatchers("/ExaminationCabinetReferralTimes/Index/**").hasAnyAuthority("Admin")
+                .requestMatchers("/ExaminationCabinetReferralTimes/Create").hasAnyAuthority("Admin")
+                .requestMatchers("/ExaminationCabinetReferralTimes/Create/**").hasAnyAuthority("Admin")
 
+                .requestMatchers("/ExaminationCabinetReferralTimes/Edit/**").hasAnyAuthority("Admin")
+                .requestMatchers("/ExaminationCabinetReferralTimes/Delete/**").hasAnyAuthority("Admin")
 
 
 //                .authenticated()

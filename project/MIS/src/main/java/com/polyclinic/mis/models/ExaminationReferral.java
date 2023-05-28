@@ -9,6 +9,7 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Date;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
@@ -44,8 +45,17 @@ public class ExaminationReferral {
     private String status;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime dateOfTaking;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    private LocalDateTime dateOfIssue;
     @NotNull(message = "Поле Что обследовать не может быть пустым")
     private String whatToResearch;
+
+    @NotNull (message = "Поле Дата записи не может быть пустым")
+    private Date date;
+
+    @NotNull (message = "Поле Время записи не может быть пустым")
+    private Time time;
 //    private String schedule;
 
 

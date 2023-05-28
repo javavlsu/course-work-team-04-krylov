@@ -31,8 +31,8 @@
 
         </dl>
     </div>
-    <a th:href="@{/Analyses/Edit/{id}(id=${id})}">Редактировать</a> |
-    <a href="/Analyses/Index">Назад к списку</a>
+    <a th:href="@{/{page}/Edit/{id}(id=${id},page=${currentPageLink})}">Редактировать</a> |
+    <a th:href="@{/{page}/Index(page=${currentPageLink})}">Назад к списку</a>
     <div>
 
     </div>

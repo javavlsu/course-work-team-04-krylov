@@ -20,18 +20,23 @@
     <th>
       <a th:replace="~{fragments/pagination :: link(page='PatientExaminationReferrals',  sortField='patient.lastName', text='Пациент')}"></a>
     </th>
+    <!--    <th>-->
+    <!--      <a th:replace="~{fragments/pagination :: link(page='ExaminationReferrals',  sortField='functionalDiagnosticsDoctor.lastName', text='Врач функц. диагностики')}"></a>-->
+    <!--    </th>-->
     <th>
-      <a th:replace="~{fragments/pagination :: link(page='PatientExaminationReferrals',  sortField='type', text='Тип')}"></a>
+      <a th:replace="~{fragments/pagination :: link(page='PatientExaminationReferrals',  sortField='cabinet.name', text='Название кабинета')}"></a>
     </th>
-<!--    <th>-->
-<!--      <a th:replace="~{fragments/pagination :: link(page='PatientExaminationReferrals',  sortField='functionalDiagnosticsDoctor.lastName', text='Врач функц. диагностики')}"></a>-->
-<!--    </th>-->
     <th>
-      <a th:replace="~{fragments/pagination :: link(page='PatientExaminationReferrals',  sortField='cabinetNum', text='Кабинет')}"></a>
+      <a th:replace="~{fragments/pagination :: link(page='PatientExaminationReferrals',  sortField='cabinet.number', text='Номер кабинета')}"></a>
     </th>
     <th>
       <a th:replace="~{fragments/pagination :: link(page='PatientExaminationReferrals',  sortField='status', text='Статус')}"></a>
     </th>
+
+    <th>
+      <a th:replace="~{fragments/pagination :: link(page='PatientExaminationReferrals',  sortField='dateOfIssue', text='Дата выписки')}"></a>
+    </th>
+
     <th>
       <a th:replace="~{fragments/pagination :: link(page='PatientExaminationReferrals',  sortField='dateOfTaking', text='Дата проведения')}"></a>
     </th>
@@ -39,23 +44,32 @@
       <a th:replace="~{fragments/pagination :: link(page='PatientExaminationReferrals',  sortField='whatToResearch', text='Что исследовать')}"></a>
     </th>
     <th>
-      <a th:replace="~{fragments/pagination :: link(page='PatientExaminationReferrals',  sortField='schedule', text='Расписание')}"></a>
+      <a th:replace="~{fragments/pagination :: link(page='PatientExaminationReferrals',  sortField='examinatoinCabinet.schedule', text='Расписание')}"></a>
+    </th>
+    <th>
+      <a th:replace="~{fragments/pagination :: link(page='PatientExaminationReferrals',  sortField='date', text='Дата записи')}"></a>
+    </th>
+    <th>
+      <a th:replace="~{fragments/pagination :: link(page='PatientExaminationReferrals',  sortField='time', text='Время записи')}"></a>
     </th>
     <th></th>
   </tr>
   </thead>
   <tbody>
   <tr th:each="el : ${examinationReferrals}">
-    <td th:text="${el.diagnosis.ReturnIdAndDescription}"></td>
-    <td th:text="${el.doctor.ReturnFIOAndSpeciality}"></td>
-    <td th:text="${el.patient.ReturnFIOAndBirthDate}"></td>
-    <td th:text="${el.type}"></td>
-<!--    <td th:text="${el.functionalDiagnosticsDoctor.ReturnFIOAndBirthDate}"></td>-->
-    <td th:text="${el.cabinetNum}"></td>
-    <td th:text="${el.status}"></td>
-    <td th:text="${#temporals.format(el.dateOfTaking, 'dd-MM-yyyy HH:mm')}"></td>
-    <td th:text="${el.whatToResearch}"></td>
-    <td th:text="${el.schedule}"></td>
+    <td th:text="${el?.diagnosis?.ReturnIdAndDescription}"></td>
+    <td th:text="${el?.doctor?.ReturnFIOAndSpeciality}"></td>
+    <td th:text="${el?.patient?.ReturnFIOAndBirthDate}"></td>
+    <!--    <td th:text="${el.functionalDiagnosticsDoctor.ReturnFIOAndBirthDate}"></td>-->
+    <td th:text="${el?.cabinet?.name}"></td>
+    <td th:text="${el?.cabinet?.number}"></td>
+    <td th:text="${el?.status}"></td>
+    <td th:text="${#temporals.format(el?.dateOfIssue, 'dd-MM-yyyy HH:mm')}"></td>
+    <td th:text="${#temporals.format(el?.dateOfTaking, 'dd-MM-yyyy HH:mm')}"></td>
+    <td th:text="${el?.whatToResearch}"></td>
+    <td th:text="${el?.cabinet?.schedule}"></td>
+    <td th:text="${el?.date}"></td>
+    <td th:text="${#dates.format(el?.time, 'HH:mm')}"></td>
     <td>
       <a th:href="@{/PatientExaminationReferrals/Details/{id}(id=${el.id})}">Details</a>
     </td>

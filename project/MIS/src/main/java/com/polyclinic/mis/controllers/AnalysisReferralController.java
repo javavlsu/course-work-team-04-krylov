@@ -64,7 +64,7 @@ public class AnalysisReferralController {
         model.addAttribute("reverseSortDir", sortDir.equals("asc")?"desc":"asc");
         model.addAttribute("patientFIO",patientFio);
         model.addAttribute("patientBirthDate",patientBirthDate);
-        model.addAttribute("currentPage","AnalysisReferrals");
+        model.addAttribute("currentPageLink","AnalysisReferrals");
 
         return "/AnalysisReferrals/Index";
     }
@@ -101,7 +101,7 @@ public class AnalysisReferralController {
         model.addAttribute("reverseSortDir", sortDir.equals("asc")?"desc":"asc");
         model.addAttribute("patientFIO",patientFio);
         model.addAttribute("patientBirthDate",patientBirthDate);
-        model.addAttribute("currentPage","AssistantAnalysisReferrals");
+        model.addAttribute("currentPageLink","AssistantAnalysisReferrals");
 
 
         return "/AnalysisReferrals/Index";

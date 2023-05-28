@@ -89,4 +89,41 @@ public class ExaminationServiceImpl implements ExaminationService {
         return examinationRepository.findForOnePatient(patient.getId(),pageable);
 
     }
+
+    public Page<Examination> findPaginatedForCabinet(int pageNumber, int pageSize, String sortField, String sortDirection, String fio, String birthDate) {
+        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() : Sort.by(sortField).descending();
+        Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, sort);
+        var functionalDiagnosticsDoctor = polyclinicUserService.getFunctionalDiagnosticsDoctorFromContext();
+        if (birthDate.equals("")&&fio.equals("")){
+            return examinationRepository.findForCabinetNoSearch(functionalDiagnosticsDoctor.getCabinet().getId(),pageable);
+        }
+        else if (birthDate.equals("")){
+            String[] splitFio = fio.split(" ");
+            switch (splitFio.length){
+                case 1:
+                    return examinationRepository.findForCabinet(splitFio[0],"","","",functionalDiagnosticsDoctor.getCabinet().getId(),pageable);
+                case 2:
+                    return examinationRepository.findForCabinet(splitFio[0],splitFio[1],"","",functionalDiagnosticsDoctor.getCabinet().getId(),pageable);
+                case 3:
+                    return examinationRepository.findForCabinet(splitFio[0],splitFio[1],splitFio[2],"",functionalDiagnosticsDoctor.getCabinet().getId(),pageable);
+            }
+        }
+        else if (!fio.equals("")){
+
+            String[] splitFio = fio.split(" ");
+            switch (splitFio.length){
+                case 1:
+                    return examinationRepository.findForCabinet(splitFio[0],"","",birthDate,functionalDiagnosticsDoctor.getCabinet().getId(),pageable);
+                case 2:
+                    return examinationRepository.findForCabinet(splitFio[0],splitFio[1],"",birthDate,functionalDiagnosticsDoctor.getCabinet().getId(),pageable);
+                case 3:
+                    return examinationRepository.findForCabinet(splitFio[0],splitFio[1],splitFio[2],birthDate,functionalDiagnosticsDoctor.getCabinet().getId(),pageable);
+            }
+        }
+        else {
+            return examinationRepository.findForCabinet("","","",birthDate,functionalDiagnosticsDoctor.getCabinet().getId(),pageable);
+        }
+        return examinationRepository.findForCabinetNoSearch(functionalDiagnosticsDoctor.getCabinet().getId(),pageable);
+    }
+
 }

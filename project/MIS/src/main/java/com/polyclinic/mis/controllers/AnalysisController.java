@@ -1,10 +1,7 @@
 package com.polyclinic.mis.controllers;
 
 import com.polyclinic.mis.auth.UserService;
-import com.polyclinic.mis.models.Analysis;
-import com.polyclinic.mis.models.AnalysisReferral;
-import com.polyclinic.mis.models.Assistant;
-import com.polyclinic.mis.models.Diagnosis;
+import com.polyclinic.mis.models.*;
 import com.polyclinic.mis.service.impl.AnalysisReferralServiceImpl;
 import com.polyclinic.mis.service.impl.AnalysisServiceImpl;
 import com.polyclinic.mis.service.impl.AssistantServiceImpl;
@@ -72,7 +69,7 @@ public class AnalysisController {
         model.addAttribute("patientFIO",patientFio);
         model.addAttribute("patientBirthDate",patientBirthDate);
 
-        model.addAttribute("currentPage","Analyses");
+        model.addAttribute("currentPageLink","Analyses");
 
         return "/Analyses/Index";
     }
@@ -109,7 +106,7 @@ public class AnalysisController {
         model.addAttribute("patientFIO",patientFio);
         model.addAttribute("patientBirthDate",patientBirthDate);
 
-        model.addAttribute("currentPage","AssistantAnalyses");
+        model.addAttribute("currentPageLink","AssistantAnalyses");
 
         return "/Analyses/Index";
     }
@@ -228,15 +225,47 @@ public class AnalysisController {
     public String ShowEdit(@PathVariable(value = "id") long id, Model model){
         Optional<Analysis> analysis = analysisService.getById(id);
         if (analysis.isPresent()){
-            model.addAttribute("analysis",analysis.get());
-            return "/Analyses/Update";
+
+            if(analysis.get().getAnalysisReferral().getCabinet().getId()==assistantService.currentAssistant().getCabinet().getId()) {
+
+                model.addAttribute("analysis", analysis.get());
+                model.addAttribute("currentPageLink", "AssistantAnalyses");
+                DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                LocalDateTime now = LocalDateTime.now();
+                model.addAttribute("currentDate", dateTimeFormatter.format(now));
+
+                return "/Analyses/Update";
+            }
+            else {
+                return "/Error";
+            }
         }
         else {
             //todo
             return "/Error";
         }
     }
-//    @GetMapping("Analyses/Edit")
+    @PostMapping("AssistantAnalyses/Edit")
+    public String Edit(@Valid @ModelAttribute("analysis") Analysis analysis,
+                       BindingResult result,
+                       Model model){
+
+        if (result.hasErrors()){
+            model.addAttribute("analysis",analysis);
+            model.addAttribute("currentPageLink","AssistantAnalyses");
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            LocalDateTime now = LocalDateTime.now();
+            model.addAttribute("currentDate",dateTimeFormatter.format(now));
+
+            return "AnalysisReferrals/Edit/"+analysis.getId();
+        }
+        else {
+            analysisService.edit(analysis);
+            return "redirect:/AssistantAnalyses/Index";
+        }
+    }
+
+//    @GetMapping("AssistantAnalyses/Edit")
 //    public String Edit(@PathVariable(value = "id") long id, Model model){
 //        Optional<Analysis> analysis = analysisService.getById(id);
 //        if (analysis.isPresent()){
@@ -258,6 +287,8 @@ public class AnalysisController {
         Optional<Analysis> analysis = analysisService.getById(id);
         if (analysis.isPresent()){
             model.addAttribute("analysis",analysis.get());
+            model.addAttribute("currentPageLink","AssistantAnalyses");
+
             return "/Analyses/Details";
         }
         else {
@@ -270,6 +301,9 @@ public class AnalysisController {
         Optional<Analysis> analysis = analysisService.getById(id);
         if (analysis.isPresent()){
             model.addAttribute("analysis",analysis.get());
+
+            model.addAttribute("currentPageLink","Analyses");
+
             return "/Analyses/Details";
         }
         else {
@@ -286,7 +320,7 @@ public class AnalysisController {
             }
             else {
                 model.addAttribute("analysis", analysis.get());
-                return "/Analyses/Details";
+                return "/PatientAnalyses/Details";
             }
         }
         else {

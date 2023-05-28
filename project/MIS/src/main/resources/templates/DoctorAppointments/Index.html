@@ -13,50 +13,54 @@
     <p style="margin-top: 20px">
         <a href="/DoctorAppointments/Create" class="btn btn-secondary">Записаться</a>
     </p>
-        <!--    Поиск-->
-        <form method="get" th:action="'/DoctorAppointments/Index/1'">
+    <!--    Поиск-->
+    <form method="get" th:action="'/DoctorAppointments/Index/1'">
 
-            <h4>Поиск</h4>
-            <input type="hidden" name="sortField" th:value="${sortField}">
-            <input type="hidden" name="sortDir" th:value="${sortDir}">
-            <input type="search" placeholder="Введите ФИО пациента" name="patientFIO" style="width:600px;"
-                   th:value="${patientFIO}"/>
-            <p>Год рождения пациента/Дата рождения пациента</p>
-            <input type="search" name="patientBirthDate" style="width:300px;" placeholder="yyyy / yyyy mm / yyyy mm dd"
-                   th:value="${patientBirthDate}"/>
-            <input type="submit" value="Search" class="btn btn-primary"/>
-            <!--        <a th:href="@{'/DoctorAppointments/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&patientFIO='+'&patientBirthDate='+'&status='}">Получить-->
-            <!--            список всех пациентов</a>-->
+        <h4>Поиск</h4>
+        <input type="hidden" name="sortField" th:value="${sortField}">
+        <input type="hidden" name="sortDir" th:value="${sortDir}">
+        <input type="search" placeholder="Введите ФИО пациента" name="patientFIO" style="width:600px;"
+               th:value="${patientFIO}"/>
+        <p>Год рождения пациента/Дата рождения пациента</p>
+        <input type="search" name="patientBirthDate" style="width:300px;" placeholder="yyyy / yyyy mm / yyyy mm dd"
+               th:value="${patientBirthDate}"/>
+        <input type="submit" value="Search" class="btn btn-primary"/>
+        <!--        <a th:href="@{'/DoctorAppointments/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&patientFIO='+'&patientBirthDate='+'&status='}">Получить-->
+        <!--            список всех пациентов</a>-->
 
-            <input type="hidden" name="status" th:value="${status}">
-            <a th:href="@{'/DoctorAppointments/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&patientFIO='+'&patientBirthDate='+'&status='}">Получить
-                список всех пациентов</a>
-        </form>
-        <p></p>
-        <a class="btn btn-primary"
-           th:href="@{'/DoctorAppointments/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate='+${patientBirthDate}+'&status=Ожидает+подтверждения'}">
-            Ожидает подтверждения
-        </a>
-        <a class="btn btn-primary"
-           th:href="@{'/DoctorAppointments/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate='+${patientBirthDate}+'&status=Отменена регистратурой'}">
-            Отменена регистратурой
-        </a>
-        <a class="btn btn-primary"
-           th:href="@{'/DoctorAppointments/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate='+${patientBirthDate}+'&status=Подтверждена регистратурой'}">
-            Подтверждена регистратурой
-        </a>
-        <a class="btn btn-primary"
-           th:href="@{'/DoctorAppointments/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate='+${patientBirthDate}+'&status=Отменена пациентом'}">
-            Отменена пациентом
-        </a>
-        <a class="btn btn-primary"
-           th:href="@{'/DoctorAppointments/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate='+${patientBirthDate}+'&status=Просрочена'}">
-            Просрочена
-        </a>
-        <a class="btn btn-primary"
-           th:href="@{'/DoctorAppointments/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate='+${patientBirthDate}+'&status=Использована'}">
-            Использована
-        </a>
+        <input type="hidden" name="status" th:value="${status}">
+        <a th:href="@{'/DoctorAppointments/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&patientFIO='+'&patientBirthDate='+'&status='}">Получить
+            список всех пациентов</a>
+    </form>
+    <p></p>
+    <!--        <a class="btn btn-primary"-->
+    <!--           th:href="@{'/DoctorAppointments/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate='+${patientBirthDate}+'&status=Ожидает+подтверждения'}">-->
+    <!--            Ожидает подтверждения-->
+    <!--        </a>-->
+    <!--        <a class="btn btn-primary"-->
+    <!--           th:href="@{'/DoctorAppointments/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate='+${patientBirthDate}+'&status=Отменена регистратурой'}">-->
+    <!--            Отменена регистратурой-->
+    <!--        </a>-->
+    <!--        <a class="btn btn-primary"-->
+    <!--           th:href="@{'/DoctorAppointments/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate='+${patientBirthDate}+'&status=Подтверждена регистратурой'}">-->
+    <!--            Подтверждена регистратурой-->
+    <!--        </a>-->
+    <!--        <a class="btn btn-primary"-->
+    <!--           th:href="@{'/DoctorAppointments/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate='+${patientBirthDate}+'&status=Отменена пациентом'}">-->
+    <!--            Отменена пациентом-->
+    <!--        </a>-->
+    <!--        <a class="btn btn-primary"-->
+    <!--           th:href="@{'/DoctorAppointments/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate='+${patientBirthDate}+'&status=Просрочена'}">-->
+    <!--            Просрочена-->
+    <!--        </a>-->
+    <a class="btn btn-primary"
+       th:href="@{'/DoctorAppointments/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate='+${patientBirthDate}+'&status=Создана'}">
+        Создана
+    </a>
+    <a class="btn btn-primary"
+       th:href="@{'/DoctorAppointments/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate='+${patientBirthDate}+'&status=Использована'}">
+        Использована
+    </a>
 
     <table class="table">
         <thead>

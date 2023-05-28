@@ -8,30 +8,30 @@
     <h1>Направления на анализ</h1>
     <p style="margin-top: 20px">
 <!--        <a href="/AnalysisReferrals/Create" class="btn btn-secondary">Создать</a>-->
-        <a th:href="@{/{page}/Create(page=${currentPage})}" class="btn btn-secondary">Создать</a>
+        <a th:href="@{/{page}/Create(page=${currentPageLink})}" class="btn btn-secondary">Создать</a>
 
     </p>
 
     <!--  Поиск  -->
-    <form th:replace="~{fragments/pagination :: search(page=${currentPage})}"></form>
+    <form th:replace="~{fragments/pagination :: search(page=${currentPageLink})}"></form>
 
 
     <table class="table">
         <thead>
         <tr>
             <th>
-                <a th:replace="~{fragments/pagination :: link(page=${currentPage},  sortField='diagnosis.id', text='Диагноз')}"></a>
+                <a th:replace="~{fragments/pagination :: link(page=${currentPageLink},  sortField='diagnosis.id', text='Диагноз')}"></a>
             </th>
             <th>
-                <a th:replace="~{fragments/pagination :: link(page=${currentPage},  sortField='doctor.lastName', text='Врач')}"></a>
+                <a th:replace="~{fragments/pagination :: link(page=${currentPageLink},  sortField='doctor.lastName', text='Врач')}"></a>
 
             </th>
             <th>
-                <a th:replace="~{fragments/pagination :: link(page=${currentPage},  sortField='patient.lastName', text='Пациент')}"></a>
+                <a th:replace="~{fragments/pagination :: link(page=${currentPageLink},  sortField='patient.lastName', text='Пациент')}"></a>
 
             </th>
             <th>
-                <a th:replace="~{fragments/pagination :: link(page=${currentPage},  sortField='cabinet.number', text='Лаборатория')}"></a>
+                <a th:replace="~{fragments/pagination :: link(page=${currentPageLink},  sortField='cabinet.number', text='Лаборатория')}"></a>
 
             </th>
 <!--            <th>-->
@@ -39,23 +39,23 @@
 <!--            </th>-->
 
             <th>
-                <a th:replace="~{fragments/pagination :: link(page=${currentPage},  sortField='status', text='Статус')}"></a>
+                <a th:replace="~{fragments/pagination :: link(page=${currentPageLink},  sortField='status', text='Статус')}"></a>
 
             </th>
             <th>
-                <a th:replace="~{fragments/pagination :: link(page=${currentPage},  sortField='dateOfIssue', text='Дата создания')}"></a>
+                <a th:replace="~{fragments/pagination :: link(page=${currentPageLink},  sortField='dateOfIssue', text='Дата создания')}"></a>
 
             </th>
             <th>
-                <a th:replace="~{fragments/pagination :: link(page=${currentPage},  sortField='dateOfTaking', text='Дата проведения')}"></a>
+                <a th:replace="~{fragments/pagination :: link(page=${currentPageLink},  sortField='dateOfTaking', text='Дата проведения')}"></a>
 
             </th>
             <th>
-                <a th:replace="~{fragments/pagination :: link(page=${currentPage},  sortField='whatToResearch', text='Что исследовать')}"></a>
+                <a th:replace="~{fragments/pagination :: link(page=${currentPageLink},  sortField='whatToResearch', text='Что исследовать')}"></a>
 
             </th>
             <th>
-                <a th:replace="~{fragments/pagination :: link(page=${currentPage},  sortField='caibinet.schedule', text='Расписание')}"></a>
+                <a th:replace="~{fragments/pagination :: link(page=${currentPageLink},  sortField='caibinet.schedule', text='Расписание')}"></a>
             </th>
             <th></th>
         </tr>
@@ -76,11 +76,11 @@
 
 
             <td>
-                <a th:href="@{/{page}/Edit/{id}(id=${el.id},page=${currentPage})}">Edit</a> |
-                <a th:href="@{/{page}/Details/{id}(id=${el.id},page=${currentPage})}">Details</a> |
-                <a th:href="@{/{page}/Delete/{id}(id=${el.id},page=${currentPage})}">Delete</a>
+                <a th:href="@{/{page}/Edit/{id}(id=${el.id},page=${currentPageLink})}">Edit</a> |
+                <a th:href="@{/{page}/Details/{id}(id=${el.id},page=${currentPageLink})}">Details</a> |
+                <a th:href="@{/{page}/Delete/{id}(id=${el.id},page=${currentPageLink})}">Delete</a>
                 <div sec:authorize="hasAuthority('Assistant')">
-                   | <a th:href="@{/{page}/CreateAnalysis/{id}(id=${el.id},page=${currentPage})}">Оформить анализ</a>
+                   | <a th:href="@{/{page}/CreateAnalysis/{id}(id=${el.id},page=${currentPageLink})}">Оформить анализ</a>
                 </div>
 
             </td>
@@ -90,7 +90,7 @@
 
 
     <!--   Страницы    -->
-    <div th:replace="~{fragments/pagination :: pages(page=${currentPage})}"></div>
+    <div th:replace="~{fragments/pagination :: pages(page=${currentPageLink})}"></div>
 
 </div>
 </body>

@@ -7,7 +7,7 @@
 <div class="px-4 py-5 my-5 container-fluid">
     <h1>Изменить</h1>
 
-    <h4>Диагноз</h4>
+    <h4>Анализ</h4>
     <hr/>
     <div class="row">
         <div class="col-md-4">
@@ -17,24 +17,32 @@
                     <input class="form-control" type="text" th:field="*{id}" readonly/>
                 </div>
                 <div class="form-group">
+                    <label class="control-label">Направление на анализ</label>
+                    <input class="form-control" type="text" th:field="*{analysisReferral.id}" readonly required/>
+                    <p th:if="${#fields.hasErrors('analysisReferral.id')}" class="text-danger" th:errors="*{analysisReferral.id}"></p>
+
+                    <!--                    <input class="form-control" type="text" th:field="*{assistant.id}"/>-->
+                </div>
+                <div class="form-group">
                     <label class="control-label">Пациент</label>
-                    <input class="form-control" type="text" th:field="*{patient.id}"/>
+                    <input class="form-control" type="text" th:field="*{patient.id}" required readonly/>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Тип</label>
-                    <input class="form-control" type="text" th:field="*{type}"/>
+                    <input class="form-control" type="text" th:field="*{type}" required/>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Заключение</label>
-                    <input class="form-control" type="text" th:field="*{report}"/>
+                    <input class="form-control" type="text" th:field="*{report}" required/>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Лаборант</label>
-                    <input class="form-control" type="text" th:field="*{assistant.id}"/>
+                    <input class="form-control" type="text" th:field="*{assistant.id}" required/>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Дата</label>
-                    <input class="form-control" type="date" th:field="*{date}"/>
+                    <input class="form-control" type="datetime-local" th:id="date" th:name="date" th:value="${currentDate}" required/>
+                    <p th:if="${#fields.hasErrors('date')}" class="text-danger" th:errors="*{date}"></p>
                 </div>
                 <div class="form-group">
                     <p></p>
@@ -45,7 +53,7 @@
     </div>
 
     <div>
-        <a href="/AssistantAnalyses/Index">Назад к списку</a>
+        <a th:href="@{/{page}/Index(page=${currentPage})}">Назад к списку</a>
     </div>
 </div>
 <div th:replace="~{fragments/ajaxImports :: ajaxScripts}"></div>
