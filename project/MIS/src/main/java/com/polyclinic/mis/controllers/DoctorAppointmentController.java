@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -138,7 +139,7 @@ public class DoctorAppointmentController {
     @PostMapping("/PatientDoctorAppointments/Create")
     public String Create(@Valid @ModelAttribute("doctorAppointment") DoctorAppointment doctorAppointment,
                          BindingResult result,
-                         Model model) {
+                         Model model) throws UnsupportedEncodingException {
         if (result.hasErrors()){
             doctorAppointment.setDoctor(null);
             model.addAttribute("doctorAppointment",doctorAppointment);
@@ -159,8 +160,17 @@ public class DoctorAppointmentController {
             Boolean taken = false;
             var therapistAppointments = doctorAppointmentService.getByDoctorIdAndDateAndTime(doctorAppointment.getDoctor().getId(),doctorAppointment.getDate(),doctorAppointment.getTime());
             if (therapistAppointments.size()==0){
-                doctorAppointment.setStatus("Ожидает подтверждения");
+                doctorAppointment.setStatus("Создана");
                 doctorAppointmentService.add(doctorAppointment);
+
+                try {
+                    doctorAppointmentService.sendEmail(doctorAppointment);
+                }
+                catch (Exception e){
+                    return "redirect:/PatientDoctorAppointments/Index";
+                }
+
+
                 return "redirect:/PatientDoctorAppointments/Index";
             }
 

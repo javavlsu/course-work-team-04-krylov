@@ -71,11 +71,6 @@
                 </a>
             </th>
             <th>
-                <a th:href="@{'/DoctorAppointments/Index/'+${currentPage}+'?sortField=cabinetNum&sortDir='+${reverseSortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate='+${patientBirthDate}+'&status='+${status}}">
-                    <span>Кабинет</span>
-                </a>
-            </th>
-            <th>
                 <a th:href="@{'/DoctorAppointments/Index/'+${currentPage}+'?sortField=date&sortDir='+${reverseSortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate='+${patientBirthDate}+'&status='+${status}}">
                     <span>Дата записи</span>
                 </a>
@@ -90,19 +85,32 @@
                     <span>Врач</span>
                 </a>
             </th>
+            <th>
+                <a th:href="@{'/DoctorAppointments/Index/'+${currentPage}+'?sortField=date&sortDir='+${reverseSortDir}+'&status='+${status}}">
+                    <span>Дата</span>
+                </a>
+            </th>
+
+            <th>
+                <a th:href="@{'/DoctorAppointments/Index/'+${currentPage}+'?sortField=time&sortDir='+${reverseSortDir}+'&status='+${status}}">
+                    <span>Время</span>
+                </a>
+            </th>
             <th></th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="el : ${doctorAppointments}">
             <td th:text="${el.patient.ReturnFIOAndBirthDate}"></td>
-            <td th:text="${el.cabinetNum}"></td>
             <!--            <td th:text="${el.dateTime}"></td>-->
-            <td th:text="${#temporals.format(el.date, 'dd-MM-yyyy HH:mm')}"></td>
+
 
 
             <td th:text="${el.status}"></td>
             <td th:text="${el.doctor.ReturnFIOAndSpeciality}"></td>
+            <td th:text="${el.date}"></td>
+
+            <td th:text="${el.time}"></td>
             <!--            <td th:text="${el.doctorReferral.dateOfTaking}"></td>-->
             <td>
                 <a th:href="@{/DoctorAppointments/Edit/{id}(id=${el.id})}">Edit</a> |

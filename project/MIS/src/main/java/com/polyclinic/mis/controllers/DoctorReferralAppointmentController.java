@@ -99,6 +99,7 @@ public class DoctorReferralAppointmentController {
     }
     @PostMapping("/DoctorReferralAppointments/Create")
     public String Create(@ModelAttribute("doctorReferralAppointment") DoctorReferralAppointment doctorReferralAppointment){
+
         doctorReferralAppointmentService.add(doctorReferralAppointment);
         return "redirect:/DoctorReferralAppointments/Index";
     }

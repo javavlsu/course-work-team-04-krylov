@@ -13,9 +13,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.sql.Date;
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Optional;
 
@@ -97,6 +101,36 @@ public class DoctorAppointmentServiceImpl implements DoctorAppointmentService {
     }
     public List<DoctorAppointment> getByDoctorIdAndDateAndTime(long doctorId, Date date, Time time){
         return doctorAppointmentRepository.findByDoctorIdAndDateAndTime(doctorId,date,time);
+    }
+
+    public boolean sendEmail(DoctorAppointment doctorAppointment) throws UnsupportedEncodingException {
+        try {
+
+
+            String uri = "http://localhost:8082/SendDoctorAppointmentNotification/";
+            SimpleDateFormat formatterDate = new SimpleDateFormat("dd:MM:yyyy");
+            String strDate = formatterDate.format(doctorAppointment.getDate());
+
+            SimpleDateFormat formatterTime = new SimpleDateFormat("HH:mm");
+            String strTime = formatterTime.format(doctorAppointment.getTime());
+//        String strTime = "12:30";
+
+            String strCabinetName = doctorAppointment.getDoctor().getCabinet().getName();
+            strCabinetName = strCabinetName.replaceAll("\\s+", "+");
+
+            String message = "Напоминание! Прием у врача " + doctorAppointment.getDoctor().ReturnFIOAndSpeciality() + "Состоится " + strDate + " в " + strTime;
+
+            uri += doctorAppointment.getPatient().getUser().getEmail();
+
+            uri += "?date=" + strDate + "&time=" + strTime + "&doctorLastName=" + doctorAppointment.getDoctor().getLastName() + "&doctorFirstName=" + doctorAppointment.getDoctor().getFirstName() + "&doctorMiddleName=" + doctorAppointment.getDoctor().getMiddleName();
+            uri += "&cabinetName=" + strCabinetName + "&cabinetNumber=" + doctorAppointment.getDoctor().getCabinet().getNumber();
+            RestTemplate restTemplate = new RestTemplate();
+            String result = restTemplate.getForObject(uri, String.class);
+            return true;
+        }
+        catch (Exception e){
+            return false;
+        }
     }
 
 
