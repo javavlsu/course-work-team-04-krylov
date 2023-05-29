@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 <head th:replace="~{fragments/head :: head}"></head>
 <body style="margin-bottom: 60px" class="container-fluid">
 <header th:replace="~{fragments/header :: header}"></header>
@@ -76,9 +77,13 @@
             <td th:text="${el.workPlace}"></td>
             <td th:text="${el.workPosition}"></td>
             <td>
-                <a th:href="@{/Patients/Edit/{id}(id=${el.id})}">Edit</a> |
-                <a th:href="@{/Patients/Details/{id}(id=${el.id})}">Details</a> |
-                <a th:href="@{/Patients/Delete/{id}(id=${el.id})}">Delete</a>
+                <div sec:authorize="hasAnyAuthority('Admin')">
+                    <a th:href="@{/Patients/Edit/{id}(id=${el.id})}">Edit</a> |
+                </div>
+                <a th:href="@{/Patients/Details/{id}(id=${el.id})}">Информация</a>
+                <div sec:authorize="hasAnyAuthority('Admin')">
+                    |<a th:href="@{/Patients/Delete/{id}(id=${el.id})}">Delete</a>
+                </div>
             </td>
         </tr>
         </tbody>

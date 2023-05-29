@@ -257,4 +257,17 @@ public class DoctorAppointmentController {
             return "/Error";
         }
     }
+
+    @GetMapping("CreateInspection/{id}")
+    public String CreateInspection(@PathVariable(value = "id") long id, Model model) {
+        Optional<DoctorAppointment> doctorAppointment = doctorAppointmentService.getById(id);
+        if (doctorAppointment.isPresent()) {
+            doctorAppointment.get().setStatus("Использована");
+            doctorAppointmentService.edit(doctorAppointment.get());
+            return "redirect:/Inspections/Create/"+doctorAppointment.get().getPatient().getId();
+        } else {
+            //todo
+            return "/Error";
+        }
+    }
 }

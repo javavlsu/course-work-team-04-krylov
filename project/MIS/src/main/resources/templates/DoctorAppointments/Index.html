@@ -71,11 +71,6 @@
                 </a>
             </th>
             <th>
-                <a th:href="@{'/DoctorAppointments/Index/'+${currentPage}+'?sortField=date&sortDir='+${reverseSortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate='+${patientBirthDate}+'&status='+${status}}">
-                    <span>Дата записи</span>
-                </a>
-            </th>
-            <th>
                 <a th:href="@{'/DoctorAppointments/Index/'+${currentPage}+'?sortField=status&sortDir='+${reverseSortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate='+${patientBirthDate}+'&status='+${status}}">
                     <span>Статус</span>
                 </a>
@@ -113,9 +108,14 @@
             <td th:text="${el.time}"></td>
             <!--            <td th:text="${el.doctorReferral.dateOfTaking}"></td>-->
             <td>
-                <a th:href="@{/DoctorAppointments/Edit/{id}(id=${el.id})}">Edit</a> |
-                <a th:href="@{/DoctorAppointments/Details/{id}(id=${el.id})}">Details</a> |
-                <a th:href="@{/DoctorAppointments/Delete/{id}(id=${el.id})}">Delete</a>
+                <div sec:authorize="hasAnyAuthority('Admin')">
+                    <a th:href="@{/DoctorAppointments/Edit/{id}(id=${el.id})}">Edit</a> |
+                    <a th:href="@{/DoctorAppointments/Details/{id}(id=${el.id})}">Details</a> |
+                    <a th:href="@{/DoctorAppointments/Delete/{id}(id=${el.id})}">Delete</a>
+                </div>
+                <div sec:authorize="hasAnyAuthority('Doctor')">
+                    <a th:href="@{/CreateInspection/{id}(id=${el.id})}">Создать осмотр</a>
+                </div>
             </td>
         </tr>
         </tbody>

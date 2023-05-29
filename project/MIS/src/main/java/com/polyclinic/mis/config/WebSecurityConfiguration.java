@@ -46,6 +46,8 @@ public class WebSecurityConfiguration{
                 .authorizeHttpRequests()
                 //Главная
                 .requestMatchers("/").permitAll()
+
+                .requestMatchers("/Error").permitAll()
                 //Регистрация
                 .requestMatchers("/Authenticate").permitAll()
                 .requestMatchers("/Register").permitAll()
@@ -214,6 +216,9 @@ public class WebSecurityConfiguration{
                 .requestMatchers("/DoctorAppointments/Index/**").hasAnyAuthority("Doctor","Admin","Receptionist")
                 .requestMatchers("/PatientDoctorAppointments/Index/**").hasAnyAuthority("Admin","Patient")
                 .requestMatchers("/PatientDoctorAppointments/Create").hasAnyAuthority("Admin","Patient")
+                .requestMatchers("/CreateInspection/**").hasAnyAuthority("Doctor","Admin","Receptionist")
+                .requestMatchers("/CreateInspection").hasAnyAuthority("Doctor","Admin","Receptionist")
+
 
 
                 .requestMatchers("/DoctorAppointments/Edit/**").hasAnyAuthority("Doctor","Admin","Receptionist")
