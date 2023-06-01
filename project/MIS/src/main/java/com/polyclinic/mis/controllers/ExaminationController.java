@@ -167,7 +167,9 @@ public class ExaminationController {
 
 
         ExaminationReferral examinationReferral = examinationReferralService.getById(referralId).get();
-        examinationReferral.setStatus("Пройдено");
+
+        //todo Раскомментировать
+//        examinationReferral.setStatus("Пройдено");
         examinationReferral.setDateOfTaking(LocalDateTime.now());
         examinationReferralService.edit(examinationReferral);
 

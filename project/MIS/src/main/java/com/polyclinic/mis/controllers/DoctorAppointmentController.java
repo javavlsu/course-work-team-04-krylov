@@ -58,8 +58,6 @@ public class DoctorAppointmentController {
             Model model) {
         //todo page size from page https://www.youtube.com/watch?v=Aie8n12EFQc 11 00
         int pageSize = 5;
-
-
         Page<DoctorAppointment> page = doctorAppointmentService.findPaginated(pageNumber, pageSize, sortField, sortDir, patientFio, patientBirthDate, status);
         List<DoctorAppointment> doctorAppointments = page.getContent();
 
@@ -75,9 +73,52 @@ public class DoctorAppointmentController {
         model.addAttribute("patientBirthDate", patientBirthDate);
         model.addAttribute("status", status);
 
+        model.addAttribute("currentPageLink","DoctorAppointments");
+
 
         return "/DoctorAppointments/Index";
     }
+    @GetMapping("/CurrentDoctorAppointments/Index")
+    public String DoctorIndex(Model model) {
+//        Iterable<DoctorReferralAppointment> doctorAppointments = doctorAppointmentService.getAll();
+//        model.addAttribute("doctorAppointments",doctorAppointments);
+//        return "/DoctorAppointments/Index";
+        return doctorFindPaginated(1, "status", "desc", "", "", "", model);
+    }
+
+    @GetMapping("/CurrentDoctorAppointments/Index/{pageNumber}")
+    public String doctorFindPaginated(
+            @PathVariable(value = "pageNumber") int pageNumber,
+            @RequestParam(value = "sortField") String sortField,
+            @RequestParam(value = "sortDir") String sortDir,
+            @RequestParam(value = "patientFIO") String patientFio,
+            @RequestParam(value = "patientBirthDate") String patientBirthDate,
+            @RequestParam(value = "status") String status,
+            Model model) {
+        //todo page size from page https://www.youtube.com/watch?v=Aie8n12EFQc 11 00
+        int pageSize = 5;
+        Page<DoctorAppointment> page = doctorAppointmentService.findPaginatedForDoctor(pageNumber, pageSize, sortField, sortDir, patientFio, patientBirthDate, status);
+        List<DoctorAppointment> doctorAppointments = page.getContent();
+
+        model.addAttribute("currentPage", pageNumber);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
+        model.addAttribute("doctorAppointments", doctorAppointments);
+
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+        model.addAttribute("patientFIO", patientFio);
+        model.addAttribute("patientBirthDate", patientBirthDate);
+        model.addAttribute("status", status);
+
+        model.addAttribute("currentPageLink","CurrentDoctorAppointments");
+
+
+
+        return "/DoctorAppointments/Index";
+    }
+
 
     @GetMapping("/PatientDoctorAppointments/Index")
     public String PatientIndex(Model model) {
@@ -253,6 +294,22 @@ public class DoctorAppointmentController {
             model.addAttribute("doctorAppointment", doctorAppointment.get());
             return "/DoctorAppointments/Details";
         } else {
+            //todo
+            return "/Error";
+        }
+    }
+
+    @GetMapping("CurrentDoctorAppointments/CreateInspection/{id}")
+    public String CreateAnalysis(@PathVariable (value = "id")long id){
+        Optional<DoctorAppointment> doctorAppointment = doctorAppointmentService.getById(id);
+        if (doctorAppointment.isPresent()){
+//            analysisReferral.get().setStatus("Пройдено");
+//            analysisReferral.get().setDateOfTaking(LocalDateTime.now());
+
+//            analysisReferralService.edit(analysisReferral.get());
+            return "redirect:/Inspections/CreateByAppointment/"+doctorAppointment.get().getId();
+        }
+        else {
             //todo
             return "/Error";
         }

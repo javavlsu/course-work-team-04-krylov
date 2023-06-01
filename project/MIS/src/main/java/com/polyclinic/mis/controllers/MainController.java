@@ -29,6 +29,7 @@ public class MainController {
 
     @GetMapping("/test")
     public String test(Model model){
+        System.out.println("ss");
         return "/Test";
     }
 

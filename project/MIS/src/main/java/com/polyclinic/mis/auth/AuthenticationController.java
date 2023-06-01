@@ -55,6 +55,11 @@ public class AuthenticationController {
 //        model.addAttribute("polyclinicUser",polyclinicUser);
         return "/Auth/Authenticate";
     }
+//    @PostMapping("/Authenticate")
+//    public String Authenticate()
+//    {
+//        return "redirect:/";
+//    }
 ////    @PostMapping("/Authenticate")
 ////    public String Authenticate(AuthenticationRequest request){
 ////        authenticationService.authenticate(request);
