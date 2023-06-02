@@ -8,6 +8,7 @@ import com.polyclinic.mis.models.PolyclinicUser;
 import com.polyclinic.mis.repository.RoleRepository;
 import com.polyclinic.mis.service.impl.FunctionalDiagnosticsDoctorServiceImpl;
 import com.polyclinic.mis.service.impl.PatientServiceImpl;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,6 +19,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -29,8 +31,8 @@ public class PatientController {
 
     @Autowired
     PatientServiceImpl patientService;
-    @Autowired
-    RoleRepository roleRepository;
+//    @Autowired
+//    RoleRepository roleRepository;
     @Autowired
     UserService userService;
     @Autowired
@@ -80,49 +82,41 @@ public class PatientController {
         return "/Patients/Create";
     }
     @PostMapping("/Patients/Create")
-    public String Create(@ModelAttribute("patient")Patient patient){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
-        var user = userService.findUserByEmail(email);
-        patient.setUser(user);
-        patientService.add(patient);
-        assignRole(patient,user);
+    public String Create(@Valid @ModelAttribute("patient")Patient patient,
+                         BindingResult result,
+                         Model model){
+        if (result.hasErrors()){
+            return "/Patients/Create";
+        }
+        else {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            String email = authentication.getName();
+            var user = userService.findUserByEmail(email);
+            patient.setUser(user);
+            patientService.add(patient);
+            patientService.assignRole(patient, user);
+            return "redirect:/";
+        }
+    }
+//    private void assignRole(Patient patient, PolyclinicUser user){
 //        var patientUser= patient.getUser();
 //        var roles = user.getRoles();
-//        roles.remove(roleRepository.findByName("CanRegisterAsPatient").get());
-//        roles.add(roleRepository.findByName("Patient").get());
+//        var canRegisterAsPatientRole = roleRepository.findByName("CanRegisterAsPatient").get();
+//        roles.remove(canRegisterAsPatientRole);
+//        var patientRole = roleRepository.findByName("Patient").get();
+//        roles.add(patientRole);
 //        patientUser.setRoles(roles);
 //        userService.updateUser(patientUser);
-
-
-
-//        authenticationManager.authenticate((
-//                        new UsernamePasswordAuthenticationToken(patientUser.getEmail(),
-//                                patientUser.getPassword())
-//                )
-//        );
-
-        return "redirect:/";
-    }
-    private void assignRole(Patient patient, PolyclinicUser user){
-        var patientUser= patient.getUser();
-        var roles = user.getRoles();
-        var canRegisterAsPatientRole = roleRepository.findByName("CanRegisterAsPatient").get();
-        roles.remove(canRegisterAsPatientRole);
-        var patientRole = roleRepository.findByName("Patient").get();
-        roles.add(patientRole);
-        patientUser.setRoles(roles);
-        userService.updateUser(patientUser);
-
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        List<GrantedAuthority> updatedAuthorities = new ArrayList<>(auth.getAuthorities());
-        updatedAuthorities.remove(new SimpleGrantedAuthority(canRegisterAsPatientRole.getName()));
-        updatedAuthorities.add(new SimpleGrantedAuthority(patientRole.getName()));
-
-        Authentication newAuth = new UsernamePasswordAuthenticationToken(auth.getPrincipal(), auth.getCredentials(), updatedAuthorities);
-
-        SecurityContextHolder.getContext().setAuthentication(newAuth);
-    }
+//
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        List<GrantedAuthority> updatedAuthorities = new ArrayList<>(auth.getAuthorities());
+//        updatedAuthorities.remove(new SimpleGrantedAuthority(canRegisterAsPatientRole.getName()));
+//        updatedAuthorities.add(new SimpleGrantedAuthority(patientRole.getName()));
+//
+//        Authentication newAuth = new UsernamePasswordAuthenticationToken(auth.getPrincipal(), auth.getCredentials(), updatedAuthorities);
+//
+//        SecurityContextHolder.getContext().setAuthentication(newAuth);
+//    }
 
 
     @GetMapping("Patients/Edit/{id}")

@@ -1,18 +1,27 @@
 package com.polyclinic.mis.service.impl;
 
+import com.polyclinic.mis.auth.UserService;
 import com.polyclinic.mis.models.Analysis;
 import com.polyclinic.mis.models.Patient;
+import com.polyclinic.mis.models.PolyclinicUser;
 import com.polyclinic.mis.repository.PatientRepository;
+import com.polyclinic.mis.repository.RoleRepository;
 import com.polyclinic.mis.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +32,10 @@ public class PatientServiceImpl implements PatientService {
     private PatientRepository patientRepository;
     @Autowired
     private PolyclinicUserServiceImpl polyclinicUserService;
+    @Autowired
+    RoleRepository roleRepository;
+    @Autowired
+    UserService userService;
     @Override
     public Patient add(Patient patient) {
         if (patient.getPolisEndDate()!=null&&patient.getPolisEndDateString()!="")
@@ -89,5 +102,24 @@ public class PatientServiceImpl implements PatientService {
 
     public Patient currentPatient(){
         return polyclinicUserService.getPatientFromContext();
+    }
+    public void assignRole(Patient patient, PolyclinicUser user){
+        var patientUser= patient.getUser();
+        var roles = user.getRoles();
+        var canRegisterAsPatientRole = roleRepository.findByName("CanRegisterAsPatient").get();
+        roles.remove(canRegisterAsPatientRole);
+        var patientRole = roleRepository.findByName("Patient").get();
+        roles.add(patientRole);
+        patientUser.setRoles(roles);
+        userService.updateUser(patientUser);
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        List<GrantedAuthority> updatedAuthorities = new ArrayList<>(auth.getAuthorities());
+        updatedAuthorities.remove(new SimpleGrantedAuthority(canRegisterAsPatientRole.getName()));
+        updatedAuthorities.add(new SimpleGrantedAuthority(patientRole.getName()));
+
+        Authentication newAuth = new UsernamePasswordAuthenticationToken(auth.getPrincipal(), auth.getCredentials(), updatedAuthorities);
+
+        SecurityContextHolder.getContext().setAuthentication(newAuth);
     }
 }

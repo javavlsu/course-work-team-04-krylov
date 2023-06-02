@@ -25,16 +25,6 @@ public class WebSecurityConfiguration{
 
     @Autowired
     private PolyclinicUserDetailsService userDetailsService;
-
-
-//    @Bean
-//    public AuthenticationManager userDetailsService(AuthenticationManagerBuilder auth) throws Exception {
-//        auth
-//                .userDetailsService(userDetailsService)
-//                .passwordEncoder(bCryptPasswordEncoder);
-//        return auth.build();
-//    }
-
     @Bean
     public AccessDeniedHandler accessDeniedHandler(){
         return new CustomAccessDeniedHandler();
@@ -310,6 +300,7 @@ public class WebSecurityConfiguration{
                 .userDetailsService(userDetailsService)
                 ;
 //        http.httpBasic();
+
         return http.build();
     }
 
