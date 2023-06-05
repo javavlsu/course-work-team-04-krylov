@@ -57,7 +57,7 @@
     <p>Год рождения пациента/Дата рождения пациента</p>
     <input type="search" name="patientBirthDate" style="width:300px;" placeholder="yyyy / yyyy mm / yyyy mm dd"
            th:value="${patientBirthDate}"/>
-    <input type="submit" value="Search" class="btn btn-primary"/>
+    <input type="submit" value="Поиск" class="btn btn-primary"/>
     <a th:href="@{'/'+${page}+'/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&patientFIO='+'&patientBirthDate='}">Получить список всех пациентов</a>
     </p>
 </form>

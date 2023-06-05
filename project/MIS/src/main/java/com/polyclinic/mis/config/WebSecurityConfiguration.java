@@ -35,7 +35,7 @@ public class WebSecurityConfiguration{
         http
                 .authorizeHttpRequests()
                 //Главная
-                .requestMatchers("/**").permitAll()
+                .requestMatchers("/").permitAll()
                 .requestMatchers("/lib").permitAll()
 
                 .requestMatchers("/lib/**").permitAll()
