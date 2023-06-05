@@ -106,7 +106,7 @@
                         <a th:href="@{'/Inspections/Index/1?'+'sortField='+'date'+'&'+'sortDir=desc'+'&'+'patientFIO='+${patient.getFIOForRequest}+'&'+'patientBirthDate='+${patient.getBirthDateForRequest}}"
                            class="btn btn-primary btn-lg px-4 gap-3">Посмотреть список осмотров</a>
                         <!--                        <a href="/DoctorAppointments/Index" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть-->
-                        <a th:href="@{'/DoctorAppointments/Index/1?'+'sortField='+'date'+'&'+'sortDir=desc'+'&'+'patientFIO='+${patient.getFIOForRequest}+'&'+'patientBirthDate='+${patient.getBirthDateForRequest}+'&status=Создана'}"
+                        <a th:href="@{'/CurrentDoctorAppointments/Index/1?'+'sortField='+'date'+'&'+'sortDir=desc'+'&'+'patientFIO='+${patient.getFIOForRequest}+'&'+'patientBirthDate='+${patient.getBirthDateForRequest}+'&status=Создана'}"
                            class="btn btn-primary btn-lg px-4 gap-3">Посмотреть список заявок на первичный осмотр</a>
                         <!--                        <a href="/DoctorReferralAppointments/Index" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть-->
                         <a th:href="@{'/DoctorReferralAppointments/Index/1?'+'sortField='+'dateTime'+'&'+'sortDir=desc'+'&'+'patientFIO='+${patient.getFIOForRequest}+'&'+'patientBirthDate='+${patient.getBirthDateForRequest}+'&status=Подтверждена%20регистратурой'}"

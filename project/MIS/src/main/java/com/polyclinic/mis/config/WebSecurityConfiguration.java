@@ -25,16 +25,6 @@ public class WebSecurityConfiguration{
 
     @Autowired
     private PolyclinicUserDetailsService userDetailsService;
-
-
-//    @Bean
-//    public AuthenticationManager userDetailsService(AuthenticationManagerBuilder auth) throws Exception {
-//        auth
-//                .userDetailsService(userDetailsService)
-//                .passwordEncoder(bCryptPasswordEncoder);
-//        return auth.build();
-//    }
-
     @Bean
     public AccessDeniedHandler accessDeniedHandler(){
         return new CustomAccessDeniedHandler();
@@ -45,16 +35,21 @@ public class WebSecurityConfiguration{
         http
                 .authorizeHttpRequests()
                 //Главная
-                .requestMatchers("/").permitAll()
+                .requestMatchers("/**").permitAll()
+                .requestMatchers("/lib").permitAll()
 
-                .requestMatchers("/Error").permitAll()
+                .requestMatchers("/lib/**").permitAll()
+
                 //Регистрация
                 .requestMatchers("/Authenticate").permitAll()
                 .requestMatchers("/Register").permitAll()
                 //Подтверждение данных
                 //Админ
                 .requestMatchers("/AssignUserToARole/Create").hasAuthority("Admin")
-                .requestMatchers("/error").hasAnyAuthority("Admin")
+
+//                .requestMatchers("/error").hasAnyAuthority("Admin")
+
+//                .requestMatchers("/error").permitAll()
                 //Анализ
 //                .requestMatchers("/Analyses").hasAnyAuthority("Doctor","Assistant","Admin")
                 .requestMatchers("/Analyses/Details/**").hasAnyAuthority("Doctor","Assistant","Admin")
@@ -174,6 +169,7 @@ public class WebSecurityConfiguration{
                 .requestMatchers("/Inspections/Create").hasAnyAuthority("Doctor","Admin")
                 .requestMatchers("/Inspections/Edit/**").hasAnyAuthority("Doctor","Admin")
                 .requestMatchers("/Inspections/Delete/**").hasAnyAuthority("Admin")
+                .requestMatchers("/Inspections/CreateByAppointment/**").hasAnyAuthority("Doctor","Admin")
 
 
 
@@ -214,11 +210,11 @@ public class WebSecurityConfiguration{
                 //Заявления на первичный прием у врача
                 .requestMatchers("/DoctorAppointments/Details/**").hasAnyAuthority("Doctor","Admin","Receptionist")
                 .requestMatchers("/DoctorAppointments/Index/**").hasAnyAuthority("Doctor","Admin","Receptionist")
+                .requestMatchers("/CurrentDoctorAppointments/Details/**").hasAnyAuthority("Doctor","Admin","Receptionist")
+                .requestMatchers("/CurrentDoctorAppointments/Index/**").hasAnyAuthority("Doctor","Admin","Receptionist")
+                .requestMatchers("/CurrentDoctorAppointments/CreateInspection/**").hasAnyAuthority("Doctor","Admin")
                 .requestMatchers("/PatientDoctorAppointments/Index/**").hasAnyAuthority("Admin","Patient")
                 .requestMatchers("/PatientDoctorAppointments/Create").hasAnyAuthority("Admin","Patient")
-                .requestMatchers("/CreateInspection/**").hasAnyAuthority("Doctor","Admin","Receptionist")
-                .requestMatchers("/CreateInspection").hasAnyAuthority("Doctor","Admin","Receptionist")
-
 
 
                 .requestMatchers("/DoctorAppointments/Edit/**").hasAnyAuthority("Doctor","Admin","Receptionist")
@@ -285,7 +281,7 @@ public class WebSecurityConfiguration{
 //                .requestMatchers("/Examinations/**").authenticated()
 //                .requestMatchers("/admin/**").hasAuthority("Admin").anyRequest().authenticated()
                 .and()
-//                .csrf().disable()
+                .csrf().disable()
                 .formLogin()
                 .loginPage("/Authenticate")
                 .loginProcessingUrl("/Authenticate")
@@ -304,6 +300,7 @@ public class WebSecurityConfiguration{
                 .userDetailsService(userDetailsService)
                 ;
 //        http.httpBasic();
+
         return http.build();
     }
 

@@ -2,6 +2,8 @@ package com.polyclinic.mis.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,12 +37,15 @@ public class Patient {
 
     //ТУт
     @NotNull(message = "Поле Номер полиса не может быть пустым")
+    @Size(min=16, message = "Номер полиса должен содержать 16 цифр")
+    @Size(max=16, message = "Номер полиса должен содержать 16 цифр")
     private String polisId;
     @NotNull(message = "Поле Страховая организация не может быть пустым")
     private String poilsCompany;
     private Date polisEndDate;
     //Тут
     @NotNull(message = "Поле Номер СНИЛС не может быть пустым")
+    @Pattern(regexp = "^\\d{3}-\\d{3}-\\d{3} \\d{2}$", message = "Введите полис в формате '123-123-123 12'")
     private String  snilsNumber;
     private String homeAddress;
     private String workPlace;

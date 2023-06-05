@@ -175,7 +175,8 @@ public class AnalysisController {
         model.addAttribute("analysis",analysis);
         AnalysisReferral analysisReferral = analysisReferralService.getById(referralId).get();
 
-        analysisReferral.setStatus("Пройдено");
+        //todo раскомменитровать
+//        analysisReferral.setStatus("Пройдено");
         analysisReferral.setDateOfTaking(LocalDateTime.now());
         analysisReferralService.edit(analysisReferral);
 

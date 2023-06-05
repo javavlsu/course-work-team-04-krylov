@@ -30,6 +30,9 @@ public class InspectionController {
 
     @Autowired
     DoctorServiceImpl doctorService;
+
+    @Autowired
+    DoctorAppointmentServiceImpl doctorAppointmentService;
     @GetMapping("/Inspections/Index")
     public String Index(Model model){
 //        Iterable<Inspection> inspections = inspectionService.getAll();
@@ -140,6 +143,31 @@ public class InspectionController {
 
         return "/Inspections/Create";
     }
+    @GetMapping("/Inspections/CreateByAppointment/{appointmentId}")
+    public String ShowCreateByAppointment(@PathVariable(required = false) Long appointmentId, Model model){
+        Inspection inspection = new Inspection();
+        model.addAttribute("inspection",inspection);
+        DoctorAppointment doctorAppointment = doctorAppointmentService.getById(appointmentId).get();
+
+        //todo Раскомменитровать после тестов
+//        doctorAppointment.setStatus("Использована");
+        doctorAppointmentService.edit(doctorAppointment);
+        model.addAttribute("patientId",doctorAppointment.getPatient().getId());
+
+        var diagnoses = diagnosisService.getAll();
+        model.addAttribute("diagnoses",diagnoses);
+
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime now = LocalDateTime.now();
+        model.addAttribute("currentDate",dateTimeFormatter.format(now));
+
+
+        Doctor doctor = doctorService.currentDoctor();
+        model.addAttribute("doctorId",doctor.getId());
+
+        return "/Inspections/Create";
+    }
+
     @PostMapping("/Inspections/Create")
     public String Create(@ModelAttribute("inspection")Inspection inspection){
         inspectionService.add(inspection);

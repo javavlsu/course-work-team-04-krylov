@@ -199,6 +199,7 @@ public class AnalysisReferralController {
 
         }
         else {
+
             analysisReferral.setStatus("Выписано");
             analysisReferral.setDateOfIssue(LocalDateTime.now());
             analysisReferralService.add(analysisReferral);

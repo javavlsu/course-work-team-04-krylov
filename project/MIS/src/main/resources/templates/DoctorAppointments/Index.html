@@ -29,7 +29,7 @@
         <!--            список всех пациентов</a>-->
 
         <input type="hidden" name="status" th:value="${status}">
-        <a th:href="@{'/DoctorAppointments/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&patientFIO='+'&patientBirthDate='+'&status='}">Получить
+        <a th:href="@{'/'+${currentPageLink}+'/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&patientFIO='+'&patientBirthDate='+'&status='+'&doctorId='${doctorId}}">Получить
             список всех пациентов</a>
     </form>
     <p></p>
@@ -54,11 +54,11 @@
     <!--            Просрочена-->
     <!--        </a>-->
     <a class="btn btn-primary"
-       th:href="@{'/DoctorAppointments/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate='+${patientBirthDate}+'&status=Создана'}">
+       th:href="@{'/'+${currentPageLink}+'/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate='+${patientBirthDate}+'&status=Создана'+'&doctorId='${doctorId}}">
         Создана
     </a>
     <a class="btn btn-primary"
-       th:href="@{'/DoctorAppointments/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate='+${patientBirthDate}+'&status=Использована'}">
+       th:href="@{'/'+${currentPageLink}+'/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate='+${patientBirthDate}+'&status=Использована'+'&doctorId='${doctorId}}">
         Использована
     </a>
 
@@ -66,28 +66,33 @@
         <thead>
         <tr>
             <th>
-                <a th:href="@{'/DoctorAppointments/Index/'+${currentPage}+'?sortField=patient.lastName&sortDir='+${reverseSortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate='+${patientBirthDate}+'&status='+${status}}">
+                <a th:href="@{'/'+${currentPageLink}+'/Index/'+${currentPage}+'?sortField=patient.lastName&sortDir='+${reverseSortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate='+${patientBirthDate}+'&status='+${status}+'&doctorId='${doctorId}}">
                     <span>Пациент</span>
                 </a>
             </th>
             <th>
-                <a th:href="@{'/DoctorAppointments/Index/'+${currentPage}+'?sortField=status&sortDir='+${reverseSortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate='+${patientBirthDate}+'&status='+${status}}">
+                <a th:href="@{'/'+${currentPageLink}+'/Index/'+${currentPage}+'?sortField=date&sortDir='+${reverseSortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate='+${patientBirthDate}+'&status='+${status}+'&doctorId='${doctorId}}">
+                    <span>Дата записи</span>
+                </a>
+            </th>
+            <th>
+                <a th:href="@{'/'+${currentPageLink}+'/Index/'+${currentPage}+'?sortField=status&sortDir='+${reverseSortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate='+${patientBirthDate}+'&status='+${status}+'&doctorId='${doctorId}}">
                     <span>Статус</span>
                 </a>
             </th>
             <th>
-                <a th:href="@{'/DoctorAppointments/Index/'+${currentPage}+'?sortField=doctor.lastName&sortDir='+${reverseSortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate='+${patientBirthDate}+'&status='+${status}}">
+                <a th:href="@{'/'+${currentPageLink}+'/Index/'+${currentPage}+'?sortField=doctor.lastName&sortDir='+${reverseSortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate='+${patientBirthDate}+'&status='+${status}+'&doctorId='${doctorId}}">
                     <span>Врач</span>
                 </a>
             </th>
             <th>
-                <a th:href="@{'/DoctorAppointments/Index/'+${currentPage}+'?sortField=date&sortDir='+${reverseSortDir}+'&status='+${status}}">
+                <a th:href="@{'/'+${currentPageLink}+'/Index/'+${currentPage}+'?sortField=date&sortDir='+${reverseSortDir}+'&status='+${status}+'&doctorId='${doctorId}}">
                     <span>Дата</span>
                 </a>
             </th>
 
             <th>
-                <a th:href="@{'/DoctorAppointments/Index/'+${currentPage}+'?sortField=time&sortDir='+${reverseSortDir}+'&status='+${status}}">
+                <a th:href="@{'/'+${currentPageLink}+'/Index/'+${currentPage}+'?sortField=time&sortDir='+${reverseSortDir}+'&status='+${status}+'&doctorId='${doctorId}}">
                     <span>Время</span>
                 </a>
             </th>
@@ -109,12 +114,12 @@
             <!--            <td th:text="${el.doctorReferral.dateOfTaking}"></td>-->
             <td>
                 <div sec:authorize="hasAnyAuthority('Admin')">
-                    <a th:href="@{/DoctorAppointments/Edit/{id}(id=${el.id})}">Edit</a> |
-                    <a th:href="@{/DoctorAppointments/Details/{id}(id=${el.id})}">Details</a> |
-                    <a th:href="@{/DoctorAppointments/Delete/{id}(id=${el.id})}">Delete</a>
+                    <a th:href="@{/{page}/Edit/{id}(id=${el.id},page=${currentPageLink})}">Edit</a> |
+                    <a th:href="@{/{page}/Details/{id}(id=${el.id},page=${currentPageLink})}">Details</a> |
+                    <a th:href="@{/{page}/Delete/{id}(id=${el.id},page=${currentPageLink})}">Delete</a>
                 </div>
                 <div sec:authorize="hasAnyAuthority('Doctor')">
-                    <a th:href="@{/CreateInspection/{id}(id=${el.id})}">Создать осмотр</a>
+                    <a th:href="@{/{page}/CreateInspection/{id}(id=${el.id},page=${currentPageLink})}">Оформить осмотр</a>
                 </div>
             </td>
         </tr>
@@ -129,12 +134,12 @@
 
             <div class="col-sm-1">
                 <a th:if="${currentPage > 1}"
-                   th:href="@{'/DoctorAppointments/Index/'+${1}+'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate='+${patientBirthDate}+'&status='+${status}}">Первая</a>
+                   th:href="@{'/DoctorAppointments/Index/'+${1}+'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate='+${patientBirthDate}+'&status='+${status}+'&doctorId='${doctorId}}">Первая</a>
                 <span th:unless="${currentPage > 1}">Первая</span>
             </div>
             <div class="col-sm-1">
                 <a th:if="${currentPage > 1}"
-                   th:href="@{'/DoctorAppointments/Index/'+${currentPage - 1}+'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate='+${patientBirthDate}+'&status='+${status}}">Назад</a>
+                   th:href="@{'/DoctorAppointments/Index/'+${currentPage - 1}+'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate='+${patientBirthDate}+'&status='+${status}+'&doctorId='${doctorId}}">Назад</a>
                 <span th:unless="${currentPage > 1}">Назад</span>
             </div>
 
@@ -142,18 +147,18 @@
             <div class="col-auto">
         <span th:each="i:${#numbers.sequence(1,totalPages)}">
           <a th:if="${currentPage != i}"
-             th:href="@{'/DoctorAppointments/Index/'+${i}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate='+${patientBirthDate}+'&status='+${status}}">[[${i}]]</a>
+             th:href="@{'/DoctorAppointments/Index/'+${i}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate='+${patientBirthDate}+'&status='+${status}+'&doctorId='${doctorId}}">[[${i}]]</a>
           <span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
         </span>
             </div>
             <div class="col-sm-1">
                 <a th:if="${currentPage < totalPages}"
-                   th:href="@{'/DoctorAppointments/Index/'+${currentPage + 1}+'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate='+${patientBirthDate}+'&status='+${status}}">Далее</a>
+                   th:href="@{'/DoctorAppointments/Index/'+${currentPage + 1}+'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate='+${patientBirthDate}+'&status='+${status}+'&doctorId='${doctorId}}">Далее</a>
                 <span th:unless="${currentPage < totalPages}">Далее</span>
             </div>
             <div class="col-sm-1">
                 <a th:if="${currentPage < totalPages}"
-                   th:href="@{'/DoctorAppointments/Index/'+${totalPages}+'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate='+${patientBirthDate}+'&status='+${status}}">Последняя</a>
+                   th:href="@{'/DoctorAppointments/Index/'+${totalPages}+'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate='+${patientBirthDate}+'&status='+${status}+'&doctorId='${doctorId}}">Последняя</a>
                 <span th:unless="${currentPage < totalPages}">Последняя</span>
             </div>
         </div>
