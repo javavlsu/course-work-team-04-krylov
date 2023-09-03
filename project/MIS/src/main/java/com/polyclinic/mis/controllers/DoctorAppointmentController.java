@@ -95,8 +95,8 @@ public class DoctorAppointmentController {
             @RequestParam(value = "patientBirthDate") String patientBirthDate,
             @RequestParam(value = "status") String status,
             Model model) {
-        //todo page size from page https://www.youtube.com/watch?v=Aie8n12EFQc 11 00
         int pageSize = 5;
+
         Page<DoctorAppointment> page = doctorAppointmentService.findPaginatedForDoctor(pageNumber, pageSize, sortField, sortDir, patientFio, patientBirthDate, status);
         List<DoctorAppointment> doctorAppointments = page.getContent();
 
@@ -243,15 +243,9 @@ public class DoctorAppointmentController {
         DateFormat formatter = new SimpleDateFormat("EEEE", locale);
         String dayOfTheWeek = formatter.format(dateChosen);
         dayOfTheWeek = dayOfTheWeek.substring(0,1).toUpperCase(locale)+dayOfTheWeek.substring(1);
-//        var therapistAppointmentTimeList = therapistAppointmentTimeService.getByDoctorId(doctorId);
-
         var therapistAppointmentTimeList = therapistAppointmentTimeService.getByDoctorIdAndWeekDay(doctorId,dayOfTheWeek);
-
         var therapistAppointments = doctorAppointmentService.getByDoctorIdAndDate(doctorId,dateChosen);
         List<String> times = new ArrayList<>();
-
-//        times.add(dayOfTheWeek);
-
         for (int i = 0; i<therapistAppointments.size();i++) {
             for (int j = 0; j < therapistAppointmentTimeList.size(); j++) {
                 if (therapistAppointments.get(i).getTime().equals(therapistAppointmentTimeList.get(j).getTime())){
@@ -262,10 +256,7 @@ public class DoctorAppointmentController {
         for (int i = 0; i<therapistAppointmentTimeList.size();i++){
             times.add(therapistAppointmentTimeList.get(i).getTime().toString());
         }
-
-//        return therapistAppointmentTimeService.getAll();
         return times;
-
     }
 
 

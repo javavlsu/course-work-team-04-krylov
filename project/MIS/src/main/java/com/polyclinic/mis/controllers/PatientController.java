@@ -55,8 +55,6 @@ public class PatientController {
             Model model){
         //todo page size from page https://www.youtube.com/watch?v=Aie8n12EFQc 11 00
         int pageSize = 5;
-
-
         Page<Patient> page = patientService.findPaginated(pageNumber,pageSize,sortField,sortDir,patientFio,patientBirthDate);
         List<Patient> patients = page.getContent();
 

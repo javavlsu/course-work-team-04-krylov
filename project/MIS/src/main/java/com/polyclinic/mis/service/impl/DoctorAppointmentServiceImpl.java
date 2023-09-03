@@ -111,27 +111,15 @@ public class DoctorAppointmentServiceImpl implements DoctorAppointmentService {
 
     public boolean sendEmail(DoctorAppointment doctorAppointment) throws UnsupportedEncodingException {
         try {
-
-
             String uri = "http://localhost:8082/SendDoctorAppointmentNotification/";
-            SimpleDateFormat formatterDate = new SimpleDateFormat("dd:MM:yyyy");
+            SimpleDateFormat formatterDate = new SimpleDateFormat("dd.MM.yyyy");
             String strDate = formatterDate.format(doctorAppointment.getDate());
-
             SimpleDateFormat formatterTime = new SimpleDateFormat("HH:mm");
             String strTime = formatterTime.format(doctorAppointment.getTime());
-//        String strTime = "12:30";
-
             String strCabinetName = doctorAppointment.getDoctor().getCabinet().getName();
-            strCabinetName = strCabinetName.replaceAll("\\s+", "+");
-
-            String message = "Напоминание! Прием у врача " + doctorAppointment.getDoctor().ReturnFIOAndSpeciality() + "Состоится " + strDate + " в " + strTime;
-
             uri += doctorAppointment.getPatient().getUser().getEmail();
-
             uri += "?date=" + strDate + "&time=" + strTime + "&doctorLastName=" + doctorAppointment.getDoctor().getLastName() + "&doctorFirstName=" + doctorAppointment.getDoctor().getFirstName() + "&doctorMiddleName=" + doctorAppointment.getDoctor().getMiddleName();
             uri += "&cabinetName=" + strCabinetName + "&cabinetNumber=" + doctorAppointment.getDoctor().getCabinet().getNumber();
-//            RestTemplate restTemplate = new RestTemplate();
-//            String result = restTemplate.getForObject(uri, String.class);
             Flux<String> notificatorFlux = WebClient.create()
                     .get()
                     .uri(uri)

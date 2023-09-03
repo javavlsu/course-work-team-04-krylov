@@ -14,9 +14,9 @@
         <div class="col-md-4">
             <form action="#" th:action="@{/PatientDoctorAppointments/Create}" th:object="${doctorAppointment}" method="POST">
                 <div class="form-group">
-                    <label class="control-label">Пациент</label>
+                    <label class="control-label" hidden>Пациент</label>
 
-                    <input class="form-control" type="text" th:value="${patientId}" th:name="patient" th:id="patient" readonly required/>
+                    <input class="form-control" type="text" th:value="${patientId}" th:name="patient" th:id="patient" readonly required hidden/>
                     <p th:if="${#fields.hasErrors('patient')}" class="text-danger" th:errors="*{patient}"></p>
                 </div>
                 <div class="form-group">
