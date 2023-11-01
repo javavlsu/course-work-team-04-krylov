@@ -4,6 +4,7 @@ import com.polyclinic.mis.models.PolyclinicUser;
 import com.polyclinic.mis.models.Role;
 import com.polyclinic.mis.repository.PolyclinicUserRepository;
 import com.polyclinic.mis.repository.RoleRepository;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -28,9 +30,9 @@ public class UserService {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-    public PolyclinicUser findUserByEmail(String email) {
+    public Optional<PolyclinicUser> findUserByEmail(String email) {
         //todo null value condition
-        return userRepository.findByEmail(email).get();
+        return userRepository.findByEmail(email);
     }
 
 

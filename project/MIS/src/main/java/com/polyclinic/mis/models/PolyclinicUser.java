@@ -1,6 +1,7 @@
 package com.polyclinic.mis.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,6 +28,7 @@ public class PolyclinicUser{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @NotNull(message = "Поле Email не может быть пустым")
+    @Email(message = "Введите корректный email")
     private String email;
     @NotNull(message = "Поле Пароль не может быть пустым")
     private String password;

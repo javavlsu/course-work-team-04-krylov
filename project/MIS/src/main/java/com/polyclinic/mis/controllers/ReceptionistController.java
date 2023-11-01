@@ -79,11 +79,11 @@ public class ReceptionistController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
         var user = userService.findUserByEmail(email);
-        receptionist.setUser(user);
+        receptionist.setUser(user.get());
 
         receptionistService.add(receptionist);
 
-        assignRole(receptionist,user);
+        assignRole(receptionist,user.get());
         return "redirect:/Receptionists/Index";
     }
     private void assignRole(Receptionist receptionist, PolyclinicUser user){

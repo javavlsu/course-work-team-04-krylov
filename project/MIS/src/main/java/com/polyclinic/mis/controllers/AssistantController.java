@@ -82,11 +82,11 @@ public class AssistantController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
         var user = userService.findUserByEmail(email);
-        assistant.setUser(user);
+        assistant.setUser(user.get());
 
         assistantService.add(assistant);
 
-        assignRole(assistant,user);
+        assignRole(assistant,user.get());
         return "redirect:/";
     }
     private void assignRole(Assistant assistant, PolyclinicUser user){

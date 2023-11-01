@@ -88,9 +88,9 @@ public class DoctorController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
         var user = userService.findUserByEmail(email);
-        doctor.setUser(user);
+        doctor.setUser(user.get());
         doctorService.add(doctor);
-        assignRole(doctor,user);
+        assignRole(doctor,user.get());
         return "redirect:/";
     }
 

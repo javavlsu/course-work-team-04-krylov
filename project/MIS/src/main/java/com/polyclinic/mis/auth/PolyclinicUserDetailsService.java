@@ -20,7 +20,7 @@ public class PolyclinicUserDetailsService implements UserDetailsService {
     private UserService userService;
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        PolyclinicUser user = userService.findUserByEmail(email);
+        PolyclinicUser user = userService.findUserByEmail(email).get();
         List<GrantedAuthority> authorities = getUserAuthority(user.getRoles());
         return buildUserForAuthentication(user, authorities);
     }

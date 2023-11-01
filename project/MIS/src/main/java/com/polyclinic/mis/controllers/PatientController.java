@@ -90,9 +90,9 @@ public class PatientController {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             String email = authentication.getName();
             var user = userService.findUserByEmail(email);
-            patient.setUser(user);
+            patient.setUser(user.get());
             patientService.add(patient);
-            patientService.assignRole(patient, user);
+            patientService.assignRole(patient, user.get());
             return "redirect:/";
         }
     }

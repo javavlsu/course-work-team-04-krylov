@@ -34,10 +34,5 @@ public class EmailSenderController {
         emailSenderService.sendDoctorAppointmentEmail(email,subject,message);
         return "Success";
     }
-    @GetMapping("/")
-    public String S(Model model){
-        System.out.println("ss");
-        return "/home";
-    }
 
 }

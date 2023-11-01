@@ -276,6 +276,14 @@ public class WebSecurityConfiguration{
                 .requestMatchers("/ExaminationCabinetReferralTimes/Delete/**").hasAnyAuthority("Admin")
 
 
+                //Rest
+
+                .requestMatchers("/api/*").permitAll()
+                .requestMatchers("/api/**").permitAll()
+
+
+
+
 //                .authenticated()
 //                .requestMatchers("/Analyses").hasAuthority("Admin")
 //                .requestMatchers("/Examinations/**").authenticated()

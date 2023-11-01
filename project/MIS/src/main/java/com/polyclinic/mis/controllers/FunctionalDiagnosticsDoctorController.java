@@ -82,11 +82,11 @@ public class FunctionalDiagnosticsDoctorController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
         var user = userService.findUserByEmail(email);
-        functionalDiagnosticsDoctor.setUser(user);
+        functionalDiagnosticsDoctor.setUser(user.get());
 
         functionalDiagnosticsDoctorService.add(functionalDiagnosticsDoctor);
 
-        assignRole(functionalDiagnosticsDoctor,user);
+        assignRole(functionalDiagnosticsDoctor,user.get());
         return "redirect:/";
     }
     private void assignRole(FunctionalDiagnosticsDoctor functionalDiagnosticsDoctor, PolyclinicUser user){
