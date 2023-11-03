@@ -1,5 +1,6 @@
 package com.polyclinic.mis.config;
 
+import com.polyclinic.mis.auth.PolyclinicUserDetailsService;
 import com.polyclinic.mis.repository.PolyclinicUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -20,17 +21,21 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @RequiredArgsConstructor
 public class ApplicationConfig {
     private final PolyclinicUserRepository repository;
+
+    private final PolyclinicUserDetailsService userDetailsService;
+    private final PasswordEncoder passwordEncoder;
 //    @Bean
 //    public UserDetailsService userDetailsService(){
 //        return username -> repository.findByEmail(username).orElseThrow(()->new UsernameNotFoundException("User not found"));
 //    }
-//    @Bean
-//    public AuthenticationProvider authenticationProvider(){
-//        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-//        authenticationProvider.setUserDetailsService(userDetailsService());
-//        authenticationProvider.setPasswordEncoder(passwordEncoder());
-//        return authenticationProvider;
-//    }
+
+    @Bean
+    public AuthenticationProvider authenticationProvider(){
+        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+        authenticationProvider.setUserDetailsService(userDetailsService);
+        authenticationProvider.setPasswordEncoder(passwordEncoder);
+        return authenticationProvider;
+    }
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
         return configuration.getAuthenticationManager();
