@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head}"></head>
+<body style="margin-bottom: 60px" class="container-fluid">
+<header th:replace="~{fragments/header :: header}"></header>
+
+<div class="px-4 py-5 my-5 container-fluid">
+    <h1>Анализы</h1>
+
+    <p style="margin-top: 20px">
+<!--        <a th:href="/Analyses/Create" class="btn btn-secondary">Создать</a>-->
+        <a th:href="@{/{page}/Create(page=${currentPageLink})}" class="btn btn-secondary">Создать</a>
+
+    </p>
+
+    <!--  Поиск  -->
+    <form th:replace="~{fragments/pagination :: search(page=${currentPageLink})}"></form>
+
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>
+                <a th:replace="~{fragments/pagination :: link(page=${currentPageLink},  sortField='patient.lastName', text='Пациент')}"></a>
+            </th>
+            <th>
+                <a th:replace="~{fragments/pagination :: link(page=${currentPageLink},  sortField='patient.birthDate', text='Дата рождения пациента')}"></a>
+
+            </th>
+            <th>
+                <a th:replace="~{fragments/pagination :: link(page=${currentPageLink},  sortField='type', text='Тип')}"></a>
+
+            </th>
+            <th>
+                <a th:replace="~{fragments/pagination :: link(page=${currentPageLink},  sortField='report', text='Заключение')}"></a>
+
+            </th>
+            <th>
+                <a th:replace="~{fragments/pagination :: link(page=${currentPageLink},  sortField='assistant.lastName', text='Лаборант')}"></a>
+
+            </th>
+            <th>
+                <a th:replace="~{fragments/pagination :: link(page=${currentPageLink},  sortField='date', text='Дата проведения')}"></a>
+
+            </th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="el : ${analyses}">
+            <td th:text="${el.patient.ReturnFIO}"></td>
+            <td th:text="${el.patient.ReturnBirthDate}"></td>
+            <td th:text="${el.type}"></td>
+            <td th:text="${el.report}"></td>
+            <td th:text="${el.assistant.ReturnFIOAndBirthDate}"></td>
+            <!--    <td th:text="${el.date}">-->
+            <td th:text="${#temporals.format(el.date, 'dd-MM-yyyy HH:mm')}"></td>
+            </td>
+            <td>
+                <a th:href="@{/{page}/Edit/{id}(id=${el.id},page=${currentPageLink})}">Edit</a> |
+                <a th:href="@{/{page}/Details/{id}(id=${el.id},page=${currentPageLink})}">Details</a> |
+                <a th:href="@{/{page}/Delete/{id}(id=${el.id},page=${currentPageLink})}">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div th:replace="~{fragments/pagination :: pages(page=${currentPageLink})}"></div>
+</div>
+</body>
+</html>

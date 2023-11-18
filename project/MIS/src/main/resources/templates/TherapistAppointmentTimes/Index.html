@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head}"></head>
+<body style="margin-bottom: 60px" class="container-fluid">
+<header th:replace="~{fragments/header :: header}"></header>
+
+<div class="px-4 py-5 my-5 container-fluid">
+
+    <h1>Список времени работы терапевтов</h1>
+
+    <!--<form method="get" action="Index">-->
+    <!--    <p>-->
+    <!--    <p>Поиск</p>-->
+    <!--    <p style="color:red;">Ошибка</p>-->
+    <!--    <input type="search" placeholder="Введите ФИО лаборанта (Обязательно)" name="AssistantFIO" style="width:600px;" />-->
+    <!--    <p>Дата рождения пациента (Необязательно)</p>-->
+    <!--    <input type="date"  name="AssistantBirthDate" style="width:300px;" />-->
+    <!--    <input type="submit" value="Search" class="btn btn-primary" />-->
+    <!--    <a href="">Получить список всех лаборантов</a>-->
+    <!--    </p>-->
+    <!--</form>-->
+
+
+    <form method="get" th:action="'/TherapistAppointmentTimes/Index/1'">
+        <p>
+        <h4>Поиск</h4>
+        <input type="hidden" name="sortField" th:value="${sortField}">
+        <input type="hidden" name="sortDir" th:value="${sortDir}">
+        <input type="search" placeholder="Введите ФИО терапевта" name="doctorFIO" style="width:600px;"
+               th:value="${doctorFIO}"/>
+        <input type="submit" value="Search" class="btn btn-primary"/>
+        <a th:href="@{'/TherapistAppointmentTimes/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&doctorFIO='}">Получить
+            список всех терапевтов</a>
+        </p>
+    </form>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>
+                <a th:href="@{'/TherapistAppointmentTimes/Index/'+${currentPage}+'?sortField=doctor.lastName&sortDir='+${reverseSortDir}+'&doctorFIO='+${doctorFIO}}">
+                    <span>Врач</span>
+                </a>
+            </th>
+            <th>
+                <a th:href="@{'/TherapistAppointmentTimes/Index/'+${currentPage}+'?sortField=time&sortDir='+${reverseSortDir}+'&doctorFIO='+${doctorFIO}}">
+                    <span>Время</span>
+                </a>
+
+            </th>
+            <th>
+                <a th:href="@{'/TherapistAppointmentTimes/Index/'+${currentPage}+'?sortField=dayOfTheWeek&sortDir='+${reverseSortDir}+'&doctorFIO='+${doctorFIO}}">
+                    <span>День недели</span>
+                </a>
+
+            </th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="el : ${therapistAppointmentTimes}">
+            <td th:text="${el?.doctor?.ReturnFIOAndSpeciality}"></td>
+<!--            <td th:text="${el?.time}"></td>-->
+            <td th:text="${#dates.format(el?.time, 'HH:mm')}"></td>
+            <td th:text="${el?.dayOfTheWeek}"></td>
+
+            <td>
+                <a th:href="@{/TherapistAppointmentTimes/Edit/{id}(id=${el.id})}">Edit</a> |
+                <a th:href="@{/TherapistAppointmentTimes/Details/{id}(id=${el.id})}">Details</a> |
+                <a th:href="@{/TherapistAppointmentTimes/Delete/{id}(id=${el.id})}">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div th:if="${totalPages > 1}">
+        <div class="row col-sm-10">
+            <div class="col-sm-2">
+                Количество записей: [[${totalItems}]]
+            </div>
+
+            <div class="col-sm-1">
+                <a th:if="${currentPage > 1}"
+                   th:href="@{'/TherapistAppointmentTimes/Index/'+${1}+'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&doctorFIO='+${doctorFIO}}">Первая</a>
+                <span th:unless="${currentPage > 1}">Первая</span>
+            </div>
+            <div class="col-sm-1">
+                <a th:if="${currentPage > 1}"
+                   th:href="@{'/TherapistAppointmentTimes/Index/'+${currentPage - 1}+'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&doctorFIO='+${doctorFIO}}">Назад</a>
+                <span th:unless="${currentPage > 1}">Назад</span>
+            </div>
+
+
+            <div class="col-auto">
+        <span th:each="i:${#numbers.sequence(1,totalPages)}">
+          <a th:if="${currentPage != i}"
+             th:href="@{'/TherapistAppointmentTimes/Index/'+${i}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&doctorFIO='+${doctorFIO}}">[[${i}]]</a>
+          <span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
+        </span>
+            </div>
+            <div class="col-sm-1">
+                <a th:if="${currentPage < totalPages}"
+                   th:href="@{'/TherapistAppointmentTimes/Index/'+${currentPage + 1}+'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&doctorFIO='+${doctorFIO}}">Далее</a>
+                <span th:unless="${currentPage < totalPages}">Далее</span>
+            </div>
+            <div class="col-sm-1">
+                <a th:if="${currentPage < totalPages}"
+                   th:href="@{'/TherapistAppointmentTimes/Index/'+${totalPages}+'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&doctorFIO='+${doctorFIO}}">Последняя</a>
+                <span th:unless="${currentPage < totalPages}">Последняя</span>
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

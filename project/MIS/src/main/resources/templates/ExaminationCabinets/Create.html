@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head}"></head>
+<body style="margin-bottom: 60px" class="container-fluid">
+<header th:replace="~{fragments/header :: header}"></header>
+<div class="px-4 py-5 my-5 container-fluid">
+
+
+    <h1>Создать</h1>
+
+    <h4>Кабинет для обследований</h4>
+    <hr/>
+    <div class="row">
+        <div class="col-md-4">
+            <form action="#" th:action="@{/ExaminationCabinets/Create}" th:object="${examinationCabinet}" method="POST">
+                <div class="form-group">
+                    <label class="control-label">Название кабинета</label>
+<!--                    <input class="form-control" type="text" th:value="${patientId}" th:name="patient" th:id="patient" readonly/>-->
+                    <input class="form-control" type="text" th:field="*{name}"/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Номер кабинета</label>
+                    <input class="form-control" type="text" th:field="*{number}"/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Расписание</label>
+                    <input class="form-control" type="text" th:field="*{schedule}"/>
+                </div>
+                <div class="form-group">
+                    <p></p>
+                    <input type="submit" value="Создать" class="btn btn-primary"/>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a href="/ExaminationCabinets/Index">Назад к списку</a>
+    </div>
+
+</div>
+</body>
+</html>

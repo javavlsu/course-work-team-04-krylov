@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/head :: head}"></head>
+<body style="margin-bottom: 60px" class="container-fluid">
+<header th:replace="~{fragments/header :: header}"></header>
+
+<div class="px-4 py-5 my-5 container-fluid">
+<h1>Направления на обследование</h1>
+<p style="margin-top: 20px">
+  <a th:href="@{/{page}/Create(page=${currentPageLink})}" class="btn btn-secondary">Создать</a>
+</p>
+
+  <!--  Поиск  -->
+  <form th:replace="~{fragments/pagination :: search(page=${currentPageLink})}"></form>
+
+
+<table class="table">
+  <thead>
+  <tr>
+    <th>
+      <a th:replace="~{fragments/pagination :: link(page=${currentPageLink},  sortField='diagnosis.id', text='Диагноз')}"></a>
+    </th>
+    <th>
+      <a th:replace="~{fragments/pagination :: link(page=${currentPageLink},  sortField='doctor.lastName', text='Врач')}"></a>
+    </th>
+    <th>
+      <a th:replace="~{fragments/pagination :: link(page=${currentPageLink},  sortField='patient.lastName', text='Пациент')}"></a>
+    </th>
+<!--    <th>-->
+<!--      <a th:replace="~{fragments/pagination :: link(page='ExaminationReferrals',  sortField='functionalDiagnosticsDoctor.lastName', text='Врач функц. диагностики')}"></a>-->
+<!--    </th>-->
+    <th>
+      <a th:replace="~{fragments/pagination :: link(page=${currentPageLink},  sortField='cabinet.name', text='Название кабинета')}"></a>
+    </th>
+    <th>
+      <a th:replace="~{fragments/pagination :: link(page=${currentPageLink},  sortField='cabinet.number', text='Номер кабинета')}"></a>
+    </th>
+    <th>
+      <a th:replace="~{fragments/pagination :: link(page=${currentPageLink},  sortField='status', text='Статус')}"></a>
+    </th>
+
+    <th>
+      <a th:replace="~{fragments/pagination :: link(page=${currentPageLink},  sortField='dateOfIssue', text='Дата выписки')}"></a>
+    </th>
+
+    <th>
+      <a th:replace="~{fragments/pagination :: link(page=${currentPageLink},  sortField='dateOfTaking', text='Дата проведения')}"></a>
+    </th>
+    <th>
+      <a th:replace="~{fragments/pagination :: link(page=${currentPageLink},  sortField='whatToResearch', text='Что исследовать')}"></a>
+    </th>
+    <th>
+      <a th:replace="~{fragments/pagination :: link(page=${currentPageLink},  sortField='examinatoinCabinet.schedule', text='Расписание')}"></a>
+    </th>
+    <th>
+      <a th:replace="~{fragments/pagination :: link(page=${currentPageLink},  sortField='date', text='Дата записи')}"></a>
+    </th>
+    <th>
+      <a th:replace="~{fragments/pagination :: link(page=${currentPageLink},  sortField='time', text='Время записи')}"></a>
+    </th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="el : ${examinationReferrals}">
+    <td th:text="${el?.diagnosis?.ReturnIdAndDescription}?: ''"></td>
+    <td th:text="${el?.doctor?.ReturnFIOAndSpeciality}?: ''"></td>
+    <td th:text="${el?.patient?.ReturnFIOAndBirthDate}?: ''"></td>
+<!--    <td th:text="${el.functionalDiagnosticsDoctor.ReturnFIOAndBirthDate}"></td>-->
+    <td th:text="${el?.cabinet?.name}?: ''"></td>
+    <td th:text="${el?.cabinet?.number}?: ''"></td>
+    <td th:text="${el?.status}?: ''"></td>
+    <td th:text="${#temporals.format(el?.dateOfIssue, 'dd-MM-yyyy HH:mm')}"></td>
+    <td th:text="${#temporals.format(el?.dateOfTaking, 'dd-MM-yyyy HH:mm')}"></td>
+    <td th:text="${el?.whatToResearch}?: ''"></td>
+    <td th:text="${el?.cabinet?.schedule}?: ''"></td>
+    <td th:text="${el?.date}?: ''"></td>
+    <td th:text="${#dates.format(el?.time, 'HH:mm')}?: ''"></td>
+
+    <td>
+      <a th:href="@{/{page}/Edit/{id}(id=${el.id},page=${currentPageLink})}">Edit</a> |
+      <a th:href="@{/{page}/Details/{id}(id=${el.id},page=${currentPageLink})}">Details</a> |
+      <a th:href="@{/{page}/Delete/{id}(id=${el.id},page=${currentPageLink})}">Delete</a>
+      <div sec:authorize="hasAuthority('FunctionalDiagnosticsDoctor')">
+        | <a th:href="@{/{page}/CreateExamination/{id}(id=${el.id},page=${currentPageLink})}">Оформить обследование</a>
+      </div>
+    </td>
+  </tr>
+  </tbody>
+</table>
+  <div th:replace="~{fragments/pagination :: pages(page=${currentPageLink})}"></div>
+</div>
+
+<!--   Страницы    -->
+
+
+</body>
+</html>

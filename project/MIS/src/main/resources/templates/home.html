@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security"
+>
+<head th:replace="~{fragments/head :: head}"></head>
+<body style="margin-bottom: 60px" class="container-fluid">
+<header th:replace="~{fragments/header :: header}"></header>
+
+<div class="px-4 py-5 my-5 text-center">
+    <h1 class="display-5 fw-bold">Система МИС Владимирской Областной Поликлиники</h1>
+    <div class="col-lg-6 mx-auto">
+        <div sec:authorize="isAnonymous()">
+            <p class="lead mb-4">Для работы в системе необходимо зарегистрироваться или войти в аккаунт</p>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <a href="/Register" class="btn btn-primary btn-lg px-4 gap-3">Зарегистрироваться</a>
+                <a href="/Authenticate" class="btn btn-primary btn-lg px-4 gap-3">Войти</a>
+            </div>
+        </div>
+        <div sec:authorize="hasAuthority('CanRegisterAsPatient')">
+            <p class="lead mb-4">Для работы в системе как пациент необходимо подтвердить свои данные</p>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <a href="/Patients/Create" class="btn btn-primary btn-lg px-4 gap-3">Подтвердить данные</a>
+            </div>
+        </div>
+
+        <div sec:authorize="hasAuthority('CanRegisterAsDoctor')">
+            <p class="lead mb-4">Для работы в системе как врач необходимо подтвердить свои данные</p>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <a href="/Doctors/Create" class="btn btn-primary btn-lg px-4 gap-3">Подтвердить данные</a>
+            </div>
+        </div>
+
+        <div sec:authorize="hasAuthority('CanRegisterAsAssistant')">
+            <p class="lead mb-4">Для работы в системе как лаборант необходимо подтвердить свои данные</p>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <a href="/Assistants/Create" class="btn btn-primary btn-lg px-4 gap-3">Подтвердить данные</a>
+            </div>
+        </div>
+
+        <div sec:authorize="hasAuthority('CanRegisterAsFunctionalDiagnosticsDoctor')">
+            <p class="lead mb-4">Для работы в системе как врач функциональной диагностики необходимо подтвердить свои данные</p>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <a href="/FunctionalDiagnosticsDoctors/Create" class="btn btn-primary btn-lg px-4 gap-3">Подтвердить данные</a>
+            </div>
+        </div>
+
+        <div sec:authorize="hasAuthority('CanRegisterAsReceptionist')">
+            <p class="lead mb-4">Для работы в системе как пациент необходимо подтвердить свои данные</p>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <a href="/Patients/Create" class="btn btn-primary btn-lg px-4 gap-3">Подтвердить данные</a>
+            </div>
+        </div>
+        <div sec:authorize="hasAnyAuthority('Assistant','Admin')">
+            <h3 class="display-5 fw-bold">Лаборант</h3>
+            <p class="lead mb-4">Доступные Вам функции представлены ниже</p>
+            <div class="d-grid gap-2  justify-content-sm-center">
+                <a href="/AssistantAnalyses/Index" class="btn btn-primary btn-lg px-4 gap-3">Список анализов</a>
+<!--                <a href="/Analyses/Create" class="btn btn-primary btn-lg px-4 gap-3">Создать анализ</a>-->
+                <a href="/AssistantAnalysisReferrals/Index" class="btn btn-primary btn-lg px-4 gap-3">Список направлений на анализ</a>
+                <a href="/Patients/Index" class="btn btn-primary btn-lg px-4 gap-3">Список пациентов</a>
+            </div>
+        </div>
+
+        <div sec:authorize="hasAnyAuthority('FunctionalDiagnosticsDoctor','Admin')">
+            <h3 class="display-5 fw-bold">Врач функциональной диагностики</h3>
+            <p class="lead mb-4">Доступные Вам функции представлены ниже</p>
+            <div class="d-grid gap-2  justify-content-sm-center">
+                <a href="/FunctionalDoctorExaminations/Index" class="btn btn-primary btn-lg px-4 gap-3">Список обследований</a>
+<!--                <a href="/Examinations/Create" class="btn btn-primary btn-lg px-4 gap-3">Создать обследование</a>-->
+                <a href="/FunctionalDoctorExaminationReferrals/Index" class="btn btn-primary btn-lg px-4 gap-3">Список направлений на обследование</a>
+                <a href="/Patients/Index" class="btn btn-primary btn-lg px-4 gap-3">Список пациентов</a>
+            </div>
+        </div>
+
+        <div sec:authorize="hasAnyAuthority('Doctor','Admin')">
+            <h3 class="display-5 fw-bold">Доктор</h3>
+            <p class="lead mb-4">Доступные Вам функции представлены ниже</p>
+            <div class="d-grid gap-2 justify-content-sm-center">
+                <a href="/Patients/Index" class="btn btn-primary btn-lg px-4 gap-3">Список пациентов</a>
+                <a href="/Diagnoses/Index" class="btn btn-primary btn-lg px-4 gap-3">Справочник диагнозов</a>
+                <a href="/CurrentDoctorAppointments/Index" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть список всех заявлений</a>
+                <a href="/Inspections/Index" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть список осмотров</a>
+                <a href="/Inspections/Create" class="btn btn-primary btn-lg px-4 gap-3">Создать осмотр</a>
+                <a href="/AnalysisReferrals/Index" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть направления на анализ</a>
+                <a href="/AnalysisReferrals/Create" class="btn btn-primary btn-lg px-4 gap-3">Создать направление на анализ</a>
+                <a href="/ExaminationReferrals/Index" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть направления на обследование</a>
+                <a href="/ExaminationReferrals/Create" class="btn btn-primary btn-lg px-4 gap-3">Создать направление на обследование</a>
+                <a href="/DoctorReferrals/Index" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть направления к врачу</a>
+                <a href="/DoctorReferrals/Create" class="btn btn-primary btn-lg px-4 gap-3">Создать направление к врачу</a>
+            </div>
+        </div>
+
+        <div sec:authorize="hasAnyAuthority('Receptionist','Admin')">
+
+            <h3 class="display-5 fw-bold">Работник регистратуры</h3>
+            <p class="lead mb-4">Доступные Вам функции представлены ниже</p>
+            <div class="d-grid gap-2 justify-content-sm-center">
+                <a href="/Patients/Index" class="btn btn-primary btn-lg px-4 gap-3">Список пациентов</a>
+                <a href="/DoctorAppointments/Index" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть список всех заявок</a>
+            </div>
+        </div>
+
+        <div sec:authorize="hasAnyAuthority('Admin')">
+            <h3 class="display-5 fw-bold">Админ</h3>
+            <p class="lead mb-4">Доступные Вам функции представлены ниже</p>
+            <div class="d-grid gap-2 justify-content-sm-center">
+                <a href="/AssignUserToARole/Create" class="btn btn-primary btn-lg px-4 gap-3">Добавить роль пользователю</a>
+                <a href="/Assistants/Index" class="btn btn-primary btn-lg px-4 gap-3">Список лаборантов</a>
+                <a href="/FunctionalDiagnosticsDoctors/Index" class="btn btn-primary btn-lg px-4 gap-3">Список врачей функциональной диагностики</a>
+                <a href="/Receptionists/Index" class="btn btn-primary btn-lg px-4 gap-3">Список мед регистраторов</a>
+                <a href="/AnalysisCabinets/Index" class="btn btn-primary btn-lg px-4 gap-3">Список кабинетов для анализов</a>
+                <a href="/ExaminationCabinets/Index" class="btn btn-primary btn-lg px-4 gap-3">Список кабинетов для обследований</a>
+                <a href="/DoctorCabinets/Index" class="btn btn-primary btn-lg px-4 gap-3">Список кабинетов врачей</a>
+                <a href="/Doctors/Index" class="btn btn-primary btn-lg px-4 gap-3">Список врачей</a>
+                <a href="/TherapistAppointmentTimes/Index" class="btn btn-primary btn-lg px-4 gap-3">Список времени приема терапевтов</a>
+                <a href="/ExaminationCabinetReferralTimes/Index" class="btn btn-primary btn-lg px-4 gap-3">Список времени приема кабинетов функц. диагностикич</a>
+
+
+            </div>
+        </div>
+
+        <div sec:authorize="hasAnyAuthority('Patient','Admin')">
+
+            <h3 class="display-5 fw-bold">Пациент</h3>
+
+            <p class="lead mb-4">Доступные Вам функции представлены ниже</p>
+            <div class="d-grid gap-2 justify-content-sm-center">
+                <a href="/PatientProfile" class="btn btn-primary btn-lg px-4 gap-3">Мои данные</a>
+
+<!--                <a href="/DoctorReferralAppointments/Create" class="btn btn-primary btn-lg px-4 gap-3">Подать заявку на прием у врача по направлению</a>-->
+<!--                <a href="/DoctorReferralAppointments/Index" class="btn btn-primary btn-lg px-4 gap-3">Список всех заявок у врача по направлению</a>-->
+                <a href="/PatientDoctorAppointments/Create" class="btn btn-primary btn-lg px-4 gap-3">Подать заявку на первичный прием у терапевта</a>
+                <a href="/PatientDoctorAppointments/Index" class="btn btn-primary btn-lg px-4 gap-3">Заявки на первичный прием у терапевта</a>
+                <a href="/PatientAnalyses/Index" class="btn btn-primary btn-lg px-4 gap-3">Анализы</a>
+                <a href="/PatientExaminations/Index" class="btn btn-primary btn-lg px-4 gap-3">Обследования</a>
+                <a href="/PatientInspections/Index" class="btn btn-primary btn-lg px-4 gap-3">Осмотры</a>
+                <a href="/PatientExaminationReferrals/Index" class="btn btn-primary btn-lg px-4 gap-3">Направления на обследование</a>
+                <a href="/PatientAnalysisReferrals/Index" class="btn btn-primary btn-lg px-4 gap-3">Направления на анализ</a>
+                <a href="/PatientDoctorReferrals/Index" class="btn btn-primary btn-lg px-4 gap-3">Направления на прием у врача</a>
+                <a href="/Doctors/Index" class="btn btn-primary btn-lg px-4 gap-3">Врачи</a>
+<!--                -->
+<!--                <a href="/Doctors/Index" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть список врачей</a>-->
+<!--                <a href="/Inspections/Index" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть список осмотров</a>-->
+<!--                <a href="/AnalysisReferrals/Index" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть направления на анализ</a>-->
+<!--                <a href="/ExaminationReferrals/Index" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть направления на обследование</a>-->
+<!--                <a href="/Analyses/Index" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть анализы</a>-->
+<!--                <a href="/Examinations/Index" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть обследования</a>-->
+<!--                <a href="/DoctorReferrals/Index" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть направления к врачу</a>-->
+
+                <a href="/ExaminationCabinets/Index" class="btn btn-primary btn-lg px-4 gap-3">Кабинеты для обследования</a>
+                <a href="/AnalysisCabinets/Index" class="btn btn-primary btn-lg px-4 gap-3">Кабинеты для анализа</a>
+                <a href="/DoctorCabinets/Index" class="btn btn-primary btn-lg px-4 gap-3">Кабинеты врачей</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"-->
+<!--        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"-->
+<!--        crossorigin="anonymous"></script>-->
+<!--<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"-->
+<!--        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"-->
+<!--        crossorigin="anonymous"></script>-->
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"-->
+<!--        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"-->
+<!--        crossorigin="anonymous"></script>-->
+</body>
+</html>

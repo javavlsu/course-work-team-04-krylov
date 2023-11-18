@@ -1,0 +1,11 @@
+insert into role (name) values ('CanRegisterAsPatient'),
+                               ('CanRegisterAsDoctor'),
+                               ('CanRegisterAsAssistant'),
+                               ('CanRegisterAsFunctionalDiagnosticsDoctor'),
+                               ('CanRegisterAsReceptionist'),
+                               ('Patient'),
+                               ('Doctor'),
+                               ('Assistant'),
+                               ('FunctionalDiagnosticsDoctor'),
+                               ('Receptionist'),
+                               ('Admin');

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head}"></head>
+<body style="margin-bottom: 60px" class="container-fluid">
+<header th:replace="~{fragments/header :: header}"></header>
+
+<div class="px-4 py-5 my-5 container-fluid">
+
+    <h1>Изменить</h1>
+
+    <h4>Диагноз</h4>
+    <hr/>
+    <div class="row">
+        <div class="col-md-4">
+            <form action="#" th:action="@{/AnalysisReferrals/Edit}" th:object="${analysisReferral}" method="POST">
+                <div class="form-group">
+                    <label class="control-label">Id</label>
+                    <input class="form-control" type="text" th:field="*{id}" readonly/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Врач</label>
+                    <!--                    <input class="form-control" type="text" th:field="*{doctor.id}"/>-->
+                    <input class="form-control" type="text" th:id="doctor.id" th:name="doctor.id" th:value="${doctorId}"
+                           readonly required/>
+                    <p th:if="${#fields.hasErrors('doctor.id')}" class="text-danger" th:errors="*{doctor.id}"></p>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Диагноз</label>
+                    <!--                    <input class="form-control" type="text" th:field="*{diagnosis.id}"/>-->
+                    <select th:field="*{diagnosis.id}" id="diagnoses" class="form-control" required>
+                        <option value=""></option>
+                        <option th:each="diagnosis : ${diagnoses}" th:value="${diagnosis.id}"
+                                th:text="${diagnosis.ReturnIdAndDescription}"></option>
+                    </select>
+                    <p th:if="${#fields.hasErrors('diagnosis.id')}" class="text-danger" th:errors="*{diagnosis.id}"></p>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Пациент</label>
+                        <select th:field="*{patient}" id="patients" class="form-control" required>
+                            <option value=""></option>
+                            <option th:each="patient : ${patients}" th:value="${patient.id}"
+                                    th:text="${patient.ReturnFIOAndBirthDate}"></option>
+                        </select>
+                        <p th:if="${#fields.hasErrors('patient')}" class="text-danger" th:errors="*{patient}"></p>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Лаборатория</label>
+                    <!--                    <input class="form-control" type="text" th:field="*{cabinet}" required/>-->
+                    <select th:field="*{cabinet}" id="cabinets" class="form-control" required>
+                        <option value=""></option>
+                        <option th:each="cabinet : ${cabinets}" th:value="${cabinet.id}?: ''"
+                                th:text="${cabinet.ReturnNameAndNumber}?: ''"></option>
+                    </select>
+                    <p th:if="${#fields.hasErrors('cabinet')}" class="text-danger" th:errors="*{cabinet}"></p>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Статус</label>
+                    <!--                    <input class="form-control" type="text" th:field="*{status}"/>-->
+                    <input class="form-control" type="text" th:field="*{status}"/>
+
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Дата создания</label>
+                    <input class="form-control" type="datetime-local" th:field="*{dateOfIssue}"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Что исследовать</label>
+                    <input class="form-control" type="text" th:field="*{whatToResearch}" required/>
+                    <p th:if="${#fields.hasErrors('whatToResearch')}" class="text-danger"
+                       th:errors="*{whatToResearch}"></p>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Дата проведения</label>
+                    <input class="form-control" type="datetime-local" th:field="*{dateOfTaking}"/>
+                </div>
+                <div class="form-group">
+                    <p></p>
+                    <input type="submit" value="Обновить" class="btn btn-primary"/>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a href="/AnalysisReferrals/Index">Назад к списку</a>
+    </div>
+</div>
+<div th:replace="~{fragments/ajaxImports :: ajaxScripts}"></div>
+
+<script>
+    $(document).ready(function () {
+        $("#patients").select2({
+            placeholder: "Выберите пациента",
+            theme: "bootstrap4",
+            allowClear: true
+        });
+        $("#diagnoses").select2({
+            placeholder: "Выберите диагноз",
+            theme: "bootstrap4",
+            allowClear: true
+        });
+        $("#cabinets").select2({
+            placeholder: "Выберите лабораторию",
+            theme: "bootstrap4",
+            allowClear: true
+        });
+    });
+</script>
+</body>
+</html>

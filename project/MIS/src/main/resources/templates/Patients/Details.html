@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security"
+>
+<head th:replace="~{fragments/head :: head}"></head>
+<body style="margin-bottom: 60px" class="container-fluid">
+<header th:replace="~{fragments/header :: header}"></header>
+<div class="px-4 py-5 my-5 container-fluid">
+
+
+    <h1>Информация</h1>
+
+    <div th:object="${patient}">
+        <h4>Пациент</h4>
+        <hr/>
+        <div class="row">
+            <div class="col-sm">
+
+
+                <dl class="row" style="width: 160%">
+<!--                    <dt class="col-sm-2">Id</dt>-->
+<!--                    <dd class="col-sm-10" th:utext="*{id}"></dd>-->
+
+                    <dt class="col-sm-2">Фамилия</dt>
+                    <dd class="col-sm-10" th:utext="*{lastName}"></dd>
+
+                    <dt class="col-sm-2">Имя</dt>
+                    <dd class="col-sm-10" th:utext="*{firstName}"></dd>
+
+                    <dt class="col-sm-2">Отчество</dt>
+                    <dd class="col-sm-10" th:utext="*{middleName}"></dd>
+
+                    <dt class="col-sm-2">Дата рождения</dt>
+                    <dd class="col-sm-10" th:utext="*{birthDate}"></dd>
+
+                    <dt class="col-sm-2">Полис</dt>
+                    <dd class="col-sm-10" th:utext="*{polisId}"></dd>
+
+                    <dt class="col-sm-2">Компания полиса</dt>
+                    <dd class="col-sm-10" th:utext="*{poilsCompany}"></dd>
+
+                    <dt class="col-sm-2">Дата конца полиса</dt>
+                    <dd class="col-sm-10" th:utext="*{polisEndDate}"></dd>
+
+                    <dt class="col-sm-2">СНИЛС</dt>
+                    <dd class="col-sm-10" th:utext="*{snilsNumber}"></dd>
+
+                    <dt class="col-sm-2">Домашний адрес</dt>
+                    <dd class="col-sm-10" th:utext="*{homeAddress}"></dd>
+
+                    <dt class="col-sm-2">Место работы</dt>
+                    <dd class="col-sm-10" th:utext="*{workPlace}"></dd>
+
+                    <dt class="col-sm-2">Должность</dt>
+                    <dd class="col-sm-10" th:utext="*{workPosition}"></dd>
+                </dl>
+
+
+                <div>
+                    <!--                    <a th:href="@{/Patients/Edit/{id}(id=${id})}">Редактировать</a> |-->
+                    <div sec:authorize="hasAnyAuthority('Doctor')">
+                        <a href="/Patients/Index">Назад к списку</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm" style="width: 10%">
+                <!--                <div sec:authorize="hasAnyAuthority('Patient')">-->
+                <div th:if="${ownProfile} == true ">
+                    <div class="d-grid gap-2 justify-content-sm-center">
+<!--                        <a href="/PatientAnalyses/Index" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть список-->
+<!--                            анализов</a>-->
+<!--                        <a href="/PatientExaminations/Index" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть список-->
+<!--                            обследований</a>-->
+<!--                        <a href="/PatientInspections/Index" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть список-->
+<!--                            осмотров</a>-->
+<!--                        <a href="/PatientDoctorAppointments/Index" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть-->
+<!--                            список заявок на первичный осмотр</a>-->
+<!--                        <a href="/PatientDoctorReferralAppointments/Index" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть-->
+<!--                            список заявок на осмотр</a>-->
+<!--                        <a href="/PatientExaminationReferrals/Index" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть-->
+<!--                            список направлений на обследование</a>-->
+<!--                        <a href="/PatientAnalysisReferrals/Index" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть-->
+<!--                            список направлений на анализ</a>-->
+<!--                        <a href="/PatientDoctorReferrals/Index" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть-->
+<!--                            список направлений на прием у врача</a>-->
+                        <a href="/PatientDoctorAppointments/Create" class="btn btn-primary btn-lg px-4 gap-3">Подать заявку на первичный прием у терапевта</a>
+                        <a href="/PatientDoctorAppointments/Index" class="btn btn-primary btn-lg px-4 gap-3">Заявки на первичный прием у терапевта</a>
+                        <a href="/PatientAnalyses/Index" class="btn btn-primary btn-lg px-4 gap-3">Анализы</a>
+                        <a href="/PatientExaminations/Index" class="btn btn-primary btn-lg px-4 gap-3">Обследования</a>
+                        <a href="/PatientInspections/Index" class="btn btn-primary btn-lg px-4 gap-3">Осмотры</a>
+                        <a href="/PatientExaminationReferrals/Index" class="btn btn-primary btn-lg px-4 gap-3">Направления на обследование</a>
+                        <a href="/PatientAnalysisReferrals/Index" class="btn btn-primary btn-lg px-4 gap-3">Направления на анализ</a>
+                        <a href="/PatientDoctorReferrals/Index" class="btn btn-primary btn-lg px-4 gap-3">Направления на прием у врача</a>
+                    </div>
+                </div>
+                <div th:if="${ownProfile} == false " sec:authorize="hasAnyAuthority('Admin','Doctor')">
+                    <div class="d-grid gap-2 justify-content-sm-center">
+                        <!--                        <a th:href="@{'/Analyses/Index/1?'+'sortField='+'date'+'&'+'sortDir=desc'+'&'+'patientFIO='+${patient.lastName}+'+'+${patient.firstName}+'+'+${patient.middleName}+'&'+'patientBirthDate='}" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть список-->
+                        <a th:href="@{'/Analyses/Index/1?'+'sortField='+'date'+'&'+'sortDir=desc'+'&'+'patientFIO='+${patient.getFIOForRequest}+'&'+'patientBirthDate='+${patient.getBirthDateForRequest}}"
+                           class="btn btn-primary btn-lg px-4 gap-3">Посмотреть список анализов</a>
+                        <!--                        <a href="/Examinations/Index" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть список-->
+                        <a th:href="@{'/Examinations/Index/1?'+'sortField='+'date'+'&'+'sortDir=desc'+'&'+'patientFIO='+${patient.getFIOForRequest}+'&'+'patientBirthDate='+${patient.getBirthDateForRequest}}"
+                           class="btn btn-primary btn-lg px-4 gap-3">Посмотреть список обследований</a>
+                        <!--                        <a href="/Inspections/Index" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть список-->
+                        <a th:href="@{'/Inspections/Index/1?'+'sortField='+'date'+'&'+'sortDir=desc'+'&'+'patientFIO='+${patient.getFIOForRequest}+'&'+'patientBirthDate='+${patient.getBirthDateForRequest}}"
+                           class="btn btn-primary btn-lg px-4 gap-3">Посмотреть список осмотров</a>
+                        <!--                        <a href="/DoctorAppointments/Index" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть-->
+                        <a th:href="@{'/CurrentDoctorAppointments/Index/1?'+'sortField='+'date'+'&'+'sortDir=desc'+'&'+'patientFIO='+${patient.getFIOForRequest}+'&'+'patientBirthDate='+${patient.getBirthDateForRequest}+'&status=Создана'}"
+                           class="btn btn-primary btn-lg px-4 gap-3">Посмотреть список заявок на первичный осмотр</a>
+                        <!--                        <a href="/DoctorReferralAppointments/Index" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть-->
+                        <a th:href="@{'/DoctorReferralAppointments/Index/1?'+'sortField='+'dateTime'+'&'+'sortDir=desc'+'&'+'patientFIO='+${patient.getFIOForRequest}+'&'+'patientBirthDate='+${patient.getBirthDateForRequest}+'&status=Подтверждена%20регистратурой'}"
+                           class="btn btn-primary btn-lg px-4 gap-3">Посмотреть список заявок на осмотр</a>
+                        <!--                        <a href="/ExaminationReferrals/Index" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть-->
+                        <a th:href="@{'/ExaminationReferrals/Index/1?'+'sortField='+'dateOfTaking'+'&'+'sortDir=desc'+'&'+'patientFIO='+${patient.getFIOForRequest}+'&'+'patientBirthDate='+${patient.getBirthDateForRequest}}"
+                           class="btn btn-primary btn-lg px-4 gap-3">Посмотреть список направлений на обследование</a>
+                        <!--                        <a href="/AnalysisReferrals/Index" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть-->
+                        <a th:href="@{'/AnalysisReferrals/Index/1?'+'sortField='+'dateOfTaking'+'&'+'sortDir=desc'+'&'+'patientFIO='+${patient.getFIOForRequest}+'&'+'patientBirthDate='+${patient.getBirthDateForRequest}}"
+                           class="btn btn-primary btn-lg px-4 gap-3">Посмотреть список направлений на анализ</a>
+                        <!--                        <a href="/DoctorReferrals/Index" class="btn btn-primary btn-lg px-4 gap-3">Посмотреть-->
+                        <a th:href="@{'/AnalysisReferrals/Index/1?'+'sortField='+'dateOfTaking'+'&'+'sortDir=desc'+'&'+'patientFIO='+${patient.getFIOForRequest}+'&'+'patientBirthDate='+${patient.getBirthDateForRequest}}"
+                           class="btn btn-primary btn-lg px-4 gap-3">Посмотреть список направлений на прием у врача</a>
+
+                        <p></p>
+                        <a th:href="@{'/Inspections/Create/'+${patient.id}}"
+                           class="btn btn-success btn-lg px-4 gap-3">Создать осмотр</a>
+
+                        <a th:href="@{'/AnalysisReferrals/Create/'+${patient.id}}"
+                           class="btn btn-success btn-lg px-4 gap-3">Создать направление на анализ</a>
+
+                        <a th:href="@{'/ExaminationReferrals/Create/'+${patient.id}}"
+                           class="btn btn-success btn-lg px-4 gap-3">Создать направление на обследование</a>
+
+                        <a th:href="@{'/DoctorReferrals/Create/'+${patient.id}}"
+                           class="btn btn-success btn-lg px-4 gap-3">Создать направление ко врачу</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

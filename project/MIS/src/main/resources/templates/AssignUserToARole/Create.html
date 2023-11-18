@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head}"></head>
+<body style="margin-bottom: 60px" class="container-fluid">
+<header th:replace="~{fragments/header :: header}"></header>
+
+<div class="px-4 py-5 my-5 container-fluid">
+    <h1>Присвоить роль</h1>
+
+    <hr/>
+    <div class="row">
+        <div class="col-md-4">
+            <form action="#" th:action="@{/AssignUserToARole/Create}" th:object="${roleAssigment}" method="POST">
+                <div class="form-group">
+                    <label class="control-label">Пользователь</label>
+                    <select th:field="*{userId}" id="users" class="form-control">
+                        <option th:value="-1" selected>==Выберите пользователя==</option>
+                        <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.email}"></option>
+                    </select>
+
+                    <!--                <input class="form-control" type="text" th:field = "*{polyclinicUser.id}"/>-->
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Роль</label>
+                    <select th:field="*{roleId}" id="roles" class="form-control">
+                        <option th:value="-1" selected>==Выберите роль==</option>
+                        <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}"></option>
+                    </select>
+                    <!--                <input class="form-control" type="text" th:field = "*{role.id}"/>-->
+                </div>
+                <div class="form-group">
+                    <p></p>
+                    <input type="submit" value="Create" class="btn btn-primary"/>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a href="/">Главная страница</a>
+    </div>
+</div>
+
+</div>
+<div th:replace="~{fragments/ajaxImports :: ajaxScripts}"></div>
+
+<script>
+    $(document).ready(function () {
+        $("#users").select2({
+            placeholder: "Выберите пользователя",
+            theme: "bootstrap4",
+            allowClear: true
+        });
+        $("#roles").select2({
+            placeholder: "Выберите роль",
+            theme: "bootstrap4",
+            allowClear: true
+        });
+    });
+</script>
+</body>
+</html>

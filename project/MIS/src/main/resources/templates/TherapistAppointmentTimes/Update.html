@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head}"></head>
+<body style="margin-bottom: 60px" class="container-fluid">
+<header th:replace="~{fragments/header :: header}"></header>
+<div class="px-4 py-5 my-5 container-fluid">
+
+
+    <h1>Изменить</h1>
+
+    <h4>Время приема врача</h4>
+    <hr/>
+    <div class="row">
+        <div class="col-md-4">
+            <form action="#" th:action="@{/TherapistAppointmentTimes/Edit}" th:object="${therapistAppointmentTime}" method="POST">
+                <div class="form-group">
+                    <label class="control-label">Id</label>
+                    <input class="form-control" type="text" th:field="*{id}" readonly/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Врач</label>
+                    <input class="form-control" type="text" th:field="*{doctor.id}" required/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Время</label>
+                    <input class="form-control" type="time" th:field="*{timeString}" required/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">День недели</label>
+                    <select th:field="*{dayOfTheWeek}" id="daysOfTheWeek" class="form-control" required>
+                        <option value=""></option>
+                        <option value="Понедельник">Понедельник</option>
+                        <option value="Вторник">Вторник</option>
+                        <option value="Среда">Среда</option>
+                        <option value="Четверг">Четверг</option>
+                        <option value="Пятница">Пятница</option>
+                        <option value="Суббота">Суббота</option>
+                        <option value="Воскресенье">Воскресенье</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <p></p>
+                    <input type="submit" value="Обновить" class="btn btn-primary"/>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a href="/TherapistAppointmentTimes/Index">Назад к списку</a>
+    </div>
+</div>
+<div th:replace="~{fragments/ajaxImports :: ajaxScripts}"></div>
+
+<script>
+    $(document).ready(function () {
+        $("#daysOfTheWeek").select2({
+            theme: "bootstrap4",
+            placeholder: "Выберите день недели",
+            allowClear: true
+        });
+    });
+</script>
+</body>
+</html>
