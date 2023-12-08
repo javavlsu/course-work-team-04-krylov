@@ -2,6 +2,7 @@ package com.polyclinic.mis.repository;
 
 import com.polyclinic.mis.models.Analysis;
 import com.polyclinic.mis.models.AnalysisReferral;
+import com.polyclinic.mis.models.Examination;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -29,4 +30,7 @@ public interface AnalysisRepository extends JpaRepository<Analysis,Long> {
 
     @Query("SELECT a from Analysis as a where a.analysisReferral.cabinet.id=:cabinetId")
     public Page<Analysis> findForCabinetNoSearch(long cabinetId, Pageable pageable);
+
+    @Query("SELECT a from Analysis as a where a.patient.id = :patientId order by a.date desc ")
+    public List<Analysis> findForOnePatient(long patientId);
 }

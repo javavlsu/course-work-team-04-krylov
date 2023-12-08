@@ -49,9 +49,18 @@ public class PatientServiceImpl implements PatientService {
         return patientRepository.findById(id);
     }
 
+    public Optional<Patient> getByEmail(String email){
+        PolyclinicUser polyclinicUser = polyclinicUserService.getByEmail(email);
+        return patientRepository.findByUserId(polyclinicUser.getId());
+    }
+
     @Override
     public void delete(Long id) {
         patientRepository.deleteById(id);
+    }
+
+    public void update(Patient patient){
+        patientRepository.saveAndFlush(patient);
     }
 
     @Override

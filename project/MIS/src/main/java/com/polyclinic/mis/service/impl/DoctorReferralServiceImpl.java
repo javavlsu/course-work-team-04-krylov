@@ -91,4 +91,8 @@ public class DoctorReferralServiceImpl implements DoctorReferralService {
         return doctorReferralRepository.findForOnePatient(patient.getId(),pageable);
 
     }
+    public List<DoctorReferral> getPatientDoctorReferrals (Patient patient){
+        List<DoctorReferral> doctorReferrals = doctorReferralRepository.findForOnePatient(patient.getId());
+        return doctorReferrals;
+    }
 }

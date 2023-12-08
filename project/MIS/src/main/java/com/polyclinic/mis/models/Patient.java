@@ -45,7 +45,7 @@ public class Patient {
     private Date polisEndDate;
     //Тут
     @NotNull(message = "Поле Номер СНИЛС не может быть пустым")
-    @Pattern(regexp = "^\\d{3}-\\d{3}-\\d{3} \\d{2}$", message = "Введите полис в формате '123-123-123 12'")
+    @Pattern(regexp = "^\\d{3}-\\d{3}-\\d{3} \\d{2}$", message = "Введите снилс в формате '123-123-123 12'")
     private String  snilsNumber;
     private String homeAddress;
     private String workPlace;

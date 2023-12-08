@@ -90,4 +90,9 @@ public class InspectionServiceImpl implements InspectionService {
         return inspectionRepository.findForOnePatient(patient.getId(),pageable);
 
     }
+
+    public List<Inspection> getPatientInspections(Patient patient){
+        List<Inspection> inspections = inspectionRepository.findForOnePatient(patient.getId());
+        return inspections;
+    }
 }

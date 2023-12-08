@@ -1,9 +1,6 @@
 package com.polyclinic.mis.repository;
 
-import com.polyclinic.mis.models.AnalysisReferral;
-import com.polyclinic.mis.models.DoctorAppointment;
-import com.polyclinic.mis.models.Examination;
-import com.polyclinic.mis.models.ExaminationReferral;
+import com.polyclinic.mis.models.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -38,4 +35,7 @@ public interface ExaminationReferralRepository extends JpaRepository<Examination
 
     @Query("SELECT a from ExaminationReferral as a where a.cabinet.id=:cabinetId")
     public Page<ExaminationReferral> findForCabinetNoSearch(long cabinetId, Pageable pageable);
+
+    @Query("SELECT a from ExaminationReferral as a where a.patient.id = :patientId order by a.dateOfIssue desc ")
+    public List<ExaminationReferral> findForOnePatient(long patientId);
 }

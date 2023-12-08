@@ -9,6 +9,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface DoctorReferralRepository extends JpaRepository<DoctorReferral,Long> {
 
@@ -17,4 +19,8 @@ public interface DoctorReferralRepository extends JpaRepository<DoctorReferral,L
 
     @Query("SELECT a from DoctorReferral as a where a.patient.id = :patientId")
     public Page<DoctorReferral> findForOnePatient(long patientId, Pageable pageable);
+
+    //todo Заменить на date
+    @Query("SELECT a from DoctorReferral as a where a.patient.id = :patientId order by a.dateOfTaking desc ")
+    public List<DoctorReferral> findForOnePatient(long patientId);
 }

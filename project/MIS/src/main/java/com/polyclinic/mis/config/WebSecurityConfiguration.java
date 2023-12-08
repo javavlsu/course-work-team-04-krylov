@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -22,6 +23,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
+@EnableMethodSecurity
 public class WebSecurityConfiguration {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -82,7 +84,8 @@ public class WebSecurityConfiguration {
                         "/ExaminationCabinets/**",
                         "/DoctorCabinets/**",
                         "/DoctorAppointmentTimes/**",
-                        "/TherapistAppointmentTimes/**"
+                        "/TherapistAppointmentTimes/**",
+                        "/DoctorReferrals/**"
                         )
 
                 .authorizeHttpRequests()
@@ -228,6 +231,7 @@ public class WebSecurityConfiguration {
                 .requestMatchers("/PatientDoctorReferrals/Details/**").hasAnyAuthority("Patient", "Admin")
                 .requestMatchers("/PatientDoctorReferrals/Index/**").hasAnyAuthority("Patient", "Admin")
                 .requestMatchers("/DoctorReferrals/Create").hasAnyAuthority("Doctor", "Admin")
+                .requestMatchers("/DoctorReferrals/Create/**").hasAnyAuthority("Doctor", "Admin")
                 .requestMatchers("/DoctorReferrals/Edit/**").hasAnyAuthority("Doctor", "Admin")
                 .requestMatchers("/DoctorReferrals/Delete/**").hasAnyAuthority("Admin")
 
@@ -370,8 +374,12 @@ public class WebSecurityConfiguration {
                 .authorizeHttpRequests()
                 .requestMatchers("/api/auth/**")
                 .permitAll()
+
+//                .requestMatchers("/api/**").permitAll()
+
                 .anyRequest()
                 .authenticated()
+
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

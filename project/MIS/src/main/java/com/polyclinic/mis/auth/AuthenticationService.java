@@ -30,11 +30,13 @@ public class AuthenticationService {
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .roles(Set.of(roleRepository.findByName("CanRegisterAsPatient").get()))
+                .active(true)
                 .build();
         polyclinicUserRepository.save(user);
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
+                .email(user.getEmail())
                 .build();
     }
 
@@ -48,6 +50,7 @@ public class AuthenticationService {
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
+                .email(user.getEmail())
                 .build();
     }
 }

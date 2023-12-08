@@ -2,12 +2,15 @@ package com.polyclinic.mis.repository;
 
 import com.polyclinic.mis.models.Analysis;
 import com.polyclinic.mis.models.Examination;
+import com.polyclinic.mis.models.Inspection;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface ExaminationRepository extends JpaRepository<Examination,Long> {
@@ -23,5 +26,8 @@ public interface ExaminationRepository extends JpaRepository<Examination,Long> {
 
     @Query("SELECT a from Examination as a where a.examinationReferral.cabinet.id=:cabinetId")
     public Page<Examination> findForCabinetNoSearch(long cabinetId, Pageable pageable);
+
+    @Query("SELECT a from Examination as a where a.patient.id = :patientId order by a.date desc ")
+    public List<Examination> findForOnePatient(long patientId);
 
 }

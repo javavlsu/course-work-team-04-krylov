@@ -5,6 +5,7 @@ import com.polyclinic.mis.models.Doctor;
 import com.polyclinic.mis.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,21 +19,16 @@ public class AuthenticationRestController {
     DoctorService doctorService;
 
     @GetMapping("/test")
+//    @PreAuthorize("hasAnyRole('Assistant')")
+
     public String testEndpoint(){
         return "test";
     }
-    @GetMapping("/doctors")
-    public List<Doctor> doctorsGetAll(){
-//
-//        List<Doctor> doctorList = doctorService.getAll();
-        return doctorService.getAll();
-
-
+    @PostMapping("/checkAuthentication")
+    public Boolean checkAuthentication(){
+        return true;
     }
-    @GetMapping("/doctors/{id}")
-    public Doctor doctorGetById(@PathVariable long id){
-        return doctorService.getById(id).get();
-    }
+
 //    @PostMapping("/user/register")
 //    public ResponseEntity register(@RequestParam(value = "email", required = true)String email,
 //                                   @RequestParam(value = "password", required = true)String password){

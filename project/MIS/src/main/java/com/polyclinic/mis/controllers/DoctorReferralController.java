@@ -1,9 +1,6 @@
 package com.polyclinic.mis.controllers;
 
-import com.polyclinic.mis.models.Analysis;
-import com.polyclinic.mis.models.AnalysisReferral;
-import com.polyclinic.mis.models.Doctor;
-import com.polyclinic.mis.models.DoctorReferral;
+import com.polyclinic.mis.models.*;
 import com.polyclinic.mis.service.impl.AnalysisReferralServiceImpl;
 import com.polyclinic.mis.service.impl.DoctorReferralServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -97,6 +95,35 @@ public class DoctorReferralController {
         model.addAttribute("doctorReferral",doctorReferral);
         return "/DoctorReferrals/Create";
     }
+
+
+    //todo Форму создания направления ко врачу
+//    @GetMapping("/DoctorReferrals/Create/{patientId}")
+//    public String ShowCreate(@PathVariable(required = false) Long patientId,Model model){
+//        DoctorReferral doctorReferral = new DoctorReferral();
+//        model.addAttribute("doctorReferral",doctorReferral);
+//
+//        var diagnoses = diagnosisService.getAll();
+//        model.addAttribute("diagnoses",diagnoses);
+//
+//        Doctor doctor = doctorService.currentDoctor();
+//        model.addAttribute("doctorId",doctor.getId());
+////        model.addAttribute("currentStatus","Выписано");
+//
+//        LocalDate startOfAppointment = LocalDate.now();
+//        model.addAttribute("startOfAppointment",startOfAppointment);
+//        LocalDate endOfAppointment = LocalDate.now().plusDays(7);
+//        model.addAttribute("endOfAppointment",endOfAppointment);
+//
+//        var cabinets = examinationCabinetService.getAll();
+//        model.addAttribute("cabinets", cabinets);
+//
+//
+//        model.addAttribute("appointmentTaken", false);
+//
+//
+//        return "/ExaminationReferrals/Create";
+//    }
     @PostMapping("/DoctorReferrals/Create")
     public String Create(@ModelAttribute("doctorReferral")DoctorReferral doctorReferral){
         doctorReferralService.add(doctorReferral);

@@ -16,7 +16,7 @@ public interface DoctorService {
     void delete(Long id);
     Doctor edit(Doctor doctor);
     List<Doctor> getAll();
-
+    List<Doctor> getAllTherapists();
     Page<Doctor> findPaginated(int pageNumber, int pageSize, String sortField, String sortDirection, String fio, String speciality);
 
     String[] getAllSpecialities();

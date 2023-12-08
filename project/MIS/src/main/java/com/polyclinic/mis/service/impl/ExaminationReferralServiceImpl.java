@@ -134,6 +134,9 @@ public class ExaminationReferralServiceImpl implements ExaminationReferralServic
         return examinationReferralRepository.findForCabinetNoSearch(functionalDiagnosticsDoctor.getCabinet().getId(),pageable);
     }
 
-
+    public List<ExaminationReferral> getPatientExaminationReferrals (Patient patient){
+        List<ExaminationReferral> examinationReferrals = examinationReferralRepository.findForOnePatient(patient.getId());
+        return examinationReferrals;
+    }
 
 }

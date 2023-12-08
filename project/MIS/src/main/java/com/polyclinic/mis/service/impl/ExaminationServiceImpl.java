@@ -2,6 +2,7 @@ package com.polyclinic.mis.service.impl;
 
 import com.polyclinic.mis.models.Analysis;
 import com.polyclinic.mis.models.Examination;
+import com.polyclinic.mis.models.Inspection;
 import com.polyclinic.mis.models.Patient;
 import com.polyclinic.mis.repository.ExaminationRepository;
 import com.polyclinic.mis.service.ExaminationService;
@@ -124,6 +125,10 @@ public class ExaminationServiceImpl implements ExaminationService {
             return examinationRepository.findForCabinet("","","",birthDate,functionalDiagnosticsDoctor.getCabinet().getId(),pageable);
         }
         return examinationRepository.findForCabinetNoSearch(functionalDiagnosticsDoctor.getCabinet().getId(),pageable);
+    }
+    public List<Examination> getPatientExaminations(Patient patient){
+        List<Examination> examinations = examinationRepository.findForOnePatient(patient.getId());
+        return examinations;
     }
 
 }

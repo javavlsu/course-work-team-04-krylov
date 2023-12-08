@@ -31,13 +31,17 @@ public class DoctorReferral {
     @ManyToOne
     @NotNull(message = "Поле Врач к кому выписано направление не может быть пустым")
     private Doctor doctorTarget;
+    //todo Удалить поле. Номер кабинета брать из врача
     private String cabinetNum;
     private String status;
 
+//todo Заменить на date или добавить во все направления дату выписки и дату проведения. Сортировать по дате выписки. Показывать дату выписки
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime dateOfTaking;
     @NotNull(message = "Поле Что обследовать не может быть пустым")
     private String whatToResearch;
+
+    //todo Удалить поле. Брать расписание от кабинета врача
     private String schedule;
 
     public DoctorReferral(Diagnosis diagnosis, Doctor doctorInitial, Patient patient, Doctor doctorTarget, String cabinetNum, String status, LocalDateTime dateOfTaking, String whatToResearch, String schedule) {

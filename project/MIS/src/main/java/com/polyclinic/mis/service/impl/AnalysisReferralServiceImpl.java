@@ -2,6 +2,8 @@ package com.polyclinic.mis.service.impl;
 
 import com.polyclinic.mis.models.Analysis;
 import com.polyclinic.mis.models.AnalysisReferral;
+import com.polyclinic.mis.models.ExaminationReferral;
+import com.polyclinic.mis.models.Patient;
 import com.polyclinic.mis.repository.AnalysisReferralRepository;
 import com.polyclinic.mis.service.AnalysisReferralService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -129,5 +131,9 @@ public class AnalysisReferralServiceImpl implements AnalysisReferralService {
         return analysisReferralRepository.findForCabinetNoSearch(assistant.getCabinet().getId(),pageable);
     }
 
+    public List<AnalysisReferral> getPatientAnalysisReferrals (Patient patient){
+        List<AnalysisReferral> analysisReferrals = analysisReferralRepository.findForOnePatient(patient.getId());
+        return analysisReferrals;
+    }
 
 }
