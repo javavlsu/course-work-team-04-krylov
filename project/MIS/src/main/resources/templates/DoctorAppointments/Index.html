@@ -8,11 +8,14 @@
 
 <div class="px-4 py-5 my-5 container-fluid">
 
-    <h1>Заявки на прием ко врачу</h1>
+    <h1>Записи на прием ко врачу</h1>
 
-    <p style="margin-top: 20px">
-        <a href="/DoctorAppointments/Create" class="btn btn-secondary">Записаться</a>
-    </p>
+    <div sec:authorize="hasAuthority('Patient')">
+        <p style="margin-top: 20px">
+            <a href="/DoctorAppointments/Create" class="btn btn-secondary">Записаться</a>
+        </p>
+    </div>
+
     <!--    Поиск-->
     <form method="get" th:action="'/'+${currentPageLink}+'/Index/1'">
 
@@ -24,7 +27,7 @@
         <p>Год рождения пациента/Дата рождения пациента</p>
         <input type="search" name="patientBirthDate" style="width:300px;" placeholder="yyyy / yyyy mm / yyyy mm dd"
                th:value="${patientBirthDate}"/>
-        <input type="submit" value="Search" class="btn btn-primary"/>
+        <input type="submit" value="Поиск" class="btn btn-primary"/>
         <!--        <a th:href="@{'/DoctorAppointments/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&patientFIO='+'&patientBirthDate='+'&status='}">Получить-->
         <!--            список всех пациентов</a>-->
 
@@ -61,6 +64,10 @@
        th:href="@{'/'+${currentPageLink}+'/Index/'+${currentPage}+'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate='+${patientBirthDate}+'&status=Использована'}">
         Использована
     </a>
+    <a class="btn btn-primary"
+       th:href="@{'/'+${currentPageLink}+'/Index/'+${currentPage}+'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate='+${patientBirthDate}+'&status=Отменена'}">
+       Отменена
+    </a>
 
     <table class="table">
         <thead>
@@ -70,11 +77,11 @@
                     <span>Пациент</span>
                 </a>
             </th>
-            <th>
-                <a th:href="@{'/'+${currentPageLink}+'/Index/'+${currentPage}+'?sortField=date&sortDir='+${reverseSortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate='+${patientBirthDate}+'&status='+${status}}">
-                    <span>Дата записи</span>
-                </a>
-            </th>
+<!--            <th>-->
+<!--                <a th:href="@{'/'+${currentPageLink}+'/Index/'+${currentPage}+'?sortField=date&sortDir='+${reverseSortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate='+${patientBirthDate}+'&status='+${status}}">-->
+<!--                    <span>Дата записи</span>-->
+<!--                </a>-->
+<!--            </th>-->
             <th>
                 <a th:href="@{'/'+${currentPageLink}+'/Index/'+${currentPage}+'?sortField=status&sortDir='+${reverseSortDir}+'&patientFIO='+${patientFIO}+'&patientBirthDate='+${patientBirthDate}+'&status='+${status}}">
                     <span>Статус</span>

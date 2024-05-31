@@ -85,7 +85,8 @@ public class WebSecurityConfiguration {
                         "/DoctorCabinets/**",
                         "/DoctorAppointmentTimes/**",
                         "/TherapistAppointmentTimes/**",
-                        "/DoctorReferrals/**"
+                        "/DoctorReferrals/**",
+                        "/logout"
                         )
 
                 .authorizeHttpRequests()
@@ -352,7 +353,7 @@ public class WebSecurityConfiguration {
                 .passwordParameter("password")
                 .and().logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout")).deleteCookies("JSESSIONID")
-//                .logoutSuccessUrl("/")
+                .logoutSuccessUrl("/")
 //                .and().exceptionHandling()
 //                .accessDeniedHandler(accessDeniedHandler())
 

@@ -1,8 +1,11 @@
 package com.polyclinic.mis.controllers;
 
 import com.polyclinic.mis.models.*;
+import com.polyclinic.mis.service.DoctorCabinetService;
 import com.polyclinic.mis.service.impl.AnalysisReferralServiceImpl;
+import com.polyclinic.mis.service.impl.DiagnosisServiceImpl;
 import com.polyclinic.mis.service.impl.DoctorReferralServiceImpl;
+import com.polyclinic.mis.service.impl.DoctorServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -17,6 +20,12 @@ import java.util.Optional;
 public class DoctorReferralController {
     @Autowired
     DoctorReferralServiceImpl doctorReferralService;
+    @Autowired
+    DiagnosisServiceImpl diagnosisService;
+    @Autowired
+    DoctorServiceImpl doctorService;
+    @Autowired
+    DoctorCabinetService doctorCabinetService;
     @GetMapping("/DoctorReferrals/Index")
     public String Index(Model model){
 //        Iterable<DoctorReferral> doctorReferrals = doctorReferralService.getAll();
