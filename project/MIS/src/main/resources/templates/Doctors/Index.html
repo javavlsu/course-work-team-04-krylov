@@ -40,7 +40,7 @@
         <!--    <input type="search" name="assistantBirthDate" style="width:300px;" placeholder="yyyy / yyyy mm / yyyy mm dd"-->
         <!--           th:value="${assistantBirthDate}"/>-->
         <!--    <input type="search"  name="DoctorSpeciality" style="width:500px;" placeholder="Специальность врача" />-->
-        <input type="submit" value="Search" class="btn btn-primary"/>
+        <input type="submit" value="Найти" class="btn btn-primary"/>
         <a th:href="@{'/Doctors/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&doctorFIO='+'&doctorSpeciality='}">Получить
             список всех врачей</a>
         </p>
@@ -96,7 +96,9 @@
                     <span>Расписание</span>
                 </a>
             </th>
-            <th></th>
+            <div sec:authorize="hasAnyAuthority('Admin')">
+                <th></th>
+            </div>
         </tr>
         </thead>
         <tbody>
@@ -110,6 +112,7 @@
             <td th:text="${el?.degree}"></td>
             <td th:text="${el?.cabinet?.number}"></td>
             <td th:text="${el?.cabinet?.schedule}"></td>
+            <div sec:authorize="hasAnyAuthority('Admin')">
             <td>
                 <a th:href="@{/Doctors/Edit/{id}(id=${el.id})}">Edit</a> |
                 <a th:href="@{/Doctors/Details/{id}(id=${el.id})}">Details</a> |
@@ -125,6 +128,7 @@
                 </div>
 
             </td>
+            </div>
         </tr>
         </tbody>
     </table>

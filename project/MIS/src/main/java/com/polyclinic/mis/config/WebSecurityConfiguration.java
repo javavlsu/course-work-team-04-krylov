@@ -49,6 +49,7 @@ public class WebSecurityConfiguration {
                         "/Authenticate",
                         "/Register",
                         "/AssignUserToARole/**",
+                        "/AssignUserToARole/Create/**",
                         "/error/**",
                         "/Analyses/**",
                         "/AssistantAnalyses/**",

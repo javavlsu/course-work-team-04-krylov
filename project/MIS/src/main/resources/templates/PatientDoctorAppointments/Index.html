@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 <head th:replace="~{fragments/head :: head}"></head>
 <body style="margin-bottom: 60px" class="container-fluid">
 <header th:replace="~{fragments/header :: header}"></header>
@@ -16,26 +17,26 @@
         список всех заявок</a>
 
     <p></p>
-<!--    <a class="btn btn-primary"-->
-<!--       th:href="@{'/PatientDoctorAppointments/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&status=Ожидает+подтверждения'}">-->
-<!--        Ожидает подтверждения-->
-<!--    </a>-->
-<!--    <a class="btn btn-primary"-->
-<!--       th:href="@{'/PatientDoctorAppointments/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&status=Отменена регистратурой'}">-->
-<!--        Отменена регистратурой-->
-<!--    </a>-->
-<!--    <a class="btn btn-primary"-->
-<!--       th:href="@{'/PatientDoctorAppointments/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&status=Подтверждена регистратурой'}">-->
-<!--        Подтверждена регистратурой-->
-<!--    </a>-->
-<!--    <a class="btn btn-primary"-->
-<!--       th:href="@{'/PatientDoctorAppointments/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&status=Отменена пациентом'}">-->
-<!--        Отменена пациентом-->
-<!--    </a>-->
-<!--    <a class="btn btn-primary"-->
-<!--       th:href="@{'/PatientDoctorAppointments/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&status=Просрочена'}">-->
-<!--        Просрочена-->
-<!--    </a>-->
+    <!--    <a class="btn btn-primary"-->
+    <!--       th:href="@{'/PatientDoctorAppointments/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&status=Ожидает+подтверждения'}">-->
+    <!--        Ожидает подтверждения-->
+    <!--    </a>-->
+    <!--    <a class="btn btn-primary"-->
+    <!--       th:href="@{'/PatientDoctorAppointments/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&status=Отменена регистратурой'}">-->
+    <!--        Отменена регистратурой-->
+    <!--    </a>-->
+    <!--    <a class="btn btn-primary"-->
+    <!--       th:href="@{'/PatientDoctorAppointments/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&status=Подтверждена регистратурой'}">-->
+    <!--        Подтверждена регистратурой-->
+    <!--    </a>-->
+    <!--    <a class="btn btn-primary"-->
+    <!--       th:href="@{'/PatientDoctorAppointments/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&status=Отменена пациентом'}">-->
+    <!--        Отменена пациентом-->
+    <!--    </a>-->
+    <!--    <a class="btn btn-primary"-->
+    <!--       th:href="@{'/PatientDoctorAppointments/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&status=Просрочена'}">-->
+    <!--        Просрочена-->
+    <!--    </a>-->
     <a class="btn btn-primary"
        th:href="@{'/PatientDoctorAppointments/Index/'+${currentPage}  +'?sortField='+${sortField}+'&sortDir='+${sortDir}+'&status=Создана'}">
         Создана
@@ -84,7 +85,9 @@
                     <span>Время</span>
                 </a>
             </th>
-            <th></th>
+            <div sec:authorize="hasAnyAuthority('Admin')">
+                <th></th>
+            </div>
         </tr>
         </thead>
         <tbody>
@@ -102,12 +105,14 @@
             <td th:text="${el.date}"></td>
 
             <td th:text="${el.time}"></td>
+            <div sec:authorize="hasAnyAuthority('Admin')">
 
-            <td>
-                <!--                <a th:href="@{/DoctorAppointments/Edit/{id}(id=${el.id})}">Edit</a> |-->
-                <a th:href="@{/DoctorAppointments/Details/{id}(id=${el.id})}">Details</a>
-                <!--                <a th:href="@{/DoctorAppointments/Delete/{id}(id=${el.id})}">Delete</a>-->
-            </td>
+                <td>
+                    <!--                <a th:href="@{/DoctorAppointments/Edit/{id}(id=${el.id})}">Edit</a> |-->
+                    <a th:href="@{/DoctorAppointments/Details/{id}(id=${el.id})}">Details</a>
+                    <!--                <a th:href="@{/DoctorAppointments/Delete/{id}(id=${el.id})}">Delete</a>-->
+                </td>
+            </div>
         </tr>
         </tbody>
     </table>

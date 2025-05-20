@@ -9,17 +9,19 @@
 <div class="px-4 py-5 my-5 container-fluid">
 
     <h1>Кабинеты для обследований</h1>
+    <div sec:authorize="hasAnyAuthority('Admin')">
 
-    <p style="margin-top: 20px">
-        <a href="/ExaminationCabinets/Create" class="btn btn-secondary">Создать</a>
-    </p>
+        <p style="margin-top: 20px">
+            <a href="/ExaminationCabinets/Create" class="btn btn-secondary">Создать</a>
+        </p>
+    </div>
 
     <form method="get" th:action="'/ExaminationCabinets/Index/1'">
         <p>
         <h4>Поиск</h4>
         <input type="hidden" name="sortField" th:value="${sortField}">
         <input type="hidden" name="sortDir" th:value="${sortDir}">
-        <input type="search" placeholder="Название лаборатории" name="name" style="width:600px;"
+        <input type="search" placeholder="Название кабинета" name="name" style="width:600px;"
                th:value="${name}"/>
         <p></p>
         <input type="submit" value="Поиск" class="btn btn-primary"/>
@@ -47,7 +49,9 @@
                     <span>Расписание</span>
                 </a>
             </th>
-            <th></th>
+            <div sec:authorize="hasAnyAuthority('Admin')">
+                <th></th>
+            </div>
         </tr>
         </thead>
         <tbody>
@@ -56,15 +60,19 @@
             <td th:text="${el.number}"></td>
             <td th:text="${el.schedule}"></td>
             <!--            <td th:text="${el.doctorReferral.dateOfTaking}"></td>-->
-            <td>
-                <a th:href="@{/ExaminationCabinets/Edit/{id}(id=${el.id})}">Edit</a> |
-                <a th:href="@{/ExaminationCabinets/Details/{id}(id=${el.id})}">Details</a> |
-                <a th:href="@{/ExaminationCabinets/Delete/{id}(id=${el.id})}">Delete</a>
-                <div sec:authorize="hasAnyAuthority('Admin')">
-                    <a th:href="@{/ExaminationCabinetReferralTimes/Create/{id}(id=${el.id})}">Создать время приема</a>
-                </div>
-            </td>
+            <div sec:authorize="hasAnyAuthority('Admin')">
+                <td>
+                    <a th:href="@{/ExaminationCabinets/Edit/{id}(id=${el.id})}">Edit</a> |
+                    <a th:href="@{/ExaminationCabinets/Details/{id}(id=${el.id})}">Details</a> |
+                    <a th:href="@{/ExaminationCabinets/Delete/{id}(id=${el.id})}">Delete</a>
+                    <div sec:authorize="hasAnyAuthority('Admin')">
+                        <a th:href="@{/ExaminationCabinetReferralTimes/Create/{id}(id=${el.id})}">Создать время
+                            приема</a>
+                    </div>
+                </td>
+            </div>
         </tr>
+
         </tbody>
     </table>
 

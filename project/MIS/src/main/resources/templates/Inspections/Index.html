@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:replace="~{fragments/head :: head}"></head>
 <body style="margin-bottom: 60px" class="container-fluid">
 <header th:replace="~{fragments/header :: header}"></header>
@@ -49,7 +50,10 @@
             <th>
                 <a th:replace="~{fragments/pagination :: link(page='Inspections',  sortField='doctor.lastName', text='Врач')}"></a>
             </th>
-            <th></th>
+            <div sec:authorize="hasAnyAuthority('Admin')">
+
+                <th></th>
+            </div>
         </tr>
         </thead>
         <tbody>
@@ -62,11 +66,14 @@
 
             <td th:text="${el.type}"></td>
             <td th:text="${el.doctor.ReturnFIOAndSpeciality}"></td>
-            <td>
-                <a th:href="@{/Inspections/Edit/{id}(id=${el.id})}">Edit</a> |
-                <a th:href="@{/Inspections/Details/{id}(id=${el.id})}">Details</a> |
-                <a th:href="@{/Inspections/Delete/{id}(id=${el.id})}">Delete</a>
-            </td>
+            <div sec:authorize="hasAnyAuthority('Admin')">
+
+                <td>
+                    <a th:href="@{/Inspections/Edit/{id}(id=${el.id})}">Edit</a> |
+                    <a th:href="@{/Inspections/Details/{id}(id=${el.id})}">Details</a> |
+                    <a th:href="@{/Inspections/Delete/{id}(id=${el.id})}">Delete</a>
+                </td>
+            </div>
         </tr>
         </tbody>
     </table>

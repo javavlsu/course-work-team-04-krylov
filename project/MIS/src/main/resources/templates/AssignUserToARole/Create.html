@@ -14,7 +14,8 @@
                 <div class="form-group">
                     <label class="control-label">Пользователь</label>
                     <select th:field="*{userId}" id="users" class="form-control">
-                        <option th:value="-1" selected>==Выберите пользователя==</option>
+<!--                        <option th:value="-1" selected>==Выберите пользователя==</option>-->
+                        <option th:value="0"></option>
                         <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.email}"></option>
                     </select>
 
@@ -23,14 +24,17 @@
                 <div class="form-group">
                     <label class="control-label">Роль</label>
                     <select th:field="*{roleId}" id="roles" class="form-control">
-                        <option th:value="-1" selected>==Выберите роль==</option>
+<!--                        <option th:value="-1" selected>==Выберите роль==</option>-->
+<!--                        <option value="" selected></option>-->
+                        <option th:value="0"></option>
+
                         <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}"></option>
                     </select>
                     <!--                <input class="form-control" type="text" th:field = "*{role.id}"/>-->
                 </div>
                 <div class="form-group">
                     <p></p>
-                    <input type="submit" value="Create" class="btn btn-primary"/>
+                    <input type="submit" value="Присвоить" class="btn btn-primary"/>
                 </div>
             </form>
         </div>
